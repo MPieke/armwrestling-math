@@ -24,15 +24,16 @@ async function expectSingleLine(locator: Locator) {
 test("fight card hero keeps balanced fighter cards", async ({ page }, testInfo) => {
   await page.goto("/");
   await expect(page.getByText("Armwrestling Math")).toBeVisible();
-  await expect(page.getByText("Ermes")).toBeVisible();
-  await expect(page.getByText("Gasparini")).toBeVisible();
-  await expect(page.getByText("Artyom")).toBeVisible();
-  await expect(page.getByText("Morozov")).toBeVisible();
-
-  await expectNoHorizontalOverflow(page);
 
   const ermesCard = page.locator(".fighter-card-left");
   const morozovCard = page.locator(".fighter-card-right");
+  await expect(ermesCard.locator(".fighter-first")).toHaveText("Ermes");
+  await expect(ermesCard.locator(".fighter-last")).toHaveText("Gasparini");
+  await expect(morozovCard.locator(".fighter-first")).toHaveText("Artyom");
+  await expect(morozovCard.locator(".fighter-last")).toHaveText("Morozov");
+
+  await expectNoHorizontalOverflow(page);
+
   await expect(ermesCard).toBeVisible();
   await expect(morozovCard).toBeVisible();
 
@@ -46,7 +47,8 @@ test("fight card hero keeps balanced fighter cards", async ({ page }, testInfo) 
   }
 
   for (const label of ["Gasparini", "Morozov"]) {
-    const name = page.getByText(label, { exact: true });
+    const name =
+      label === "Gasparini" ? ermesCard.locator(".fighter-last") : morozovCard.locator(".fighter-last");
     const box = await name.boundingBox();
     expect(box).not.toBeNull();
     await expectSingleLine(name);
@@ -67,7 +69,7 @@ test("expanded receipts stay usable on the target viewport", async ({ page }, te
   await page.goto("/");
   await page.getByText("VIEW DATA").first().click();
   await expect(page.getByText("ALL CLAIMS")).toBeVisible();
-  await expect(page.getByText("CLICK TIMESTAMP FOR ORIGINAL")).toBeVisible();
+  await expect(page.getByText("CLICK TIMESTAMP FOR ORIGINAL").first()).toBeVisible();
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
