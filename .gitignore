@@ -8,6 +8,8 @@ data/caption_probe_results.json
 data/gemini_claims_*.json
 app/node_modules/
 app/dist/
+app/test-results/
+app/playwright-report/
 app/*.tsbuildinfo
 app/vite.config.js
 app/vite.config.d.ts

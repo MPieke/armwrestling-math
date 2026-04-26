@@ -50,21 +50,22 @@ img {
 
 .hero-fighter-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(54px, 7vw) minmax(0, 1fr);
+  gap: clamp(10px, 1.4vw, 18px);
   align-items: stretch;
 }
 
 .hero-vs {
   align-self: center;
-  font-size: clamp(54px, 8vw, 96px);
-  padding: 0 4px;
+  font-size: clamp(42px, 6vw, 82px);
+  justify-self: center;
+  padding: 0;
 }
 
 .fighter-card {
   display: grid;
-  grid-template-columns: minmax(108px, 34%) minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(86px, 28%) minmax(0, 1fr);
+  gap: clamp(10px, 1.2vw, 18px);
   align-items: center;
   min-width: 0;
   padding: 16px;
@@ -73,7 +74,7 @@ img {
 }
 
 .fighter-card-right {
-  grid-template-columns: minmax(0, 1fr) minmax(108px, 34%);
+  grid-template-columns: minmax(0, 1fr) minmax(86px, 28%);
 }
 
 .fighter-card-right .fighter-name {
@@ -111,8 +112,9 @@ img {
 
 .fighter-first,
 .fighter-last {
-  overflow-wrap: anywhere;
-  font-size: clamp(48px, 6vw, 82px);
+  font-size: clamp(36px, 4.8vw, 72px);
+  line-height: 0.86;
+  white-space: nowrap;
 }
 
 .fighter-last {
@@ -135,21 +137,21 @@ img {
   }
 
   .fighter-card {
-    grid-template-columns: 96px minmax(0, 1fr);
+    grid-template-columns: clamp(74px, 25vw, 96px) minmax(0, 1fr);
     padding: 12px;
   }
 
   .fighter-card-right {
-    grid-template-columns: minmax(0, 1fr) 96px;
+    grid-template-columns: minmax(0, 1fr) clamp(74px, 25vw, 96px);
     order: 3;
   }
 
   .fighter-photo {
-    min-height: 118px;
+    min-height: clamp(96px, 30vw, 118px);
   }
 
   .fighter-first,
   .fighter-last {
-    font-size: clamp(40px, 16vw, 62px);
+    font-size: clamp(34px, 11vw, 56px);
   }
 }

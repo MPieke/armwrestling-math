@@ -48,7 +48,25 @@ jobs:
           npm --prefix app run smoke
           SMOKE_VIEWPORT=mobile npm --prefix app run smoke
 
-      - name: Build static app
+      - name: Build app for visual tests
+        run: npm --prefix app run build
+
+      - name: Install Playwright browsers
+        run: npm --prefix app exec playwright install --with-deps chromium
+
+      - name: Visual layout test
+        run: npm --prefix app run visual:test
+
+      - name: Upload visual artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-layout-artifacts
+          path: |
+            app/test-results
+            app/playwright-report
+
+      - name: Build static app for Pages
         run: GITHUB_PAGES=true npm --prefix app run build
 
       - name: Configure Pages
