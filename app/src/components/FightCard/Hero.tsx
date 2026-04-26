@@ -24,6 +24,7 @@ export function FightCardHero({ match, tape, generatedAt }: HeroProps) {
         background: fcColors.bg,
         border: `1px solid ${fcColors.rule}`,
         padding: "32px 28px",
+        overflow: "hidden",
       }}
     >
       <div
@@ -48,65 +49,35 @@ export function FightCardHero({ match, tape, generatedAt }: HeroProps) {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto 1fr",
-          gap: 16,
-          alignItems: "center",
-        }}
-      >
-        <div style={{ textAlign: "right" }}>
-          <div
-            style={{
-              ...fcType.mono,
-              color: fcColors.muted,
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              marginBottom: 6,
-            }}
-          >
-            RED CORNER
-          </div>
-          <div style={{ ...fcType.display, fontSize: 76, color: fcColors.ink }}>{aFirst}</div>
-          <div
-            style={{ ...fcType.display, fontSize: 76, color: fcColors.ermes, marginTop: -6 }}
-          >
-            {aLast}
-          </div>
-        </div>
+      <div className="hero-fighter-grid">
+        <FighterCorner
+          corner="RED CORNER"
+          firstName={aFirst}
+          lastName={aLast}
+          accent={fcColors.ermes}
+          imageSrc={`${import.meta.env.BASE_URL}athletes/ermes.png`}
+          imageSide="left"
+        />
 
         <div
+          className="hero-vs"
           style={{
             ...fcType.display,
-            fontSize: 90,
             color: "#3a3733",
             textAlign: "center",
-            padding: "0 4px",
           }}
         >
           VS
         </div>
 
-        <div style={{ textAlign: "left" }}>
-          <div
-            style={{
-              ...fcType.mono,
-              color: fcColors.muted,
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              marginBottom: 6,
-            }}
-          >
-            BLUE CORNER
-          </div>
-          <div style={{ ...fcType.display, fontSize: 76, color: fcColors.ink }}>{bFirst}</div>
-          <div
-            style={{ ...fcType.display, fontSize: 76, color: fcColors.morozov, marginTop: -6 }}
-          >
-            {bLast}
-          </div>
-        </div>
+        <FighterCorner
+          corner="BLUE CORNER"
+          firstName={bFirst}
+          lastName={bLast}
+          accent={fcColors.morozov}
+          imageSrc={`${import.meta.env.BASE_URL}athletes/morozov.png`}
+          imageSide="right"
+        />
       </div>
 
       {tape && tape.length > 0 && (
@@ -158,6 +129,82 @@ export function FightCardHero({ match, tape, generatedAt }: HeroProps) {
         >
           DOSSIER · {new Date(generatedAt).toLocaleDateString()}
         </div>
+      )}
+    </div>
+  );
+}
+
+function FighterCorner({
+  corner,
+  firstName,
+  lastName,
+  accent,
+  imageSrc,
+  imageSide,
+}: {
+  corner: string;
+  firstName: string;
+  lastName: string;
+  accent: string;
+  imageSrc: string;
+  imageSide: "left" | "right";
+}) {
+  const photo = (
+    <div
+      className="fighter-photo"
+      style={{
+        border: `1px solid ${accent}`,
+        background: `linear-gradient(145deg, ${accent}33, transparent 58%), ${fcColors.bgRaised}`,
+      }}
+    >
+      <img
+        src={imageSrc}
+        alt={`${firstName} ${lastName}`}
+        onError={(event) => {
+          event.currentTarget.style.display = "none";
+        }}
+      />
+      <div className="fighter-photo-fallback" style={{ color: accent }}>
+        {firstName[0]}
+        {lastName[0]}
+      </div>
+    </div>
+  );
+
+  const name = (
+    <div className="fighter-name">
+      <div
+        style={{
+          ...fcType.mono,
+          color: fcColors.muted,
+          fontSize: 11,
+          letterSpacing: "0.2em",
+          marginBottom: 8,
+        }}
+      >
+        {corner}
+      </div>
+      <div className="fighter-first" style={{ ...fcType.display, color: fcColors.ink }}>
+        {firstName}
+      </div>
+      <div className="fighter-last" style={{ ...fcType.display, color: accent }}>
+        {lastName}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`fighter-card fighter-card-${imageSide}`}>
+      {imageSide === "left" ? (
+        <>
+          {photo}
+          {name}
+        </>
+      ) : (
+        <>
+          {name}
+          {photo}
+        </>
       )}
     </div>
   );

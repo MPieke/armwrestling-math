@@ -48,8 +48,108 @@ img {
   background: #0d0d0e !important;
 }
 
+.hero-fighter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.hero-vs {
+  align-self: center;
+  font-size: clamp(54px, 8vw, 96px);
+  padding: 0 4px;
+}
+
+.fighter-card {
+  display: grid;
+  grid-template-columns: minmax(108px, 34%) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #1f1d1a;
+  background: #16140f;
+}
+
+.fighter-card-right {
+  grid-template-columns: minmax(0, 1fr) minmax(108px, 34%);
+}
+
+.fighter-card-right .fighter-name {
+  text-align: right;
+}
+
+.fighter-photo {
+  position: relative;
+  display: grid;
+  aspect-ratio: 4 / 5;
+  min-height: 170px;
+  overflow: hidden;
+  place-items: center;
+}
+
+.fighter-photo img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.fighter-photo-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Barlow Condensed", "Oswald", "Helvetica Neue", sans-serif;
+  font-size: clamp(64px, 8vw, 116px);
+  font-weight: 900;
+  opacity: 0.55;
+}
+
+.fighter-first,
+.fighter-last {
+  overflow-wrap: anywhere;
+  font-size: clamp(48px, 6vw, 82px);
+}
+
+.fighter-last {
+  margin-top: -6px;
+}
+
 @media (max-width: 680px) {
   .fight-card-shell {
     padding: 12px !important;
+  }
+
+  .hero-fighter-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero-vs {
+    order: 2;
+    line-height: 0.8;
+  }
+
+  .fighter-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .fighter-card-right {
+    grid-template-columns: minmax(0, 1fr) 96px;
+    order: 3;
+  }
+
+  .fighter-photo {
+    min-height: 118px;
+  }
+
+  .fighter-first,
+  .fighter-last {
+    font-size: clamp(40px, 16vw, 62px);
   }
 }
