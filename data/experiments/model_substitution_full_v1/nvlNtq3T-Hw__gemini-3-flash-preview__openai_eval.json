@@ -1,0 +1,55 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 62.5,
+    "high_value_coverage_percent": 71.43,
+    "quality_grade": "medium",
+    "unsupported_claims": [
+      {
+        "timestamp": "68:08",
+        "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "11:14",
+        "claim": "Morozov is confident that it will be a good fight."
+      },
+      {
+        "timestamp": "12:15",
+        "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning."
+      },
+      {
+        "timestamp": "39:21",
+        "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury."
+      }
+    ],
+    "timestamp_quality": "high",
+    "pass_fail": "pass",
+    "concise_rationale": "Candidate covers 5 of 8 baseline claims (62.5%), including 5 of 7 high-value claims (71.4%), with generally close timestamps. One claim about peaking is unsupported and three high-value baseline claims (confidence, humble approach, past injury) are missed, but overall the candidate is sufficiently aligned to replace the baseline for practical use."
+  },
+  "usage": {
+    "prompt_tokens": 1234,
+    "completion_tokens": 4145,
+    "total_tokens": 5379,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3840,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0017197000000000002,
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

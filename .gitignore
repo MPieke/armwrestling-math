@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+.ruff_cache/
+.DS_Store
+data/youtube_search_results.json
+data/caption_probe_results.json
+data/gemini_claims_*.json

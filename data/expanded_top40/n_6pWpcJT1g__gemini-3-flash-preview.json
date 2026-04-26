@@ -1,0 +1,129 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=n_6pWpcJT1g",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini demonstrates improved hand height, elbow flexor tightness, and a potent flop-press transition during practice sessions with Devon Larratt.",
+    "popular_take": "Ermes has technically evolved to the point where he can now punch through elite outside pullers and transition to a press if his toproll is stopped.",
+    "counter_case": "While Ermes looks dominant in practice, his endurance and ability to hold a tight angle against a fresh, massive inside puller like Morozov remains the ultimate test.",
+    "claims": [
+      {
+        "timestamp": "00:45",
+        "claim": "Ermes uses a hybrid drag and pivot move to punch his knuckle up and over the opponent's hand.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Crucial for Ermes' ability to negate Morozov's hand control and establish a high-knuckle toproll.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:40",
+        "claim": "Ermes is consistently opening the opponent's elbow flexor angle through superior back pressure.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "If Ermes can open Morozov's arm, he can prevent the match from entering a deep hook.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:50",
+        "claim": "Ermes maintains a significantly tighter elbow flexor angle than elite opponents, keeping his knuckle higher throughout the pull.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "This structural integrity is key to Ermes' defensive and offensive toproll against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:15",
+        "claim": "Ermes shows a strong transition to a flop press when his elbow flexor begins to open or gas.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Provides Ermes a 'Plan B' if Morozov manages to stop his initial toproll hit.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "06:40",
+        "claim": "Ermes utilizes shoulder commitment to decrease his elbow flexor angle and press through defensive positions.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Morozov is known for his defensive recovery; Ermes' ability to press through a stop is vital.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "08:15",
+        "claim": "Ermes has specifically improved his ability to handle 'King's Move' and open toproll pressure.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Morozov often uses his frame and open angles defensively; Ermes' training here is a direct counter.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "08:45",
+        "claim": "Ermes is focusing on gaining height and technical proficiency against long-armed pullers.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Morozov has a massive frame; Ermes' focus on height is a necessary tactical adjustment.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "09:45",
+        "claim": "Ermes looks technically better and more 'figured out' than in his previous elite match appearances.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Indicates a peak form and high confidence level heading into the Morozov match.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Ermes maintain his tight elbow flexor and high knuckle against Morozov's elite inside cup and hook strength?",
+    "usefulness": "high",
+    "notes": "The video provides excellent technical analysis of Ermes' current style, specifically his improvements in hand height and pressing, which are critical against a versatile puller like Morozov."
+  },
+  "usage_metadata": {
+    "promptTokenCount": 15605,
+    "candidatesTokenCount": 986,
+    "totalTokenCount": 17726,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 15121
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 484
+      }
+    ],
+    "thoughtsTokenCount": 1135
+  },
+  "source": {
+    "id": "n_6pWpcJT1g",
+    "url": "https://www.youtube.com/watch?v=n_6pWpcJT1g",
+    "title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2024-11-07T20:51:57Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nCredit for Featured Content:\n\nsub to @Engin_Terzi \n\nfull video- https://www.youtube.com/watch?v=I-VapDWrI8Y&pp=ygULZW5naW4gdGVyemk%3D\n\nsub to @devlarratt\nsub to @Engin_Terzi  \nsub to @eastvswestarmwrestling  \nsub to @armwarsofficial  \nsub to @coresportsworld  \nsub to @TwoOneSe7en  \nsub to @LevanSaginashviliOfficial  \nsub to @ermesgasparini3239  \nsub to @johnbrzenk9237  \nsub to @toddhutchings906  \nsub to @MonsterMichaelTodd  \nsub to @jekaprudnik11  \nsub to @BeStrongArmwrestling  \nsub to @GeorgianArmwrestling  \nsub to @genadikvikvinia  \nsub to @vitalylaletin4385  \nsub to @AlexKurdecha  \n\nFeatured Matches:\n\nEast vs West Matches:\nMatt Mask vs Frank Lamparelli\nArtem Taynov vs Sasho Andreev\nIrakli zirakashvili vs Rustam Babayev\nGeorgi Tsvetkov vs Zaur Paizulaev\nJohn Brzenk vs Sasho Andreev\nTodd Hutchings vs Kydyrgali Ongarbayev\nPaul Linn vs Ruslan Babayev\nDerek Smith vs Mehdi\nIrakli Ziraskashvili vs Davit Dadyikan\nEvgeny Prudnik vs Davit Dadyikan\nUncle Todd vs Ibragim\nVitaly Laletin vs Revaz Lutidze\nLachy Adair vs Andrei\nChance Shaw vs Oleg Petrenko\nSandris Sedis vs Pavlo Derbedyenyev\nGeorgi Tsvetkov vs Arytom Morozov\nIrakli Zirakashvili vs Kydyrgali Ongarbayev\nDave Chaffee vs Revaz Lutidze\nVitaly Laletin vs Tobias Sporrong\nRVJ vs Zurab Tavberidze\nBacho saginashvili vs Adam Warzinski\nPaul Linn vs Sasho Andreev\nJohn Brzenk vs Oleg Patrenko\nJohn Brzenk vs Irakli Zirakashvili\nDevon Larratt vs Evgeny Prudnik\nDevon Larratt vs Genadi Kvikvinia\nDevon Larratt vs Ermes Gasparini\nErmes Gasparini vs Jerryy Cadorette\nErmes Gasparini vs Artyom Morozov\nJerry Cadorette vs Genadi Kvikvinia\nJerry Cadorette vs Georgi Tsvetkov\nDevon Larratt vs Denis Cyplenkov\nGeorgi Tsvetkov vs Zaur Paizulaev\n\nArm Wars Matches:\nDevon Larratt vs Michael Todd\nDevon Larratt vs Kristoph Ladu\nDevon Larratt vs John Brzenk\nDevon Larratt vs Richard Lupkes\nDevon Larratt vs Travis Bagent\nDevon Larratt vs Tim Bresnan\nDevon Larratt vs Don Underwood\nDevon Larratt vs Sandris Sedis\nDevon Larratt vs Daniel Lund\nDevon Larratt vs Mindauskus Dulskas\nDevon Larratt vs Georgi Tsvetkov\nAyello vs Mackin\nTodd vs Lupkes\nTodd vs Pickup\nYoshi Kanai vs Todd\nLovei vs Haugland\nLuke Kindt vs Cobra Rhodes\nMike Todd vs Chris Chandler\nUnderwood vs Chris Chandler\nMike Todd vs Marcio\nBresnan vs Bagent\nUnderwood vs Bagent\nLupkes vs Rorbaken\nHaugland vs Geoff Hale\nJames Wall vs Haugland\nStratton vs Haugland\n\nKing of the Table Matches:\nDevon Larratt vs Levan Saginasvhili\nDevon Larratt vs Georgi Tsvetkov\nDevon Larratt vs Dave Chaffee\nVitaly Laletin vs Ermes Gasparini\nLevan Saginasvhili vs Ermes Gasparini\nJohn Brzenk vs Denis Cyplenkov\nJohn Brzenk vs Alexey Voevoda\nDevon Larratt vs John Brzenk\nDevon Larratt vs Michael Todd\n\nTwo One Se7en videos:\nJohn Brzenk vs Pavlo\n18 Minutes of Devon Larratt\nDevon Larratt's Final Practice\nCorey West vs Krasi\nDevon vs Artem Taranenko\nDerek Smith vs Austin\nDevon vs Wayne Withers\nTodd Hutchings vs Chance Shaw\nMatt Mask vs Tim Bresnan",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT9M49S",
+    "caption": "false",
+    "view_count": 13094,
+    "like_count": 636,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: analysis",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 589,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  }
+}

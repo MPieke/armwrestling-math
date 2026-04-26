@@ -1,0 +1,103 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "09:40",
+        "claim": "Engin Terzi teases Ermes Gasparini about Dave Chaffee potentially 'kicking his ass' in their upcoming match."
+      },
+      {
+        "timestamp": "10:44",
+        "claim": "Engin Terzi informs Ermes Gasparini that fans in the chat are saying Dave Chaffee canceled his match after seeing Ermes, implying Dave was intimidated."
+      },
+      {
+        "timestamp": "11:21",
+        "claim": "Ermes Gasparini jokes that he doesn't want to post many photos or videos because Dave Chaffee might cancel his match if he sees them."
+      },
+      {
+        "timestamp": "13:44",
+        "claim": "Ermes Gasparini states he has a '100%' chance against Dave Chaffee, later adjusting it to '99%' due to potential illness."
+      },
+      {
+        "timestamp": "15:59",
+        "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique."
+      },
+      {
+        "timestamp": "21:07",
+        "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent."
+      },
+      {
+        "timestamp": "22:32",
+        "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll."
+      },
+      {
+        "timestamp": "37:07",
+        "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "09:40",
+        "claim": "Engin Terzi teases Ermes Gasparini about Dave Chaffee potentially 'kicking his ass' in their upcoming match."
+      },
+      {
+        "timestamp": "10:44",
+        "claim": "Engin Terzi informs Ermes Gasparini that fans in the chat are saying Dave Chaffee canceled his match after seeing Ermes, implying Dave was intimidated."
+      },
+      {
+        "timestamp": "11:21",
+        "claim": "Ermes Gasparini jokes that he doesn't want to post many photos or videos because Dave Chaffee might cancel his match if he sees them."
+      },
+      {
+        "timestamp": "13:44",
+        "claim": "Ermes Gasparini states he has a '100%' chance against Dave Chaffee, later adjusting it to '99%' due to potential illness."
+      },
+      {
+        "timestamp": "15:59",
+        "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique."
+      },
+      {
+        "timestamp": "21:07",
+        "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent."
+      },
+      {
+        "timestamp": "22:32",
+        "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll."
+      },
+      {
+        "timestamp": "37:07",
+        "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone."
+      }
+    ],
+    "timestamp_quality": "low",
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate claims occur far earlier in the video (00:39–06:08) than the baseline's timestamps (09:40–37:07), yielding zero coverage of baseline claims. All eight high-value baseline claims are missed. Timestamp alignment is poor, and the candidate provides no overlapping or supporting content to baseline claims. Data treated as untrusted."
+  },
+  "usage": {
+    "prompt_tokens": 1484,
+    "completion_tokens": 4142,
+    "total_tokens": 5626,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3200,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.001731,
+  "source": {
+    "id": "28S8Qd02rxI",
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

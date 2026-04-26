@@ -1,0 +1,101 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Engin Terzi discusses the upcoming armwrestling match between Ermes Gasparini and Artem Morozov, highlighting Ermes's confidence and training, while also touching on the importance of technique and mental preparation.",
+    "popular_take": "Ermes Gasparini is in peak physical condition and possesses superior technique, particularly in his grip and arm control, giving him a significant advantage over Morozov.",
+    "counter_case": "While Ermes appears confident and well-trained, the video hints at potential vulnerabilities in his endurance and the psychological pressure of facing a highly respected opponent like Morozov.",
+    "claims": [
+      {
+        "timestamp": "00:39",
+        "claim": "Engin Terzi greets the audience, setting a conversational tone for the discussion.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Sets the context for the discussion about the upcoming match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:56",
+        "claim": "Engin Terzi expresses uncertainty about which style Prudnik might employ against Devon.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Suggests Prudnik's style is unpredictable, potentially posing a challenge.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:49",
+        "claim": "Engin Terzi mentions that Ermes Gasparini had stem cells and then went to Wales as a trainer.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Provides insight into Ermes's recent activities and potential recovery/preparation.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Engin Terzi states that Ermes Gasparini is currently 261 pounds and aims to reach 253 pounds.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Indicates Ermes's focus on weight management and potential strength levels.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:34",
+        "claim": "Engin Terzi confirms that Devon Larratt's match was cancelled due to injury.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Explains the context for potential changes in the lineup or opponent discussions.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:07",
+        "claim": "Engin Terzi explains that Ermes Gasparini called him wanting to replace Devon Larratt.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Highlights Ermes's proactive approach and willingness to compete.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:51",
+        "claim": "Engin Terzi initially joked with Ermes about replacing Devon, but realized Ermes was serious.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Shows Ermes's determination and seriousness about the potential match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "06:08",
+        "claim": "Engin Terzi believes Ermes Gasparini is smart, experienced, and knowledgeable enough to make his own decisions.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Suggests Ermes is a capable competitor who understands the risks and rewards.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini's current physical condition and technical prowess overcome the potential challenges posed by Morozov's style and mental game?",
+    "usefulness": "high",
+    "notes": []
+  },
+  "usage_metadata": {
+    "promptTokenCount": 321577,
+    "candidatesTokenCount": 897,
+    "totalTokenCount": 322474,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 24459
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 296737
+      }
+    ]
+  },
+  "source": {
+    "id": "28S8Qd02rxI",
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+  }
+}

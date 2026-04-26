@@ -1,0 +1,63 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": "low",
+    "recency_risk": 0.9,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.1,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a 2022 YouTube item with no claims tied to the 2026 match; its summary notes a failed Gemini analysis. It is outdated, not directly about Gasparini vs Morozov in 2026, and offers little durable value for evaluating that specific bout."
+  },
+  "usage": {
+    "prompt_tokens": 230,
+    "completion_tokens": 1749,
+    "total_tokens": 1979,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1600,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0007111,
+  "source": {
+    "id": "rcSdpo_r9eg",
+    "url": "https://www.youtube.com/watch?v=rcSdpo_r9eg",
+    "title": "Ermes Gasparini vs Matt Mask & Artyom Morozov - AFTERPULL",
+    "channel": "Issa Chikhou",
+    "channel_id": "UCbZi67hlF8etX7I3dXLADPQ",
+    "published_at": "2022-05-23T12:00:28Z",
+    "description": "Afterpull EAST vs WEST between Ermes Gasparini and Matt Mask + Bonus Clip With Artyom Morozov\n\nEast vs West 3 armwrestling event is here!\n\nBUY YOUR PPV IN THE LINK BELOW\n\nhttps://app.coresports.tv/signup\n\nSUBSCRIBE TO THE CHANNEL AND FOLLOW ME ON INSTAGRAM!\n\nINSTAGRAM: https://www.instagram.com/issa_chikhou/?hl=it",
+    "matched_queries": [
+      "Artyom Morozov Ermes Gasparini analysis"
+    ],
+    "duration": "PT2M",
+    "caption": "false",
+    "view_count": 190297,
+    "like_count": 3257,
+    "license": "youtube",
+    "score": 21,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 120,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

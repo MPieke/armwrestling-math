@@ -1,0 +1,107 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Devon Larratt and Engin Terzi discuss Ermes Gasparini's evolution into a versatile presser and Artyom Morozov's stylistic challenges against inside pullers.",
+    "popular_take": "Ermes Gasparini has evolved from a pure top-roller into a complete puller with a dangerous shoulder press, making him difficult to stop even if his wrist is compromised.",
+    "counter_case": "Morozov's ability to force an inside game or catch an opponent's brachioradialis could be the key to neutralizing Ermes' outside speed and transition to the press.",
+    "claims": [
+      {
+        "timestamp": "00:10",
+        "claim": "Devon believes Morozov vs Gennadi is a close match, highlighting Morozov's top roll vs Gennadi's inside game.",
+        "speaker_or_source": "Devon Larratt",
+        "relevance": "Establishes Morozov's stylistic baseline as a top-roller who struggles against elite inside pressure.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:40",
+        "claim": "Ermes is no longer just a top-roller; he has developed significant shoulder pressure and a press.",
+        "speaker_or_source": "Devon Larratt",
+        "relevance": "Crucial for the Morozov match as it means Ermes can win even if he loses his wrist or is forced inside.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:52",
+        "claim": "Ermes' primary danger zone is being caught on his brachioradialis; if caught there, it is very hard to survive.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Identifies the specific technical path Morozov needs to take (hook/cup) to beat Ermes.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:15",
+        "claim": "To beat a flop-presser, a puller must train supination and a low cup to pull the opponent out of their tricep.",
+        "speaker_or_source": "Devon Larratt",
+        "relevance": "While discussing Jerry, this applies to how Morozov might defend against Ermes' newly developed press.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:35",
+        "claim": "You must be able to spin a presser to neutralize their tricep drive.",
+        "speaker_or_source": "Devon Larratt",
+        "relevance": "Tactical advice for Morozov to handle Ermes' transition to the shoulder.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Morozov force Ermes into a brachioradialis-heavy hook battle before Ermes can transition into his shoulder press?",
+    "usefulness": "high",
+    "notes": "The video is from the East vs West 7 era, but the stylistic analysis of Ermes' press and Morozov's top-roll vs inside game remains foundational for their 2026 matchup."
+  },
+  "usage_metadata": {
+    "promptTokenCount": 4702,
+    "candidatesTokenCount": 740,
+    "totalTokenCount": 6195,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 4218
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 484
+      }
+    ],
+    "thoughtsTokenCount": 753
+  },
+  "source": {
+    "id": "pHHR6Bc9zXY",
+    "url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY",
+    "title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2023-06-10T07:00:31Z",
+    "description": "On the Engin Terzi channel, Devon Larratt was doing an analysis and a prediction of the Genadi Kvikvinia vs Artyom Morozov and Jerry Cadorette vs Ermes Gasparini supermatches that will take place on East vs West 8 in July.\n\nSource: \nEngin Terzi's channel: https://www.youtube.com/watch?v=bTXACQ6KNrg",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M44S",
+    "caption": "true",
+    "view_count": 2105,
+    "like_count": 55,
+    "license": "youtube",
+    "score": 37,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: prediction",
+      "matched term: analysis",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 164,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  }
+}

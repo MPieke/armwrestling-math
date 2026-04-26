@@ -1,0 +1,48 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=cVGRZUI0JAk",
+    "model": "gemini-3-flash-preview",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3-flash\\nPlease retry in 6.042422067s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-3-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"6s\"\n      }\n    ]\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "cVGRZUI0JAk",
+    "url": "https://www.youtube.com/watch?v=cVGRZUI0JAk",
+    "title": "ERMES GASPARINI IS STRONGER THAN LEVAN",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2023-07-09T14:00:23Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nSub to Ermes- @ermesgasparini3239 \nSub to Levan- @LevanSaginashviliOfficial \n\nErmes vs Levan- https://www.youtube.com/watch?v=gKRr2ayuaPo&pp=ygUOZXJtZXMgdnMgbGVhdm4%3D",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT4M19S",
+    "caption": "false",
+    "view_count": 39109,
+    "like_count": 1138,
+    "license": "youtube",
+    "score": 25,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 259,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Cv4OE4DyXto",
+    "model": "gemini-3-flash-preview",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 400 from Gemini API:\n{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"No frames to extract with given parameters. Verify fps, start/end time and video duration.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "Cv4OE4DyXto",
+    "url": "https://www.youtube.com/watch?v=Cv4OE4DyXto",
+    "title": "Different Level of Vengeance",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2023-08-01T22:44:22Z",
+    "description": "EAST VS WEST 8 SIGNED TRADING CARDS\nhttps://eastvswestarmwrestling.com/product/east-vs-west-8-signed-trading-cards/\n\nEAST VS WEST 8 SIGNED POSTER\nhttps://eastvswestarmwrestling.com/product/east-vs-west-8-signed-poster/\n\nEAST VS WEST 8 SIGNED TSHIRT\nhttps://eastvswestarmwrestling.com/product/east-vs-west-8-signed-tshirt/\n\nEAST VS WEST 8 ARTYOM MOROZOV VERSUS GENADI KVIKVINIA SIGNED POSTER\nhttps://eastvswestarmwrestling.com/product/east-vs-west-8-artyom-morozov-versus-genadi-kvikvinia-signed-poster/\n\nEAST VS WEST 8 JERRY CADORETTE VS ERMES GASPARINI SIGNED POSTER\nhttps://eastvswestarmwrestling.com/product/east-vs-west-8-jerry-cadorette-vs-ermes-gasparini-signed-poster/\n\n\nEast vs West 8, Juky 29th\nLive PPV on Coresports\nhttps://app.coresports.tv/signup\n\nVideo Edited By- @SGRecordS1 \n\n\n#armwrestling  #eastvswest #revazlutidze",
+    "matched_queries": [
+      "Ermes Morozov East vs West"
+    ],
+    "duration": "PT59S",
+    "caption": "false",
+    "view_count": 754848,
+    "like_count": 43781,
+    "license": "youtube",
+    "score": 34,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: live",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 59,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  }
+}

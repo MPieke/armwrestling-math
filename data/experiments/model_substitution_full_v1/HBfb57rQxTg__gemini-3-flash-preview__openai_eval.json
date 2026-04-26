@@ -1,0 +1,135 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "poor",
+    "unsupported_claims": [
+      {
+        "timestamp": "04:25",
+        "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes.",
+        "relevance": "Implies Ermes is a high-level opponent capable of exposing weaknesses, suggesting his current strength and strategic approach.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:47",
+        "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov.",
+        "relevance": "Provides a perspective on Morozov's perceived vulnerability against other top contenders, which could be a narrative point for Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:29",
+        "claim": "Levan anticipates a close match between Ermes and Denis.",
+        "relevance": "Positions Ermes as a strong contender against another top-tier opponent, indirectly suggesting his capability against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:52",
+        "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis.",
+        "relevance": "Reinforces Ermes's high standing among elite armwrestlers, which is relevant for his matchup against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:08",
+        "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes's wrist.",
+        "relevance": "Identifies specific physical attributes (hand size, static strength) that are effective against Ermes. If Morozov has similar traits, this could be a key tactical consideration.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:21",
+        "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis.",
+        "relevance": "Highlights a crucial tactical element for Ermes against powerful opponents. This could be a key strategy or a potential weakness if not executed effectively against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:37",
+        "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win.",
+        "relevance": "Emphasizes the importance of sustained shoulder pressure as a winning strategy for Ermes against strong opponents, which could be vital against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:53",
+        "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon.",
+        "relevance": "While not directly about Morozov, it provides context on the competitive landscape and the high stakes for top pullers, including Ermes and Morozov.",
+        "confidence": "high"
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "04:25",
+        "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes.",
+        "relevance": "Implies Ermes is a high-level opponent capable of exposing weaknesses, suggesting his current strength and strategic approach.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:47",
+        "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov.",
+        "relevance": "Provides a perspective on Morozov's perceived vulnerability against other top contenders, which could be a narrative point for Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:29",
+        "claim": "Levan anticipates a close match between Ermes and Denis.",
+        "relevance": "Positions Ermes as a strong contender against another top-tier opponent, indirectly suggesting his capability against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:52",
+        "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis.",
+        "relevance": "Reinforces Ermes's high standing among elite armwrestlers, which is relevant for his matchup against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:08",
+        "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes's wrist.",
+        "relevance": "Identifies specific physical attributes (hand size, static strength) that are effective against Ermes. If Morozov has similar traits, this could be a key tactical consideration.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:21",
+        "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis.",
+        "relevance": "Highlights a crucial tactical element for Ermes against powerful opponents. This could be a key strategy or a potential weakness if not executed effectively against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:37",
+        "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win.",
+        "relevance": "Emphasizes the importance of sustained shoulder pressure as a winning strategy for Ermes against strong opponents, which could be vital against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:53",
+        "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon.",
+        "relevance": "While not directly about Morozov, it provides context on the competitive landscape and the high stakes for top pullers, including Ermes and Morozov.",
+        "confidence": "high"
+      }
+    ],
+    "timestamp_quality": "not_applicable",
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate claims are empty; no coverage of baseline timestamped claims. All baseline claims are unsupported and missed. Data treated as untrusted; cannot verify content."
+  },
+  "usage": {
+    "prompt_tokens": 821,
+    "completion_tokens": 3415,
+    "total_tokens": 4236,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2048,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00140705,
+  "source": {
+    "id": "HBfb57rQxTg",
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "title": "Levan talks about Alizhan and his supermatch against Ermes",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Elite-peer discussion involving Ermes and left-hand title context."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

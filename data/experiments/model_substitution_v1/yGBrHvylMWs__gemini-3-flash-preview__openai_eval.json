@@ -1,0 +1,111 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "17:25",
+        "claim": "Ermes is extremely strong and patient, often allowing opponents to work before capitalizing on their mistakes.",
+        "reason": "Not present in baseline; baseline focuses on Morozov's status and matchups with Laletin/other opponents."
+      },
+      {
+        "timestamp": "24:37",
+        "claim": "Ermes possesses significantly better shoulder pressure on the right arm than Vitaly Laletin.",
+        "reason": "Not present in baseline; no baseline claim directly assesses this comparison at this timestamp."
+      },
+      {
+        "timestamp": "25:05",
+        "claim": "Ermes' shorter arm lever is a tactical advantage for his specific style of pressing and side pressure.",
+        "reason": "Not present in baseline; baseline discusses Morozov/Laletin/Ermes but not this lever-specific claim."
+      },
+      {
+        "timestamp": "38:02",
+        "claim": "Levan Saginashvili's wrist has not fully recovered, leading to a 'fear' of using it as aggressively as he did in the past.",
+        "reason": "Not present in baseline."
+      },
+      {
+        "timestamp": "39:10",
+        "claim": "Ermes has elite endurance and maintains very strong technical angles even when fatigued.",
+        "reason": "Not present in baseline."
+      },
+      {
+        "timestamp": "40:51",
+        "claim": "The key to beating Ermes is controlling his pronator; if his wrist is forced back, he is vulnerable.",
+        "reason": "Not present in baseline."
+      },
+      {
+        "timestamp": "55:03",
+        "claim": "Morozov's right hand has reached a new level of strength and his mental aggression has increased since his last major matches.",
+        "reason": "Not present in baseline."
+      },
+      {
+        "timestamp": "60:42",
+        "claim": "Morozov trains with a partner who mimics Michael Todd's style, giving him high comfort against defensive 'King's Move' positions.",
+        "reason": "Not present in baseline."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "00:08",
+        "claim": "Artyom Morozov was sick before his match against Vitaly Laletin, but is now recovering from a partial tendon tear in his left arm, with swelling gone and no severe damage according to MRI."
+      },
+      {
+        "timestamp": "04:03",
+        "claim": "Artyom Morozov managed to stop Vitaly Laletin with only back pressure, even after his arm was already cracking."
+      },
+      {
+        "timestamp": "01:34",
+        "claim": "Artyom Morozov's wife played a crucial role in his mental preparation, helping him overcome self-doubt and maintain focus, which he believes is key to performance."
+      },
+      {
+        "timestamp": "01:8:06",
+        "claim": "Attacking Michael Todd directly with a top roll is very dangerous for the wrist and side pressure, a strategy Ermes Gasparini correctly avoided."
+      },
+      {
+        "timestamp": "02:00",
+        "claim": "Vitaly Laletin has very long fingers, a big hand, and a very long arm, which gives him a significant advantage in pronation and side pressure."
+      },
+      {
+        "timestamp": "02:55",
+        "claim": "Vitaly Laletin demonstrated incredible side pressure, recording 130 kg in Ivan Matyushenko's gym."
+      },
+      {
+        "timestamp": "02:45",
+        "claim": "Ermes Gasparini's shoulder press is stronger than Vitaly Laletin's, partly due to Ermes's slightly shorter arm providing a leverage advantage."
+      },
+      {
+        "timestamp": "02:57",
+        "claim": "Engin Terzi notes that Vitaly Laletin has struggled with wrist control against opponents like Ferit Osmanli, Zaur, and Ermes Gasparini, indicating his wrist is not unbreakable."
+      }
+    ],
+    "timestamp_quality": "mixed: baseline contains an invalid timestamp (01:8:06), and there is no direct one-to-one alignment between candidate claims and baseline high-value moments; overall reliability is low.",
+    "pass_fail": "fail",
+    "concise_rationale": "No candidate timestamped claims overlap with any baseline claims. Candidate content focuses on Ermes Gasparini and Morozov matchups not present in baseline, resulting in zero claim-coverage. All high-value baseline claims remain unmet."
+  },
+  "usage": {
+    "prompt_tokens": 1559,
+    "completion_tokens": 3785,
+    "total_tokens": 5344,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2752,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0015919500000000002,
+  "source": {
+    "id": "yGBrHvylMWs",
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "title": "Artyom Morozov - East vs West Podcast",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Long-form Morozov source referenced by multiple clip videos."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

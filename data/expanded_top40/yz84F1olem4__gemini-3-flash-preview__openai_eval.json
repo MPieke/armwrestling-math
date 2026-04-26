@@ -1,0 +1,62 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "low",
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "high",
+    "durable_style_value": "low",
+    "current_form_value": "stale",
+    "unsupported_or_stale_claims": "none",
+    "concise_rationale": "The source is a dated, short video about a world record with no actionable analysis or claims relevant to the Gasparini-Morozov match. It offers no direct, current insights and contains no verifiable claims to support strategic evaluation."
+  },
+  "usage": {
+    "prompt_tokens": 217,
+    "completion_tokens": 1159,
+    "total_tokens": 1376,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1024,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00047445000000000007,
+  "source": {
+    "id": "yz84F1olem4",
+    "url": "https://www.youtube.com/watch?v=yz84F1olem4",
+    "title": "ERMES GASPARINI NEW WORLD RECORD",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2023-01-31T18:20:48Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nSubscribe to Ermes- @ermesgasparini3239",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT1M12S",
+    "caption": "false",
+    "view_count": 17421,
+    "like_count": 634,
+    "license": "youtube",
+    "score": 25,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 72,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

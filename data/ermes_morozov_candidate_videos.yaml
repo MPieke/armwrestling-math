@@ -1,0 +1,115 @@
+# Candidate videos for preliminary Ermes Gasparini vs Artyom Morozov right-hand narrative analysis.
+# Generated 2026-04-25 from web search snippets plus official-API feasibility constraints.
+# Validate caption availability with scripts/youtube_api_probe.py before using each source.
+
+match:
+  event_context: upcoming EVW/KOTT
+  athletes:
+    - Ermes Gasparini
+    - Artyom Morozov
+  arm: right
+
+candidate_videos:
+  - id: bWmtNWQM_Ro
+    url: https://www.youtube.com/watch?v=bWmtNWQM_Ro
+    title: "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match"
+    channel: "Engin Terzi Enigma of Rage"
+    published: "2022-11-23"
+    relevance: "Direct head-to-head history, but left hand rather than upcoming right hand."
+    use_for:
+      - prior matchup narrative
+      - tactical contrast between arms
+      - Morozov inside-control evidence
+
+  - id: NsLWax9GwZY
+    url: https://www.youtube.com/watch?v=NsLWax9GwZY
+    title: "Ermes Gasparini - East vs West Podcast"
+    channel: "Engin Terzi Enigma of Rage"
+    published: "2022-08-14"
+    relevance: "Long-form Ermes source before the 2022 East vs West cycle."
+    use_for:
+      - athlete self-assessment
+      - training and style claims
+
+  - id: 28S8Qd02rxI
+    url: https://www.youtube.com/watch?v=28S8Qd02rxI
+    title: "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast"
+    channel: "Engin Terzi Enigma of Rage"
+    published: "2022-10-25"
+    relevance: "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+    use_for:
+      - pre-match confidence
+      - right-hand shape around EVW5
+
+  - id: yGBrHvylMWs
+    url: https://www.youtube.com/watch?v=yGBrHvylMWs
+    title: "Artyom Morozov - East vs West Podcast"
+    channel: "East vs West / Engin Terzi referenced source"
+    published: null
+    relevance: "Long-form Morozov source referenced by multiple clip videos."
+    use_for:
+      - athlete self-assessment
+      - direct quotes on Ermes/elite heavyweights
+    needs_validation: "Search result found through linked-source references; validate title/channel with official API."
+
+  - id: nvlNtq3T-Hw
+    url: https://www.youtube.com/watch?v=nvlNtq3T-Hw
+    title: "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM"
+    channel: "East vs West Armwrestling"
+    published: "2026-03-06"
+    relevance: "Recent Morozov long-form EVW content."
+    use_for:
+      - current form
+      - recent community narrative
+
+  - id: bZUOAv0Kzxs
+    url: https://www.youtube.com/watch?v=bZUOAv0Kzxs
+    title: "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM"
+    channel: "East vs West Armwrestling"
+    published: "2026-04-08"
+    relevance: "Very recent Morozov long-form EVW content."
+    use_for:
+      - current form
+      - late narrative shift
+
+  - id: U0kDxaszCu8
+    url: https://www.youtube.com/watch?v=U0kDxaszCu8
+    title: "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch"
+    channel: "Victorcali Arm Wrestling"
+    published: "2025-05-19"
+    relevance: "Ermes discussing Morozov's style and risks against an elite right-hand opponent."
+    use_for:
+      - Morozov hook/inside narrative
+      - Ermes evaluation of Morozov
+
+  - id: x5SXZArLVN0
+    url: https://www.youtube.com/watch?v=x5SXZArLVN0
+    title: "Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch"
+    channel: "Arm wrestling"
+    published: "2025-03-06"
+    relevance: "Morozov giving a view on Ermes against the top right-hand benchmark."
+    use_for:
+      - Ermes ceiling narrative
+      - opponent-peer evaluation
+
+  - id: HBfb57rQxTg
+    url: https://www.youtube.com/watch?v=HBfb57rQxTg
+    title: "Levan talks about Alizhan and his supermatch against Ermes"
+    channel: "East vs West / Engin Terzi referenced source"
+    published: null
+    relevance: "Referenced source for elite-peer discussion involving Ermes and left-hand title context."
+    use_for:
+      - elite comparison
+      - left/right ranking context
+    needs_validation: "Search result found through linked-source references; validate title/channel with official API."
+
+  - id: Fg5g-F7TwA4
+    url: https://www.youtube.com/watch?v=Fg5g-F7TwA4
+    title: "Dave Chaffee vs Ermes Gasparini | East vs West 5"
+    channel: "ARMWRESTLING NEWZ"
+    published: null
+    relevance: "Ermes right-hand result on same card as Morozov/Ermes left-hand."
+    use_for:
+      - right-hand historical evidence
+      - Ermes back-pressure/toproll narrative
+    needs_validation: "Validate metadata and caption status with official API."

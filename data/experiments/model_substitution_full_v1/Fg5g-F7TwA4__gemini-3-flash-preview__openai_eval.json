@@ -1,0 +1,47 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 75.0,
+    "high_value_coverage_percent": 75.0,
+    "quality_grade": "B",
+    "unsupported_claims": [
+      {
+        "timestamp": "01:35",
+        "claim": "You cannot beat Ermes Gasparini if you have not taken his wrist."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "03:39",
+        "claim": "The baseline claim about Ermes's amazing energy and cannot afford to lose the match."
+      }
+    ],
+    "timestamp_quality": 0.86,
+    "pass_fail": "pass",
+    "concise_rationale": "Approximately 75% of baseline claims are covered by candidate claims (6 of 8). High-value claims coverage is also ~75% (3 of 4). There is 1 unsupported candidate claim (01:35) and 1 missed high-value baseline claim (03:39). Overall alignment is good with minor gaps; the candidate passes evaluation."
+  },
+  "usage": {
+    "prompt_tokens": 1392,
+    "completion_tokens": 4649,
+    "total_tokens": 6041,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4416,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0019292000000000003,
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap"
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

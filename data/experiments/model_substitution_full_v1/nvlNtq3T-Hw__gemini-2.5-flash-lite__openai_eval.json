@@ -1,0 +1,59 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 37.5,
+    "high_value_coverage_percent": 75,
+    "quality_grade": "moderate",
+    "unsupported_claims": [
+      {
+        "timestamp": "11:14",
+        "claim": "Morozov is confident that it will be a good fight."
+      },
+      {
+        "timestamp": "12:15",
+        "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning."
+      },
+      {
+        "timestamp": "39:21",
+        "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury."
+      },
+      {
+        "timestamp": "68:15",
+        "claim": "Morozov currently weighs 140 kilograms (290 pounds)."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "67:40",
+        "claim": "Morozov feels he has more reserve and capacity now, and can do more than before."
+      }
+    ],
+    "timestamp_quality": 60,
+    "pass_fail": "pass",
+    "concise_rationale": "Candidate claims align with some baseline recovery/training points (e.g., 02:20/02:51) but largely omit several high-value baseline claims and include extraneous content (nicknames, event updates). Overall partial coverage with one notable high-value claim missed; meets a basic pass threshold."
+  },
+  "usage": {
+    "prompt_tokens": 1338,
+    "completion_tokens": 3650,
+    "total_tokens": 4988,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3328,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0015269,
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

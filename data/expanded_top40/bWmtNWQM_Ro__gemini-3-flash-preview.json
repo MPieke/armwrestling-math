@@ -1,0 +1,133 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov dominates Ermes Gasparini 3-0 on the left hand, showcasing a superior frame and wrist strength that eventually overcomes Ermes's toproll attempts.",
+    "popular_take": "Morozov is a generational talent with a 'god-given' frame and height that makes him a stylistic nightmare for Ermes, even if Ermes wins the initial hand battle.",
+    "counter_case": "Ermes's performance may have been hindered by the emotional and physical exhaustion of his right-hand war with Dave Chaffee earlier that same night.",
+    "claims": [
+      {
+        "timestamp": "00:55",
+        "claim": "Ermes Gasparini is competing at 130kg and is in peak form, having just defeated Dave Chaffee on the right hand.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Establishes Ermes's historical weight and right-hand momentum during this period.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:50",
+        "claim": "Artyom Morozov is coming off a significant right-hand victory over Revaz Lutidze.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Confirms Morozov's elite right-hand pedigree against top-tier super-heavyweights.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Morozov's wrist control 'up top' is described as phenomenal.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Highlights a durable stylistic strength that challenges Ermes's primary toproll attack.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "07:10",
+        "claim": "Morozov's height and joint position allow him to apply massive pressure even when his wrist is technically compromised.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Suggests that Ermes's toproll may not be enough to finish Morozov if the frame advantage is too great.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "07:25",
+        "claim": "Ermes appeared to 'give up' his wrist or sacrifice position after failing to find a quick finish against Morozov's height.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Points to a potential endurance or psychological gap when Ermes cannot dominate the setup.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "11:30",
+        "claim": "Morozov demonstrates a very efficient transition to side pressure and the pad once he secures hand position.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Shows Morozov's ability to finish matches quickly once he negates an opponent's outside move.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "14:50",
+        "claim": "Morozov is described as having the perfect frame for the sport and 'checking all the boxes' for long-term dominance.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Supports the narrative of Morozov's higher ceiling compared to established veterans.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "16:10",
+        "claim": "Morozov admits he was not fully confident in himself during the first round of the match.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates that Morozov can be vulnerable early in a match before his 'steel' hand takes over.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes's significantly improved right-hand pronation and back pressure overcome the massive frame and height advantage that Morozov utilized to negate him in the past?",
+    "usefulness": "high",
+    "notes": [
+      "This match was left-handed, but the commentary provides critical insights into their respective right-hand forms and stylistic matchups.",
+      "Morozov's admission of early-round doubt is a key psychological factor for future high-stakes matches."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 29420,
+    "candidatesTokenCount": 1007,
+    "totalTokenCount": 31906,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 28936
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 484
+      }
+    ],
+    "thoughtsTokenCount": 1479
+  },
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "channel_id": "UCMzpyrvO3yUeGDclgjixSoA",
+    "published_at": "2022-11-23T17:00:51Z",
+    "description": "East vs West armwrestling merch \nhttps://my-store-cb6923.creator-spring.com\n\n#armwrestling    #eastvswest #oldschoollabs",
+    "matched_queries": [
+      "Ermes Morozov right hand",
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West",
+      "Artyom Morozov Ermes Gasparini analysis",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT18M49S",
+    "caption": "false",
+    "view_count": 464114,
+    "like_count": 10985,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: Engin Terzi Enigma of Rage",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 1129,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "long-form or match-length source"
+    ]
+  }
+}

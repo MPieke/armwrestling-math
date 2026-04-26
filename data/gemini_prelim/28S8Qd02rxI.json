@@ -1,0 +1,106 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "The video features Engin Terzi interviewing Ermes Gasparini and Evgeny Prudnik, discussing their upcoming armwrestling matches, training, and opinions on other top pullers.",
+    "popular_take": "Fans might believe that Ermes Gasparini is extremely confident in his top roll technique and his ability to defeat Dave Chaffee, despite some polls showing Dave as the favorite. They might also be intrigued by the idea of a potential match between Ermes and Prudnik.",
+    "counter_case": "The video suggests that while Ermes is confident, he also acknowledges the unpredictability of matches and the high level of competition in super heavyweight. Engin Terzi's teasing questions often provoke exaggerated responses, which might not fully reflect Ermes's serious assessment. The discussion about Levan's weight and technique also highlights the challenges even for top pullers.",
+    "claims": [
+      {
+        "timestamp": "09:40",
+        "claim": "Engin Terzi teases Ermes Gasparini about Dave Chaffee potentially 'kicking his ass' in their upcoming match.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "This sets a playful, yet competitive tone for the discussion around Ermes vs Dave, highlighting the perceived challenge Dave poses.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "10:44",
+        "claim": "Engin Terzi informs Ermes Gasparini that fans in the chat are saying Dave Chaffee canceled his match after seeing Ermes, implying Dave was intimidated.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "This is a direct playful jab at Ermes, suggesting his physique or reputation is intimidating enough to make opponents withdraw, building a narrative of Ermes's strong presence.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:21",
+        "claim": "Ermes Gasparini jokes that he doesn't want to post many photos or videos because Dave Chaffee might cancel his match if he sees them.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This reinforces the playful narrative that Ermes's current form is so impressive it could scare off opponents, adding to his perceived confidence.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:44",
+        "claim": "Ermes Gasparini states he has a '100%' chance against Dave Chaffee, later adjusting it to '99%' due to potential illness.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This is a strong claim of confidence from Ermes regarding his chances against Dave, setting a high expectation for his performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "15:59",
+        "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This highlights Ermes's specific tactical advantage and unique style (top roll, wrist, pronation) that he believes Dave has not encountered before, suggesting a potential weakness for Dave.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:07",
+        "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This provides a specific tactical insight into Ermes's top roll strategy, suggesting he aims to break the opponent's hand control early in the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:32",
+        "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "While about Levan, this reveals Ermes's strong belief in the top roll as the superior technique against powerful opponents, which could be his primary strategy against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "37:07",
+        "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This shows Ermes's high respect for Dave's consistency and strength, setting the stage for a challenging match despite Ermes's own confidence.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini's unique top roll technique, focused on wrist control and finger opening, overcome Artyom Morozov's power and style, or will Morozov's strengths neutralize Ermes's strategy?",
+    "usefulness": "high",
+    "notes": [
+      "The video is heavily influenced by Engin Terzi's playful and teasing interview style, which might lead to exaggerated claims from Ermes Gasparini.",
+      "Many claims are made in a joking context, but also contain underlying strategic insights.",
+      "The discussion frequently shifts between different opponents (Devon, Levan, John Brzenk, Cyplenkov, Lalezin), providing comparative context for Ermes's and Prudnik's views on top-tier armwrestlers."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 541146,
+    "candidatesTokenCount": 1300,
+    "totalTokenCount": 560939,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 244064
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 296737
+      }
+    ],
+    "thoughtsTokenCount": 18493
+  },
+  "candidate": {
+    "id": "28S8Qd02rxI",
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "why": "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "The video analyzes Ermes Gasperini's intense victory over Dave Chaffee, highlighting his strategic use of the flop press, resilience in regaining control, and the critical importance of wrist control in his matches, all driven by high stakes.",
+    "popular_take": "Ermes Gasperini is a top-tier armwrestler, possibly number two in the world, whose powerful flop press and ability to recover from difficult positions make him extremely hard to beat, especially if his wrist is not fully taken.",
+    "counter_case": "Despite his strength, Ermes showed vulnerability to strong side pressure leading to elbow fouls and sometimes struggled with initial hand control, suggesting opponents with strong top rolls or side pressure could find openings. His intentional wrist sacrifice, while effective, also indicates a potential weakness that could be exploited if the flop press doesn't land.",
+    "claims": [
+      {
+        "timestamp": "00:27",
+        "claim": "Ermes gained hand control and immediately brought Dave back to the center with a couple of surges, demonstrating strong recovery.",
+        "speaker_or_source": "unknown",
+        "relevance": "Shows Ermes's ability to regain center and apply power after initial pressure, which will be crucial against Morozov's strong start.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:42",
+        "claim": "Dave's side pressure was way too much, causing Ermes's elbow to slide off for a foul.",
+        "speaker_or_source": "unknown",
+        "relevance": "Highlights a potential vulnerability for Ermes against strong side pressure, a key aspect of Morozov's game, which could lead to fouls or loss of position.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:00",
+        "claim": "The commentator states, 'You cannot beat Ermes Gasperini if you have not taken his wrist.'",
+        "speaker_or_source": "unknown",
+        "relevance": "Emphasizes the critical importance of wrist control for Ermes's game, suggesting if Morozov can effectively take his wrist, he has a significant advantage.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:36",
+        "claim": "Ermes was observed to be 'slightly pronated' but did not have his wrist cupped.",
+        "speaker_or_source": "unknown",
+        "relevance": "Describes a specific form detail for Ermes, indicating a potential weakness in wrist position that Morozov, known for his top roll, might target.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:49",
+        "claim": "Ermes was losing his own wrist and 'dumped it' to immediately execute a 'flop press.'",
+        "speaker_or_source": "unknown",
+        "relevance": "Reveals a strategic move by Ermes to intentionally sacrifice wrist control for a powerful flop press, indicating adaptability and a key weapon against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:52",
+        "claim": "The flop press was surprisingly fast, taking only half a second to flash pin Dave.",
+        "speaker_or_source": "unknown",
+        "relevance": "Highlights Ermes's explosive speed and power in his flop press, a critical offensive move that Morozov will need to defend against.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:20",
+        "claim": "Ermes again brought Dave back from a near-pin position with a single surge, then intentionally gave his wrist for a successful flop press.",
+        "speaker_or_source": "unknown",
+        "relevance": "Reinforces Ermes's resilience, recovery power, and consistent, strategic use of the intentional wrist sacrifice for the flop press, a tactic Morozov must anticipate.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:48",
+        "claim": "The commentator states this was the 'most important match in his career' for Ermes, showing extreme motivation and effort.",
+        "speaker_or_source": "unknown",
+        "relevance": "Contextualizes Ermes's performance as highly motivated, suggesting he brings this intensity to crucial matches, which he will likely do against Morozov.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Artyom Morozov's top roll and side pressure prevent Ermes from establishing his hand control or effectively executing his powerful flop press, or will Ermes's resilience and strategic wrist sacrifice overcome Morozov's initial attack?",
+    "usefulness": "high",
+    "notes": [
+      "Analysis is based on audio commentary of a past match, not direct visual observation of the requested video.",
+      "Claims about specific techniques and form are derived from the commentator's description.",
+      "The relevance to Morozov is inferred based on Morozov's known pulling style (strong top roll, power)."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 10028,
+    "candidatesTokenCount": 1167,
+    "totalTokenCount": 13825,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 373
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 789
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 8866
+      }
+    ],
+    "thoughtsTokenCount": 2630
+  },
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap",
+    "why": "Right-hand Ermes evidence with tactical commentary."
+  }
+}

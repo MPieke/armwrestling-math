@@ -1,0 +1,62 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 2,
+    "recency_risk": 7,
+    "durable_style_value": 2,
+    "current_form_value": 2,
+    "unsupported_or_stale_claims": 0,
+    "concise_rationale": "The source is an old, unrelated video about Morozov vs Genadi; it contains no claims about Gasparini vs Morozov and offers minimal, non-direct insights for the June 2026 matchup. Evidence is limited and not directly applicable."
+  },
+  "usage": {
+    "prompt_tokens": 228,
+    "completion_tokens": 1480,
+    "total_tokens": 1708,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006034,
+  "source": {
+    "id": "GTSIMBlIy5A",
+    "url": "https://www.youtube.com/watch?v=GTSIMBlIy5A",
+    "title": "Ermes talks about the Genadi vs Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2023-06-27T17:38:01Z",
+    "description": "Ermes Gasparini and Engin Terzi have talked about the Genadi vs Morozov supermatch and they both believe that Genadi has more endurance than Morozov. In addition Ermes and Engin compared Genadi's and Devon's endurance. \n\nSources:\nEnginTErzi's channel: https://www.youtube.com/watch?v=WKa1xV5UG_c",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M39S",
+    "caption": "true",
+    "view_count": 3540,
+    "like_count": 84,
+    "license": "youtube",
+    "score": 29,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 159,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

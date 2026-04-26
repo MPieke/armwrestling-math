@@ -1,0 +1,69 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 3,
+    "pass_fail": "pass",
+    "directness": "low",
+    "recency_risk": 0.6,
+    "durable_style_value": 0.65,
+    "current_form_value": 0.4,
+    "unsupported_or_stale_claims": [
+      "Analysis centers on Levan Saginashvili's vulnerability, not Morozov's current style or tendencies.",
+      "Some claims from Armwrestling Hub about back pressure superiority and wrist integrity are speculative and not independently verified."
+    ],
+    "concise_rationale": "The source offers general ergonomic tactics (thumb-centric rising, extreme back pressure, strap leverage) that could be conceptually useful but are Levan-specific and not directly tailored to Morozov. Its relevance to a Gasparini vs Morozov matchup is limited without opponent-specific scouting; credibility varies across claims, and the data is from 2024, with potential stylistic changes by 2026."
+  },
+  "usage": {
+    "prompt_tokens": 759,
+    "completion_tokens": 1629,
+    "total_tokens": 2388,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1408,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00068955,
+  "source": {
+    "id": "5xm7odwrnZQ",
+    "url": "https://www.youtube.com/watch?v=5xm7odwrnZQ",
+    "title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2024-03-30T18:35:04Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nCredit for Featured Content:\n\nsub to @devlarratt\nsub to @Engin_Terzi  \nsub to @eastvswestarmwrestling  \nsub to @armwarsofficial  \nsub to @coresportsworld  \nsub to @TwoOneSe7en  \nsub to @LevanSaginashviliOfficial  \nsub to @ermesgasparini3239  \nsub to @johnbrzenk9237  \nsub to @toddhutchings906  \nsub to @MonsterMichaelTodd  \nsub to @jekaprudnik11  \nsub to @BeStrongArmwrestling  \nsub to @GeorgianArmwrestling  \nsub to @genadikvikvinia  \nsub to @vitalylaletin4385  \nsub to @AlexKurdecha  \n\nFeatured Matches:\n\nEast vs West Matches:\nMatt Mask vs Frank Lamparelli\nArtem Taynov vs Sasho Andreev\nIrakli zirakashvili vs Rustam Babayev\nGeorgi Tsvetkov vs Zaur Paizulaev\nJohn Brzenk vs Sasho Andreev\nTodd Hutchings vs Kydyrgali Ongarbayev\nPaul Linn vs Ruslan Babayev\nDerek Smith vs Mehdi\nIrakli Ziraskashvili vs Davit Dadyikan\nEvgeny Prudnik vs Davit Dadyikan\nUncle Todd vs Ibragim\nVitaly Laletin vs Revaz Lutidze\nLachy Adair vs Andrei\nChance Shaw vs Oleg Petrenko\nSandris Sedis vs Pavlo Derbedyenyev\nGeorgi Tsvetkov vs Arytom Morozov\nIrakli Zirakashvili vs Kydyrgali Ongarbayev\nDave Chaffee vs Revaz Lutidze\nVitaly Laletin vs Tobias Sporrong\nRVJ vs Zurab Tavberidze\nBacho saginashvili vs Adam Warzinski\nPaul Linn vs Sasho Andreev\nJohn Brzenk vs Oleg Patrenko\nJohn Brzenk vs Irakli Zirakashvili\nDevon Larratt vs Evgeny Prudnik\nDevon Larratt vs Genadi Kvikvinia\nDevon Larratt vs Ermes Gasparini\nErmes Gasparini vs Jerryy Cadorette\nErmes Gasparini vs Artyom Morozov\nJerry Cadorette vs Genadi Kvikvinia\nJerry Cadorette vs Georgi Tsvetkov\nDevon Larratt vs Denis Cyplenkov\nGeorgi Tsvetkov vs Zaur Paizulaev\n\nArm Wars Matches:\nDevon Larratt vs Michael Todd\nDevon Larratt vs Kristoph Ladu\nDevon Larratt vs John Brzenk\nDevon Larratt vs Richard Lupkes\nDevon Larratt vs Travis Bagent\nDevon Larratt vs Tim Bresnan\nDevon Larratt vs Don Underwood\nDevon Larratt vs Sandris Sedis\nDevon Larratt vs Daniel Lund\nDevon Larratt vs Mindauskus Dulskas\nDevon Larratt vs Georgi Tsvetkov\nAyello vs Mackin\nTodd vs Lupkes\nTodd vs Pickup\nYoshi Kanai vs Todd\nLovei vs Haugland\nLuke Kindt vs Cobra Rhodes\nMike Todd vs Chris Chandler\nUnderwood vs Chris Chandler\nMike Todd vs Marcio\nBresnan vs Bagent\nUnderwood vs Bagent\nLupkes vs Rorbaken\nHaugland vs Geoff Hale\nJames Wall vs Haugland\nStratton vs Haugland\n\nKing of the Table Matches:\nDevon Larratt vs Levan Saginasvhili\nDevon Larratt vs Georgi Tsvetkov\nDevon Larratt vs Dave Chaffee\nVitaly Laletin vs Ermes Gasparini\nLevan Saginasvhili vs Ermes Gasparini\nJohn Brzenk vs Denis Cyplenkov\nJohn Brzenk vs Alexey Voevoda\nDevon Larratt vs John Brzenk\nDevon Larratt vs Michael Todd\n\nTwo One Se7en videos:\nJohn Brzenk vs Pavlo\n18 Minutes of Devon Larratt\nDevon Larratt's Final Practice\nCorey West vs Krasi\nDevon vs Artem Taranenko\nDerek Smith vs Austin\nDevon vs Wayne Withers\nTodd Hutchings vs Chance Shaw\nMatt Mask vs Tim Bresnan",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT3M41S",
+    "caption": "false",
+    "view_count": 29867,
+    "like_count": 819,
+    "license": "youtube",
+    "score": 34,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 221,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

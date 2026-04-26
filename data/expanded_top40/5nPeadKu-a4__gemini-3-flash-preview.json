@@ -1,0 +1,52 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=5nPeadKu-a4",
+    "model": "gemini-3-flash-preview",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 400 from Gemini API:\n{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"No frames to extract with given parameters. Verify fps, start/end time and video duration.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "5nPeadKu-a4",
+    "url": "https://www.youtube.com/watch?v=5nPeadKu-a4",
+    "title": "Artyom Morozov vs Ermes Gasparini 🔥 EvW 5 - Left Hand",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2026-04-04T20:00:42Z",
+    "description": "",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT30S",
+    "caption": "false",
+    "view_count": 142993,
+    "like_count": 3342,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 30,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  }
+}

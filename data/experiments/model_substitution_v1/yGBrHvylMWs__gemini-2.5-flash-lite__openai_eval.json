@@ -1,0 +1,53 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 12.5,
+    "high_value_coverage_percent": 12.5,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      "04:03",
+      "01:34",
+      "01:8:06",
+      "02:00",
+      "02:55",
+      "02:45",
+      "02:57"
+    ],
+    "missed_high_value_claims": [
+      "04:03",
+      "01:34",
+      "01:8:06",
+      "02:00",
+      "02:55",
+      "02:45",
+      "02:57"
+    ],
+    "timestamp_quality": "poor",
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate claims mirror only one baseline timestamp (00:08). The remaining seven baseline claims—covering health status, injury severity, and opponent attributes—have no direct matches in the candidate set, resulting in very low coverage and a failed alignment."
+  },
+  "usage": {
+    "prompt_tokens": 1460,
+    "completion_tokens": 4944,
+    "total_tokens": 6404,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4736,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0020506,
+  "source": {
+    "id": "yGBrHvylMWs",
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "title": "Artyom Morozov - East vs West Podcast",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Long-form Morozov source referenced by multiple clip videos."
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

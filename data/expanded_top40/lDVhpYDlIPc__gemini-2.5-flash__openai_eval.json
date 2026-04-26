@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 3,
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "high",
+    "durable_style_value": "low",
+    "current_form_value": "unknown",
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "Source is a 2023 video about Morozov with tangential relevance to a 2026 Gasparini–Morozov match; it does not address Gasparini or June 2026 match specifics, and there are no verifiable current-form insights. Therefore low direct usefulness and high recency risk."
+  },
+  "usage": {
+    "prompt_tokens": 229,
+    "completion_tokens": 1556,
+    "total_tokens": 1785,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1408,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00063385,
+  "source": {
+    "id": "lDVhpYDlIPc",
+    "url": "https://www.youtube.com/watch?v=lDVhpYDlIPc",
+    "title": "Ermes and Jerry On Genadi vs Morozov and Quality",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2023-07-04T16:52:09Z",
+    "description": "East vs West Signed Cards, Signed Posters, And T-Shirts: https://eastvswestarmwrestling.com/shop/\n\nEast vs West 8 is July 29th\nLive PPV on Coresports\nhttps://app.coresports.tv/signup\n\nVideo Edited By- @ryan_turner \n\n\n#armwrestling  #eastvswest",
+    "matched_queries": [
+      "Ermes Morozov East vs West"
+    ],
+    "duration": "PT4M7S",
+    "caption": "false",
+    "view_count": 12986,
+    "like_count": 480,
+    "license": "youtube",
+    "score": 30,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: ermes",
+      "matched term: morozov",
+      "matched term: live",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 247,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-2.5-flash"
+}

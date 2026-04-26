@@ -1,0 +1,103 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "poor",
+    "unsupported_claims": [
+      {
+        "timestamp": "00:16",
+        "claim": "Ermes Gasparini gained hand control after a slip, but it was very near to the pad, indicating an initial struggle for central control."
+      },
+      {
+        "timestamp": "00:26",
+        "claim": "After gaining hand control, Ermes immediately brought Dave Chaffee back to the center with a couple of surges."
+      },
+      {
+        "timestamp": "00:42",
+        "claim": "Dave Chaffee's side pressure was too much, causing Ermes Gasparini's elbow to slide off the pad, resulting in an elbow foul."
+      },
+      {
+        "timestamp": "01:07",
+        "claim": "Ermes Gasparini secured hand control, brought Dave Chaffee back to the center, got behind his shoulder, planted his elbow, and pressed him to the pad for a win."
+      },
+      {
+        "timestamp": "02:49",
+        "claim": "Ermes Gasparini, while losing his own wrist, intentionally 'dumped' it and immediately executed a very fast 'flop press'."
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Dave Chaffee slid his elbow off the pad by 3-4 inches to avoid a pin from Ermes's flop press, forcing a restart."
+      },
+      {
+        "timestamp": "03:39",
+        "claim": "The narrator highlights the 'amazing energy' and 'amount of effort' Ermes Gasparini showed, stating he 'cannot afford to lose' this match."
+      },
+      {
+        "timestamp": "04:09",
+        "claim": "Beating Dave Chaffee in the first couple of rounds is considered a 'big deal', solidifying Ermes Gasparini as a top arm wrestler, potentially number two in the world."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "00:16",
+        "claim": "Ermes Gasparini gained hand control after a slip, but it was very near to the pad, indicating an initial struggle for central control."
+      },
+      {
+        "timestamp": "00:26",
+        "claim": "After gaining hand control, Ermes immediately brought Dave Chaffee back to the center with a couple of surges."
+      },
+      {
+        "timestamp": "00:42",
+        "claim": "Dave Chaffee's side pressure was too much, causing Ermes Gasparini's elbow to slide off the pad, resulting in an elbow foul."
+      },
+      {
+        "timestamp": "01:07",
+        "claim": "Ermes Gasparini secured hand control, brought Dave Chaffee back to the center, got behind his shoulder, planted his elbow, and pressed him to the pad for a win."
+      },
+      {
+        "timestamp": "02:49",
+        "claim": "Ermes Gasparini, while losing his own wrist, intentionally 'dumped' it and immediately executed a very fast 'flop press'."
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Dave Chaffee slid his elbow off the pad by 3-4 inches to avoid a pin from Ermes's flop press, forcing a restart."
+      },
+      {
+        "timestamp": "03:39",
+        "claim": "The narrator highlights the 'amazing energy' and 'amount of effort' Ermes Gasparini showed, stating he 'cannot afford to lose' this match."
+      },
+      {
+        "timestamp": "04:09",
+        "claim": "Beating Dave Chaffee in the first couple of rounds is considered a 'big deal', solidifying Ermes Gasparini as a top arm wrestler, potentially number two in the world."
+      }
+    ],
+    "timestamp_quality": 0,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate produced no claims; coverage against baseline is 0% with all high-value claims missed. Quality grade is poor; timestamp quality unavailable; overall fail to meet baseline analysis needs."
+  },
+  "usage": {
+    "prompt_tokens": 895,
+    "completion_tokens": 3096,
+    "total_tokens": 3991,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2176,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00128315,
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap"
+  },
+  "candidate_model": "gemini-2.0-flash-lite"
+}

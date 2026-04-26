@@ -1,0 +1,67 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 0.25,
+    "recency_risk": 0.9,
+    "durable_style_value": 0.15,
+    "current_form_value": 0.2,
+    "unsupported_or_stale_claims": [
+      "No specific claims about Morozov or the June 2026 match; claims field is empty.",
+      "Summary notes 'Gemini analysis failed' with no substantiated analysis.",
+      "Title asserts Gasparini stronger than Levan; irrelevant to Morozov comparison.",
+      "Publication date 2023 makes it outdated for a mid-2026 event."
+    ],
+    "concise_rationale": "The source offers almost no relevant or substantiated analysis for Gasparini vs Morozov. It is outdated (2023), contains no claims to evaluate, and even labels its analysis as failed, making it unreliable for MVP purposes."
+  },
+  "usage": {
+    "prompt_tokens": 225,
+    "completion_tokens": 1880,
+    "total_tokens": 2105,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1664,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00076325,
+  "source": {
+    "id": "cVGRZUI0JAk",
+    "url": "https://www.youtube.com/watch?v=cVGRZUI0JAk",
+    "title": "ERMES GASPARINI IS STRONGER THAN LEVAN",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2023-07-09T14:00:23Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nSub to Ermes- @ermesgasparini3239 \nSub to Levan- @LevanSaginashviliOfficial \n\nErmes vs Levan- https://www.youtube.com/watch?v=gKRr2ayuaPo&pp=ygUOZXJtZXMgdnMgbGVhdm4%3D",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT4M19S",
+    "caption": "false",
+    "view_count": 39109,
+    "like_count": 1138,
+    "license": "youtube",
+    "score": 25,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 259,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

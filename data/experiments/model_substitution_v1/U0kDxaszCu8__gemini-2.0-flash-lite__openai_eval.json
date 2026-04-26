@@ -1,0 +1,122 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0.0,
+    "high_value_coverage_percent": 0.0,
+    "quality_grade": "F",
+    "unsupported_claims": [
+      {
+        "timestamp": "00:00",
+        "claim": "Many consider Morozov's victory against Jerry Cadorette a sure thing.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:13",
+        "claim": "Direct comparisons between athletes can be misleading.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov's hook is very powerful.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:21",
+        "claim": "If Jerry Cadorette manages to establish his position before Morozov, he can beat him.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:27",
+        "claim": "Jerry Cadorette's press is a serious threat if he sets his position, as demonstrated against Genadi Kvikvinia.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Athletes do not have the same power in all aspects/positions.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:11",
+        "claim": "Morozov in the hook is super strong.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:14",
+        "claim": "The match outcome depends on who establishes their position first; if Jerry starts first, he can win.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "00:00",
+        "claim": "Many consider Morozov's victory against Jerry Cadorette a sure thing.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:13",
+        "claim": "Direct comparisons between athletes can be misleading.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov's hook is very powerful.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:21",
+        "claim": "If Jerry Cadorette manages to establish his position before Morozov, he can beat him.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "00:27",
+        "claim": "Jerry Cadorette's press is a serious threat if he sets his position, as demonstrated against Genadi Kvikvinia.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Athletes do not have the same power in all aspects/positions.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:11",
+        "claim": "Morozov in the hook is super strong.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      },
+      {
+        "timestamp": "01:14",
+        "claim": "The match outcome depends on who establishes their position first; if Jerry starts first, he can win.",
+        "reason": "No candidate claims provided to cover this baseline claim."
+      }
+    ],
+    "timestamp_quality": {
+      "status": "not_applicable",
+      "notes": "No candidate claims to evaluate timestamps since candidate_claims is empty."
+    },
+    "pass_fail": "fail",
+    "concise_rationale": "The candidate model gemini-2.0-flash-lite produced no candidate_claims to cover any baseline_claims, resulting in 0% claim coverage for both all_claim_coverage_percent and high_value_coverage_percent. It cannot replace the baseline; all baseline claims are unsupported and missed. Timestamp quality is not assessable due to the absence of candidate data."
+  },
+  "usage": {
+    "prompt_tokens": 665,
+    "completion_tokens": 2606,
+    "total_tokens": 3271,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1728,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00107565,
+  "source": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "type": "short commentary clip"
+  },
+  "candidate_model": "gemini-2.0-flash-lite"
+}

@@ -1,0 +1,104 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov dominates Ermes Gasparini in a one-sided right-hand armwrestling match, showcasing superior strength, technique, and composure.",
+    "popular_take": "Artyom Morozov is the clear favorite due to his overwhelming physical dominance and mental fortitude, while Ermes Gasparini appears to be struggling with physical or mental fatigue.",
+    "counter_case": "Ermes Gasparini's previous tough matches might have taken a toll, but his ability to adapt and fight back, even in defeat, suggests he could still pose a challenge if he can recover and find his form.",
+    "claims": [
+      {
+        "timestamp": "01:03",
+        "claim": "Ermes Gasparini is back on the arm wrestling table today, he already showed how great of a form he is in right now.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Highlights Gasparini's presence and perceived good form entering the match.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:10",
+        "claim": "130 kilos of pure arm wrestling awesomeness.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Emphasizes Morozov's physical power and presence.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:21",
+        "claim": "He's a little bit distracted about the victory over Dave Chaffey.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Suggests Gasparini might be mentally affected by a previous win, potentially impacting his focus.",
+        "confidence": "low"
+      },
+      {
+        "timestamp": "01:35",
+        "claim": "This giant represents the arm wrestling nation of Kazakhstan.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Highlights Morozov's imposing stature and national representation.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:50",
+        "claim": "Here comes the man that is the current left arm overall world champion in the East vs West promotion.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Introduces Morozov, emphasizing his world champion status.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:04",
+        "claim": "Let's see what he can do against Ermes Gasparini.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Sets up the direct confrontation and anticipation for the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:25",
+        "claim": "Artyom Morozov defended his title in a tough match versus David Dadikyan about two months ago.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Provides context on Morozov's recent performance and resilience in a difficult match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:49",
+        "claim": "Left hand, many stories to be told.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Suggests the left-hand match was significant and potentially challenging.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini find a way to counter Artyom Morozov's immense strength and control, or will Morozov's dominance continue?",
+    "usefulness": "high",
+    "notes": [
+      "The video primarily focuses on the right-hand match between Artyom Morozov and Ermes Gasparini.",
+      "The commentary suggests Gasparini might be experiencing fatigue or distraction, while Morozov is portrayed as dominant and powerful."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 39646,
+    "candidatesTokenCount": 905,
+    "totalTokenCount": 40551,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3156
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 36109
+      }
+    ]
+  },
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Direct head-to-head history, but left hand rather than upcoming right hand."
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "The interviewee discusses his recent match against Ermes, his own performance, and his thoughts on the upcoming match between Ermes and Artyom Morozov.",
+    "popular_take": "Ermes is a very strong competitor, and his upcoming match against Artyom Morozov will be a tough one, with Ermes having a slight edge.",
+    "counter_case": "The interviewee's own performance and recovery from injury might suggest that Ermes is not as invincible as he appears, and that Artyom Morozov has a better chance than initially perceived.",
+    "claims": [
+      {
+        "timestamp": "00:14",
+        "claim": "The interviewee expresses happiness about winning his match.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Shows the interviewee's current state and confidence.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:30",
+        "claim": "The match was not easier or harder than expected.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Indicates the match was competitive and met expectations.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:39",
+        "claim": "The interviewee believes Ermes uses all his power in the first round, which leads to him being less effective in later rounds.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Tactical observation about Ermes's endurance and pacing.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:48",
+        "claim": "The interviewee believes he has better endurance than Ermes.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Direct comparison of endurance, crucial for long matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:45",
+        "claim": "The interviewee identified his weaknesses after the last match and has prepared better for future matches.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Shows self-improvement and preparation.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:00",
+        "claim": "The interviewee had a wrist injury in his last match.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Potential vulnerability for Ermes, impacting his performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "07:57",
+        "claim": "The interviewee believes his side pressure is stronger than Ermes's.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Tactical claim about a specific aspect of the armwrestling technique.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "11:14",
+        "claim": "The interviewee believes he can train his left arm to be as strong as his right.",
+        "speaker_or_source": "Interviewee",
+        "relevance": "Shows dedication to improving all aspects of his game.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Artyom Morozov's endurance and potentially stronger side pressure overcome Ermes's power and experience?",
+    "usefulness": "high",
+    "notes": [
+      "The video is primarily an interview with one of the armwrestlers, not a direct analysis of the upcoming match.",
+      "Some claims are subjective opinions of the interviewee.",
+      "Timestamp accuracy is approximate."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 58527,
+    "candidatesTokenCount": 845,
+    "totalTokenCount": 59372,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 4471
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 53675
+      }
+    ]
+  },
+  "source": {
+    "id": "HBfb57rQxTg",
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "title": "Levan talks about Alizhan and his supermatch against Ermes",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Elite-peer discussion involving Ermes and left-hand title context."
+  }
+}

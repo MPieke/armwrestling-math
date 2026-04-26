@@ -1,0 +1,101 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov predicts a supermatch between Ermes Gasparini and Levan Saginashvili, believing Ermes has improved his endurance and strength, making it a close match.",
+    "popular_take": "Ermes Gasparini has significantly improved his endurance and strength, making him a strong contender against Levan Saginashvili in an upcoming match.",
+    "counter_case": "While Ermes has improved, Levan's wrist strength and overall dominance might still give him an edge, especially if Ermes's wrist is not fully recovered.",
+    "claims": [
+      {
+        "timestamp": "00:04",
+        "claim": "Artyom Morozov predicts a supermatch between Ermes Gasparini and Levan Saginashvili.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Sets the stage for the discussion and highlights the potential magnitude of the matchup.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:08",
+        "claim": "Morozov believes the match will be incredible and a war.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Emphasizes the expected intensity and competitiveness of the fight.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov states the outcome depends on Levan's wrist in this match.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Highlights a key physical factor (wrist health) that could determine the winner.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:22",
+        "claim": "Morozov recalls Levan's wrist cracking in a previous match against Devon.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides historical context for concerns about Levan's wrist durability.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:30",
+        "claim": "Morozov suggests if Levan's wrist is strong, he is the favorite.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates Levan's baseline strength and dominance when healthy.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:37",
+        "claim": "Morozov notes Ermes has a very strong press and has improved his endurance.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Points to specific areas of improvement for Ermes that could challenge Levan.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:40",
+        "claim": "Morozov describes Ermes as very strong, in very good shape, and ready.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Assesses Ermes's current physical condition and readiness for a tough match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:51",
+        "claim": "Morozov estimates the match as 50/50, maybe with a slight advantage to Levan.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides a final assessment of the match's competitiveness and potential outcome.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Will Levan Saginashvili's wrist hold up against Ermes Gasparini's improved strength and endurance?",
+    "usefulness": "high",
+    "notes": []
+  },
+  "usage_metadata": {
+    "promptTokenCount": 4986,
+    "candidatesTokenCount": 877,
+    "totalTokenCount": 5863,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 526
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 4079
+      }
+    ]
+  },
+  "source": {
+    "id": "x5SXZArLVN0",
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "title": "Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+    "channel": "Arm wrestling",
+    "type": "Morozov giving a view on Ermes against the top right-hand benchmark."
+  }
+}

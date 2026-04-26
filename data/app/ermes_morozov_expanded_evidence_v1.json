@@ -1,0 +1,2017 @@
+{
+  "generated_at": "2026-04-26T10:41:18.506423+00:00",
+  "match": {
+    "athlete_a": "Ermes Gasparini",
+    "athlete_b": "Artyom Morozov",
+    "arm": "right",
+    "date_context": "June 2026"
+  },
+  "policy": {
+    "stores_transcripts": false,
+    "stores_structured_claims_only": true,
+    "no_downloads": true,
+    "current_form_window_days": 180,
+    "recency_rule": "Sources older than the current-form window may support durable style or historical matchup context, but not current readiness/form."
+  },
+  "source_count": 40,
+  "passed_source_count": 8,
+  "costs": {
+    "gemini_media_usd": 0.04403510000000001,
+    "openai_eval_usd": 0.028346250000000003
+  },
+  "sources": [
+    {
+      "id": "ha4mymdWrkc",
+      "title": "Ermes Gasparini on Devon and Vitaly 🤯",
+      "channel": "Grip Kings",
+      "url": "https://www.youtube.com/watch?v=ha4mymdWrkc",
+      "published_at": "2026-02-27T23:29:22Z",
+      "source_age_days": 57,
+      "source_recency": "current_window",
+      "score": 37,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "low",
+        "durable_style_value": 1,
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": false,
+        "concise_rationale": "The source is a short Grip Kings video about Devon and Vitaly, not addressing Ermes Gasparini vs Artyom Morozov. The claims list is empty and the summary notes Gemini analysis failed, indicating no verifiable, match-specific analysis to rely on. Content is moderately recent but not directly applicable to the June 2026 matchup, yielding low usefulness."
+      }
+    },
+    {
+      "id": "pHHR6Bc9zXY",
+      "title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY",
+      "published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "score": 37,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 5,
+      "estimated_media_cost_usd": 0.0032606,
+      "evaluation": {
+        "usefulness_grade": "moderate",
+        "pass_fail": "pass",
+        "directness": "moderately_direct",
+        "recency_risk": "high",
+        "durable_style_value": "moderate",
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": "Several claims pertain to Morozov vs Gennadi and Jerry vs Ermes, not directly to the Morozov vs Ermes matchup; some statements are generic training guidance and phrases about Ermes' development that may be outdated for 2026 form.",
+        "concise_rationale": "The source is from 2023 and largely discusses broader stylistic tendencies and unrelated matchups. It can inform generic tendencies (Ermes' presser development; Morozov's top-roller baseline) but lacks specific, current, matchup-focused details for a June 2026 Ermes vs Morozov right-hand match and has substantial recency risk. Treat as contextual background rather than decisive analysis."
+      }
+    },
+    {
+      "id": "bWmtNWQM_Ro",
+      "title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+      "published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "score": 36,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 8,
+      "estimated_media_cost_usd": 0.011343500000000001,
+      "evaluation": {
+        "usefulness_grade": "medium",
+        "pass_fail": "pass",
+        "directness": "direct",
+        "recency_risk": "high",
+        "durable_style_value": "high",
+        "current_form_value": "low",
+        "unsupported_or_stale_claims": [
+          {
+            "timestamp": "07:25",
+            "claim": "Ermes 'gave up' his wrist or sacrificed position; subjective interpretation not verifiable from video alone."
+          },
+          {
+            "timestamp": "14:50",
+            "claim": "Morozov has the 'perfect frame' and 'checking all the boxes' for long-term dominance; hyperbolic and speculative."
+          }
+        ],
+        "concise_rationale": "The source offers some relevant notes on Morozov's frame, wrist control, and transition game that could inform a right-hand strategy, but its 2022 left-hand match context and the time gap reduce direct applicability to a 2026 bout. Several claims are speculative or opinion-based, and there is limited evidence specific to Gasparini's current form or 2026 right-hand head-to-head dynamics."
+      }
+    },
+    {
+      "id": "5nPeadKu-a4",
+      "title": "Artyom Morozov vs Ermes Gasparini 🔥 EvW 5 - Left Hand",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=5nPeadKu-a4",
+      "published_at": "2026-04-04T20:00:42Z",
+      "source_age_days": 21,
+      "source_recency": "current_window",
+      "score": 36,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 25,
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": "low",
+        "durable_style_value": "low",
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a brief (30s) YouTube clip with no explicit claims or matchup-specific analysis. Its content appears non-specific and unreliable (noted by 'Gemini analysis failed'), offering minimal, non-evidence-based insights. While the publication is recent relative to the June 2026 match, the clip lacks durable, direct, or verifiable information useful for predicting or preparing for the right-hand bout."
+      }
+    },
+    {
+      "id": "n_6pWpcJT1g",
+      "title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=n_6pWpcJT1g",
+      "published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "score": 36,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 8,
+      "estimated_media_cost_usd": 0.0071465,
+      "evaluation": {
+        "usefulness_grade": "medium",
+        "pass_fail": "pass",
+        "directness": "high",
+        "recency_risk": "low",
+        "durable_style_value": "high",
+        "current_form_value": "peaking",
+        "unsupported_or_stale_claims": [
+          {
+            "timestamp": "00:45",
+            "claim": "Ermes uses a hybrid drag and pivot move to punch his knuckle up and over the opponent's hand.",
+            "reason": "Unverified technique claim from a single analysis source; no corroborating footage or Morozov-specific context."
+          },
+          {
+            "timestamp": "01:40",
+            "claim": "Ermes is consistently opening the opponent's elbow flexor angle through superior back pressure.",
+            "reason": "Unverified assertion; lacks objective measurement or Morozov-specific matchup data."
+          },
+          {
+            "timestamp": "02:50",
+            "claim": "Ermes maintains a significantly tighter elbow flexor angle than elite opponents, keeping his knuckle higher throughout the pull.",
+            "reason": "Relative comparison without defined benchmarks; derived from one source."
+          },
+          {
+            "timestamp": "05:15",
+            "claim": "Ermes shows a strong transition to a flop press when his elbow flexor begins to open or gas.",
+            "reason": "Plan described but not demonstrated against Morozov; lacks corroborating evidence."
+          },
+          {
+            "timestamp": "06:40",
+            "claim": "Ermes utilizes shoulder commitment to decrease his elbow flexor angle and press through defensive positions.",
+            "reason": "Technical claim with no Morozov-specific validation; relies on single-source interpretation."
+          },
+          {
+            "timestamp": "08:15",
+            "claim": "Ermes has specifically improved his ability to handle 'King's Move' and open toproll pressure.",
+            "reason": "Training claim without direct Morozov matchup data or independent verification."
+          },
+          {
+            "timestamp": "08:45",
+            "claim": "Ermes is focusing on gaining height and technical proficiency against long-armed pullers.",
+            "reason": "Strategic emphasis described; not corroborated with Morozov-specific evidence."
+          },
+          {
+            "timestamp": "09:45",
+            "claim": "Ermes looks technically better and more 'figured out' than in his previous elite match appearances.",
+            "reason": "Subjective assessment from a single source; lacks objective, Morozov-specific validation."
+          }
+        ],
+        "concise_rationale": "The analysis offers potentially relevant tactics for Ermes against Morozov (toproll height, elbow control, flop press), but it relies on a single-source, pre-match practice context with no direct Morozov-specific evidence or corroboration. Therefore usefulness is moderate and should be augmented with additional, Morozov-focused viewpoints and independent validation."
+      }
+    },
+    {
+      "id": "drxsBp2g4BM",
+      "title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=drxsBp2g4BM",
+      "published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "score": 35,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 6,
+      "estimated_media_cost_usd": 0.0041896,
+      "evaluation": {
+        "usefulness_grade": 3,
+        "pass_fail": "pass",
+        "directness": 2,
+        "recency_risk": "medium",
+        "durable_style_value": 3,
+        "current_form_value": 2,
+        "unsupported_or_stale_claims": [
+          {
+            "timestamp": "00:45",
+            "claim": "Devon Larratt's strategy was to fight for height and create distance, making it impossible for Ermes to contain him."
+          },
+          {
+            "timestamp": "01:40",
+            "claim": "Devon was able to 'double cap' his thumb, indicating he had achieved superior height and supination in the setup."
+          },
+          {
+            "timestamp": "02:20",
+            "claim": "Ermes' 95kg of back pressure is effectively neutralized the moment his wrist is forced back."
+          },
+          {
+            "timestamp": "02:50",
+            "claim": "Ermes consistently struggles with long-armed toprollers, as seen in his matches against Devon Larratt and Alex Kurdecha."
+          },
+          {
+            "timestamp": "03:10",
+            "claim": "Ermes defeated Genadi Kvikvinia, proving he is extremely effective against high-level inside pullers."
+          },
+          {
+            "timestamp": "03:30",
+            "claim": "If an opponent does not challenge Ermes' height, he has full access to his side pressure and back pressure, making him nearly impossible to beat."
+          }
+        ],
+        "concise_rationale": "The source is a 2024 analysis of Devon Larratt vs Ermes Gasparini, not Morozov vs Ermes. It offers general tactical cues about Ermes' vulnerabilities to height and long-lever toprollers, which could be marginally informative for Morozov's right-hand approach. However, none of the claims are Morozov-specific, and the video predates the 2026 matchup. Treat these as indirect, non-Morozov-focused cues and corroborate with Morozov-centric footage and recent competition analysis before relying on them for strategy."
+      }
+    },
+    {
+      "id": "DtDtFv7bCVs",
+      "title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=DtDtFv7bCVs",
+      "published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "score": 35,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 5,
+      "estimated_media_cost_usd": 0.0045654,
+      "evaluation": {
+        "usefulness_grade": 6,
+        "pass_fail": "pass",
+        "directness": "indirect",
+        "recency_risk": "low",
+        "durable_style_value": 7,
+        "current_form_value": 7,
+        "unsupported_or_stale_claims": [
+          "01:55",
+          "02:10",
+          "03:30",
+          "04:40",
+          "05:00"
+        ],
+        "concise_rationale": "Offers Gasparini-relevant traits (arm power, flop press, back pressure, shoulder frame) from a Devon Larratt vs Gasparini session. Not Morozov-specific and contains speculative, non-independent claims; useful as supplementary context but not decisive for Morozov-Gasparini strategy."
+      }
+    },
+    {
+      "id": "Cv4OE4DyXto",
+      "title": "Different Level of Vengeance",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=Cv4OE4DyXto",
+      "published_at": "2023-08-01T22:44:22Z",
+      "source_age_days": 998,
+      "source_recency": "historical_context",
+      "score": 34,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "none",
+        "recency_risk": "high",
+        "durable_style_value": "low",
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "No substantive claims or analysis relevant to Gasparini vs Morozov; the video is from 2023 and notes an analysis failure, offering little direct insight for a 2026 match. Therefore usefulness is low and current form or durability of insights is unknown."
+      }
+    },
+    {
+      "id": "5xm7odwrnZQ",
+      "title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=5xm7odwrnZQ",
+      "published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "score": 34,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 6,
+      "estimated_media_cost_usd": 0.0040490000000000005,
+      "evaluation": {
+        "usefulness_grade": 3,
+        "pass_fail": "pass",
+        "directness": "low",
+        "recency_risk": 0.6,
+        "durable_style_value": 0.65,
+        "current_form_value": 0.4,
+        "unsupported_or_stale_claims": [
+          "Analysis centers on Levan Saginashvili's vulnerability, not Morozov's current style or tendencies.",
+          "Some claims from Armwrestling Hub about back pressure superiority and wrist integrity are speculative and not independently verified."
+        ],
+        "concise_rationale": "The source offers general ergonomic tactics (thumb-centric rising, extreme back pressure, strap leverage) that could be conceptually useful but are Levan-specific and not directly tailored to Morozov. Its relevance to a Gasparini vs Morozov matchup is limited without opponent-specific scouting; credibility varies across claims, and the data is from 2024, with potential stylistic changes by 2026."
+      }
+    },
+    {
+      "id": "WqqN3HDvBNk",
+      "title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=WqqN3HDvBNk",
+      "published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "score": 34,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 6,
+      "estimated_media_cost_usd": 0.0037041,
+      "evaluation": {
+        "usefulness_grade": 62,
+        "pass_fail": "pass",
+        "directness": "high",
+        "recency_risk": "moderate",
+        "durable_style_value": "medium",
+        "current_form_value": "unclear",
+        "unsupported_or_stale_claims": [
+          {
+            "timestamp": "00:28",
+            "claim": "Ermes managed 67kg (147 lbs) on a pronation lift, but his arm angle opened significantly during the attempt.",
+            "note": "Single data point; hard to verify outside the video; reliability depends on presentation."
+          },
+          {
+            "timestamp": "01:15",
+            "claim": "Ermes likely has a stronger elbow flexor than anyone in the world except Levan Saginashvili.",
+            "note": "Highly speculative global ranking; not independently verifiable from this source."
+          },
+          {
+            "timestamp": "01:30",
+            "claim": "Ermes' pronation is weaker than Devon Larratt's and potentially weaker than Vitaly Laletin's or Georgi Tsvetkov's.",
+            "note": "Comparative strength claim with unspecified methodology; potential bias."
+          },
+          {
+            "timestamp": "01:45",
+            "claim": "Ermes would outperform Devon Larratt on any lift isolated to the elbow flexors.",
+            "note": "Bold, unverified assertion about superiority across lifts; not supported by independent data here."
+          },
+          {
+            "timestamp": "02:05",
+            "claim": "Ermes has recorded nearly 100kg of back pressure in training.",
+            "note": "Numeric claim lacking corroboration; needs independent validation."
+          },
+          {
+            "timestamp": "02:15",
+            "claim": "In their match, Ermes stopped Levan with back pressure but was unable to crack Levan's wrist back.",
+            "note": "Specific match outcome against a top opponent; context (controls, angles) not provided; reliability depends on source."
+          }
+        ],
+        "concise_rationale": "The video provides useful context on Ermes Gasparini's elbow flexion/back pressure, which are relevant to a Morozov matchup. However, many claims are speculative, anecdotal, or rely on a single source from 2024, reducing reliability for a 2026 event. It offers directional insight on potential strengths/weaknesses (inside vs outside power) but lacks Morozov-specific data and independent verification. Consider this as background context to inform further, more current analysis rather than a standalone predictive resource."
+      }
+    },
+    {
+      "id": "hKughhXsjvA",
+      "title": "CRAZIEST ARMWRESTLING LIFT in HISTORY???",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=hKughhXsjvA",
+      "published_at": "2024-07-23T14:00:37Z",
+      "source_age_days": 641,
+      "source_recency": "recent_context",
+      "score": 34,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.005776399999999999,
+      "evaluation": {
+        "usefulness_grade": "medium",
+        "pass_fail": "fail",
+        "directness": "moderate",
+        "recency_risk": "low",
+        "durable_style_value": "low",
+        "current_form_value": "unclear",
+        "unsupported_or_stale_claims": [
+          "02:50: World-record claim for a 95kg back pressure lift is unverified and likely inaccurate.",
+          "03:15: Neutral grip claim lacks independent verification and may not reflect broader training practices.",
+          "03:20: Claim that lift's back+side pressure in a static position directly counters Morozov's inside surge is speculative.",
+          "03:45: Strap angle critique lacks corroboration and may not generalize; potential measurement issue.",
+          "04:05: The assertion that Ermes' performance against Levan Saginashvili proves direct carry-over to Morozov is anecdotal and not substantiated."
+        ],
+        "concise_rationale": "The source is a single, potentially propagandistic video from a non-authoritative channel. Its claims are largely unverified and occasionally overstated. It may highlight relevant training concepts (static strength, leverage) but lacks independent corroboration and timely, match-specific evidence for the 2026 Ermes vs Morozov bout. Use with caution and triangulate with more robust sources."
+      }
+    },
+    {
+      "id": "kzpB2-Ndz24",
+      "title": "why ERMES GASPARINI DESTROYS DENIS CYPLENKOV",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=kzpB2-Ndz24",
+      "published_at": "2024-05-09T18:39:36Z",
+      "source_age_days": 716,
+      "source_recency": "recent_context",
+      "score": 34,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 0.2,
+        "recency_risk": 0.6,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source analyzes a different opponent (Denis Cyplenkov) and offers no analysis specific to Artyom Morozov or the Gasparini matchup. The note that 'Gemini analysis failed' signals low reliability. Therefore, it provides little direct, current, or durable guidance for the June 2026 match."
+      }
+    },
+    {
+      "id": "RaQTl_kesgM",
+      "title": "ERMES GASPARINI VS ARTYOM MOROZOV + MICHAEL TODD VS EDDIE HALL",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=RaQTl_kesgM",
+      "published_at": "2022-09-24T19:24:04Z",
+      "source_age_days": 1309,
+      "source_recency": "historical_context",
+      "score": 33,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 2,
+        "recency_risk": 8,
+        "durable_style_value": 4,
+        "current_form_value": 2,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is from 2022 and discusses older matchups; there are no claims to evaluate for the 2026 Gasparini vs Morozov right-hand match. The note 'Gemini analysis failed' suggests limited credibility. Overall, the source has low direct relevance and weak durability for informing the 2026 matchup."
+      }
+    },
+    {
+      "id": "jqcmzlRFEGY",
+      "title": "ERMES GASPARINI NEW WORLD RECORD",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=jqcmzlRFEGY",
+      "published_at": "2024-04-30T19:35:22Z",
+      "source_age_days": 725,
+      "source_recency": "recent_context",
+      "score": 33,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 1,
+        "recency_risk": 0.6,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.25,
+        "unsupported_or_stale_claims": [
+          "No actionable claims in the data; claims array is empty.",
+          "Summary notes that Gemini analysis failed; no reliable insights about Gasparini or Morozov.",
+          "Source is a 2024 video about a world record, not a June 2026 match analysis."
+        ],
+        "concise_rationale": "The source is a 2024 video with no claims about the Gasparini–Morozov matchup and explicitly notes an analysis failure. It provides minimal direct relevance, low credibility for current form, and limited usefulness for the June 2026 bout."
+      }
+    },
+    {
+      "id": "RSQl_U_YIgw",
+      "title": "Ermes, Genadi, John, and Devon predict the Morozov vs Vitaly supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=RSQl_U_YIgw",
+      "published_at": "2024-06-20T09:39:05Z",
+      "source_age_days": 674,
+      "source_recency": "recent_context",
+      "score": 33,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": 2,
+        "recency_risk": 0.6,
+        "durable_style_value": 0.4,
+        "current_form_value": 0.3,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source analyzes Morozov vs Vitaly, not Gasparini vs Morozov. Its content has minimal direct relevance to the June 2026 Gasparini–Morozov match. The video is short (2024) and notes 'Gemini analysis failed,' offering little durable or current-form insight applicable to 2026. No claims are present to evaluate."
+      }
+    },
+    {
+      "id": "NGidvAhnakw",
+      "title": "Morozov talks about future supermatches against Jerry and Ermes",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=NGidvAhnakw",
+      "published_at": "2023-03-20T23:03:47Z",
+      "source_age_days": 1132,
+      "source_recency": "historical_context",
+      "score": 33,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 0.15,
+        "recency_risk": 0.8,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": [
+          "No direct claims about the 2026 Ermes Gasparini vs Artyom Morozov right-hand match; video from 2023 discusses Morozov's potential future supermatches with Ermes, not the June 2026 fight.",
+          "Summary note 'Gemini analysis failed' suggests low analytical reliability and limited actionable content."
+        ],
+        "concise_rationale": "The source is old (2023) and only tangentially mentions Morozov's potential matches with Ermes, with no specific analysis or data about the 2026 Ermes vs Morozov right-hand match. Overall usefulness for the June 2026 bout is minimal."
+      }
+    },
+    {
+      "id": "IkckzdyeVBc",
+      "title": "Ermes Gasparini vs Artyom Morozov Left East vs West 5 Highlights",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=IkckzdyeVBc",
+      "published_at": "2022-12-18T18:19:25Z",
+      "source_age_days": 1224,
+      "source_recency": "historical_context",
+      "score": 32,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "high",
+        "durable_style_value": "low",
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a 2022 highlight video with no analytical claims or current-form data for Gasparini or Morozov. It offers minimal direct analysis relevant to a 2026 match, resulting in high recency risk and low usefulness for MVP purposes."
+      }
+    },
+    {
+      "id": "BhIJT42gwNc",
+      "title": "Ermes Gasparini vs Artym Morozov | Left Arm | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=BhIJT42gwNc",
+      "published_at": "2022-11-19T23:02:58Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "score": 31,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": 0.4,
+        "recency_risk": 0.8,
+        "durable_style_value": 0.25,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a 2022 video with no extractable claims relevant to the 2026 matchup; the summary notes analysis failure, offering minimal current strategic insight."
+      }
+    },
+    {
+      "id": "lDVhpYDlIPc",
+      "title": "Ermes and Jerry On Genadi vs Morozov and Quality",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=lDVhpYDlIPc",
+      "published_at": "2023-07-04T16:52:09Z",
+      "source_age_days": 1026,
+      "source_recency": "historical_context",
+      "score": 30,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": 0.9,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.15,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "Source is a 2023 video about Morozov and others; it mentions Morozov but not Gasparini vs Morozov, and contains no substantive claims for the June 2026 match. The summary 'Gemini analysis failed' implies reliability issues. Overall, the source is not directly useful for the upcoming match."
+      }
+    },
+    {
+      "id": "ds9uGS_z-b0",
+      "title": "Artyom Morozov vs Revaz Lutidze | East vs West 5 Highlights",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=ds9uGS_z-b0",
+      "published_at": "2022-12-14T19:45:00Z",
+      "source_age_days": 1228,
+      "source_recency": "historical_context",
+      "score": 29,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 2,
+        "recency_risk": "high",
+        "durable_style_value": 2,
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a 2022 Morozov vs Lutidze highlight reel with no content about Gasparini or the 2026 match. It offers minimal direct tactical analysis, and the recency is poor for a June 2026 bout; thus low usefulness for the event."
+      }
+    },
+    {
+      "id": "BOlYV9FQWgs",
+      "title": "ERMES GASPARINI is #1",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=BOlYV9FQWgs",
+      "published_at": "2023-07-30T14:00:07Z",
+      "source_age_days": 1000,
+      "source_recency": "historical_context",
+      "score": 29,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": "high",
+        "durable_style_value": 0.15,
+        "current_form_value": 0.15,
+        "unsupported_or_stale_claims": [
+          "Claims field is empty; no evaluable claims",
+          "Summary notes 'Gemini analysis failed' but provides no substantiation or evidence",
+          "Video originates from a channel with unclear credibility; lacks match-specific or technical analysis",
+          "No dates or data directly relevant to Ermes Gasparini vs Artyom Morozov right-hand matchup"
+        ],
+        "concise_rationale": "The source provides no concrete, match-relevant claims or data to assess for the 2026 bout; its age (2023) and questionable credibility reduce its usefulness, and there are no substantiated claims to evaluate."
+      }
+    },
+    {
+      "id": "GTSIMBlIy5A",
+      "title": "Ermes talks about the Genadi vs Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=GTSIMBlIy5A",
+      "published_at": "2023-06-27T17:38:01Z",
+      "source_age_days": 1033,
+      "source_recency": "historical_context",
+      "score": 29,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 2,
+        "recency_risk": 7,
+        "durable_style_value": 2,
+        "current_form_value": 2,
+        "unsupported_or_stale_claims": 0,
+        "concise_rationale": "The source is an old, unrelated video about Morozov vs Genadi; it contains no claims about Gasparini vs Morozov and offers minimal, non-direct insights for the June 2026 matchup. Evidence is limited and not directly applicable."
+      }
+    },
+    {
+      "id": "1EccmmVB0lQ",
+      "title": "Jerry is coming for Ermes and Levan",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=1EccmmVB0lQ",
+      "published_at": "2023-05-18T03:34:47Z",
+      "source_age_days": 1073,
+      "source_recency": "historical_context",
+      "score": 28,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "high",
+        "durable_style_value": "low",
+        "current_form_value": "poor",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a 2023 YouTube video with no direct content about the 2026 Ermes Morozov matchup; there are no substantiated claims relevant to the event, limiting its usefulness for the MVP."
+      }
+    },
+    {
+      "id": "ESV3SAsb2JU",
+      "title": "VITALY LALETİN VS ARTYOM MOROZOV - EAST VS WEST 13",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=ESV3SAsb2JU",
+      "published_at": "2024-07-17T13:19:32Z",
+      "source_age_days": 647,
+      "source_recency": "recent_context",
+      "score": 27,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 0.2,
+        "recency_risk": 0.7,
+        "durable_style_value": 0.3,
+        "current_form_value": 0.4,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The video covers Morozov vs. Laletin (not Gasparini) and predates the Gasparini–Morozov bout. It notes that Gemini analysis failed, suggesting low relevance and reliability for predicting the June 2026 Gasparini–Morozov matchup."
+      }
+    },
+    {
+      "id": "VC88pY2Qhjc",
+      "title": "Artyom Morozov VS Vitaly Laletin EVW16 Highlights",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=VC88pY2Qhjc",
+      "published_at": "2025-02-25T15:00:42Z",
+      "source_age_days": 424,
+      "source_recency": "recent_context",
+      "score": 27,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 3,
+        "pass_fail": "pass",
+        "directness": 2,
+        "recency_risk": 0.6,
+        "durable_style_value": 2,
+        "current_form_value": 1,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "Source is Morozov-vs-Laletin highlights (2025), not Gasparini-vs-Morozov; provides limited direct data for the June 2026 matchup. No explicit claims to verify; summary notes 'Gemini analysis failed' reducing reliability. Recency is relatively fresh but not specific to the target match; overall relevance to Morozov's current form for this opponent is low with sparse actionable data."
+      }
+    },
+    {
+      "id": "h97x119ssPk",
+      "title": "ARTYOM MOROZOV HAS ARRIVED WITH HIS GUNS! 💣💪",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=h97x119ssPk",
+      "published_at": "2025-06-19T07:50:05Z",
+      "source_age_days": 310,
+      "source_recency": "recent_context",
+      "score": 27,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "moderate",
+        "durable_style_value": "low",
+        "current_form_value": "poor",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a short video about Artyom Morozov's arrival with no analytical content pertinent to the Gasparini vs Morozov right-hand match. The summary notes 'Gemini analysis failed,' and there are no claims to evaluate. Therefore it provides little direct value for prep, is only moderately recent, and lacks actionable technique or matchup data."
+      }
+    },
+    {
+      "id": "lVk6x2SXehw",
+      "title": "Genadi and Morozov predict Ermes vs Jerry and Vitaly vs Revaz supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=lVk6x2SXehw",
+      "published_at": "2023-07-16T09:00:25Z",
+      "source_age_days": 1014,
+      "source_recency": "historical_context",
+      "score": 27,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "high",
+        "durable_style_value": 2,
+        "current_form_value": 2,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The video discusses Morozov predicting other matches and dates from 2023; it does not analyze the Ermes Gasparini vs Artyom Morozov right-hand matchup. Low direct relevance for the June 2026 bout, plus high recency risk and no actionable or verifiable claims for MVP assessment."
+      }
+    },
+    {
+      "id": "tnnrrhwAZVM",
+      "title": "Ermes Gasparini's TOP 5 ARMWRESTLERS in the World Right Arm",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=tnnrrhwAZVM",
+      "published_at": "2022-02-07T13:16:55Z",
+      "source_age_days": 1538,
+      "source_recency": "historical_context",
+      "score": 26,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": 8,
+        "durable_style_value": 2,
+        "current_form_value": 2,
+        "unsupported_or_stale_claims": false,
+        "concise_rationale": "The source is a 2022 YouTube 'top 5' list with no match-specific claims about Gasparini/Morozov. It lacks recent form data, head-to-head info, or actionable prep guidance for a June 2026 match. The summary notes 'Gemini analysis failed', implying unreliability. No claims are present to evaluate; therefore low usefulness for current match prep."
+      }
+    },
+    {
+      "id": "K_KDLOc4GzM",
+      "title": "Matt Mask vs Artyom Morozov - East vs West 3",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=K_KDLOc4GzM",
+      "published_at": "2022-05-27T09:07:37Z",
+      "source_age_days": 1429,
+      "source_recency": "historical_context",
+      "score": 25,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 15,
+        "pass_fail": "fail",
+        "directness": 20,
+        "recency_risk": 85,
+        "durable_style_value": 10,
+        "current_form_value": 15,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is unrelated to the Gasparini vs Morozov 2026 right-hand match (a 2022 Morozov vs Matt Mask video). No claims about Gasparini, Morozov, or current form are present; a note of 'Gemini analysis failed' suggests unreliability. Data is outdated and not directly applicable to the 2026 matchup, offering minimal direct usefulness for MVP assessment."
+      }
+    },
+    {
+      "id": "cVGRZUI0JAk",
+      "title": "ERMES GASPARINI IS STRONGER THAN LEVAN",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=cVGRZUI0JAk",
+      "published_at": "2023-07-09T14:00:23Z",
+      "source_age_days": 1021,
+      "source_recency": "historical_context",
+      "score": 25,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 0.25,
+        "recency_risk": 0.9,
+        "durable_style_value": 0.15,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": [
+          "No specific claims about Morozov or the June 2026 match; claims field is empty.",
+          "Summary notes 'Gemini analysis failed' with no substantiated analysis.",
+          "Title asserts Gasparini stronger than Levan; irrelevant to Morozov comparison.",
+          "Publication date 2023 makes it outdated for a mid-2026 event."
+        ],
+        "concise_rationale": "The source offers almost no relevant or substantiated analysis for Gasparini vs Morozov. It is outdated (2023), contains no claims to evaluate, and even labels its analysis as failed, making it unreliable for MVP purposes."
+      }
+    },
+    {
+      "id": "yz84F1olem4",
+      "title": "ERMES GASPARINI NEW WORLD RECORD",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=yz84F1olem4",
+      "published_at": "2023-01-31T18:20:48Z",
+      "source_age_days": 1180,
+      "source_recency": "historical_context",
+      "score": 25,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "high",
+        "durable_style_value": "low",
+        "current_form_value": "stale",
+        "unsupported_or_stale_claims": "none",
+        "concise_rationale": "The source is a dated, short video about a world record with no actionable analysis or claims relevant to the Gasparini-Morozov match. It offers no direct, current insights and contains no verifiable claims to support strategic evaluation."
+      }
+    },
+    {
+      "id": "Qt-GFWppzoo",
+      "title": "ERMES GASPARINI puts on a MASTERCLASS of ARMWRESTLING",
+      "channel": "Voice of Armwrestling",
+      "url": "https://www.youtube.com/watch?v=Qt-GFWppzoo",
+      "published_at": "2023-08-20T08:32:46Z",
+      "source_age_days": 979,
+      "source_recency": "historical_context",
+      "score": 25,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": "high",
+        "durable_style_value": "low",
+        "current_form_value": "poor",
+        "unsupported_or_stale_claims": [
+          "Gemini analysis failed."
+        ],
+        "concise_rationale": "No relevant claims or actionable analysis for the Gasparini–Morozov match; the 2023 video is old and lacks direct content about Morozov; the only note is the unverified summary 'Gemini analysis failed', making the source unreliable for MVP."
+      }
+    },
+    {
+      "id": "_58b8z7kbcA",
+      "title": "ERMES GASPARINI STRONGER than LEVAN???",
+      "channel": "Performance Enhancing Pancakes",
+      "url": "https://www.youtube.com/watch?v=_58b8z7kbcA",
+      "published_at": "2023-02-09T15:00:32Z",
+      "source_age_days": 1171,
+      "source_recency": "historical_context",
+      "score": 24,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": 4,
+        "durable_style_value": "low",
+        "current_form_value": "unknown",
+        "unsupported_or_stale_claims": [
+          "No substantive claims provided; only note is 'Gemini analysis failed'; video is from 2023 and predates the 2026 match",
+          "No direct analysis of Gasparini vs Morozov; claims are absent"
+        ],
+        "concise_rationale": "The source offers no actionable or directly relevant analysis for the Gasparini–Morozov matchup; it is outdated (2023) and explicitly states the analysis failed, making it unreliable for a 2026 prediction."
+      }
+    },
+    {
+      "id": "sXk2bPH2LAM",
+      "title": "Ermes Gasparini ranks Matt Mask Toproll",
+      "channel": "Voice of Armwrestling",
+      "url": "https://www.youtube.com/watch?v=sXk2bPH2LAM",
+      "published_at": "2023-09-15T12:19:11Z",
+      "source_age_days": 953,
+      "source_recency": "historical_context",
+      "score": 23,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": 0.8,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source discusses Gasparini ranking Matt Mask Toproll and notes Gemini analysis failure; it contains no content relevant to Gasparini vs Morozov or their current form, making it not useful for the June 2026 match."
+      }
+    },
+    {
+      "id": "T2j0uIpiMbI",
+      "title": "ERMES & MOROZOV HAVE TAKEN THIS TO A WHOLE NEW LEVEL..",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=T2j0uIpiMbI",
+      "published_at": "2025-05-01T01:53:41Z",
+      "source_age_days": 359,
+      "source_recency": "recent_context",
+      "score": 23,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": 0.4,
+        "durable_style_value": "low",
+        "current_form_value": "unclear",
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source provides minimal, non-specific analysis content and contains no verifiable claims relevant to the Gasparini vs Morozov matchup; a 2025 video with a dismissive summary does not offer actionable data for a June 2026 event."
+      }
+    },
+    {
+      "id": "CRDvvib8iQ0",
+      "title": "WTF 😱 Ermes Gasparini Analysis Match Vitaly Laletin vs Artyom Morozov",
+      "channel": "Arm wrestling",
+      "url": "https://www.youtube.com/watch?v=CRDvvib8iQ0",
+      "published_at": "2025-02-27T16:00:16Z",
+      "source_age_days": 422,
+      "source_recency": "recent_context",
+      "score": 22,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 2,
+        "pass_fail": "fail",
+        "directness": 1,
+        "recency_risk": 7,
+        "durable_style_value": 2,
+        "current_form_value": 3,
+        "unsupported_or_stale_claims": [
+          "Mismatched matchup: video analyzes Vitaly Laletin vs Artyom Morozov, not Ermes Gasparini vs Artyom Morozov",
+          "No direct claims about the upcoming Gasparini-Morozov match",
+          "Content may be stale for a June 2026 evaluation and not evergreen evidence for the target contest"
+        ],
+        "concise_rationale": "The source is not directly relevant to the June 2026 Gasparini vs Morozov match, focuses on a different opponent pair, and is relatively dated for predictive use."
+      }
+    },
+    {
+      "id": "rcSdpo_r9eg",
+      "title": "Ermes Gasparini vs Matt Mask & Artyom Morozov - AFTERPULL",
+      "channel": "Issa Chikhou",
+      "url": "https://www.youtube.com/watch?v=rcSdpo_r9eg",
+      "published_at": "2022-05-23T12:00:28Z",
+      "source_age_days": 1433,
+      "source_recency": "historical_context",
+      "score": 21,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": "low",
+        "recency_risk": 0.9,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.1,
+        "unsupported_or_stale_claims": [],
+        "concise_rationale": "The source is a 2022 YouTube item with no claims tied to the 2026 match; its summary notes a failed Gemini analysis. It is outdated, not directly about Gasparini vs Morozov in 2026, and offers little durable value for evaluating that specific bout."
+      }
+    },
+    {
+      "id": "YtPhhn7lxQc",
+      "title": "ARTYOM MOROZOV HAS ALWAYS BEEN A BEAST",
+      "channel": "Brazilian ArmWrestler",
+      "url": "https://www.youtube.com/watch?v=YtPhhn7lxQc",
+      "published_at": "2023-07-02T18:07:01Z",
+      "source_age_days": 1028,
+      "source_recency": "historical_context",
+      "score": 21,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 15,
+        "pass_fail": "fail",
+        "directness": 0.4,
+        "recency_risk": 0.8,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.25,
+        "unsupported_or_stale_claims": "No verifiable claims provided; summary notes 'Gemini analysis failed'; source is from 2023 and lacks recent form data, reducing reliability for a 2026 match.",
+        "concise_rationale": "The source lacks actionable claims, is several years old, and its own summary acknowledges failure, making it unreliable for evaluating a mid-2026 bout."
+      }
+    },
+    {
+      "id": "n4gUYjTUifw",
+      "title": "Ermes Gasparini vs. Artyom Morozov will be crazy!",
+      "channel": "SHAWSTRENGTH PODCAST",
+      "url": "https://www.youtube.com/watch?v=n4gUYjTUifw",
+      "published_at": "2026-03-13T21:00:56Z",
+      "source_age_days": 43,
+      "source_recency": "current_window",
+      "score": 21,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": "low",
+        "pass_fail": "fail",
+        "directness": "indirect",
+        "recency_risk": "low",
+        "durable_style_value": "low",
+        "current_form_value": "mixed",
+        "unsupported_or_stale_claims": true,
+        "concise_rationale": "The source is a hype-oriented podcast with no substantive, verifiable claims about the match. The only textual note, 'Gemini analysis failed,' is vague and not substantiated, and there are no actionable or credible analysis items in the data. While the video is relatively recent (March 2026), it does not provide reliable strategic or factual content for June 2026 prep."
+      }
+    },
+    {
+      "id": "SS2F5lZmQNs",
+      "title": "Artyom Morozov EVW24 USA",
+      "channel": "Ermes Gasparini",
+      "url": "https://www.youtube.com/watch?v=SS2F5lZmQNs",
+      "published_at": "2026-04-24T15:58:24Z",
+      "source_age_days": 1,
+      "source_recency": "current_window",
+      "score": 21,
+      "selected_model": "gemini-3-flash-preview",
+      "claim_count": 0,
+      "estimated_media_cost_usd": 0.0,
+      "evaluation": {
+        "usefulness_grade": 1,
+        "pass_fail": "fail",
+        "directness": 0.25,
+        "recency_risk": 0.3,
+        "durable_style_value": 0.2,
+        "current_form_value": 0.2,
+        "unsupported_or_stale_claims": 0,
+        "concise_rationale": "The source provides no substantive analysis or claims; the summary 'Gemini analysis failed' indicates unreliability. With a short video published 2026-04-24, it offers minimal direct evidence relevant to the June 2026 match and contains no actionable content to inform prep."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "video_id": "pHHR6Bc9zXY",
+      "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "source_published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=10s",
+      "timestamp": "00:10",
+      "claim": "Devon believes Morozov vs Gennadi is a close match, highlighting Morozov's top roll vs Gennadi's inside game.",
+      "speaker_or_source": "Devon Larratt",
+      "relevance": "Establishes Morozov's stylistic baseline as a top-roller who struggles against elite inside pressure.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "pHHR6Bc9zXY",
+      "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "source_published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=100s",
+      "timestamp": "01:40",
+      "claim": "Ermes is no longer just a top-roller; he has developed significant shoulder pressure and a press.",
+      "speaker_or_source": "Devon Larratt",
+      "relevance": "Crucial for the Morozov match as it means Ermes can win even if he loses his wrist or is forced inside.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "pHHR6Bc9zXY",
+      "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "source_published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=112s",
+      "timestamp": "01:52",
+      "claim": "Ermes' primary danger zone is being caught on his brachioradialis; if caught there, it is very hard to survive.",
+      "speaker_or_source": "Engin Terzi",
+      "relevance": "Identifies the specific technical path Morozov needs to take (hook/cup) to beat Ermes.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "pHHR6Bc9zXY",
+      "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "source_published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=135s",
+      "timestamp": "02:15",
+      "claim": "To beat a flop-presser, a puller must train supination and a low cup to pull the opponent out of their tricep.",
+      "speaker_or_source": "Devon Larratt",
+      "relevance": "While discussing Jerry, this applies to how Morozov might defend against Ermes' newly developed press.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "pHHR6Bc9zXY",
+      "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+      "channel": "Victorcali Arm Wrestling",
+      "source_published_at": "2023-06-10T07:00:31Z",
+      "source_age_days": 1050,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=155s",
+      "timestamp": "02:35",
+      "claim": "You must be able to spin a presser to neutralize their tricep drive.",
+      "speaker_or_source": "Devon Larratt",
+      "relevance": "Tactical advice for Morozov to handle Ermes' transition to the shoulder.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=55s",
+      "timestamp": "00:55",
+      "claim": "Ermes Gasparini is competing at 130kg and is in peak form, having just defeated Dave Chaffee on the right hand.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Establishes Ermes's historical weight and right-hand momentum during this period.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=110s",
+      "timestamp": "01:50",
+      "claim": "Artyom Morozov is coming off a significant right-hand victory over Revaz Lutidze.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Confirms Morozov's elite right-hand pedigree against top-tier super-heavyweights.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=180s",
+      "timestamp": "03:00",
+      "claim": "Morozov's wrist control 'up top' is described as phenomenal.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Highlights a durable stylistic strength that challenges Ermes's primary toproll attack.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=430s",
+      "timestamp": "07:10",
+      "claim": "Morozov's height and joint position allow him to apply massive pressure even when his wrist is technically compromised.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Suggests that Ermes's toproll may not be enough to finish Morozov if the frame advantage is too great.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=445s",
+      "timestamp": "07:25",
+      "claim": "Ermes appeared to 'give up' his wrist or sacrifice position after failing to find a quick finish against Morozov's height.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Points to a potential endurance or psychological gap when Ermes cannot dominate the setup.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=690s",
+      "timestamp": "11:30",
+      "claim": "Morozov demonstrates a very efficient transition to side pressure and the pad once he secures hand position.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Shows Morozov's ability to finish matches quickly once he negates an opponent's outside move.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=890s",
+      "timestamp": "14:50",
+      "claim": "Morozov is described as having the perfect frame for the sport and 'checking all the boxes' for long-term dominance.",
+      "speaker_or_source": "Commentator",
+      "relevance": "Supports the narrative of Morozov's higher ceiling compared to established veterans.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=970s",
+      "timestamp": "16:10",
+      "claim": "Morozov admits he was not fully confident in himself during the first round of the match.",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Indicates that Morozov can be vulnerable early in a match before his 'steel' hand takes over.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=45s",
+      "timestamp": "00:45",
+      "claim": "Ermes uses a hybrid drag and pivot move to punch his knuckle up and over the opponent's hand.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Crucial for Ermes' ability to negate Morozov's hand control and establish a high-knuckle toproll.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=100s",
+      "timestamp": "01:40",
+      "claim": "Ermes is consistently opening the opponent's elbow flexor angle through superior back pressure.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "If Ermes can open Morozov's arm, he can prevent the match from entering a deep hook.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=170s",
+      "timestamp": "02:50",
+      "claim": "Ermes maintains a significantly tighter elbow flexor angle than elite opponents, keeping his knuckle higher throughout the pull.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "This structural integrity is key to Ermes' defensive and offensive toproll against Morozov.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=315s",
+      "timestamp": "05:15",
+      "claim": "Ermes shows a strong transition to a flop press when his elbow flexor begins to open or gas.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Provides Ermes a 'Plan B' if Morozov manages to stop his initial toproll hit.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=400s",
+      "timestamp": "06:40",
+      "claim": "Ermes utilizes shoulder commitment to decrease his elbow flexor angle and press through defensive positions.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Morozov is known for his defensive recovery; Ermes' ability to press through a stop is vital.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=495s",
+      "timestamp": "08:15",
+      "claim": "Ermes has specifically improved his ability to handle 'King's Move' and open toproll pressure.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Morozov often uses his frame and open angles defensively; Ermes' training here is a direct counter.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=525s",
+      "timestamp": "08:45",
+      "claim": "Ermes is focusing on gaining height and technical proficiency against long-armed pullers.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Morozov has a massive frame; Ermes' focus on height is a necessary tactical adjustment.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "n_6pWpcJT1g",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-11-07T20:51:57Z",
+      "source_age_days": 534,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=n_6pWpcJT1g&t=585s",
+      "timestamp": "09:45",
+      "claim": "Ermes looks technically better and more 'figured out' than in his previous elite match appearances.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Indicates a peak form and high confidence level heading into the Morozov match.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=45s",
+      "timestamp": "00:45",
+      "claim": "Devon Larratt's strategy was to fight for height and create distance, making it impossible for Ermes to contain him.",
+      "speaker_or_source": "Narrator",
+      "relevance": "Suggests Morozov should utilize his large frame to fight for height rather than engaging in a low-grip battle.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=100s",
+      "timestamp": "01:40",
+      "claim": "Devon was able to 'double cap' his thumb, indicating he had achieved superior height and supination in the setup.",
+      "speaker_or_source": "Narrator",
+      "relevance": "Highlights the importance of the setup; if Morozov can win the height battle, he can compromise Ermes' hand.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=140s",
+      "timestamp": "02:20",
+      "claim": "Ermes' 95kg of back pressure is effectively neutralized the moment his wrist is forced back.",
+      "speaker_or_source": "Narrator",
+      "relevance": "Directly relates to Morozov's cup and wrist strength; if Morozov can't take the wrist, he faces Ermes' full power.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=170s",
+      "timestamp": "02:50",
+      "claim": "Ermes consistently struggles with long-armed toprollers, as seen in his matches against Devon Larratt and Alex Kurdecha.",
+      "speaker_or_source": "Narrator",
+      "relevance": "Morozov has a massive frame; if he employs a toproll style, he fits the physical profile that troubles Ermes.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=190s",
+      "timestamp": "03:10",
+      "claim": "Ermes defeated Genadi Kvikvinia, proving he is extremely effective against high-level inside pullers.",
+      "speaker_or_source": "Narrator",
+      "relevance": "Morozov is known for his elite hook and inside strength; this historical context suggests Ermes may have the advantage in a hook.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "drxsBp2g4BM",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-05-11T23:13:07Z",
+      "source_age_days": 714,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=210s",
+      "timestamp": "03:30",
+      "claim": "If an opponent does not challenge Ermes' height, he has full access to his side pressure and back pressure, making him nearly impossible to beat.",
+      "speaker_or_source": "Narrator",
+      "relevance": "The match likely hinges on whether Morozov can use his frame to stay outside or if he gets sucked into Ermes' power.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "DtDtFv7bCVs",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=DtDtFv7bCVs&t=115s",
+      "timestamp": "01:55",
+      "claim": "Ermes's wrist tends to buckle back when he drives to the side against a strong open toproll.",
+      "speaker_or_source": "Unknown",
+      "relevance": "Morozov's ability to cup and force Ermes's wrist back will be the primary battle in their right-hand match.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "DtDtFv7bCVs",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=DtDtFv7bCVs&t=130s",
+      "timestamp": "02:10",
+      "claim": "Ermes possesses massive arm power and back pressure in his outside move.",
+      "speaker_or_source": "Unknown",
+      "relevance": "This is Ermes's primary defensive and offensive tool to prevent Morozov from forcing a deep hook.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "DtDtFv7bCVs",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=DtDtFv7bCVs&t=210s",
+      "timestamp": "03:30",
+      "claim": "Ermes has a very effective flop press transition if his wrist is forced into a losing position.",
+      "speaker_or_source": "Unknown",
+      "relevance": "If Morozov successfully cracks Ermes's wrist, Ermes will likely rely on this press to finish or stay in the match.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "DtDtFv7bCVs",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=DtDtFv7bCVs&t=280s",
+      "timestamp": "04:40",
+      "claim": "Ermes demonstrates 'crazy' back pressure and side pressure even when pulled into a center-table hook.",
+      "speaker_or_source": "Unknown",
+      "relevance": "Morozov is a hook specialist; Ermes's ability to compete in this lane is crucial for his versatility.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "DtDtFv7bCVs",
+      "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2026-02-21T22:20:03Z",
+      "source_age_days": 63,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=DtDtFv7bCVs&t=300s",
+      "timestamp": "05:00",
+      "claim": "Ermes shows high shoulder commitment and frame strength in inside positions.",
+      "speaker_or_source": "Unknown",
+      "relevance": "Morozov's style often involves a heavy frame; Ermes's ability to match that shoulder commitment is a key defensive metric.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=40s",
+      "timestamp": "00:40",
+      "claim": "Levan's hand is too large to control using standard pronation and height through the index knuckle.",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Highlights Ermes' tactical shift toward thumb-oriented rising, which he will likely use against Morozov's large frame.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=50s",
+      "timestamp": "00:50",
+      "claim": "The only realistic way to defeat a puller of Levan's caliber is through extreme back pressure and rising through the thumb.",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Defines Ermes' primary defensive and offensive setup for the Morozov match.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=110s",
+      "timestamp": "01:50",
+      "claim": "Ermes' back pressure is significantly stronger than Devon Larratt's, allowing him to hold positions Devon cannot.",
+      "speaker_or_source": "Armwrestling Hub",
+      "relevance": "Establishes Ermes as a more durable 'stop' against Morozov's initial hit compared to other elite pullers.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=125s",
+      "timestamp": "02:05",
+      "claim": "Ermes found a specific spot inside the straps to stop Levan by pulling through the thumb and out the back.",
+      "speaker_or_source": "Armwrestling Hub",
+      "relevance": "Suggests Ermes will prioritize strap matches against Morozov to utilize this specific technical leverage.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=160s",
+      "timestamp": "02:40",
+      "claim": "Ermes possesses elite elbow flexion that allows him to maintain a stop several inches above the pin line even when his wrist is compromised.",
+      "speaker_or_source": "Armwrestling Hub",
+      "relevance": "Crucial for the Morozov match, as Morozov often cracks opponents' wrists; Ermes' ability to pull with a broken wrist is a key defensive asset.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "5xm7odwrnZQ",
+      "video_title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-30T18:35:04Z",
+      "source_age_days": 756,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=5xm7odwrnZQ&t=210s",
+      "timestamp": "03:30",
+      "claim": "Ermes' ultimate tactical goal is to secure a stop and then transition into a flop press.",
+      "speaker_or_source": "Armwrestling Hub",
+      "relevance": "Identifies the 'Plan B' that Morozov must prepare for if he cannot pin Ermes quickly.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=28s",
+      "timestamp": "00:28",
+      "claim": "Ermes managed 67kg (147 lbs) on a pronation lift, but his arm angle opened significantly during the attempt.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Establishes a baseline for Ermes' pronation strength and form breakdown under heavy load.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=75s",
+      "timestamp": "01:15",
+      "claim": "Ermes likely has a stronger elbow flexor than anyone in the world except Levan Saginashvili.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Highlights Ermes' primary defensive and offensive weapon for the Morozov match.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=90s",
+      "timestamp": "01:30",
+      "claim": "Ermes' pronation is weaker than Devon Larratt's and potentially weaker than Vitaly Laletin's or Georgi Tsvetkov's.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Identifies a specific vector where Ermes might be vulnerable to outside pullers.",
+      "confidence": "medium",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=105s",
+      "timestamp": "01:45",
+      "claim": "Ermes would outperform Devon Larratt on any lift isolated to the elbow flexors.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Contrasts Ermes' 'inside' frame strength against 'outside' specialists.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=125s",
+      "timestamp": "02:05",
+      "claim": "Ermes has recorded nearly 100kg of back pressure in training.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Quantifies the massive force Morozov will have to pull through to find a pin.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "video_id": "WqqN3HDvBNk",
+      "video_title": "ERMES GASPARINI training like DEVON LARRATT",
+      "channel": "Performance Enhancing Pancakes",
+      "source_published_at": "2024-03-20T14:00:21Z",
+      "source_age_days": 766,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "source_url": "https://www.youtube.com/watch?v=WqqN3HDvBNk&t=135s",
+      "timestamp": "02:15",
+      "claim": "In their match, Ermes stopped Levan with back pressure but was unable to crack Levan's wrist back.",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Shows that Ermes can stop elite power but may lack the hand control to finish easily.",
+      "confidence": "high",
+      "selected_model": "gemini-3-flash-preview"
+    }
+  ]
+}

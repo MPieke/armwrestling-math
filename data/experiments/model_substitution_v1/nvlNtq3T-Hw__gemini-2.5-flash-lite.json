@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "The participants discuss upcoming matches, focusing on the strength and form of various armwrestlers, with a particular emphasis on the potential advantages and disadvantages of specific techniques and past performances.",
+    "popular_take": "Fans might believe that Artyom Morozov's current strength and training are superior, and that his right-hand technique is more reliable than his left, making him a strong contender.",
+    "counter_case": "The discussion highlights the importance of specific techniques and how rules are applied, suggesting that a focus solely on raw strength might overlook tactical advantages or potential rule violations.",
+    "claims": [
+      {
+        "timestamp": "00:51",
+        "claim": "Artyom Morozov's right arm is strong and improving daily.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Morozov's self-assessment of his right arm's condition and strength is crucial for his performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:02",
+        "claim": "Morozov received the nickname 'Kurt' from Alizhan.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Nicknames can sometimes reflect a fighter's style or a specific incident, adding to the narrative.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:10",
+        "claim": "Alizhan gave Morozov cheese, and Morozov got the nickname 'Butter wrist'.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "This claim provides context for Morozov's nickname and potentially hints at a past tactical or stylistic observation.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:30",
+        "claim": "Morozov received the 'Kurt' nickname from Alizhan, and Morozov got the 'Butter wrist' nickname.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Clarifies the origin of nicknames and potentially links them to specific events or observations.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:20",
+        "claim": "Morozov feels good, is training a lot, and his arm is getting better every day.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Morozov's confidence in his current physical state and training regimen is a key factor.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:33",
+        "claim": "Alizhan's match against Davit was confirmed for the 115kg title.",
+        "speaker_or_source": "Alizhan",
+        "relevance": "Highlights the importance of confirmed matches and the anticipation surrounding them.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:03",
+        "claim": "The match between Alizhan and Davit was confirmed for Sunday.",
+        "speaker_or_source": "Alizhan",
+        "relevance": "Provides a specific date for a significant match, adding to the event's timeline.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:47",
+        "claim": "The card is stacked with multiple potential main events.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Suggests the high quality and depth of the entire event, not just individual matches.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "How will Artyom Morozov's current physical condition and training affect his performance against Ermes Gasparini, particularly considering his past nicknames and the importance of his right-hand technique?",
+    "usefulness": "high",
+    "notes": [
+      "The video is a discussion among armwrestlers, providing insights into their mindset, training, and opinions on upcoming matches. The focus is on building narratives rather than making direct predictions."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 157921,
+    "candidatesTokenCount": 953,
+    "totalTokenCount": 158874,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 12098
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 145442
+      }
+    ]
+  },
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  }
+}

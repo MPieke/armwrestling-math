@@ -1,0 +1,66 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": "direct",
+    "recency_risk": 0.25,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.25,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a short 30-second video with no claims or analysis; the summary explicitly states 'Gemini analysis failed.' This provides no actionable or durable insights for the June 2026 match. Recency is adequate, but the content lacks evaluative content to guide preparation."
+  },
+  "usage": {
+    "prompt_tokens": 236,
+    "completion_tokens": 1233,
+    "total_tokens": 1469,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1088,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0005049999999999999,
+  "source": {
+    "id": "5nPeadKu-a4",
+    "url": "https://www.youtube.com/watch?v=5nPeadKu-a4",
+    "title": "Artyom Morozov vs Ermes Gasparini 🔥 EvW 5 - Left Hand",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2026-04-04T20:00:42Z",
+    "description": "",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT30S",
+    "caption": "false",
+    "view_count": 142993,
+    "like_count": 3342,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 30,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-2.5-flash"
+}

@@ -1,0 +1,79 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 37.5,
+    "high_value_coverage_percent": 37.5,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "16:11",
+        "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then."
+      },
+      {
+        "timestamp": "69:14",
+        "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'"
+      },
+      {
+        "timestamp": "22:54",
+        "claim": "Morozov expresses high confidence, stating he will 'smash' Alizhan in their upcoming match."
+      },
+      {
+        "timestamp": "60:19",
+        "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler."
+      },
+      {
+        "timestamp": "41:48",
+        "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "16:11",
+        "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then."
+      },
+      {
+        "timestamp": "69:14",
+        "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'"
+      },
+      {
+        "timestamp": "22:54",
+        "claim": "Morozov expresses high confidence, stating he will 'smash' Alizhan in their upcoming match."
+      },
+      {
+        "timestamp": "60:19",
+        "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler."
+      },
+      {
+        "timestamp": "41:48",
+        "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair."
+      }
+    ],
+    "timestamp_quality": 0.375,
+    "pass_fail": "fail",
+    "concise_rationale": "Only 3 of 8 baseline claims are covered by the candidate (37.5%). Several high-value claims are not supported by the candidate, and there is limited timestamp alignment with baseline claims, indicating the candidate is not adequate to replace the baseline model."
+  },
+  "usage": {
+    "prompt_tokens": 1443,
+    "completion_tokens": 4059,
+    "total_tokens": 5502,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3456,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0016957500000000002,
+  "source": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "Very recent Morozov long-form EVW content."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

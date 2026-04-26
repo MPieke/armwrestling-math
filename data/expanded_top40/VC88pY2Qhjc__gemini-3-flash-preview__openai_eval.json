@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 3,
+    "pass_fail": "pass",
+    "directness": 2,
+    "recency_risk": 0.6,
+    "durable_style_value": 2,
+    "current_form_value": 1,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "Source is Morozov-vs-Laletin highlights (2025), not Gasparini-vs-Morozov; provides limited direct data for the June 2026 matchup. No explicit claims to verify; summary notes 'Gemini analysis failed' reducing reliability. Recency is relatively fresh but not specific to the target match; overall relevance to Morozov's current form for this opponent is low with sparse actionable data."
+  },
+  "usage": {
+    "prompt_tokens": 231,
+    "completion_tokens": 2477,
+    "total_tokens": 2708,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2304,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00100235,
+  "source": {
+    "id": "VC88pY2Qhjc",
+    "url": "https://www.youtube.com/watch?v=VC88pY2Qhjc",
+    "title": "Artyom Morozov VS Vitaly Laletin EVW16 Highlights",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2025-02-25T15:00:42Z",
+    "description": "East vs West 17 Tickets, to watch event in person .\nhttps://eastvswestarmwrestling.com/product/evw17-tickets/\n\nPPV \nhttps://evwsports.com\n\n#armwrestling #eastvswest #eastvswestarmwrestling  #EVWSports",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West"
+    ],
+    "duration": "PT11M16S",
+    "caption": "false",
+    "view_count": 369470,
+    "like_count": 10071,
+    "license": "youtube",
+    "score": 27,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 676,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "long-form or match-length source"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

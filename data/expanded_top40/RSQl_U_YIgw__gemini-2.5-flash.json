@@ -1,0 +1,51 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=RSQl_U_YIgw",
+    "model": "gemini-2.5-flash",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 37.169272611s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"model\": \"gemini-2.5-flash\",\n              \"location\": \"global\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"37s\"\n      }\n    ]\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "RSQl_U_YIgw",
+    "url": "https://www.youtube.com/watch?v=RSQl_U_YIgw",
+    "title": "Ermes, Genadi, John, and Devon predict the Morozov vs Vitaly supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2024-06-20T09:39:05Z",
+    "description": "Ermes Gasparini, Genadi Kvikvinia, John Brzenk and Devon Larratt have given their opinions on the right-arm supermatch between Artyom Morozov and Vitaly Laletin, which will take place at the East vs West 13 event on July 6.\n\nSources:\nCoresports channel: https://www.youtube.com/watch?v=Ir2gfpWn18c, https://www.youtube.com/watch?v=HbYf7pTGC9M \nEngin Terzi’s channel: https://www.youtube.com/watch?v=G6dPPxm135k",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M15S",
+    "caption": "true",
+    "view_count": 2583,
+    "like_count": 85,
+    "license": "youtube",
+    "score": 33,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 135,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": 0.8,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.2,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source discusses Gasparini ranking Matt Mask Toproll and notes Gemini analysis failure; it contains no content relevant to Gasparini vs Morozov or their current form, making it not useful for the June 2026 match."
+  },
+  "usage": {
+    "prompt_tokens": 221,
+    "completion_tokens": 1032,
+    "total_tokens": 1253,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 896,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00042385000000000003,
+  "source": {
+    "id": "sXk2bPH2LAM",
+    "url": "https://www.youtube.com/watch?v=sXk2bPH2LAM",
+    "title": "Ermes Gasparini ranks Matt Mask Toproll",
+    "channel": "Voice of Armwrestling",
+    "channel_id": "UCAH2krcji9uc3gYSqa33Zyw",
+    "published_at": "2023-09-15T12:19:11Z",
+    "description": "▲ BEST ARMWRESTLING EQUIPMENT\nhttps://titangrip-shop.com/ Discount Code: VOA2024\n✅ PATREON\nhttps://www.patreon.com/voiceofarmwrestling\n🏋🏼‍♀️PRO & BASIC WORKOUT PLANS FOR ARMWRESTLING TRAINING\nhttps://voaarmwrestling.com/\n👕T-SHIRTS & MORE\nhttps://teespring.com/en-GB/stores/voice-of-armwrestling\n\n📲 Social Media\n📝https://linktr.ee/coach_ray\nhttps://www.instagram.com/voiceofarmwrestling/\nhttps://www.instagram.com/janisamolins/\nhttps://www.instagram.com/coach_rayx/\n\n#armwrestling #voiceofarmwrestling #armwrestlingtraining",
+    "matched_queries": [
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT41S",
+    "caption": "false",
+    "view_count": 241667,
+    "like_count": 10700,
+    "license": "youtube",
+    "score": 23,
+    "score_reasons": [
+      "trusted channel: Voice of Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 41,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

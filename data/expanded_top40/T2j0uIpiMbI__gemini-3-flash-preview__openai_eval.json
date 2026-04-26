@@ -1,0 +1,62 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "low",
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": 0.4,
+    "durable_style_value": "low",
+    "current_form_value": "unclear",
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source provides minimal, non-specific analysis content and contains no verifiable claims relevant to the Gasparini vs Morozov matchup; a 2025 video with a dismissive summary does not offer actionable data for a June 2026 event."
+  },
+  "usage": {
+    "prompt_tokens": 237,
+    "completion_tokens": 1353,
+    "total_tokens": 1590,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1216,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00055305,
+  "source": {
+    "id": "T2j0uIpiMbI",
+    "url": "https://www.youtube.com/watch?v=T2j0uIpiMbI",
+    "title": "ERMES & MOROZOV HAVE TAKEN THIS TO A WHOLE NEW LEVEL..",
+    "channel": "ARMWRESTLING NEWZ",
+    "channel_id": "UCdCGMR_8NeATGsFTms6m5Ag",
+    "published_at": "2025-05-01T01:53:41Z",
+    "description": "Introduction:- 00:00\nZaur's Lift.   :- 01:04\nLevan vs Ermes Comparison :- 02:15\nMichael's Pronation too much for Vitaly? :- 03:05\nMorozov vs Denis comparison:- 03:24\n\nhttps://www.youtube.com/channel/UCdCGMR_8NeATGsFTms6m5Ag/join\nPATREON  https://rb.gy/awjrwr\n#armwrestling #devonlarrat  #eastvswestarmwrestling \n\nedited by manjeet",
+    "matched_queries": [
+      "Ermes Morozov Armwrestling Newz"
+    ],
+    "duration": "PT4M17S",
+    "caption": "false",
+    "view_count": 24285,
+    "like_count": 917,
+    "license": "youtube",
+    "score": 23,
+    "score_reasons": [
+      "trusted channel: ARMWRESTLING NEWZ",
+      "matched term: ermes",
+      "matched term: morozov",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 257,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

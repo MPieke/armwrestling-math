@@ -1,0 +1,68 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 1,
+    "recency_risk": 7,
+    "durable_style_value": 2,
+    "current_form_value": 3,
+    "unsupported_or_stale_claims": [
+      "Mismatched matchup: video analyzes Vitaly Laletin vs Artyom Morozov, not Ermes Gasparini vs Artyom Morozov",
+      "No direct claims about the upcoming Gasparini-Morozov match",
+      "Content may be stale for a June 2026 evaluation and not evergreen evidence for the target contest"
+    ],
+    "concise_rationale": "The source is not directly relevant to the June 2026 Gasparini vs Morozov match, focuses on a different opponent pair, and is relatively dated for predictive use."
+  },
+  "usage": {
+    "prompt_tokens": 237,
+    "completion_tokens": 1668,
+    "total_tokens": 1905,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1472,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00067905,
+  "source": {
+    "id": "CRDvvib8iQ0",
+    "url": "https://www.youtube.com/watch?v=CRDvvib8iQ0",
+    "title": "WTF 😱 Ermes Gasparini Analysis Match Vitaly Laletin vs Artyom Morozov",
+    "channel": "Arm wrestling",
+    "channel_id": "UCjICJvkR8OTpZMzpVLtv-sA",
+    "published_at": "2025-02-27T16:00:16Z",
+    "description": "Ermes Gasparini Analysis Match Vitaly Laletin vs Artyom Morozov\n#armwrestling #prediction #ermesgasparini #devonlarratt \n---\nLink to full video:\nhttps://www.youtube.com/watch?v=8tIM7zuE58Y\nhttps://www.youtube.com/watch?v=VC88pY2Qhjc\n---\n@eastvswestarmwrestling \n@Engin_Terzi \n​",
+    "matched_queries": [
+      "Artyom Morozov Ermes Gasparini analysis"
+    ],
+    "duration": "PT3M1S",
+    "caption": "false",
+    "view_count": 7796,
+    "like_count": 140,
+    "license": "youtube",
+    "score": 22,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: prediction",
+      "matched term: analysis",
+      "mentions both Ermes and Morozov"
+    ],
+    "duration_seconds": 181,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

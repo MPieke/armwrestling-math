@@ -1,0 +1,94 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov discusses his current 138kg body weight, his training philosophy based on 'feeling' rather than strict plans, and his desire for more 'no-rules' style grinding matches.",
+    "popular_take": "Morozov is at a massive 304lbs and is widely considered by peers and commentators like Travis Bagent to be the next potential #1 overall puller in the world.",
+    "counter_case": "Morozov admits that in his loss to Vitaly Laletin, he simply lacked the raw strength required, suggesting that against elite power like Ermes, his technical grinding might not be enough if the strength gap is too wide.",
+    "claims": [
+      {
+        "timestamp": "03:03",
+        "claim": "Artyom Morozov's current weight is 138kg (approximately 304-305 lbs).",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Establishes his current mass for the super-heavyweight division against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "15:55",
+        "claim": "Morozov attributes his loss to Vitaly Laletin to a lack of raw strength rather than technical errors.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests that Morozov's primary hurdle against top-tier pullers like Ermes is pure power output.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "17:15",
+        "claim": "Vitaly Laletin was in significantly better shape against Devon Sarratt than he was against Morozov.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides context for Morozov's past performances against common elite opponents.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "47:00",
+        "claim": "Morozov advocates for removing elbow pad and foul rules after the 'Ready Go' to allow for pure grinding matches until someone quits.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Highlights his tactical preference for endurance-based, 'dirty' pulling which he may attempt to use to tire Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "55:45",
+        "claim": "Dave Chaffee's endurance appeared much improved in his match against Sagov compared to his match against Morozov.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Morozov tracks the endurance and form of top heavyweights he has faced.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "64:18",
+        "claim": "Morozov is described as being 'one centimeter away' from being the overall #1 champion of the world.",
+        "speaker_or_source": "Travis Bagent",
+        "relevance": "Reflects the high community and expert expectation for Morozov's current trajectory.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "70:48",
+        "claim": "Morozov does not follow a strict training plan, instead training by 'feeling' and intuition for the last six months.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates a shift in his preparation style which could affect his peaking for a high-stakes match.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Morozov's 138kg frame and endurance-focused 'grinding' style survive the initial explosive back-pressure and hand control of Ermes Gasparini?",
+    "usefulness": "high",
+    "notes": [
+      "The podcast focuses heavily on the left-hand match with Alizhan, but Morozov's comments on weight and training philosophy are directly applicable to his right-hand form.",
+      "Morozov appears very relaxed and confident in his current mass."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 111960,
+    "candidatesTokenCount": 961,
+    "totalTokenCount": 113748,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 111579
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 827
+  },
+  "source": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "Very recent Morozov long-form EVW content."
+  }
+}

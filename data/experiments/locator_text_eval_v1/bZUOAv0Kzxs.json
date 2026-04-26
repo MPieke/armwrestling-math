@@ -1,0 +1,81 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "coverage_grade": "Moderate",
+    "quality_grade": "Adequate",
+    "missed_critical_claims": [
+      {
+        "timestamp": "15:04",
+        "claim_summary": "Morozov's self-assessment of the past match against Vitaly Laletin as primarily a 'strength issue' and the belief that more power would reduce injuries and enable more efficient pulls.",
+        "why_critical": "Provides strategic insight into weaknesses and power vs technique dynamics, influencing readiness assessment and opponent planning."
+      },
+      {
+        "timestamp": "16:11",
+        "claim_summary": "Morozov cannot definitively state whether he is stronger now than when he pulled Vitaly Laletin, due to variability in opponent form and peak condition.",
+        "why_critical": "Indicates uncertainty in current form vs past benchmarks, affecting baseline strength interpretation."
+      },
+      {
+        "timestamp": "41:48",
+        "claim_summary": "Morozov values fair, mutual starts with no pre-start movement and believes fair starts determine the winner; labels cheating as unfair.",
+        "why_critical": "Ties to match setup and potential exploitation of starts; relevant for MVP evaluation of tactical edge conditions."
+      },
+      {
+        "timestamp": "60:19",
+        "claim_summary": "Morozov humorously calls himself a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler.",
+        "why_critical": "Frames psychological dynamics and relative positioning; useful for opponent analysis and characterization."
+      },
+      {
+        "timestamp": "69:14",
+        "claim_summary": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'",
+        "why_critical": "Gives insight into mindset and training intensity, with implications for consistency and risk of overtraining."
+      },
+      {
+        "timestamp": "70:15",
+        "claim_summary": "Morozov had a training plan from the start and stuck to it; now trains more by feel rather than a strict plan; attempted twice-daily sessions but moved away from that format.",
+        "why_critical": "Reveals training discipline and adaptability; affects projection of preparedness and performance trajectory."
+      },
+      {
+        "timestamp": "22:54",
+        "claim_summary": "Morozov expresses high confidence that he will 'smash' Alizhan in the upcoming match.",
+        "why_critical": "Direct confidence statement toward a key opponent; signals potential overconfidence and its impact on strategy."
+      }
+    ],
+    "locator_failure_modes": [
+      "Window-limited sampling misses later segments where high-value claims appear, reducing coverage of strategic, motivational, and training-related content.",
+      "Potential misclassification of nuanced statements (humor, sarcasm, or translated phrasing) as actionable claims.",
+      "Translation and language nuances may alter claim interpretation or emphasis, affecting claim extraction accuracy.",
+      "Over-reliance on relevance scores may overlook contextual signals that appear just outside explicit relevance thresholds.",
+      "Temporal misalignment or inconsistent timestamping could cause incorrect mapping of claims to windows."
+    ],
+    "recommendation": "Expand the window set to cover the full video duration (or perform a full-video pass) and implement multi-pass claim extraction with a lexicon for high-value claims (weight, training plans, mindset, starts, confidence). Add a post-processing step to map windows to claim types (form, tactics, psychology). Validate signal with human review and cross-check numeric metrics (weights) and start rules. Build an MVP with a claim-coverage matrix to quantify coverage per claim type and per window.",
+    "concise_rationale": "Current windows capture weight context and some opponent-related content but miss several high-value claims about past performance, training strategy, and mindset. To achieve MVP quality, broaden coverage and implement systematic, multi-pass claim extraction across the entire video, with explicit mapping to key claim categories."
+  },
+  "usage": {
+    "prompt_tokens": 1210,
+    "completion_tokens": 3586,
+    "total_tokens": 4796,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2752,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0014949000000000002,
+  "source": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "very recent Morozov livestream"
+  },
+  "coverage_counts": {
+    "baseline_claims": 8,
+    "covered_claims": 1,
+    "missed_claims": 7
+  }
+}

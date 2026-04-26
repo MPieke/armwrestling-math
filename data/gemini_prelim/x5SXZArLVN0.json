@@ -1,0 +1,106 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "The video features armwrestling experts, including Artyom Morozov, discussing an anticipated rematch between Ermes Gasparini and Levan Saginashvili, focusing on Levan's wrist condition and Ermes's improved strength and endurance.",
+    "popular_take": "Levan Saginashvili is still considered the favorite, but his wrist condition is a major concern, and Ermes Gasparini has significantly improved, making the rematch a very close contest.",
+    "counter_case": "Fans might underestimate Ermes's current strength and endurance, and overestimate Levan's wrist recovery or willingness to fully commit to his previous dominant style.",
+    "claims": [
+      {
+        "timestamp": "00:17",
+        "claim": "The outcome of the Ermes vs Levan rematch will heavily depend on the condition of Levan's wrist.",
+        "speaker_or_source": "SteelMorozov (Artyom Morozov)",
+        "relevance": "Levan's wrist injury from his previous match against Devon Larratt is a critical factor that could impact his performance and strategy against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:22",
+        "claim": "Levan's wrist 'cracked' during his last match against Devon Larratt.",
+        "speaker_or_source": "SteelMorozov (Artyom Morozov)",
+        "relevance": "This highlights a specific injury concern for Levan, suggesting potential vulnerability or altered technique in future matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:30",
+        "claim": "If Levan is 100% ready and his wrist is stronger, he is the favorite.",
+        "speaker_or_source": "SteelMorozov (Artyom Morozov)",
+        "relevance": "This establishes Levan's potential dominance if fully recovered, setting a key condition for his favoritism against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:36",
+        "claim": "Ermes Gasparini possesses a very strong press.",
+        "speaker_or_source": "SteelMorozov (Artyom Morozov)",
+        "relevance": "This identifies a specific strength of Ermes that could be a tactical advantage against Levan, especially if Levan's wrist is compromised.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:52",
+        "claim": "Levan's wrist is not working with the same 'flexing' capability as before, possibly due to injury or fear.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "This suggests a potential long-term impact of the injury on Levan's technique and confidence, which Ermes could exploit.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:19",
+        "claim": "Ermes has gotten much better, his weight is coming up, and he's getting really strong.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "This indicates a significant improvement in Ermes's overall physical condition and strength, making him a more formidable opponent than in previous encounters with Levan.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:34",
+        "claim": "Ermes has improved his endurance and is much stronger now.",
+        "speaker_or_source": "SteelMorozov (Artyom Morozov)",
+        "relevance": "Endurance is crucial in multi-round armwrestling matches, and Ermes's improvement in this area could allow him to outlast or wear down Levan.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:04",
+        "claim": "Levan's speed is still going to be on his side.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Despite wrist concerns, Levan's inherent speed remains a key attribute that Ermes will need to counter.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What will be the condition and performance of Levan Saginashvili's wrist, and can Ermes Gasparini's improved strength and endurance overcome Levan's potential speed and power?",
+    "usefulness": "low",
+    "notes": [
+      "The user requested analysis for 'Ermes Gasparini vs Artyom Morozov right-hand match,' but the video content exclusively discusses an upcoming rematch between 'Ermes Gasparini vs Levan Saginashvili.'",
+      "Artyom Morozov (SteelMorozov) is a speaker in the video, but he is discussing Levan as Ermes's opponent, not himself.",
+      "Therefore, the claims and narratives extracted are relevant to Ermes vs Levan, not Ermes vs Morozov."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 7843,
+    "candidatesTokenCount": 1153,
+    "totalTokenCount": 11486,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3419
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 4079
+      }
+    ],
+    "thoughtsTokenCount": 2490
+  },
+  "candidate": {
+    "id": "x5SXZArLVN0",
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "title": "Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+    "channel": "Arm wrestling",
+    "why": "Morozov giving a view on Ermes against the top right-hand benchmark."
+  }
+}

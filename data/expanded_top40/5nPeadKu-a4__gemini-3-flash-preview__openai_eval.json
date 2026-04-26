@@ -1,0 +1,66 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 25,
+    "pass_fail": "fail",
+    "directness": "low",
+    "recency_risk": "low",
+    "durable_style_value": "low",
+    "current_form_value": "unknown",
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a brief (30s) YouTube clip with no explicit claims or matchup-specific analysis. Its content appears non-specific and unreliable (noted by 'Gemini analysis failed'), offering minimal, non-evidence-based insights. While the publication is recent relative to the June 2026 match, the clip lacks durable, direct, or verifiable information useful for predicting or preparing for the right-hand bout."
+  },
+  "usage": {
+    "prompt_tokens": 236,
+    "completion_tokens": 1574,
+    "total_tokens": 1810,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1408,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006414000000000001,
+  "source": {
+    "id": "5nPeadKu-a4",
+    "url": "https://www.youtube.com/watch?v=5nPeadKu-a4",
+    "title": "Artyom Morozov vs Ermes Gasparini 🔥 EvW 5 - Left Hand",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2026-04-04T20:00:42Z",
+    "description": "",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT30S",
+    "caption": "false",
+    "view_count": 142993,
+    "like_count": 3342,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 30,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

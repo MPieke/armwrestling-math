@@ -1,0 +1,19 @@
+[project]
+name = "armwrestling-narrative-check"
+version = "0.1.0"
+description = "Feasibility tools for EVW/KOTT narrative checks from official YouTube metadata."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7,<3",
+    "pyyaml>=6.0.1,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4,<0.5",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

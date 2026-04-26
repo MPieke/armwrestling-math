@@ -1,0 +1,173 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "atoms": [
+      {
+        "atom_id": "a1",
+        "evidence_index": 30,
+        "actor": "Ermes Gasparini",
+        "target": "Vitaly Laletin",
+        "action": "press",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "leverage_advantage",
+          "shoulder_press_power"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "analyst_interpretation",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Arm-length leverage is suggested as factor; not a direct match event."
+      },
+      {
+        "atom_id": "a2",
+        "evidence_index": 31,
+        "actor": "Other/unknown",
+        "target": "Vitaly Laletin",
+        "action": "wrist_control_unspecified",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "durable_style",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Wrist control mechanism not specified."
+      },
+      {
+        "atom_id": "a3",
+        "evidence_index": 34,
+        "actor": "Artyom Morozov",
+        "target": "Ermes Gasparini",
+        "action": "rise",
+        "lane": "outside/toproll",
+        "position_state": "defensive",
+        "match_phase": "unknown",
+        "enables": [],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "athlete_self_report",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Rising strength described as defensive/offensive component against top-roll."
+      },
+      {
+        "atom_id": "a4",
+        "evidence_index": 48,
+        "actor": "Artyom Morozov",
+        "target": "Jerry Cadorette",
+        "action": "hook",
+        "lane": "inside/hook",
+        "position_state": "",
+        "match_phase": "",
+        "enables": [
+          "hook_strength"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "durable_style",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "high",
+        "caveat": "Based on Ermes' comment; not direct observation of Morozov's hook in this match."
+      },
+      {
+        "atom_id": "a5",
+        "evidence_index": 49,
+        "actor": "Jerry Cadorette",
+        "target": "Artyom Morozov",
+        "action": "start_position_advantage",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "start",
+        "enables": [],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "analyst_interpretation",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Starts advantage; no direct start sequence observed here."
+      },
+      {
+        "atom_id": "a6",
+        "evidence_index": 50,
+        "actor": "Jerry Cadorette",
+        "target": "Genadi Kvikvinia",
+        "action": "press",
+        "lane": "press",
+        "position_state": "",
+        "match_phase": "",
+        "enables": [],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Press as threat; observed match evidence."
+      },
+      {
+        "atom_id": "a7",
+        "evidence_index": 45,
+        "actor": "Morozov",
+        "target": "",
+        "action": "no_prestep_movement",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "start",
+        "enables": [
+          "start_fairness"
+        ],
+        "denies": [
+          "pre_start_movement_cheating"
+        ],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "athlete_self_report",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": "Morozov's stance on starts; not a specific technique used in match."
+      }
+    ],
+    "missing_or_underdeveloped_mechanisms": []
+  },
+  "usage": {
+    "prompt_tokens": 5965,
+    "completion_tokens": 10792,
+    "total_tokens": 16757,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9600,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00461505
+}

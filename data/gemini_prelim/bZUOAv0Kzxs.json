@@ -1,0 +1,106 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Artem Morozov discusses his current weight, past match against Vitaly, training philosophy, and confidence against upcoming opponents, emphasizing fair play and continuous improvement.",
+    "popular_take": "Artem Morozov is a strong, disciplined, and ambitious heavyweight who relies on raw power and seeks fair competition, confident in his ability to overcome challenges.",
+    "counter_case": "While confident, Morozov acknowledges past 'strength issues' and that his opponent (Vitaly in a past match) might not have been at their peak, suggesting his own absolute strength level might be variable or still developing. His focus on 'fair starts' also implies a potential vulnerability to aggressive setups.",
+    "claims": [
+      {
+        "timestamp": "03:03",
+        "claim": "Artem Morozov's current weight is 138kg (~305 lbs).",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Provides a current physical metric for Morozov, relevant for a heavyweight match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "15:04",
+        "claim": "Morozov's self-assessment of his past match against Vitaly Laletin was that it was primarily a 'strength issue' and Vitaly is 'just power.' He believes if he were stronger, he would have had fewer injuries and pulled more efficiently.",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Highlights Morozov's self-perception of needing more raw strength and his analysis of past high-level competition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "16:11",
+        "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then.",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Indicates Morozov's cautious self-assessment and acknowledges the variability of opponent's form, suggesting his own absolute strength might be variable.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "70:15",
+        "claim": "Morozov had a training plan from the beginning and stuck to it. He trains consistently but now goes by feeling, not a strict plan. He tried training twice a day but it's not for him.",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Offers insight into Morozov's training philosophy and discipline, which contributes to his overall preparation.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "69:14",
+        "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Reveals a strong, personal, and relentless motivational aspect of Morozov's mindset.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:54",
+        "claim": "Morozov expresses high confidence, stating he believes he will 'smash' Alizhan in their upcoming match.",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "Demonstrates Morozov's aggressive and confident mindset against a strong opponent, which is relevant for any high-stakes match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "60:19",
+        "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler.",
+        "speaker_or_source": "Artem Morozov",
+        "relevance": "A confident and self-aware statement about his formidable presence as an opponent, despite the humorous tone.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "41:48",
+        "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair.",
+        "speaker_or_source": "Alizhan (translating Morozov's sentiment)",
+        "relevance": "Highlights Morozov's preference for strict, fair setups, which could be a tactical factor if his opponent (Ermes) employs aggressive or tricky starts.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Morozov's raw power and disciplined approach overcome Ermes's technique and unique style, especially if the match conditions are not perfectly 'mutual' at the start?",
+    "usefulness": "high",
+    "notes": [
+      "The discussion about Alizhan vs Artem is for the left-handed title, but insights into Artem's general approach are still relevant.",
+      "The host (Travis) makes a prediction for Artem to win against Alizhan, which is a direct prediction but not a claim about Artem's capabilities.",
+      "The 'Epstein files' and 4:20 jokes are irrelevant."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 253938,
+    "candidatesTokenCount": 1186,
+    "totalTokenCount": 263072,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 114405
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 139188
+      }
+    ],
+    "thoughtsTokenCount": 7948
+  },
+  "candidate": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "why": "Very recent Morozov long-form EVW content."
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Five armwrestlers discuss upcoming matches, including Ermes Gasparini vs. Artyom Morozov, with a focus on weight classes, training, and past performances.",
+    "popular_take": "Artyom Morozov is a strong favorite against Ermes Gasparini due to his size, experience, and perceived dominance in the heavyweight division.",
+    "counter_case": "While Morozov is favored, the discussion highlights the unpredictability of armwrestling, with Artem Taranenko suggesting that Ivan Matyushenko might be underestimated and that the match could be closer than expected.",
+    "claims": [
+      {
+        "timestamp": "00:36",
+        "claim": "The podcast will feature a discussion with Artyom Morozov and Oleksandr Telyatnik.",
+        "speaker_or_source": "Oleksandr Telyatnik",
+        "relevance": "Introduces Morozov as a participant in the discussion.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:13",
+        "claim": "Artyom Morozov's area of expertise is ensuring understanding between participants.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Highlights Morozov's role in the discussion, possibly implying a facilitating or mediating role.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:35",
+        "claim": "Artyom Morozov is considered a 'beast' by some people.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Suggests Morozov has a fearsome reputation.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:09",
+        "claim": "Artyom Morozov's weight is 305 lbs.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Provides a key physical statistic for Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:37",
+        "claim": "There are a couple of former champions and one current champion in the podcast.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Sets the stage for the caliber of athletes present.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:50",
+        "claim": "The current heavyweight left-handed champion of the world is in the house.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Potentially refers to Morozov or another participant, highlighting a championship status.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "04:01",
+        "claim": "Artyom Morozov is welcomed to the show.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Confirms Morozov's participation and the start of the discussion.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:08",
+        "claim": "Artyom Morozov is asked how he is and welcomed to the show.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Standard greeting, confirms Morozov is present and engaged.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What is Artyom Morozov's current form and how does his size and past performance compare to Ermes Gasparini?",
+    "usefulness": "high",
+    "notes": [
+      "The video is a discussion among multiple people, making it challenging to isolate specific claims from each individual without clear speaker identification for every statement.",
+      "Some claims are inferred from context rather than explicitly stated.",
+      "The primary focus is on the participants' general impressions and predictions rather than deep tactical analysis."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 151141,
+    "candidatesTokenCount": 915,
+    "totalTokenCount": 152056,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 11572
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 139188
+      }
+    ]
+  },
+  "source": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "Very recent Morozov long-form EVW content."
+  }
+}

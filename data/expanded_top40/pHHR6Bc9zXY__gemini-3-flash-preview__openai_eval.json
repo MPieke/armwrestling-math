@@ -1,0 +1,67 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "moderate",
+    "pass_fail": "pass",
+    "directness": "moderately_direct",
+    "recency_risk": "high",
+    "durable_style_value": "moderate",
+    "current_form_value": "unknown",
+    "unsupported_or_stale_claims": "Several claims pertain to Morozov vs Gennadi and Jerry vs Ermes, not directly to the Morozov vs Ermes matchup; some statements are generic training guidance and phrases about Ermes' development that may be outdated for 2026 form.",
+    "concise_rationale": "The source is from 2023 and largely discusses broader stylistic tendencies and unrelated matchups. It can inform generic tendencies (Ermes' presser development; Morozov's top-roller baseline) but lacks specific, current, matchup-focused details for a June 2026 Ermes vs Morozov right-hand match and has substantial recency risk. Treat as contextual background rather than decisive analysis."
+  },
+  "usage": {
+    "prompt_tokens": 679,
+    "completion_tokens": 1821,
+    "total_tokens": 2500,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1600,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0007623500000000001,
+  "source": {
+    "id": "pHHR6Bc9zXY",
+    "url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY",
+    "title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2023-06-10T07:00:31Z",
+    "description": "On the Engin Terzi channel, Devon Larratt was doing an analysis and a prediction of the Genadi Kvikvinia vs Artyom Morozov and Jerry Cadorette vs Ermes Gasparini supermatches that will take place on East vs West 8 in July.\n\nSource: \nEngin Terzi's channel: https://www.youtube.com/watch?v=bTXACQ6KNrg",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M44S",
+    "caption": "true",
+    "view_count": 2105,
+    "like_count": 55,
+    "license": "youtube",
+    "score": 37,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: prediction",
+      "matched term: analysis",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 164,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

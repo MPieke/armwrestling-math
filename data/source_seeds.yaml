@@ -1,0 +1,68 @@
+trusted_channels:
+  - name: "Performance Enhancing Pancakes"
+    priority: 5
+  - name: "Voice of Armwrestling"
+    priority: 5
+  - name: "Grip Kings"
+    priority: 5
+  - name: "East vs West Armwrestling"
+    priority: 5
+  - name: "Engin Terzi Enigma of Rage"
+    priority: 5
+  - name: "ARMWRESTLING NEWZ"
+    priority: 4
+  - name: "Victorcali Arm Wrestling"
+    priority: 4
+  - name: "Armwrestling TV"
+    priority: 3
+  - name: "Aussie ArmWrestler"
+    priority: 3
+  - name: "Pound for Pound Armwrestling"
+    priority: 3
+  - name: "Armwrestling Academia"
+    priority: 5
+  - name: "Armwrestling Theory"
+    priority: 5
+  - name: "Renaissance Periodization"
+    priority: 4
+
+positive_title_terms:
+  - ermes
+  - gasparini
+  - morozov
+  - artyom
+  - prediction
+  - predicts
+  - breakdown
+  - analysis
+  - podcast
+  - live
+  - livestream
+  - interview
+  - right hand
+  - east vs west
+  - evw
+  - kott
+  - biomechanics
+  - science
+  - theory
+  - mechanics
+  - leverage
+  - pronation
+  - back pressure
+  - cupping
+  - riser
+  - rising
+  - gym lift
+  - lift
+  - measurement
+  - weight
+  - forearm
+
+negative_title_terms:
+  - shorts
+  - short
+  - edit
+  - meme
+  - funny
+  - training only

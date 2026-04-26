@@ -1,0 +1,79 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov evaluates Ermes Gasparini's current form as being nearly equal to Levan Saginashvili, citing massive improvements in Ermes's strength and endurance.",
+    "popular_take": "Ermes Gasparini has evolved into a top-tier powerhouse with no clear weaknesses, making him a 50/50 favorite even against the world number one.",
+    "counter_case": "Despite Ermes's strength gains, he may still be vulnerable to elite speed, a factor Morozov identifies as Levan's primary remaining advantage.",
+    "claims": [
+      {
+        "timestamp": "00:51",
+        "claim": "Levan's wrist may still be injured or he is psychologically hesitant to use it fully.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests a potential vulnerability in the 'unbeatable' standard Ermes is measured against.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:10",
+        "claim": "Ermes has significantly increased his training weights and overall power.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Establishes that Ermes's 'peak' is still moving upward, raising the bar for Morozov's own match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:40",
+        "claim": "Ermes has specifically improved his endurance and is much better in long matches now.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Directly impacts the tactical approach for Morozov; he cannot rely on Ermes gassing out.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:45",
+        "claim": "Levan will likely still have a speed advantage over Ermes.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Identifies speed as the primary tactical gap in Ermes's game that opponents can exploit.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:52",
+        "claim": "The match between Ermes and Levan is now a 50/50 toss-up.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Shows Morozov views Ermes as the co-best in the world, indicating the level of respect/threat he feels.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes's massive strength and improved endurance negate a speed-based offensive from an elite opponent?",
+    "usefulness": "high",
+    "notes": [
+      "The video focuses on Morozov's prediction for Ermes vs Levan, but provides critical insight into how Morozov perceives Ermes's technical evolution and weaknesses."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 3634,
+    "candidatesTokenCount": 688,
+    "totalTokenCount": 6166,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3253
+      }
+    ],
+    "thoughtsTokenCount": 1844
+  },
+  "source": {
+    "id": "x5SXZArLVN0",
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "title": "Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+    "channel": "Arm wrestling",
+    "type": "Morozov giving a view on Ermes against the top right-hand benchmark."
+  }
+}

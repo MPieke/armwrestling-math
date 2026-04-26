@@ -1,0 +1,78 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "medium",
+    "pass_fail": "pass",
+    "directness": "direct",
+    "recency_risk": "high",
+    "durable_style_value": "high",
+    "current_form_value": "low",
+    "unsupported_or_stale_claims": [
+      {
+        "timestamp": "07:25",
+        "claim": "Ermes 'gave up' his wrist or sacrificed position; subjective interpretation not verifiable from video alone."
+      },
+      {
+        "timestamp": "14:50",
+        "claim": "Morozov has the 'perfect frame' and 'checking all the boxes' for long-term dominance; hyperbolic and speculative."
+      }
+    ],
+    "concise_rationale": "The source offers some relevant notes on Morozov's frame, wrist control, and transition game that could inform a right-hand strategy, but its 2022 left-hand match context and the time gap reduce direct applicability to a 2026 bout. Several claims are speculative or opinion-based, and there is limited evidence specific to Gasparini's current form or 2026 right-hand head-to-head dynamics."
+  },
+  "usage": {
+    "prompt_tokens": 865,
+    "completion_tokens": 2427,
+    "total_tokens": 3292,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2176,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00101405,
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "channel_id": "UCMzpyrvO3yUeGDclgjixSoA",
+    "published_at": "2022-11-23T17:00:51Z",
+    "description": "East vs West armwrestling merch \nhttps://my-store-cb6923.creator-spring.com\n\n#armwrestling    #eastvswest #oldschoollabs",
+    "matched_queries": [
+      "Ermes Morozov right hand",
+      "Ermes Gasparini Artyom Morozov",
+      "Ermes Morozov East vs West",
+      "Artyom Morozov Ermes Gasparini analysis",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT18M49S",
+    "caption": "false",
+    "view_count": 464114,
+    "like_count": 10985,
+    "license": "youtube",
+    "score": 36,
+    "score_reasons": [
+      "trusted channel: Engin Terzi Enigma of Rage",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 1129,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "long-form or match-length source"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

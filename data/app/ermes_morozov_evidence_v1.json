@@ -1,0 +1,2977 @@
+{
+  "generated_at": "2026-04-26T10:41:18.435883+00:00",
+  "match": {
+    "athlete_a": "Ermes Gasparini",
+    "athlete_b": "Artyom Morozov",
+    "arm": "right",
+    "context": "preliminary narrative-check MVP evidence set"
+  },
+  "policy": {
+    "stores_transcripts": false,
+    "stores_structured_claims_only": true,
+    "public_youtube_media_path": "Gemini URL analysis",
+    "current_form_window_days": 180,
+    "recency_rule": "Sources older than the current-form window may support durable style or historical matchup context, but not current readiness/form."
+  },
+  "videos": [
+    {
+      "id": "bWmtNWQM_Ro",
+      "title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+      "published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.0481507,
+      "evaluation": null,
+      "summary": "The video showcases Artyom Morozov's dominant left-hand victory over an exhausted and possibly injured Ermes Gasparini, with commentary highlighting both pullers' recent right-hand performances and physical attributes.",
+      "popular_take": "Artyom Morozov is a dominant force with impressive physical attributes and mental toughness, while Ermes Gasparini might be struggling with fatigue or injury, especially after an emotionally taxing right-hand victory.",
+      "counter_case": "Ermes Gasparini's struggles in the left-hand match might be due to prioritizing his right arm and having already expended significant emotional and physical energy in a previous right-hand match, rather than a general decline in his overall form.",
+      "key_question": "Can Ermes Gasparini recover sufficiently from his previous right-hand match and potential left-hand injury/fatigue to challenge Artyom Morozov's consistent strength and frame advantage on the right arm?",
+      "claims": [
+        {
+          "claim": "Ermes Gasparini was very happy and a little distracted about his victory over Dave Chaffee (right arm) earlier in the event.",
+          "timestamp": "01:15",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=75s",
+          "speaker_or_source": "commentator",
+          "relevance": "This suggests Ermes might have expended significant emotional and physical energy on his right arm prior to this left-hand match, potentially impacting his overall readiness for a future right-hand match.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov had a successful night on the right arm against Revaz Lutidze.",
+          "timestamp": "01:59",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=119s",
+          "speaker_or_source": "commentator",
+          "relevance": "This is direct evidence of Artyom's recent strong performance and success with his right arm.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov's match against David Dadikyan was phenomenal, showing his heart, ability to go the distance, and fight to the death.",
+          "timestamp": "02:37",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=157s",
+          "speaker_or_source": "commentator",
+          "relevance": "This highlights Artyom's exceptional endurance and mental toughness, general attributes that are highly applicable to his right-hand performance in a long, contested match.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov cups deep on his right arm.",
+          "timestamp": "05:15",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=315s",
+          "speaker_or_source": "commentator",
+          "relevance": "This is a specific technical detail about Artyom's right-hand style, which is crucial for understanding his strategic approach and potential advantages in a right-hand match.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov has a huge frame and genetic God-given size, which is a significant physical advantage.",
+          "timestamp": "06:10",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=370s",
+          "speaker_or_source": "commentator",
+          "relevance": "This physical attribute provides Artyom with inherent leverage and overall power, applicable to both arms and a key factor in his armwrestling style.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini stated 'I'm injured' regarding his wrist/arm during the match, and commentary noted scars on his left arm from a previous match.",
+          "timestamp": "08:19",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=499s",
+          "speaker_or_source": "Ermes Gasparini / commentator",
+          "relevance": "While the injury is specific to his left arm, a significant injury or general fatigue can impact overall performance, training, and mental state for the right arm as well, suggesting a potential vulnerability.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini left so much emotion on the right arm and celebrated too early.",
+          "timestamp": "10:19",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=619s",
+          "speaker_or_source": "commentator",
+          "relevance": "This is a direct commentary on Ermes' emotional and physical expenditure related to his *right arm* prior to this left-hand match, suggesting he might have peaked or over-exerted himself, which is highly relevant to his readiness for a future right-hand match.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "The right arm is so important for Ermes Gasparini; he's gunning for that.",
+          "timestamp": "13:27",
+          "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=807s",
+          "speaker_or_source": "commentator",
+          "relevance": "This indicates Ermes' prioritization and focus on his right arm, suggesting he might be less invested in his left arm performance, which could explain some of his struggles in the video and highlights his primary competitive focus.",
+          "confidence": "high",
+          "source_published_at": "2022-11-23T17:00:51Z",
+          "source_age_days": 1249,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NsLWax9GwZY",
+      "title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.20830449999999998,
+      "evaluation": null,
+      "summary": "Ermes Gasparini expresses high confidence in beating Jerry Cadorette, viewing the match as a crucial test for a potential future bout with Levan Saginashvili, while also acknowledging a current left arm pain that makes an immediate match with Artyom Morozov difficult.",
+      "popular_take": "Ermes Gasparini is confident he can beat Jerry Cadorette, even at 85% of his peak, and sees this as a stepping stone to face Levan. He also believes he has a good chance against Artyom Morozov with his left arm if he can control the wrist.",
+      "counter_case": "While Ermes is confident, Engin Terzi repeatedly highlights Jerry's unique and historically strong technique, suggesting Ermes might be underestimating Jerry's specific style, similar to how Gennady underestimated him. Engin also points out Ermes's current left arm pain, which could impact a match against Morozov.",
+      "key_question": "What specific tactical approach will Ermes use against Jerry, and how will his current left arm pain affect his match against Morozov?",
+      "claims": [
+        {
+          "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+          "timestamp": "02:42",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=162s",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+          "timestamp": "11:35",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=695s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+          "timestamp": "12:06",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=726s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+          "timestamp": "13:07",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=787s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+          "timestamp": "14:24",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=864s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+          "timestamp": "22:00",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1320s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+          "timestamp": "23:55",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1435s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+          "timestamp": "24:05",
+          "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1445s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+          "confidence": "high",
+          "source_published_at": "2022-08-14T17:24:21Z",
+          "source_age_days": 1350,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "28S8Qd02rxI",
+      "title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+      "published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.37330969999999997,
+      "evaluation": null,
+      "summary": "The video features Engin Terzi interviewing Ermes Gasparini and Evgeny Prudnik, discussing their upcoming armwrestling matches, training, and opinions on other top pullers.",
+      "popular_take": "Fans might believe that Ermes Gasparini is extremely confident in his top roll technique and his ability to defeat Dave Chaffee, despite some polls showing Dave as the favorite. They might also be intrigued by the idea of a potential match between Ermes and Prudnik.",
+      "counter_case": "The video suggests that while Ermes is confident, he also acknowledges the unpredictability of matches and the high level of competition in super heavyweight. Engin Terzi's teasing questions often provoke exaggerated responses, which might not fully reflect Ermes's serious assessment. The discussion about Levan's weight and technique also highlights the challenges even for top pullers.",
+      "key_question": "Can Ermes Gasparini's unique top roll technique, focused on wrist control and finger opening, overcome Artyom Morozov's power and style, or will Morozov's strengths neutralize Ermes's strategy?",
+      "claims": [
+        {
+          "claim": "Engin Terzi teases Ermes Gasparini about Dave Chaffee potentially 'kicking his ass' in their upcoming match.",
+          "timestamp": "09:40",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=580s",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "This sets a playful, yet competitive tone for the discussion around Ermes vs Dave, highlighting the perceived challenge Dave poses.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Engin Terzi informs Ermes Gasparini that fans in the chat are saying Dave Chaffee canceled his match after seeing Ermes, implying Dave was intimidated.",
+          "timestamp": "10:44",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=644s",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "This is a direct playful jab at Ermes, suggesting his physique or reputation is intimidating enough to make opponents withdraw, building a narrative of Ermes's strong presence.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini jokes that he doesn't want to post many photos or videos because Dave Chaffee might cancel his match if he sees them.",
+          "timestamp": "11:21",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=681s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "This reinforces the playful narrative that Ermes's current form is so impressive it could scare off opponents, adding to his perceived confidence.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini states he has a '100%' chance against Dave Chaffee, later adjusting it to '99%' due to potential illness.",
+          "timestamp": "13:44",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=824s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "This is a strong claim of confidence from Ermes regarding his chances against Dave, setting a high expectation for his performance.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique.",
+          "timestamp": "15:59",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=959s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "This highlights Ermes's specific tactical advantage and unique style (top roll, wrist, pronation) that he believes Dave has not encountered before, suggesting a potential weakness for Dave.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent.",
+          "timestamp": "21:07",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1267s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "This provides a specific tactical insight into Ermes's top roll strategy, suggesting he aims to break the opponent's hand control early in the match.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll.",
+          "timestamp": "22:32",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1352s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "While about Levan, this reveals Ermes's strong belief in the top roll as the superior technique against powerful opponents, which could be his primary strategy against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone.",
+          "timestamp": "37:07",
+          "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=2227s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "This shows Ermes's high respect for Dave's consistency and strength, setting the stage for a challenging match despite Ermes's own confidence.",
+          "confidence": "high",
+          "source_published_at": "2022-10-25T18:36:03Z",
+          "source_age_days": 1278,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yGBrHvylMWs",
+      "title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+      "published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.2317228,
+      "evaluation": null,
+      "summary": "Artyom Morozov discusses his recovery from injury, his match against Vitaly Laletin, and offers tactical insights and predictions for upcoming supermatches, including Ermes Gasparini vs. Laletin.",
+      "popular_take": "A typical fan might believe that Artyom Morozov is incredibly resilient and highly motivated, having overcome injury and performed exceptionally against Vitaly Laletin. They might also be convinced that Vitaly Laletin is an unstoppable force on the right arm, capable of beating top heavyweights like Michael Todd with ease due to his unique style and immense pronation/side pressure.",
+      "counter_case": "The video suggests that while Laletin's style is formidable, his wrist is not unbreakable, and he has shown vulnerabilities against other top pullers (Ferit Osmanli, Zaur, Ermes). It also highlights that Michael Todd, despite his age, is a dangerous opponent whose style can exploit weaknesses in wrist control, making a direct attack risky.",
+      "key_question": "What decides this match? Will Laletin's superior pronation and side pressure overwhelm Ermes, or will Ermes's tactical approach, potentially stronger shoulder press, and ability to exploit Laletin's wrist vulnerabilities lead to his victory? The endurance and mental state of both athletes, especially Morozov's recovery, will also be critical.",
+      "claims": [
+        {
+          "claim": "Artyom Morozov was sick before his match against Vitaly Laletin, but is now recovering from a partial tendon tear in his left arm, with swelling gone and no severe damage according to MRI.",
+          "timestamp": "00:08",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=8s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Provides context on Morozov's physical state and resilience, which is relevant for assessing his current form and potential for future matches.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov managed to stop Vitaly Laletin with only back pressure, even after his arm was already cracking.",
+          "timestamp": "04:03",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=243s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Highlights Morozov's immense strength and mental toughness, demonstrating his ability to hold against a top opponent even when injured.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov's wife played a crucial role in his mental preparation, helping him overcome self-doubt and maintain focus, which he believes is key to performance.",
+          "timestamp": "01:34",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=94s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Emphasizes the psychological aspect of elite armwrestling and Morozov's personal motivation, suggesting a strong mental game for future matches.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Attacking Michael Todd directly with a top roll is very dangerous for the wrist and side pressure, a strategy Ermes Gasparini correctly avoided.",
+          "timestamp": "01:8:06",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=4086s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Offers tactical insight into pulling Michael Todd, suggesting that a cautious approach is necessary to avoid injury and exploit Michael's style.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Vitaly Laletin has very long fingers, a big hand, and a very long arm, which gives him a significant advantage in pronation and side pressure.",
+          "timestamp": "02:00",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=120s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Explains Laletin's physical attributes that contribute to his unique and powerful pulling style, crucial for understanding his potential against Ermes.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Vitaly Laletin demonstrated incredible side pressure, recording 130 kg in Ivan Matyushenko's gym.",
+          "timestamp": "02:55",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=175s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Provides a concrete metric of Laletin's strength, supporting the claim of his formidable side pressure and its impact on his matches.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes Gasparini's shoulder press is stronger than Vitaly Laletin's, partly due to Ermes's slightly shorter arm providing a leverage advantage.",
+          "timestamp": "02:45",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=165s",
+          "speaker_or_source": "SteelMorozov",
+          "relevance": "Directly compares a key strength (shoulder press) between Ermes and Laletin, offering a tactical perspective on how their different arm lengths might influence their power.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Engin Terzi notes that Vitaly Laletin has struggled with wrist control against opponents like Ferit Osmanli, Zaur, and Ermes Gasparini, indicating his wrist is not unbreakable.",
+          "timestamp": "02:57",
+          "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=177s",
+          "speaker_or_source": "EnginTerzi",
+          "relevance": "Challenges the perception of Laletin's invincibility, highlighting a potential vulnerability (wrist control) that Ermes or other opponents might exploit.",
+          "confidence": "high",
+          "source_published_at": "2025-03-03T19:09:16Z",
+          "source_age_days": 418,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nvlNtq3T-Hw",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "selected_model": "gemini-3-flash-preview",
+      "model_selection_reason": "cheaper_candidate_passed",
+      "estimated_media_cost_usd": 0.0371278,
+      "evaluation": {
+        "all_claim_coverage_percent": 62.5,
+        "high_value_coverage_percent": 71.43,
+        "quality_grade": "medium",
+        "unsupported_claims": [
+          {
+            "timestamp": "68:08",
+            "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match."
+          }
+        ],
+        "missed_high_value_claims": [
+          {
+            "timestamp": "11:14",
+            "claim": "Morozov is confident that it will be a good fight."
+          },
+          {
+            "timestamp": "12:15",
+            "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning."
+          },
+          {
+            "timestamp": "39:21",
+            "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury."
+          }
+        ],
+        "timestamp_quality": "high",
+        "pass_fail": "pass",
+        "concise_rationale": "Candidate covers 5 of 8 baseline claims (62.5%), including 5 of 7 high-value claims (71.4%), with generally close timestamps. One claim about peaking is unsupported and three high-value baseline claims (confidence, humble approach, past injury) are missed, but overall the candidate is sufficiently aligned to replace the baseline for practical use."
+      },
+      "summary": "Artyom Morozov and Alizhan Muratov discuss their training, recovery, and upcoming matches, with Morozov providing specific updates on his right-hand strength and body weight.",
+      "popular_take": "Artyom Morozov is returning to the right-hand elite in peak condition, weighing 140kg and claiming his hand strength, specifically his rising, is better than ever post-surgery.",
+      "counter_case": "While Morozov feels stronger, he admits he hasn't yet tested his absolute maximum ('peaked out') since his surgery, leaving some uncertainty about his top-end power against someone like Ermes.",
+      "key_question": "Will Morozov's reported increase in 'rising' stability and 140kg frame be enough to stop Ermes Gasparini's world-class transition from a hit to a press?",
+      "claims": [
+        {
+          "claim": "Morozov's right arm is feeling better every day and is recovering well.",
+          "timestamp": "02:18",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=138s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Crucial for assessing his readiness for a high-intensity right-hand match against Ermes.",
+          "confidence": "high",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov is utilizing IVs and intensive training protocols for this preparation.",
+          "timestamp": "02:53",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=173s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Indicates a high level of professional preparation and physical investment.",
+          "confidence": "high",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Post-surgery, Morozov's 'rising' strength on his right hand does not drop or fatigue as it did before.",
+          "timestamp": "67:00",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4020s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Rising is a key defensive and offensive component against Ermes' top-roll.",
+          "confidence": "medium",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov feels he has more 'reserve' strength now than he had previously.",
+          "timestamp": "67:40",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4060s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Suggests a higher ceiling for his right-hand performance compared to his pre-injury form.",
+          "confidence": "medium",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov's current body weight is 140kg.",
+          "timestamp": "67:55",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4075s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Significant mass increase which usually correlates to increased raw power in the super-heavyweight division.",
+          "confidence": "high",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match.",
+          "timestamp": "68:08",
+          "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4088s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Suggests the 140kg version seen now is not yet his final form for the Ermes match.",
+          "confidence": "medium",
+          "source_published_at": "2026-03-06T17:29:33Z",
+          "source_age_days": 50,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bZUOAv0Kzxs",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.176578,
+      "evaluation": null,
+      "summary": "Artem Morozov discusses his current weight, past match against Vitaly, training philosophy, and confidence against upcoming opponents, emphasizing fair play and continuous improvement.",
+      "popular_take": "Artem Morozov is a strong, disciplined, and ambitious heavyweight who relies on raw power and seeks fair competition, confident in his ability to overcome challenges.",
+      "counter_case": "While confident, Morozov acknowledges past 'strength issues' and that his opponent (Vitaly in a past match) might not have been at their peak, suggesting his own absolute strength level might be variable or still developing. His focus on 'fair starts' also implies a potential vulnerability to aggressive setups.",
+      "key_question": "Can Morozov's raw power and disciplined approach overcome Ermes's technique and unique style, especially if the match conditions are not perfectly 'mutual' at the start?",
+      "claims": [
+        {
+          "claim": "Artem Morozov's current weight is 138kg (~305 lbs).",
+          "timestamp": "03:03",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=183s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Provides a current physical metric for Morozov, relevant for a heavyweight match.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov's self-assessment of his past match against Vitaly Laletin was that it was primarily a 'strength issue' and Vitaly is 'just power.' He believes if he were stronger, he would have had fewer injuries and pulled more efficiently.",
+          "timestamp": "15:04",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=904s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Highlights Morozov's self-perception of needing more raw strength and his analysis of past high-level competition.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then.",
+          "timestamp": "16:11",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=971s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Indicates Morozov's cautious self-assessment and acknowledges the variability of opponent's form, suggesting his own absolute strength might be variable.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov had a training plan from the beginning and stuck to it. He trains consistently but now goes by feeling, not a strict plan. He tried training twice a day but it's not for him.",
+          "timestamp": "70:15",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=4215s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Offers insight into Morozov's training philosophy and discipline, which contributes to his overall preparation.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'",
+          "timestamp": "69:14",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=4154s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Reveals a strong, personal, and relentless motivational aspect of Morozov's mindset.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov expresses high confidence, stating he believes he will 'smash' Alizhan in their upcoming match.",
+          "timestamp": "22:54",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=1374s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Demonstrates Morozov's aggressive and confident mindset against a strong opponent, which is relevant for any high-stakes match.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler.",
+          "timestamp": "60:19",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=3619s",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "A confident and self-aware statement about his formidable presence as an opponent, despite the humorous tone.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        },
+        {
+          "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair.",
+          "timestamp": "41:48",
+          "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=2508s",
+          "speaker_or_source": "Alizhan (translating Morozov's sentiment)",
+          "relevance": "Highlights Morozov's preference for strict, fair setups, which could be a tactical factor if his opponent (Ermes) employs aggressive or tricky starts.",
+          "confidence": "high",
+          "source_published_at": "2026-04-08T17:05:38Z",
+          "source_age_days": 17,
+          "source_recency": "current_window",
+          "current_form_allowed": true,
+          "allowed_evidence_roles": [
+            "current_form",
+            "durable_style",
+            "historical_context"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "U0kDxaszCu8",
+      "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+      "published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "selected_model": "gemini-3-flash-preview",
+      "model_selection_reason": "cheaper_candidate_passed",
+      "estimated_media_cost_usd": 0.0025601,
+      "evaluation": {
+        "all_claim_coverage_percent": 100.0,
+        "high_value_coverage_percent": 100.0,
+        "quality_grade": "A",
+        "unsupported_claims": [],
+        "missed_high_value_claims": [],
+        "timestamp_quality": 0.92,
+        "pass_fail": "pass",
+        "concise_rationale": "All baseline timestamped claims are covered by candidate claims; high-value items are fully addressed; no unsupported or missed high-value claims; timestamps map to the same thematic points; overall evaluation passes."
+      },
+      "summary": "Ermes Gasparini argues that Jerry Cadorette's losses to himself and Levan shouldn't lead fans to underestimate Jerry against Artyom Morozov, emphasizing Jerry's press as a viable path to victory.",
+      "popular_take": "Artyom Morozov is a heavy favorite because Jerry Cadorette was easily defeated by Ermes Gasparini and Levan Saginashvili.",
+      "counter_case": "Jerry Cadorette can defeat Morozov if he manages to establish his press position before Morozov can engage his hook.",
+      "key_question": "Can Jerry Cadorette establish his press position before Artyom Morozov can lock in his hook?",
+      "claims": [
+        {
+          "claim": "Fans believe Morozov will win easily based on Jerry's recent performances against Ermes and Levan.",
+          "timestamp": "00:45",
+          "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=45s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Explains the current community bias against Jerry in the Morozov matchup.",
+          "confidence": "high",
+          "source_published_at": "2025-05-19T07:46:07Z",
+          "source_age_days": 341,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Direct comparisons between athletes are misleading because power levels vary across different technical points.",
+          "timestamp": "01:05",
+          "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=65s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Argues that Morozov's style might not exploit Jerry's weaknesses the same way Ermes did.",
+          "confidence": "high",
+          "source_published_at": "2025-05-19T07:46:07Z",
+          "source_age_days": 341,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Artyom Morozov's hook is 'super strong.'",
+          "timestamp": "01:13",
+          "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=73s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Identifies the primary technical threat Jerry must overcome.",
+          "confidence": "high",
+          "source_published_at": "2025-05-19T07:46:07Z",
+          "source_age_days": 341,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Jerry can win if he gets his position faster than Morozov.",
+          "timestamp": "01:18",
+          "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=78s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Highlights the importance of the setup and the start in this specific matchup.",
+          "confidence": "medium",
+          "source_published_at": "2025-05-19T07:46:07Z",
+          "source_age_days": 341,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Jerry's press is a serious threat, citing his match where he pressed back against Genadi Kvikvinia.",
+          "timestamp": "01:28",
+          "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=88s",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Provides historical evidence that Jerry's press can stop elite hook pullers.",
+          "confidence": "high",
+          "source_published_at": "2025-05-19T07:46:07Z",
+          "source_age_days": 341,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "x5SXZArLVN0",
+      "title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+      "published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "selected_model": "gemini-3-flash-preview",
+      "model_selection_reason": "cheaper_candidate_passed",
+      "estimated_media_cost_usd": 0.0028102,
+      "evaluation": {
+        "all_claim_coverage_percent": 87.5,
+        "high_value_coverage_percent": 87.5,
+        "quality_grade": "B",
+        "unsupported_claims": [
+          {
+            "timestamp": "01:52",
+            "claim": "The match between Ermes and Levan is now a 50/50 toss-up."
+          }
+        ],
+        "missed_high_value_claims": 1,
+        "timestamp_quality": "moderate",
+        "pass_fail": "pass",
+        "concise_rationale": "Candidate claims largely reflect baseline topics (Levan's wrist issues, Ermes' strength/endurance gains, Levan's speed). Seven of eight baseline claims are echoed; one high-value claim (00:30) about Levan's favorite status if ready is not directly covered by candidate claims; one new candidate claim is not grounded in baseline (50/50 toss-up). Overall, strong coverage with one miss and one unsupported claim."
+      },
+      "summary": "Artyom Morozov evaluates Ermes Gasparini's current form as being nearly equal to Levan Saginashvili, citing massive improvements in Ermes's strength and endurance.",
+      "popular_take": "Ermes Gasparini has evolved into a top-tier powerhouse with no clear weaknesses, making him a 50/50 favorite even against the world number one.",
+      "counter_case": "Despite Ermes's strength gains, he may still be vulnerable to elite speed, a factor Morozov identifies as Levan's primary remaining advantage.",
+      "key_question": "Can Ermes's massive strength and improved endurance negate a speed-based offensive from an elite opponent?",
+      "claims": [
+        {
+          "claim": "Levan's wrist may still be injured or he is psychologically hesitant to use it fully.",
+          "timestamp": "00:51",
+          "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=51s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Suggests a potential vulnerability in the 'unbeatable' standard Ermes is measured against.",
+          "confidence": "medium",
+          "source_published_at": "2025-03-06T16:01:06Z",
+          "source_age_days": 415,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes has significantly increased his training weights and overall power.",
+          "timestamp": "01:10",
+          "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=70s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Establishes that Ermes's 'peak' is still moving upward, raising the bar for Morozov's own match.",
+          "confidence": "high",
+          "source_published_at": "2025-03-06T16:01:06Z",
+          "source_age_days": 415,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes has specifically improved his endurance and is much better in long matches now.",
+          "timestamp": "01:40",
+          "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=100s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Directly impacts the tactical approach for Morozov; he cannot rely on Ermes gassing out.",
+          "confidence": "high",
+          "source_published_at": "2025-03-06T16:01:06Z",
+          "source_age_days": 415,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan will likely still have a speed advantage over Ermes.",
+          "timestamp": "01:45",
+          "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=105s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Identifies speed as the primary tactical gap in Ermes's game that opponents can exploit.",
+          "confidence": "medium",
+          "source_published_at": "2025-03-06T16:01:06Z",
+          "source_age_days": 415,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "The match between Ermes and Levan is now a 50/50 toss-up.",
+          "timestamp": "01:52",
+          "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=112s",
+          "speaker_or_source": "Artyom Morozov",
+          "relevance": "Shows Morozov views Ermes as the co-best in the world, indicating the level of respect/threat he feels.",
+          "confidence": "high",
+          "source_published_at": "2025-03-06T16:01:06Z",
+          "source_age_days": 415,
+          "source_recency": "recent_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HBfb57rQxTg",
+      "title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+      "published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "selected_model": "gemini-2.5-flash-baseline",
+      "model_selection_reason": "baseline_fallback",
+      "estimated_media_cost_usd": 0.069902,
+      "evaluation": null,
+      "summary": "Levan Saginashvili discusses his match with Devon Larratt, his continuous improvement, and offers insights into other top armwrestlers like Alizhan Muradov, Artyom Morozov, Denis Cyplenkov, and Ermes Gasparini, providing indirect context for an Ermes vs Morozov match.",
+      "popular_take": "Fans might view Morozov as a formidable opponent, but Levan's comments suggest he is not invincible. Ermes is portrayed as a consistently improving, top-tier puller.",
+      "counter_case": "Levan's belief that Alizhan Muradov could defeat Morozov challenges the narrative of Morozov being an overwhelming force. For Ermes, the emphasis on needing strong shoulder pressure against Denis highlights a specific tactical requirement that could be crucial against other powerful opponents like Morozov.",
+      "key_question": "What specific tactical approach will Ermes employ against Morozov's strengths, particularly regarding shoulder pressure and hand control, and how will Morozov's endurance and static power hold up against Ermes's consistent pressure?",
+      "claims": [
+        {
+          "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes.",
+          "timestamp": "04:25",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=265s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Implies Ermes is a high-level opponent capable of exposing weaknesses, suggesting his current strength and strategic approach.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov.",
+          "timestamp": "11:47",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=707s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Provides a perspective on Morozov's perceived vulnerability against other top contenders, which could be a narrative point for Ermes.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan anticipates a close match between Ermes and Denis.",
+          "timestamp": "20:29",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1229s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Positions Ermes as a strong contender against another top-tier opponent, indirectly suggesting his capability against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis.",
+          "timestamp": "20:52",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1252s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Reinforces Ermes's high standing among elite armwrestlers, which is relevant for his matchup against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes's wrist.",
+          "timestamp": "21:08",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1268s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Identifies specific physical attributes (hand size, static strength) that are effective against Ermes. If Morozov has similar traits, this could be a key tactical consideration.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis.",
+          "timestamp": "21:21",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1281s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Highlights a crucial tactical element for Ermes against powerful opponents. This could be a key strategy or a potential weakness if not executed effectively against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win.",
+          "timestamp": "21:37",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1297s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Emphasizes the importance of sustained shoulder pressure as a winning strategy for Ermes against strong opponents, which could be vital against Morozov.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon.",
+          "timestamp": "21:53",
+          "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1313s",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "While not directly about Morozov, it provides context on the competitive landscape and the high stakes for top pullers, including Ermes and Morozov.",
+          "confidence": "high",
+          "source_published_at": "2024-04-23T13:35:20Z",
+          "source_age_days": 732,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Fg5g-F7TwA4",
+      "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+      "published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "selected_model": "gemini-3-flash-preview",
+      "model_selection_reason": "cheaper_candidate_passed",
+      "estimated_media_cost_usd": 0.0043972,
+      "evaluation": {
+        "all_claim_coverage_percent": 75.0,
+        "high_value_coverage_percent": 75.0,
+        "quality_grade": "B",
+        "unsupported_claims": [
+          {
+            "timestamp": "01:35",
+            "claim": "You cannot beat Ermes Gasparini if you have not taken his wrist."
+          }
+        ],
+        "missed_high_value_claims": [
+          {
+            "timestamp": "03:39",
+            "claim": "The baseline claim about Ermes's amazing energy and cannot afford to lose the match."
+          }
+        ],
+        "timestamp_quality": 0.86,
+        "pass_fail": "pass",
+        "concise_rationale": "Approximately 75% of baseline claims are covered by candidate claims (6 of 8). High-value claims coverage is also ~75% (3 of 4). There is 1 unsupported candidate claim (01:35) and 1 missed high-value baseline claim (03:39). Overall alignment is good with minor gaps; the candidate passes evaluation."
+      },
+      "summary": "Ermes Gasparini demonstrates elite hand control and a versatile transition to a flop press to dominate Dave Chaffee 3-0.",
+      "popular_take": "Ermes is virtually unbeatable if his wrist remains intact, and even if it breaks, his flop press is a world-class secondary weapon.",
+      "counter_case": "Ermes was repeatedly taken to within an inch of the pad by Dave Chaffee's initial hit, suggesting a vulnerability to high-power starters who can finish quickly.",
+      "key_question": "Can Morozov's finishing power overcome Ermes' ability to surge back from the pad and transition into a flop press?",
+      "claims": [
+        {
+          "claim": "Ermes gained hand control very near the pad and successfully brought Dave back to the center.",
+          "timestamp": "00:25",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=25s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Shows Ermes' ability to recover from deep defensive positions against elite side pressure.",
+          "confidence": "high",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes gets behind his shoulder to press immediately after regaining center.",
+          "timestamp": "01:00",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=60s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Highlights Ermes' transition from a toproll/defensive position into a finishing press.",
+          "confidence": "high",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "You cannot beat Ermes Gasparini if you have not taken his wrist.",
+          "timestamp": "01:35",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=95s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Crucial for Morozov; the match likely hinges on whether Morozov can crack Ermes' wrist.",
+          "confidence": "medium",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes brought Dave back to center with a single surge despite being less than an inch from being pinned.",
+          "timestamp": "02:50",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=170s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Demonstrates Ermes' explosive center-table power and bicep integrity.",
+          "confidence": "high",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes has an incredibly fast flop press transition when his wrist is compromised.",
+          "timestamp": "03:00",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=180s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Morozov must be prepared for the 'flop' if he manages to take Ermes' hand.",
+          "confidence": "high",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes intentionally dumped his wrist to use the flop press as a tactical choice.",
+          "timestamp": "03:10",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=190s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Suggests Ermes is comfortable pulling without a wrist, which complicates Morozov's path to victory.",
+          "confidence": "medium",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        },
+        {
+          "claim": "Ermes is likely the #2 armwrestler in the world following this performance.",
+          "timestamp": "04:05",
+          "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=245s",
+          "speaker_or_source": "Armwrestling Newz",
+          "relevance": "Establishes the tier Ermes is currently in compared to Morozov's rising status.",
+          "confidence": "low",
+          "source_published_at": "2022-11-19T22:19:49Z",
+          "source_age_days": 1253,
+          "source_recency": "historical_context",
+          "current_form_allowed": false,
+          "allowed_evidence_roles": [
+            "durable_style",
+            "historical_context",
+            "not_current_form"
+          ]
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Ermes Gasparini was very happy and a little distracted about his victory over Dave Chaffee (right arm) earlier in the event.",
+      "timestamp": "01:15",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=75s",
+      "speaker_or_source": "commentator",
+      "relevance": "This suggests Ermes might have expended significant emotional and physical energy on his right arm prior to this left-hand match, potentially impacting his overall readiness for a future right-hand match.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov had a successful night on the right arm against Revaz Lutidze.",
+      "timestamp": "01:59",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=119s",
+      "speaker_or_source": "commentator",
+      "relevance": "This is direct evidence of Artyom's recent strong performance and success with his right arm.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov's match against David Dadikyan was phenomenal, showing his heart, ability to go the distance, and fight to the death.",
+      "timestamp": "02:37",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=157s",
+      "speaker_or_source": "commentator",
+      "relevance": "This highlights Artyom's exceptional endurance and mental toughness, general attributes that are highly applicable to his right-hand performance in a long, contested match.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov cups deep on his right arm.",
+      "timestamp": "05:15",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=315s",
+      "speaker_or_source": "commentator",
+      "relevance": "This is a specific technical detail about Artyom's right-hand style, which is crucial for understanding his strategic approach and potential advantages in a right-hand match.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov has a huge frame and genetic God-given size, which is a significant physical advantage.",
+      "timestamp": "06:10",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=370s",
+      "speaker_or_source": "commentator",
+      "relevance": "This physical attribute provides Artyom with inherent leverage and overall power, applicable to both arms and a key factor in his armwrestling style.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini stated 'I'm injured' regarding his wrist/arm during the match, and commentary noted scars on his left arm from a previous match.",
+      "timestamp": "08:19",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=499s",
+      "speaker_or_source": "Ermes Gasparini / commentator",
+      "relevance": "While the injury is specific to his left arm, a significant injury or general fatigue can impact overall performance, training, and mental state for the right arm as well, suggesting a potential vulnerability.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini left so much emotion on the right arm and celebrated too early.",
+      "timestamp": "10:19",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=619s",
+      "speaker_or_source": "commentator",
+      "relevance": "This is a direct commentary on Ermes' emotional and physical expenditure related to his *right arm* prior to this left-hand match, suggesting he might have peaked or over-exerted himself, which is highly relevant to his readiness for a future right-hand match.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "The right arm is so important for Ermes Gasparini; he's gunning for that.",
+      "timestamp": "13:27",
+      "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=807s",
+      "speaker_or_source": "commentator",
+      "relevance": "This indicates Ermes' prioritization and focus on his right arm, suggesting he might be less invested in his left arm performance, which could explain some of his struggles in the video and highlights his primary competitive focus.",
+      "confidence": "high",
+      "source_published_at": "2022-11-23T17:00:51Z",
+      "source_age_days": 1249,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "bWmtNWQM_Ro",
+      "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+      "timestamp": "02:42",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=162s",
+      "speaker_or_source": "Engin Terzi",
+      "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+      "timestamp": "11:35",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=695s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+      "timestamp": "12:06",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=726s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+      "timestamp": "13:07",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=787s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+      "timestamp": "14:24",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=864s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+      "timestamp": "22:00",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1320s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+      "timestamp": "23:55",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1435s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+      "timestamp": "24:05",
+      "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1445s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+      "confidence": "high",
+      "source_published_at": "2022-08-14T17:24:21Z",
+      "source_age_days": 1350,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "NsLWax9GwZY",
+      "video_title": "Ermes Gasparini  - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Engin Terzi teases Ermes Gasparini about Dave Chaffee potentially 'kicking his ass' in their upcoming match.",
+      "timestamp": "09:40",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=580s",
+      "speaker_or_source": "Engin Terzi",
+      "relevance": "This sets a playful, yet competitive tone for the discussion around Ermes vs Dave, highlighting the perceived challenge Dave poses.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Engin Terzi informs Ermes Gasparini that fans in the chat are saying Dave Chaffee canceled his match after seeing Ermes, implying Dave was intimidated.",
+      "timestamp": "10:44",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=644s",
+      "speaker_or_source": "Engin Terzi",
+      "relevance": "This is a direct playful jab at Ermes, suggesting his physique or reputation is intimidating enough to make opponents withdraw, building a narrative of Ermes's strong presence.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini jokes that he doesn't want to post many photos or videos because Dave Chaffee might cancel his match if he sees them.",
+      "timestamp": "11:21",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=681s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "This reinforces the playful narrative that Ermes's current form is so impressive it could scare off opponents, adding to his perceived confidence.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini states he has a '100%' chance against Dave Chaffee, later adjusting it to '99%' due to potential illness.",
+      "timestamp": "13:44",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=824s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "This is a strong claim of confidence from Ermes regarding his chances against Dave, setting a high expectation for his performance.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique.",
+      "timestamp": "15:59",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=959s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "This highlights Ermes's specific tactical advantage and unique style (top roll, wrist, pronation) that he believes Dave has not encountered before, suggesting a potential weakness for Dave.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent.",
+      "timestamp": "21:07",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1267s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "This provides a specific tactical insight into Ermes's top roll strategy, suggesting he aims to break the opponent's hand control early in the match.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll.",
+      "timestamp": "22:32",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1352s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "While about Levan, this reveals Ermes's strong belief in the top roll as the superior technique against powerful opponents, which could be his primary strategy against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone.",
+      "timestamp": "37:07",
+      "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=2227s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "This shows Ermes's high respect for Dave's consistency and strength, setting the stage for a challenging match despite Ermes's own confidence.",
+      "confidence": "high",
+      "source_published_at": "2022-10-25T18:36:03Z",
+      "source_age_days": 1278,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "28S8Qd02rxI",
+      "video_title": "Evgeny Prudnyk  - Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov was sick before his match against Vitaly Laletin, but is now recovering from a partial tendon tear in his left arm, with swelling gone and no severe damage according to MRI.",
+      "timestamp": "00:08",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=8s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Provides context on Morozov's physical state and resilience, which is relevant for assessing his current form and potential for future matches.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov managed to stop Vitaly Laletin with only back pressure, even after his arm was already cracking.",
+      "timestamp": "04:03",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=243s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Highlights Morozov's immense strength and mental toughness, demonstrating his ability to hold against a top opponent even when injured.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Artyom Morozov's wife played a crucial role in his mental preparation, helping him overcome self-doubt and maintain focus, which he believes is key to performance.",
+      "timestamp": "01:34",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=94s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Emphasizes the psychological aspect of elite armwrestling and Morozov's personal motivation, suggesting a strong mental game for future matches.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Attacking Michael Todd directly with a top roll is very dangerous for the wrist and side pressure, a strategy Ermes Gasparini correctly avoided.",
+      "timestamp": "01:8:06",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=4086s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Offers tactical insight into pulling Michael Todd, suggesting that a cautious approach is necessary to avoid injury and exploit Michael's style.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Vitaly Laletin has very long fingers, a big hand, and a very long arm, which gives him a significant advantage in pronation and side pressure.",
+      "timestamp": "02:00",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=120s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Explains Laletin's physical attributes that contribute to his unique and powerful pulling style, crucial for understanding his potential against Ermes.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Vitaly Laletin demonstrated incredible side pressure, recording 130 kg in Ivan Matyushenko's gym.",
+      "timestamp": "02:55",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=175s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Provides a concrete metric of Laletin's strength, supporting the claim of his formidable side pressure and its impact on his matches.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes Gasparini's shoulder press is stronger than Vitaly Laletin's, partly due to Ermes's slightly shorter arm providing a leverage advantage.",
+      "timestamp": "02:45",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=165s",
+      "speaker_or_source": "SteelMorozov",
+      "relevance": "Directly compares a key strength (shoulder press) between Ermes and Laletin, offering a tactical perspective on how their different arm lengths might influence their power.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Engin Terzi notes that Vitaly Laletin has struggled with wrist control against opponents like Ferit Osmanli, Zaur, and Ermes Gasparini, indicating his wrist is not unbreakable.",
+      "timestamp": "02:57",
+      "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=177s",
+      "speaker_or_source": "EnginTerzi",
+      "relevance": "Challenges the perception of Laletin's invincibility, highlighting a potential vulnerability (wrist control) that Ermes or other opponents might exploit.",
+      "confidence": "high",
+      "source_published_at": "2025-03-03T19:09:16Z",
+      "source_age_days": 418,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "yGBrHvylMWs",
+      "video_title": "Artyom Morozov - East vs West Podcast",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov's right arm is feeling better every day and is recovering well.",
+      "timestamp": "02:18",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=138s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Crucial for assessing his readiness for a high-intensity right-hand match against Ermes.",
+      "confidence": "high",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Morozov is utilizing IVs and intensive training protocols for this preparation.",
+      "timestamp": "02:53",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=173s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Indicates a high level of professional preparation and physical investment.",
+      "confidence": "high",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Post-surgery, Morozov's 'rising' strength on his right hand does not drop or fatigue as it did before.",
+      "timestamp": "67:00",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4020s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Rising is a key defensive and offensive component against Ermes' top-roll.",
+      "confidence": "medium",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Morozov feels he has more 'reserve' strength now than he had previously.",
+      "timestamp": "67:40",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4060s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Suggests a higher ceiling for his right-hand performance compared to his pre-injury form.",
+      "confidence": "medium",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Morozov's current body weight is 140kg.",
+      "timestamp": "67:55",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4075s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Significant mass increase which usually correlates to increased raw power in the super-heavyweight division.",
+      "confidence": "high",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match.",
+      "timestamp": "68:08",
+      "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4088s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Suggests the 140kg version seen now is not yet his final form for the Ermes match.",
+      "confidence": "medium",
+      "source_published_at": "2026-03-06T17:29:33Z",
+      "source_age_days": 50,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "nvlNtq3T-Hw",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Artem Morozov's current weight is 138kg (~305 lbs).",
+      "timestamp": "03:03",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=183s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Provides a current physical metric for Morozov, relevant for a heavyweight match.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov's self-assessment of his past match against Vitaly Laletin was that it was primarily a 'strength issue' and Vitaly is 'just power.' He believes if he were stronger, he would have had fewer injuries and pulled more efficiently.",
+      "timestamp": "15:04",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=904s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Highlights Morozov's self-perception of needing more raw strength and his analysis of past high-level competition.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then.",
+      "timestamp": "16:11",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=971s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Indicates Morozov's cautious self-assessment and acknowledges the variability of opponent's form, suggesting his own absolute strength might be variable.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov had a training plan from the beginning and stuck to it. He trains consistently but now goes by feeling, not a strict plan. He tried training twice a day but it's not for him.",
+      "timestamp": "70:15",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=4215s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Offers insight into Morozov's training philosophy and discipline, which contributes to his overall preparation.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'",
+      "timestamp": "69:14",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=4154s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Reveals a strong, personal, and relentless motivational aspect of Morozov's mindset.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov expresses high confidence, stating he believes he will 'smash' Alizhan in their upcoming match.",
+      "timestamp": "22:54",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=1374s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "Demonstrates Morozov's aggressive and confident mindset against a strong opponent, which is relevant for any high-stakes match.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler.",
+      "timestamp": "60:19",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=3619s",
+      "speaker_or_source": "Artem Morozov",
+      "relevance": "A confident and self-aware statement about his formidable presence as an opponent, despite the humorous tone.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair.",
+      "timestamp": "41:48",
+      "source_url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs&t=2508s",
+      "speaker_or_source": "Alizhan (translating Morozov's sentiment)",
+      "relevance": "Highlights Morozov's preference for strict, fair setups, which could be a tactical factor if his opponent (Ermes) employs aggressive or tricky starts.",
+      "confidence": "high",
+      "source_published_at": "2026-04-08T17:05:38Z",
+      "source_age_days": 17,
+      "source_recency": "current_window",
+      "current_form_allowed": true,
+      "allowed_evidence_roles": [
+        "current_form",
+        "durable_style",
+        "historical_context"
+      ],
+      "video_id": "bZUOAv0Kzxs",
+      "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Fans believe Morozov will win easily based on Jerry's recent performances against Ermes and Levan.",
+      "timestamp": "00:45",
+      "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=45s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Explains the current community bias against Jerry in the Morozov matchup.",
+      "confidence": "high",
+      "source_published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "U0kDxaszCu8",
+      "video_title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Direct comparisons between athletes are misleading because power levels vary across different technical points.",
+      "timestamp": "01:05",
+      "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=65s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Argues that Morozov's style might not exploit Jerry's weaknesses the same way Ermes did.",
+      "confidence": "high",
+      "source_published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "U0kDxaszCu8",
+      "video_title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Artyom Morozov's hook is 'super strong.'",
+      "timestamp": "01:13",
+      "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=73s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Identifies the primary technical threat Jerry must overcome.",
+      "confidence": "high",
+      "source_published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "U0kDxaszCu8",
+      "video_title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Jerry can win if he gets his position faster than Morozov.",
+      "timestamp": "01:18",
+      "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=78s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Highlights the importance of the setup and the start in this specific matchup.",
+      "confidence": "medium",
+      "source_published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "U0kDxaszCu8",
+      "video_title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Jerry's press is a serious threat, citing his match where he pressed back against Genadi Kvikvinia.",
+      "timestamp": "01:28",
+      "source_url": "https://www.youtube.com/watch?v=U0kDxaszCu8&t=88s",
+      "speaker_or_source": "Ermes Gasparini",
+      "relevance": "Provides historical evidence that Jerry's press can stop elite hook pullers.",
+      "confidence": "high",
+      "source_published_at": "2025-05-19T07:46:07Z",
+      "source_age_days": 341,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "U0kDxaszCu8",
+      "video_title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+      "channel": "Victorcali Arm Wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Levan's wrist may still be injured or he is psychologically hesitant to use it fully.",
+      "timestamp": "00:51",
+      "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=51s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Suggests a potential vulnerability in the 'unbeatable' standard Ermes is measured against.",
+      "confidence": "medium",
+      "source_published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "x5SXZArLVN0",
+      "video_title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes has significantly increased his training weights and overall power.",
+      "timestamp": "01:10",
+      "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=70s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Establishes that Ermes's 'peak' is still moving upward, raising the bar for Morozov's own match.",
+      "confidence": "high",
+      "source_published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "x5SXZArLVN0",
+      "video_title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes has specifically improved his endurance and is much better in long matches now.",
+      "timestamp": "01:40",
+      "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=100s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Directly impacts the tactical approach for Morozov; he cannot rely on Ermes gassing out.",
+      "confidence": "high",
+      "source_published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "x5SXZArLVN0",
+      "video_title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Levan will likely still have a speed advantage over Ermes.",
+      "timestamp": "01:45",
+      "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=105s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Identifies speed as the primary tactical gap in Ermes's game that opponents can exploit.",
+      "confidence": "medium",
+      "source_published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "x5SXZArLVN0",
+      "video_title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "The match between Ermes and Levan is now a 50/50 toss-up.",
+      "timestamp": "01:52",
+      "source_url": "https://www.youtube.com/watch?v=x5SXZArLVN0&t=112s",
+      "speaker_or_source": "Artyom Morozov",
+      "relevance": "Shows Morozov views Ermes as the co-best in the world, indicating the level of respect/threat he feels.",
+      "confidence": "high",
+      "source_published_at": "2025-03-06T16:01:06Z",
+      "source_age_days": 415,
+      "source_recency": "recent_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "x5SXZArLVN0",
+      "video_title": "😱 Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+      "channel": "Arm wrestling",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes.",
+      "timestamp": "04:25",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=265s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Implies Ermes is a high-level opponent capable of exposing weaknesses, suggesting his current strength and strategic approach.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov.",
+      "timestamp": "11:47",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=707s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Provides a perspective on Morozov's perceived vulnerability against other top contenders, which could be a narrative point for Ermes.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan anticipates a close match between Ermes and Denis.",
+      "timestamp": "20:29",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1229s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Positions Ermes as a strong contender against another top-tier opponent, indirectly suggesting his capability against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis.",
+      "timestamp": "20:52",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1252s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Reinforces Ermes's high standing among elite armwrestlers, which is relevant for his matchup against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes's wrist.",
+      "timestamp": "21:08",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1268s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Identifies specific physical attributes (hand size, static strength) that are effective against Ermes. If Morozov has similar traits, this could be a key tactical consideration.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis.",
+      "timestamp": "21:21",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1281s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Highlights a crucial tactical element for Ermes against powerful opponents. This could be a key strategy or a potential weakness if not executed effectively against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win.",
+      "timestamp": "21:37",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1297s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "Emphasizes the importance of sustained shoulder pressure as a winning strategy for Ermes against strong opponents, which could be vital against Morozov.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon.",
+      "timestamp": "21:53",
+      "source_url": "https://www.youtube.com/watch?v=HBfb57rQxTg&t=1313s",
+      "speaker_or_source": "Levan Saginashvili",
+      "relevance": "While not directly about Morozov, it provides context on the competitive landscape and the high stakes for top pullers, including Ermes and Morozov.",
+      "confidence": "high",
+      "source_published_at": "2024-04-23T13:35:20Z",
+      "source_age_days": 732,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "HBfb57rQxTg",
+      "video_title": "Levan Saginashvili Interview After EvW12",
+      "channel": "East vs West Armwrestling",
+      "selected_model": "gemini-2.5-flash-baseline"
+    },
+    {
+      "claim": "Ermes gained hand control very near the pad and successfully brought Dave back to the center.",
+      "timestamp": "00:25",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=25s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Shows Ermes' ability to recover from deep defensive positions against elite side pressure.",
+      "confidence": "high",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes gets behind his shoulder to press immediately after regaining center.",
+      "timestamp": "01:00",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=60s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Highlights Ermes' transition from a toproll/defensive position into a finishing press.",
+      "confidence": "high",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "You cannot beat Ermes Gasparini if you have not taken his wrist.",
+      "timestamp": "01:35",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=95s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Crucial for Morozov; the match likely hinges on whether Morozov can crack Ermes' wrist.",
+      "confidence": "medium",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes brought Dave back to center with a single surge despite being less than an inch from being pinned.",
+      "timestamp": "02:50",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=170s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Demonstrates Ermes' explosive center-table power and bicep integrity.",
+      "confidence": "high",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes has an incredibly fast flop press transition when his wrist is compromised.",
+      "timestamp": "03:00",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=180s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Morozov must be prepared for the 'flop' if he manages to take Ermes' hand.",
+      "confidence": "high",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes intentionally dumped his wrist to use the flop press as a tactical choice.",
+      "timestamp": "03:10",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=190s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Suggests Ermes is comfortable pulling without a wrist, which complicates Morozov's path to victory.",
+      "confidence": "medium",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    },
+    {
+      "claim": "Ermes is likely the #2 armwrestler in the world following this performance.",
+      "timestamp": "04:05",
+      "source_url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4&t=245s",
+      "speaker_or_source": "Armwrestling Newz",
+      "relevance": "Establishes the tier Ermes is currently in compared to Morozov's rising status.",
+      "confidence": "low",
+      "source_published_at": "2022-11-19T22:19:49Z",
+      "source_age_days": 1253,
+      "source_recency": "historical_context",
+      "current_form_allowed": false,
+      "allowed_evidence_roles": [
+        "durable_style",
+        "historical_context",
+        "not_current_form"
+      ],
+      "video_id": "Fg5g-F7TwA4",
+      "video_title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+      "channel": "ARMWRESTLING NEWZ",
+      "selected_model": "gemini-3-flash-preview"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Levan Saginashvili discusses his match with Devon Larratt, his continuous improvement, and offers insights into other top armwrestlers like Alizhan Muradov, Artyom Morozov, Denis Cyplenkov, and Ermes Gasparini, providing indirect context for an Ermes vs Morozov match.",
+    "popular_take": "Fans might view Morozov as a formidable opponent, but Levan's comments suggest he is not invincible. Ermes is portrayed as a consistently improving, top-tier puller.",
+    "counter_case": "Levan's belief that Alizhan Muradov could defeat Morozov challenges the narrative of Morozov being an overwhelming force. For Ermes, the emphasis on needing strong shoulder pressure against Denis highlights a specific tactical requirement that could be crucial against other powerful opponents like Morozov.",
+    "claims": [
+      {
+        "timestamp": "04:25",
+        "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Implies Ermes is a high-level opponent capable of exposing weaknesses, suggesting his current strength and strategic approach.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:47",
+        "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Provides a perspective on Morozov's perceived vulnerability against other top contenders, which could be a narrative point for Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:29",
+        "claim": "Levan anticipates a close match between Ermes and Denis.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Positions Ermes as a strong contender against another top-tier opponent, indirectly suggesting his capability against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "20:52",
+        "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Reinforces Ermes's high standing among elite armwrestlers, which is relevant for his matchup against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:08",
+        "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes's wrist.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Identifies specific physical attributes (hand size, static strength) that are effective against Ermes. If Morozov has similar traits, this could be a key tactical consideration.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:21",
+        "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Highlights a crucial tactical element for Ermes against powerful opponents. This could be a key strategy or a potential weakness if not executed effectively against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:37",
+        "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "Emphasizes the importance of sustained shoulder pressure as a winning strategy for Ermes against strong opponents, which could be vital against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "21:53",
+        "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon.",
+        "speaker_or_source": "Levan Saginashvili",
+        "relevance": "While not directly about Morozov, it provides context on the competitive landscape and the high stakes for top pullers, including Ermes and Morozov.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What specific tactical approach will Ermes employ against Morozov's strengths, particularly regarding shoulder pressure and hand control, and how will Morozov's endurance and static power hold up against Ermes's consistent pressure?",
+    "usefulness": "medium",
+    "notes": [
+      "The interview primarily focuses on Levan's match with Devon Larratt and other matchups (Ermes vs Denis, Alizhan vs Morozov).",
+      "Direct tactical analysis for Ermes vs Morozov is not present. The claims are derived from general discussions about Ermes and Morozov in other contexts."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 98240,
+    "candidatesTokenCount": 1143,
+    "totalTokenCount": 102232,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 44184
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 53675
+      }
+    ],
+    "thoughtsTokenCount": 2849
+  },
+  "candidate": {
+    "id": "HBfb57rQxTg",
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "title": "Levan talks about Alizhan and his supermatch against Ermes",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "why": "Elite-peer discussion involving Ermes and left-hand title context."
+  }
+}

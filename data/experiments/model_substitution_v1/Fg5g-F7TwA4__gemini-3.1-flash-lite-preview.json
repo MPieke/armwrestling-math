@@ -1,0 +1,85 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "model": "gemini-3.1-flash-lite-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "This video analyzes Ermes Gasparini's tactical victory over Dave Chaffee, highlighting his superior hand control and ability to recover from difficult positions.",
+    "popular_take": "Ermes Gasparini is the clear number two armwrestler in the world after his dominant performance against Dave Chaffee.",
+    "counter_case": "Despite the win, Ermes showed vulnerability to elbow fouls and struggled with the referee's grip, which could be exploited by a more technical opponent.",
+    "claims": [
+      {
+        "timestamp": "00:17",
+        "claim": "Ermes Gasparini consistently gained hand control, even when pushed near the pad.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "Hand control is a critical factor in Ermes's ability to neutralize opponents like Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:44",
+        "claim": "Ermes Gasparini is prone to elbow fouls when under heavy side pressure.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "Morozov's ability to apply sustained side pressure could force similar fouls from Ermes.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:06",
+        "claim": "Ermes's ability to win is contingent on taking the opponent's wrist.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "If Morozov can protect his wrist, Ermes's primary path to victory is compromised.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:33",
+        "claim": "Ermes and Chaffee were both struggling with the referee's grip and setup.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "Setup discipline will be crucial in the upcoming match against Morozov.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:51",
+        "claim": "Ermes possesses a highly effective flop press as a secondary offensive tool.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "The flop press is a key weapon for Ermes when he cannot win in a traditional top-roll.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:46",
+        "claim": "Ermes Gasparini is highly motivated and views this match as the most important in his career.",
+        "speaker_or_source": "Video Narrator",
+        "relevance": "Psychological state and preparation level are key variables for Ermes's performance.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini maintain his hand control and avoid elbow fouls against the technical and powerful Artyom Morozov?",
+    "usefulness": "high",
+    "notes": [
+      "The video provides a good breakdown of Ermes's tactical strengths and weaknesses, which are directly applicable to his upcoming match against Morozov."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 7499,
+    "candidatesTokenCount": 729,
+    "totalTokenCount": 8228,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 7118
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ]
+  },
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap"
+  }
+}

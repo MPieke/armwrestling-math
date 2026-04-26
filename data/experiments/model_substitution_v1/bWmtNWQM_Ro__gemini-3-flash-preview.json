@@ -1,0 +1,101 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov dominates a potentially depleted Ermes Gasparini 3-0 on the left hand, showcasing superior frame height and endurance.",
+    "popular_take": "Morozov's massive frame and 'steel' hand are too much for Ermes to overcome, especially in a long match.",
+    "counter_case": "Ermes' performance was significantly hindered by physical and emotional exhaustion following his right-hand war with Dave Chaffee earlier that same night.",
+    "claims": [
+      {
+        "timestamp": "06:35",
+        "claim": "Ermes initially takes the wrist, but Morozov's back pressure and height hold up.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Shows Morozov can survive a lost wrist position using frame height.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "07:15",
+        "claim": "Morozov's natural size and the height of his joint allow him to apply massive pressure even when the wrist is sacrificed.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Highlights the 'frame' advantage Morozov brings to the right-hand match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "07:35",
+        "claim": "Ermes appears to sacrifice the position or 'give up' the wrist early in the rounds.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Suggests a potential lack of left-hand endurance or mental fatigue.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "10:15",
+        "claim": "Ermes likely left too much emotion and energy in his previous match against Dave Chaffee.",
+        "speaker_or_source": "Ray (Commentator)",
+        "relevance": "The 'exhaustion' narrative is a key factor in why this left-hand loss might not predict a right-hand loss.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:22",
+        "claim": "Morozov's hand and wrist are described as 'steel' during the setup and start.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Confirms Morozov's elite hand strength which translates to both arms.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:15",
+        "claim": "Morozov shows strong shoulder commitment and side pressure to finish the match.",
+        "speaker_or_source": "Commentator",
+        "relevance": "Tactical finishing ability that Ermes must defend on the right.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "15:10",
+        "claim": "Morozov's frame and youth make him a legitimate future threat to the absolute #1 spot (Levan).",
+        "speaker_or_source": "Coach Ray",
+        "relevance": "Establishes Morozov's ceiling as being potentially higher than Ermes'.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "16:10",
+        "claim": "Morozov admits the first round was the hardest because he lacked self-confidence initially.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests Morozov's performance improves as he gains confidence during a match.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Will a fresh Ermes Gasparini have the technical power to crack Morozov's frame before Morozov's superior endurance takes over?",
+    "usefulness": "high",
+    "notes": [
+      "This match was left-handed, but the commentary heavily references Ermes' right-hand performance earlier that night as a fatigue factor.",
+      "Morozov's frame height is repeatedly cited as his primary weapon."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 29317,
+    "candidatesTokenCount": 934,
+    "totalTokenCount": 31039,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 28936
+      }
+    ],
+    "thoughtsTokenCount": 788
+  },
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Direct head-to-head history, but left hand rather than upcoming right hand."
+  }
+}

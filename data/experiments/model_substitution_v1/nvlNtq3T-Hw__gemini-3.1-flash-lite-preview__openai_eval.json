@@ -1,0 +1,83 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 25,
+    "high_value_coverage_percent": 40,
+    "quality_grade": "C-",
+    "unsupported_claims": [
+      {
+        "timestamp": "03:22",
+        "claim": "Alizhan Muratov confirms his upcoming title match against Vitaly Laletin is officially set for the next event."
+      },
+      {
+        "timestamp": "07:11",
+        "claim": "Alizhan Muratov considers pulling Levan Saginashvili left-handed to be an 'easy' task."
+      },
+      {
+        "timestamp": "15:02",
+        "claim": "Morozov expected Vitaly Laletin to win his match against Devon Larratt, but was surprised by Devon's performance."
+      },
+      {
+        "timestamp": "17:15",
+        "claim": "Devon Larratt's performance against Vitaly Laletin was aided by his ability to start first and take bites out of Vitaly's strength."
+      },
+      {
+        "timestamp": "23:15",
+        "claim": "Morozov believes Vitaly Laletin's right arm is significantly stronger than his left."
+      },
+      {
+        "timestamp": "27:15",
+        "claim": "Morozov notes that Devon Larratt is very strong against top rollers due to his unique pulling style."
+      },
+      {
+        "timestamp": "28:15",
+        "claim": "Morozov believes Devon Larratt is a clear favorite against Vitaly Laletin due to his experience and strength."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "11:14",
+        "claim": "Morozov is confident that it will be a good fight."
+      },
+      {
+        "timestamp": "39:21",
+        "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury."
+      },
+      {
+        "timestamp": "67:10",
+        "claim": "Morozov's right wrist rising doesn't drop post-surgery, indicating sustained strength."
+      },
+      {
+        "timestamp": "67:40",
+        "claim": "Morozov feels he has more reserve and capacity now, and can do more than before."
+      }
+    ],
+    "timestamp_quality": 25,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate claims only partially align with baseline content (roughly 2 of 8 baseline claims). Several high-value baseline claims (confidence about the fight, past injuries, post-surgery wrist strength, and reserve capacity) are not adequately covered, indicating insufficient coverage to replace the baseline model."
+  },
+  "usage": {
+    "prompt_tokens": 1345,
+    "completion_tokens": 5702,
+    "total_tokens": 7047,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5120,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00234805,
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  },
+  "candidate_model": "gemini-3.1-flash-lite-preview"
+}

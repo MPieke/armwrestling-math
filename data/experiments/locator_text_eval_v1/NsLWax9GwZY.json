@@ -1,0 +1,102 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "coverage_grade": "poor",
+    "quality_grade": "low",
+    "missed_critical_claims": [
+      {
+        "timestamp": "02:42",
+        "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:35",
+        "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:06",
+        "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:07",
+        "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "14:24",
+        "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:00",
+        "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "23:55",
+        "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:05",
+        "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+        "confidence": "high"
+      }
+    ],
+    "locator_failure_modes": [
+      "No coverage of high-value baseline claims (weight, shape, match importance) due to missing windows.",
+      "Overemphasis on contextual discussion (rules, federations) not tied to claims.",
+      "Untrusted source content not cross-validated, leading to potential misinformation.",
+      "Short windows miss longer claim statements or transitions (e.g., 02:42, 11:35+).",
+      "Relevance scores may undervalue later windows that contain critical assertions."
+    ],
+    "recommendation": "Expand window coverage to include critical claim times (2:42, 11:35-14:24, 22:00-24:05) and capture full statements; add automated transcription alignment to map claims to windows; implement a baseline claim list and cross-check against windows; integrate audio processing to separate signal from noise; add cross-source verification for untrusted content; implement MVP with clearly defined claim categories (weight, shape, difficulty, match importance) and measure coverage against them.",
+    "concise_rationale": "Located windows cover contextual intro and some opponent discussion but miss key high-value claims about weight, form, match importance, and injury; baseline claims not covered; overall MVP coverage is insufficient."
+  },
+  "usage": {
+    "prompt_tokens": 1126,
+    "completion_tokens": 3639,
+    "total_tokens": 4765,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2624,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0015119,
+  "source": {
+    "id": "NsLWax9GwZY",
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "title": "Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "long Ermes podcast"
+  },
+  "coverage_counts": {
+    "baseline_claims": 8,
+    "covered_claims": 0,
+    "missed_claims": 8
+  }
+}

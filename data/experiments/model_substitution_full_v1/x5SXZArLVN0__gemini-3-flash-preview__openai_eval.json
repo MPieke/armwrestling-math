@@ -1,0 +1,42 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 87.5,
+    "high_value_coverage_percent": 87.5,
+    "quality_grade": "B",
+    "unsupported_claims": [
+      {
+        "timestamp": "01:52",
+        "claim": "The match between Ermes and Levan is now a 50/50 toss-up."
+      }
+    ],
+    "missed_high_value_claims": 1,
+    "timestamp_quality": "moderate",
+    "pass_fail": "pass",
+    "concise_rationale": "Candidate claims largely reflect baseline topics (Levan's wrist issues, Ermes' strength/endurance gains, Levan's speed). Seven of eight baseline claims are echoed; one high-value claim (00:30) about Levan's favorite status if ready is not directly covered by candidate claims; one new candidate claim is not grounded in baseline (50/50 toss-up). Overall, strong coverage with one miss and one unsupported claim."
+  },
+  "usage": {
+    "prompt_tokens": 1176,
+    "completion_tokens": 3414,
+    "total_tokens": 4590,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3200,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0014244,
+  "source": {
+    "id": "x5SXZArLVN0",
+    "url": "https://www.youtube.com/watch?v=x5SXZArLVN0",
+    "title": "Artyom Morozov Predicts Ermes Gasparini vs Levan Saginashvili I Rematch",
+    "channel": "Arm wrestling",
+    "type": "Morozov giving a view on Ermes against the top right-hand benchmark."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

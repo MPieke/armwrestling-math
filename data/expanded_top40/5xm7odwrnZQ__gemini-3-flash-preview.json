@@ -1,0 +1,116 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=5xm7odwrnZQ",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini breaks down the technical necessity of rising through the thumb and utilizing extreme back pressure to stop elite super-heavyweights, a strategy he successfully used against Levan Saginashvili.",
+    "popular_take": "Ermes' back pressure and thumb-oriented rising are technically superior to Devon Larratt's, making him the most likely candidate to stop a massive hand like Levan's or Morozov's.",
+    "counter_case": "While Ermes' thumb-rise is effective for stopping a top-roll, it relies heavily on elbow flexion; if Morozov can force the match into a deep hook, Ermes may be forced into a defensive flop press earlier than intended.",
+    "claims": [
+      {
+        "timestamp": "00:40",
+        "claim": "Levan's hand is too large to control using standard pronation and height through the index knuckle.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Highlights Ermes' tactical shift toward thumb-oriented rising, which he will likely use against Morozov's large frame.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:50",
+        "claim": "The only realistic way to defeat a puller of Levan's caliber is through extreme back pressure and rising through the thumb.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Defines Ermes' primary defensive and offensive setup for the Morozov match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:50",
+        "claim": "Ermes' back pressure is significantly stronger than Devon Larratt's, allowing him to hold positions Devon cannot.",
+        "speaker_or_source": "Armwrestling Hub",
+        "relevance": "Establishes Ermes as a more durable 'stop' against Morozov's initial hit compared to other elite pullers.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:05",
+        "claim": "Ermes found a specific spot inside the straps to stop Levan by pulling through the thumb and out the back.",
+        "speaker_or_source": "Armwrestling Hub",
+        "relevance": "Suggests Ermes will prioritize strap matches against Morozov to utilize this specific technical leverage.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:40",
+        "claim": "Ermes possesses elite elbow flexion that allows him to maintain a stop several inches above the pin line even when his wrist is compromised.",
+        "speaker_or_source": "Armwrestling Hub",
+        "relevance": "Crucial for the Morozov match, as Morozov often cracks opponents' wrists; Ermes' ability to pull with a broken wrist is a key defensive asset.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:30",
+        "claim": "Ermes' ultimate tactical goal is to secure a stop and then transition into a flop press.",
+        "speaker_or_source": "Armwrestling Hub",
+        "relevance": "Identifies the 'Plan B' that Morozov must prepare for if he cannot pin Ermes quickly.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Morozov's inside hook power overcome Ermes' elite back pressure and thumb-rise before Ermes can transition into his signature press?",
+    "usefulness": "medium",
+    "notes": [
+      "The video focuses on Levan vs. Devon, but the technical analysis of Ermes' style is directly applicable to his upcoming match with Morozov.",
+      "Morozov is present in the video but does not speak extensively about his own tactics."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 6130,
+    "candidatesTokenCount": 884,
+    "totalTokenCount": 8522,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 484
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5646
+      }
+    ],
+    "thoughtsTokenCount": 1508
+  },
+  "source": {
+    "id": "5xm7odwrnZQ",
+    "url": "https://www.youtube.com/watch?v=5xm7odwrnZQ",
+    "title": "ERMES GASPARINI EXPLAINS LEVAN's WEAKNESS",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2024-03-30T18:35:04Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nCredit for Featured Content:\n\nsub to @devlarratt\nsub to @Engin_Terzi  \nsub to @eastvswestarmwrestling  \nsub to @armwarsofficial  \nsub to @coresportsworld  \nsub to @TwoOneSe7en  \nsub to @LevanSaginashviliOfficial  \nsub to @ermesgasparini3239  \nsub to @johnbrzenk9237  \nsub to @toddhutchings906  \nsub to @MonsterMichaelTodd  \nsub to @jekaprudnik11  \nsub to @BeStrongArmwrestling  \nsub to @GeorgianArmwrestling  \nsub to @genadikvikvinia  \nsub to @vitalylaletin4385  \nsub to @AlexKurdecha  \n\nFeatured Matches:\n\nEast vs West Matches:\nMatt Mask vs Frank Lamparelli\nArtem Taynov vs Sasho Andreev\nIrakli zirakashvili vs Rustam Babayev\nGeorgi Tsvetkov vs Zaur Paizulaev\nJohn Brzenk vs Sasho Andreev\nTodd Hutchings vs Kydyrgali Ongarbayev\nPaul Linn vs Ruslan Babayev\nDerek Smith vs Mehdi\nIrakli Ziraskashvili vs Davit Dadyikan\nEvgeny Prudnik vs Davit Dadyikan\nUncle Todd vs Ibragim\nVitaly Laletin vs Revaz Lutidze\nLachy Adair vs Andrei\nChance Shaw vs Oleg Petrenko\nSandris Sedis vs Pavlo Derbedyenyev\nGeorgi Tsvetkov vs Arytom Morozov\nIrakli Zirakashvili vs Kydyrgali Ongarbayev\nDave Chaffee vs Revaz Lutidze\nVitaly Laletin vs Tobias Sporrong\nRVJ vs Zurab Tavberidze\nBacho saginashvili vs Adam Warzinski\nPaul Linn vs Sasho Andreev\nJohn Brzenk vs Oleg Patrenko\nJohn Brzenk vs Irakli Zirakashvili\nDevon Larratt vs Evgeny Prudnik\nDevon Larratt vs Genadi Kvikvinia\nDevon Larratt vs Ermes Gasparini\nErmes Gasparini vs Jerryy Cadorette\nErmes Gasparini vs Artyom Morozov\nJerry Cadorette vs Genadi Kvikvinia\nJerry Cadorette vs Georgi Tsvetkov\nDevon Larratt vs Denis Cyplenkov\nGeorgi Tsvetkov vs Zaur Paizulaev\n\nArm Wars Matches:\nDevon Larratt vs Michael Todd\nDevon Larratt vs Kristoph Ladu\nDevon Larratt vs John Brzenk\nDevon Larratt vs Richard Lupkes\nDevon Larratt vs Travis Bagent\nDevon Larratt vs Tim Bresnan\nDevon Larratt vs Don Underwood\nDevon Larratt vs Sandris Sedis\nDevon Larratt vs Daniel Lund\nDevon Larratt vs Mindauskus Dulskas\nDevon Larratt vs Georgi Tsvetkov\nAyello vs Mackin\nTodd vs Lupkes\nTodd vs Pickup\nYoshi Kanai vs Todd\nLovei vs Haugland\nLuke Kindt vs Cobra Rhodes\nMike Todd vs Chris Chandler\nUnderwood vs Chris Chandler\nMike Todd vs Marcio\nBresnan vs Bagent\nUnderwood vs Bagent\nLupkes vs Rorbaken\nHaugland vs Geoff Hale\nJames Wall vs Haugland\nStratton vs Haugland\n\nKing of the Table Matches:\nDevon Larratt vs Levan Saginasvhili\nDevon Larratt vs Georgi Tsvetkov\nDevon Larratt vs Dave Chaffee\nVitaly Laletin vs Ermes Gasparini\nLevan Saginasvhili vs Ermes Gasparini\nJohn Brzenk vs Denis Cyplenkov\nJohn Brzenk vs Alexey Voevoda\nDevon Larratt vs John Brzenk\nDevon Larratt vs Michael Todd\n\nTwo One Se7en videos:\nJohn Brzenk vs Pavlo\n18 Minutes of Devon Larratt\nDevon Larratt's Final Practice\nCorey West vs Krasi\nDevon vs Artem Taranenko\nDerek Smith vs Austin\nDevon vs Wayne Withers\nTodd Hutchings vs Chance Shaw\nMatt Mask vs Tim Bresnan",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT3M41S",
+    "caption": "false",
+    "view_count": 29867,
+    "like_count": 819,
+    "license": "youtube",
+    "score": 34,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 221,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  }
+}

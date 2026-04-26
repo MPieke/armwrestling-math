@@ -1,0 +1,344 @@
+{
+  "source": {
+    "id": "NsLWax9GwZY",
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "title": "Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "long Ermes podcast"
+  },
+  "baseline": {
+    "request": {
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "model": "gemini-2.5-flash",
+      "start_seconds": null,
+      "end_seconds": null,
+      "fps": 0.1
+    },
+    "analysis": {
+      "summary": "Ermes Gasparini expresses high confidence in beating Jerry Cadorette, viewing the match as a crucial test for a potential future bout with Levan Saginashvili, while also acknowledging a current left arm pain that makes an immediate match with Artyom Morozov difficult.",
+      "popular_take": "Ermes Gasparini is confident he can beat Jerry Cadorette, even at 85% of his peak, and sees this as a stepping stone to face Levan. He also believes he has a good chance against Artyom Morozov with his left arm if he can control the wrist.",
+      "counter_case": "While Ermes is confident, Engin Terzi repeatedly highlights Jerry's unique and historically strong technique, suggesting Ermes might be underestimating Jerry's specific style, similar to how Gennady underestimated him. Engin also points out Ermes's current left arm pain, which could impact a match against Morozov.",
+      "claims": [
+        {
+          "timestamp": "02:42",
+          "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "11:35",
+          "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "12:06",
+          "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "13:07",
+          "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "14:24",
+          "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "22:00",
+          "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "23:55",
+          "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "24:05",
+          "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+          "speaker_or_source": "Ermes Gasparini",
+          "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+          "confidence": "high"
+        }
+      ],
+      "key_question": "What specific tactical approach will Ermes use against Jerry, and how will his current left arm pain affect his match against Morozov?",
+      "usefulness": "high",
+      "notes": [
+        "The conversation frequently jumps between topics and includes many greetings and jokes, requiring careful filtering for relevant claims.",
+        "Engin Terzi often plays a role in challenging Ermes's statements or providing counter-perspectives, which is useful for the 'counter_case' section.",
+        "Ermes's confidence is a recurring theme, but also his strategic thinking and opponent analysis.",
+        "The discussion about Morozov's left arm is directly relevant to the upcoming match."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 300380,
+      "candidatesTokenCount": 1191,
+      "totalTokenCount": 307964,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 345
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 135445
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 164590
+        }
+      ],
+      "thoughtsTokenCount": 6393
+    },
+    "candidate": {
+      "id": "NsLWax9GwZY",
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "title": "Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "why": "Long-form Ermes source before the 2022 East vs West cycle."
+    },
+    "source": {
+      "id": "NsLWax9GwZY",
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "title": "Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "type": "long Ermes podcast"
+    }
+  },
+  "locator": {
+    "source": {
+      "id": "NsLWax9GwZY",
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "title": "Ermes Gasparini - East vs West Podcast",
+      "channel": "Engin Terzi Enigma of Rage",
+      "type": "long Ermes podcast"
+    },
+    "request": {
+      "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+      "model": "gemini-2.5-flash-lite",
+      "fps": 0.01
+    },
+    "locator": {
+      "windows": [
+        {
+          "start": "00:58",
+          "end": "01:38",
+          "relevance": 0.7,
+          "reason": "The speaker introduces himself and mentions his location, setting the context for the conversation. The mention of 'live from China' is interesting but not directly relevant to the MVP criteria.",
+          "expected_claim_types": [
+            "other"
+          ]
+        },
+        {
+          "start": "01:38",
+          "end": "02:27",
+          "relevance": 0.8,
+          "reason": "This section contains multiple claims about opponent comparison (Artyom vs. Jerry), tactical style (hook, toproll), and confidence (Jerry is too powerful). It also touches on the location of the event (Turkey).",
+          "expected_claim_types": [
+            "opponent_comparison",
+            "tactic",
+            "confidence"
+          ]
+        },
+        {
+          "start": "03:28",
+          "end": "04:18",
+          "relevance": 0.7,
+          "reason": "The speaker discusses the possibility of a match between Levan and Ivan, mentioning the need for an agreement and the difficulty of such a match. This touches on opponent comparison and tactical considerations.",
+          "expected_claim_types": [
+            "opponent_comparison",
+            "tactic"
+          ]
+        },
+        {
+          "start": "04:18",
+          "end": "05:15",
+          "relevance": 0.8,
+          "reason": "The speaker discusses the rules and regulations of organizing matches, specifically mentioning the need for permission from national federations and the involvement of federations like WAF. This provides context on the sport's structure and potential challenges.",
+          "expected_claim_types": [
+            "other"
+          ]
+        }
+      ],
+      "notes": [
+        "The video contains a lot of conversational chat and greetings, making it challenging to isolate purely MVP-relevant claims. The focus is on the speaker's analysis of potential matches and the sport's organizational aspects."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 178576,
+      "candidatesTokenCount": 473,
+      "totalTokenCount": 179049,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 310
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 13676
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 164590
+        }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "start": "00:58",
+      "end": "01:38",
+      "relevance": 0.7,
+      "reason": "The speaker introduces himself and mentions his location, setting the context for the conversation. The mention of 'live from China' is interesting but not directly relevant to the MVP criteria.",
+      "expected_claim_types": [
+        "other"
+      ],
+      "start_seconds": 58,
+      "end_seconds": 98
+    },
+    {
+      "start": "01:38",
+      "end": "02:27",
+      "relevance": 0.8,
+      "reason": "This section contains multiple claims about opponent comparison (Artyom vs. Jerry), tactical style (hook, toproll), and confidence (Jerry is too powerful). It also touches on the location of the event (Turkey).",
+      "expected_claim_types": [
+        "opponent_comparison",
+        "tactic",
+        "confidence"
+      ],
+      "start_seconds": 98,
+      "end_seconds": 147
+    },
+    {
+      "start": "03:28",
+      "end": "04:18",
+      "relevance": 0.7,
+      "reason": "The speaker discusses the possibility of a match between Levan and Ivan, mentioning the need for an agreement and the difficulty of such a match. This touches on opponent comparison and tactical considerations.",
+      "expected_claim_types": [
+        "opponent_comparison",
+        "tactic"
+      ],
+      "start_seconds": 208,
+      "end_seconds": 258
+    },
+    {
+      "start": "04:18",
+      "end": "05:15",
+      "relevance": 0.8,
+      "reason": "The speaker discusses the rules and regulations of organizing matches, specifically mentioning the need for permission from national federations and the involvement of federations like WAF. This provides context on the sport's structure and potential challenges.",
+      "expected_claim_types": [
+        "other"
+      ],
+      "start_seconds": 258,
+      "end_seconds": 315
+    }
+  ],
+  "extractions": [
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 35.61310016s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"35s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "00:58",
+        "end": "01:38",
+        "relevance": 0.7,
+        "reason": "The speaker introduces himself and mentions his location, setting the context for the conversation. The mention of 'live from China' is interesting but not directly relevant to the MVP criteria.",
+        "expected_claim_types": [
+          "other"
+        ],
+        "start_seconds": 58,
+        "end_seconds": 98
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 35.213219625s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"35s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "01:38",
+        "end": "02:27",
+        "relevance": 0.8,
+        "reason": "This section contains multiple claims about opponent comparison (Artyom vs. Jerry), tactical style (hook, toproll), and confidence (Jerry is too powerful). It also touches on the location of the event (Turkey).",
+        "expected_claim_types": [
+          "opponent_comparison",
+          "tactic",
+          "confidence"
+        ],
+        "start_seconds": 98,
+        "end_seconds": 147
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 34.785582869s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"34s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "03:28",
+        "end": "04:18",
+        "relevance": 0.7,
+        "reason": "The speaker discusses the possibility of a match between Levan and Ivan, mentioning the need for an agreement and the difficulty of such a match. This touches on opponent comparison and tactical considerations.",
+        "expected_claim_types": [
+          "opponent_comparison",
+          "tactic"
+        ],
+        "start_seconds": 208,
+        "end_seconds": 258
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 34.368894293s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"model\": \"gemini-2.5-flash\",\n              \"location\": \"global\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"34s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "04:18",
+        "end": "05:15",
+        "relevance": 0.8,
+        "reason": "The speaker discusses the rules and regulations of organizing matches, specifically mentioning the need for permission from national federations and the involvement of federations like WAF. This provides context on the sport's structure and potential challenges.",
+        "expected_claim_types": [
+          "other"
+        ],
+        "start_seconds": 258,
+        "end_seconds": 315
+      }
+    }
+  ]
+}

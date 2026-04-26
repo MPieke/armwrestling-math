@@ -1,0 +1,619 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "dimensions": [
+      {
+        "evidence_index": 50,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Jerry Cadorette",
+          "Genadi Kvikvinia",
+          "Ermes Gasparini"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 51,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili",
+          "Artyom Morozov"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 52,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Artyom Morozov"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 53,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Artyom Morozov"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 54,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili",
+          "Ermes Gasparini"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 55,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "future_prediction",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 56,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 57,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili",
+          "Alizhan Muradov",
+          "Morozov"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 58,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 59,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 60,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 61,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 62,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili",
+          "Ermes Gasparini",
+          "Denis"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 63,
+        "evidence_kind": "athlete_self_report",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Levan Saginashvili",
+          "Denis"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 64,
+        "evidence_kind": "observed_match_event",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Dave Chaffee"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "hand control near pad"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 65,
+        "evidence_kind": "observed_match_event",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Dave Chaffee"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "shoulder transition to press"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 66,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "wrist control"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 67,
+        "evidence_kind": "observed_match_event",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Dave Chaffee"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "shoulder pressure"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 68,
+        "evidence_kind": "observed_match_event",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Dave Chaffee"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "flop press transition"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 69,
+        "evidence_kind": "observed_match_event",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Dave Chaffee"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "wrist dump to flop press"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 70,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "future_prediction",
+        "subject_athletes": [
+          "Ermes Gasparini"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 71,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Devon Larratt",
+          "Morozov",
+          "Gennadi Kvikvinia"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 72,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Morozov",
+          "Devon Larratt"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "shoulder pressure",
+          "press transition"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 73,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "historical_event",
+        "subject_athletes": [
+          "Ermes Gasparini",
+          "Engin Terzi"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "brachioradialis exposure"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      },
+      {
+        "evidence_index": 74,
+        "evidence_kind": "technical_analyst_interpretation",
+        "temporal_scope": "future_prediction",
+        "subject_athletes": [
+          "Morozov",
+          "Ermes Gasparini",
+          "Jerry Cadorette"
+        ],
+        "arm_side": "unknown",
+        "mechanics": [
+          "supination",
+          "low cup"
+        ],
+        "table_positions": [],
+        "physical_attributes": [],
+        "measurements": [],
+        "lifts": [],
+        "transferable_lessons": [
+          "train_supination_and_low_cup_training"
+        ],
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "verification_needed": [],
+        "noise_risk": "low",
+        "dimension_confidence": "low",
+        "abstained_dimensions": []
+      }
+    ]
+  },
+  "usage": {
+    "prompt_tokens": 4574,
+    "completion_tokens": 12313,
+    "total_tokens": 16887,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 8128,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0051539
+}

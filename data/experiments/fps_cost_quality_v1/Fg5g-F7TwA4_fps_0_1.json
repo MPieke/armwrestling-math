@@ -1,0 +1,103 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini defeated Dave Chaffee at East vs West 5, demonstrating exceptional hand control, powerful recovery surges, and an effective flop press, solidifying his status as a top armwrestler.",
+    "popular_take": "Ermes Gasparini is now a confirmed elite armwrestler, capable of beating top-tier opponents by adapting his strategy and maintaining intense pressure, making him a formidable contender for future supermatches.",
+    "counter_case": "Despite his victory, Ermes Gasparini was repeatedly pushed very close to the pin pad by Dave Chaffee, suggesting that while his recovery and finishing power are exceptional, he might still be vulnerable to initial powerful surges from strong opponents.",
+    "claims": [
+      {
+        "timestamp": "00:16",
+        "claim": "Ermes Gasparini demonstrated strong wrist and hand strength by gaining hand control even when Dave Chaffee had pushed him very near to the pad.",
+        "speaker_or_source": "unknown",
+        "relevance": "This highlights Ermes's ability to fight for and maintain hand control under extreme pressure, a crucial factor against Artyom Morozov's powerful initial hit.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:26",
+        "claim": "After gaining hand control, Ermes immediately brought Dave Chaffee back to the center with 'a couple of surges,' showcasing powerful recovery ability.",
+        "speaker_or_source": "unknown",
+        "relevance": "Ermes's capacity to reset the match from a defensive position with powerful surges will be vital if Morozov gains an early advantage or pushes him deep.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:42",
+        "claim": "Dave Chaffee's side pressure was 'way too much' for Ermes in one instance, causing Ermes's elbow to slide off the pad for an elbow foul.",
+        "speaker_or_source": "unknown",
+        "relevance": "This indicates a potential vulnerability for Ermes against sustained, overwhelming side pressure, which Artyom Morozov is known to apply.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:00",
+        "claim": "The commentator states, 'You cannot beat Ermes Gasparini if you have not taken his wrist,' emphasizing the critical importance of wrist control against him.",
+        "speaker_or_source": "unknown",
+        "relevance": "This provides a direct tactical insight for Morozov: securing Ermes's wrist will be key to neutralizing his power and winning the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:49",
+        "claim": "Ermes intentionally 'dumped' his wrist and executed a 'flop press' with surprising speed, flash pinning Dave Chaffee.",
+        "speaker_or_source": "unknown",
+        "relevance": "The flop press is a specific, effective, and fast technique in Ermes's arsenal. Morozov must be prepared for this deceptive move, especially if Ermes gives up his wrist to set it up.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Dave Chaffee slid his elbow off the pad to avoid being pinned by Ermes's flop press, highlighting the extreme speed and force of Ermes's finishing move.",
+        "speaker_or_source": "unknown",
+        "relevance": "This demonstrates the danger of Ermes's flop press; it's so powerful and sudden that opponents may resort to fouls to avoid a pin, a factor Morozov must consider.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:39",
+        "claim": "Ermes Gasparini displayed 'amazing energy' and 'the amount of effort he put into this' match, underscoring his high intensity and determination.",
+        "speaker_or_source": "unknown",
+        "relevance": "Ermes's mental and physical endurance, coupled with his high energy, suggests he can sustain pressure throughout a match, which will be crucial against a powerful opponent like Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:56",
+        "claim": "Ermes Gasparini is declared 'the number two arm wrestler in the world' after this victory, signifying his elite status and current ranking.",
+        "speaker_or_source": "unknown",
+        "relevance": "This establishes Ermes's current standing and the caliber of opponent Morozov will be facing, emphasizing the high stakes and skill level involved in their upcoming match.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini's powerful surges and deceptive flop press overcome Artyom Morozov's initial hit and sustained side pressure, or will Morozov's strength exploit Ermes's moments of vulnerability when taken deep?",
+    "usefulness": "high",
+    "notes": []
+  },
+  "usage_metadata": {
+    "promptTokenCount": 16603,
+    "candidatesTokenCount": 1155,
+    "totalTokenCount": 20342,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 373
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 7364
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 8866
+      }
+    ],
+    "thoughtsTokenCount": 2584
+  },
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap",
+    "why": "Right-hand Ermes evidence with tactical commentary."
+  }
+}

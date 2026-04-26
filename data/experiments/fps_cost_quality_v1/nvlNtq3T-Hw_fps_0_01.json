@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov and Alizhan discuss their current physical condition, training intensity, and confidence for their upcoming match, while also sharing their philosophies on hard work versus luck in armwrestling.",
+    "popular_take": "Fans would believe that both Morozov and Alizhan are highly confident and dedicated to their training, with Morozov specifically feeling strong and ready after his recovery and intense preparation.",
+    "counter_case": "Despite the confidence, both athletes emphasize that hard work and actions are more important than boasting or relying on luck, suggesting a grounded and realistic approach to their competitive careers.",
+    "claims": [
+      {
+        "timestamp": "02:18",
+        "claim": "Artyom Morozov states he feels good, trains a lot, and his arm is getting better every day, recovering well, including getting IVs.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Directly addresses Morozov's current physical state and recovery, which is crucial for his performance against Ermes Gasparini.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:45",
+        "claim": "Alizhan mentions that with the match finally confirmed, he has found consistency in his training and expects to be in good shape by April.",
+        "speaker_or_source": "Alizhan",
+        "relevance": "Provides insight into Alizhan's preparation and mental state, which indirectly affects Morozov's strategy and focus for their match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "08:09",
+        "claim": "Alizhan expresses a philosophy that a person shouldn't be overly confident but should work hard and persevere, as success comes from effort, not luck.",
+        "speaker_or_source": "Alizhan",
+        "relevance": "This philosophical approach to competition, which Morozov agrees with, highlights their serious, work-ethic mindset, relevant to how Morozov might approach a high-stakes match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:04",
+        "claim": "Artyom Morozov reiterates feeling good and gaining confidence with each training session, stating he is confident it will be a good match.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Confirms Morozov's positive mental and physical state, indicating readiness and belief in his preparation for the upcoming challenge.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:18",
+        "claim": "Artyom Morozov and Alizhan confirm they pulled each other once in a tournament in Latoshino in 2020, with Alizhan noting he had a 'crazy start' back then.",
+        "speaker_or_source": "Artyom Morozov / Alizhan",
+        "relevance": "Reveals a past competitive history between Morozov and his current opponent, offering context on their familiarity and past performance dynamics.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:44",
+        "claim": "Artyom Morozov hopes Alizhan has become 'a little slower' since their last match, implying Alizhan's past speed was a significant factor.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Highlights a specific tactical concern (opponent's speed) Morozov had in a previous encounter, which could influence his strategy in future matches.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "30:00",
+        "claim": "A fan comment suggests Artyom Morozov will be 'holding' and 'on the defensive' in his match.",
+        "speaker_or_source": "unknown (fan comment)",
+        "relevance": "Offers an external perception of Morozov's potential strategy, which could be a point of discussion or expectation for his upcoming match.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "30:33",
+        "claim": "Artyom Morozov states he currently weighs 140 kg and feels his right arm's rising strength 'doesn't drop' after surgery, indicating improved endurance.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides key physical data (weight) and a specific claim about his right arm's endurance post-surgery, directly relevant to his physical capabilities against Ermes Gasparini.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Artyom Morozov's improved right arm endurance and disciplined training overcome Ermes Gasparini's power and technique?",
+    "usefulness": "high",
+    "notes": [
+      "The video primarily focuses on the upcoming match between Artyom Morozov and Alizhan, with some discussion about other matches on the EVW card. Claims about Morozov's current condition, training, and competitive philosophy are directly relevant to his match against Ermes Gasparini. Claims about Alizhan are relevant as he is Morozov's immediate opponent, influencing Morozov's preparation and mindset."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 157913,
+    "candidatesTokenCount": 1192,
+    "totalTokenCount": 222018,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 373
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 12098
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 145442
+      }
+    ],
+    "thoughtsTokenCount": 62913
+  },
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast",
+    "why": "Recent Morozov self-assessment and preparation discussion."
+  }
+}

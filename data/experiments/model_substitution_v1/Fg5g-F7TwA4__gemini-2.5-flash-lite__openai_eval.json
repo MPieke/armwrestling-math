@@ -1,0 +1,45 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 62.5,
+    "high_value_coverage_percent": 62.5,
+    "quality_grade": "B",
+    "unsupported_claims": [
+      "01:33",
+      "01:55",
+      "03:07"
+    ],
+    "missed_high_value_claims": [
+      "01:07",
+      "03:39",
+      "04:09"
+    ],
+    "timestamp_quality": 22.2,
+    "pass_fail": "pass",
+    "concise_rationale": "Candidate claims cover 5 of 8 baseline claims (≈62.5%), including major moments such as early hand control, center re-centering, elbow foul, flop press, and behind-shoulder press. Three candidate claims are not supported by the baseline (01:33, 01:55, 03:07). Three baseline high-value moments (01:07, 03:39, 04:09) are missed. Timestamp alignment across matched claims averages ~22 seconds, indicating moderate temporal misalignment but reasonable coverage overall."
+  },
+  "usage": {
+    "prompt_tokens": 1463,
+    "completion_tokens": 5538,
+    "total_tokens": 7001,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5312,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00228835,
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap"
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

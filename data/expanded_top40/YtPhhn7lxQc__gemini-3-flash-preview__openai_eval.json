@@ -1,0 +1,63 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 15,
+    "pass_fail": "fail",
+    "directness": 0.4,
+    "recency_risk": 0.8,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.25,
+    "unsupported_or_stale_claims": "No verifiable claims provided; summary notes 'Gemini analysis failed'; source is from 2023 and lacks recent form data, reducing reliability for a 2026 match.",
+    "concise_rationale": "The source lacks actionable claims, is several years old, and its own summary acknowledges failure, making it unreliable for evaluating a mid-2026 bout."
+  },
+  "usage": {
+    "prompt_tokens": 229,
+    "completion_tokens": 1436,
+    "total_tokens": 1665,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1280,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00058585,
+  "source": {
+    "id": "YtPhhn7lxQc",
+    "url": "https://www.youtube.com/watch?v=YtPhhn7lxQc",
+    "title": "ARTYOM MOROZOV HAS ALWAYS BEEN A BEAST",
+    "channel": "Brazilian ArmWrestler",
+    "channel_id": "UCHxaTQsA548z9sAWhuJu80Q",
+    "published_at": "2023-07-02T18:07:01Z",
+    "description": "ARTYOM MOROZOV \nMOROZOV \nMOROZOV LEFT ARM\nMOROZOV ARMWRESTLING \nMOROZOV FLEXIBILITY\nMOROZOV VS LEVAN\nMOROZOV BEAT LEVAN\nMOROZOV HOOK\nking of the table\nermes gasparini vs levan\nlevan Saginashvili training\nJerry Cadorette\ndevon larratt vs levan \ndevon larratt vs levan Saginashvili \nLevan vs jerry\nlevan Saginashvili vs jerry cadorette\nflop wrist press\nflop wrist\nGenadi kvikvinia\nflop wrist press\nGenadi armwrestling \nWagner Bortolato\nwagner bortolato shoulder press\nwagner bortolato vs ermes gasparini\nMichael Todd\nEvgeny Prudnik\nTodd Hutchings\nermes gasparini\nmortal kombat\ndenis Cyplenkov\narmwrestling\nDevon Larratt\nLevan Saginashvili\nengin \neast vs west\nking of the table \nlarry wheels\neddie hall\nbrian shaw\nunder the table\nWAL\nkings move",
+    "matched_queries": [
+      "Artyom Morozov Ermes Gasparini analysis"
+    ],
+    "duration": "PT1M31S",
+    "caption": "false",
+    "view_count": 71395,
+    "like_count": 947,
+    "license": "youtube",
+    "score": 21,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 91,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

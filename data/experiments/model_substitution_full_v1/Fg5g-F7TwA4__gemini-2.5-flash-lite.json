@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini demonstrates strong offensive pressure and resilience, overcoming a disallowed pin and ultimately defeating Dave Chaffee in a hard-fought match.",
+    "popular_take": "Ermes Gasparini is a top-tier armwrestler with incredible power and determination, capable of overcoming adversity and securing wins even when facing challenges.",
+    "counter_case": "The video highlights a disallowed pin and a potential setup issue, suggesting that while Ermes is strong, his wins might be influenced by referee calls or specific match conditions.",
+    "claims": [
+      {
+        "timestamp": "00:17",
+        "claim": "Ermes Gasparini gains hand control early in the first round but it's very close to the pad.",
+        "speaker_or_source": "unknown",
+        "relevance": "Shows Ermes's ability to establish control, but also potential for close calls and referee intervention.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:49",
+        "claim": "Ermes Gasparini brings Dave Chaffee back to the center with just a couple of surges.",
+        "speaker_or_source": "unknown",
+        "relevance": "Demonstrates Ermes's offensive power and ability to recover control.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:50",
+        "claim": "Ermes Gasparini's elbow slides off the back of the pad, resulting in an elbow foul.",
+        "speaker_or_source": "unknown",
+        "relevance": "Highlights a potential weakness or area of concern for Ermes regarding form and control under pressure.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:33",
+        "claim": "Both competitors were going two seconds before the go in the referee's grip, indicating a potential setup issue or eagerness.",
+        "speaker_or_source": "unknown",
+        "relevance": "Suggests a pattern of early engagement that could be exploited or lead to fouls.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:55",
+        "claim": "A pin is awarded to Dave Chaffee, but the call is reversed after review.",
+        "speaker_or_source": "unknown",
+        "relevance": "Shows that Ermes can be pinned, but also that he can survive and get calls overturned, indicating resilience.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:21",
+        "claim": "Ermes Gasparini gets behind Dave Chaffee's shoulder and presses him to the pad.",
+        "speaker_or_source": "unknown",
+        "relevance": "Demonstrates Ermes's effective offensive strategy and finishing power.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:54",
+        "claim": "Ermes Gasparini's flop press is incredibly fast, leading to a quick pin.",
+        "speaker_or_source": "unknown",
+        "relevance": "Highlights a signature move and explosive power that could be decisive.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:07",
+        "claim": "Ermes Gasparini is visibly frustrated and shouting at the referees after a restart.",
+        "speaker_or_source": "unknown",
+        "relevance": "Indicates potential emotional volatility or frustration under pressure, which could be a factor.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Artyom Morozov withstand Ermes Gasparini's early offensive pressure and avoid the flop press, or will Ermes's power and resilience secure another win?",
+    "usefulness": "high",
+    "notes": [
+      "The video focuses on a match between Ermes Gasparini and Dave Chaffee, not the upcoming Ermes Gasparini vs Artyom Morozov match.",
+      "The commentary provides a strong narrative around Ermes Gasparini's performance, highlighting his strengths and resilience.",
+      "Several claims relate to referee calls and potential fouls, which are always relevant in armwrestling."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 10036,
+    "candidatesTokenCount": 970,
+    "totalTokenCount": 11006,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 789
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 8866
+      }
+    ]
+  },
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "Ermes right-hand result on same card as Morozov/Ermes left-hand."
+  }
+}

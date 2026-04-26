@@ -1,0 +1,67 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 0.15,
+    "recency_risk": 0.8,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.2,
+    "unsupported_or_stale_claims": [
+      "No direct claims about the 2026 Ermes Gasparini vs Artyom Morozov right-hand match; video from 2023 discusses Morozov's potential future supermatches with Ermes, not the June 2026 fight.",
+      "Summary note 'Gemini analysis failed' suggests low analytical reliability and limited actionable content."
+    ],
+    "concise_rationale": "The source is old (2023) and only tangentially mentions Morozov's potential matches with Ermes, with no specific analysis or data about the 2026 Ermes vs Morozov right-hand match. Overall usefulness for the June 2026 bout is minimal."
+  },
+  "usage": {
+    "prompt_tokens": 224,
+    "completion_tokens": 1565,
+    "total_tokens": 1789,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006372000000000001,
+  "source": {
+    "id": "NGidvAhnakw",
+    "url": "https://www.youtube.com/watch?v=NGidvAhnakw",
+    "title": "Morozov talks about future supermatches against Jerry and Ermes",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2023-03-20T23:03:47Z",
+    "description": "Morozov talks about future supermatches against Jerry and Ermes\n\nIn one of Engin Terzi's latest podcasts, Artyom Morozov has commented that in future supermatches against Jerry Cadorette and Ermes Gasparini his chances of winning them are 80-70%.\n\nSource: \nEngin Terzi's channel: https://www.youtube.com/watch?v=loXnahgesfw",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT57S",
+    "caption": "true",
+    "view_count": 1669,
+    "like_count": 23,
+    "license": "youtube",
+    "score": 33,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: podcast",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 57,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

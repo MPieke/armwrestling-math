@@ -1,0 +1,37 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "fail",
+    "unsupported_claims": 8,
+    "missed_high_value_claims": 8,
+    "timestamp_quality": 0,
+    "pass_fail": "FAIL",
+    "concise_rationale": "Candidate model produced no candidate_claims. Coverage of baseline claims is 0%; high-value claim coverage 0%; all 8 baseline claims are unsupported/missed; timestamp quality 0 due to absence of candidate timestamps; overall evaluation: FAIL."
+  },
+  "usage": {
+    "prompt_tokens": 775,
+    "completion_tokens": 1672,
+    "total_tokens": 2447,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1536,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0007075500000000001,
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  },
+  "candidate_model": "gemini-2.0-flash-lite"
+}

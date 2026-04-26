@@ -1,0 +1,49 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=SS2F5lZmQNs",
+    "model": "gemini-3-flash-preview",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3-flash\\nPlease retry in 41.946323461s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-3-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"41s\"\n      }\n    ]\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "SS2F5lZmQNs",
+    "url": "https://www.youtube.com/watch?v=SS2F5lZmQNs",
+    "title": "Artyom Morozov EVW24 USA",
+    "channel": "Ermes Gasparini",
+    "channel_id": "UCt7T3QefqSRB8xasvBrRGkg",
+    "published_at": "2026-04-24T15:58:24Z",
+    "description": "LIKE THE VIDEO, SHARE IT AND DON'T FORGET TO SUBSCRIBE TO THE CHANNEL!\n\nMy training system is now available.\n\nThis is the exact method I use to build strength and performance.\n\n👉 www.ermesgasparini.com\n\nFollow Me On My Other Social!\nInstagram: https://www.instagram.com/ermes.gasparini/\nTik-Tok: https://www.tiktok.com/@ermesgasparini\nFacebook: https://www.facebook.com/gaspariniermes\n\nTrain With The Best Armwrestling Equipment: https://wristball.net/\nCODE DISCOUNT : ERMES",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov"
+    ],
+    "duration": "PT5M17S",
+    "caption": "false",
+    "view_count": 14067,
+    "like_count": 1311,
+    "license": "youtube",
+    "score": 21,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 317,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  }
+}

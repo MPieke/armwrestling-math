@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": 0.4,
+    "recency_risk": 0.8,
+    "durable_style_value": 0.25,
+    "current_form_value": 0.2,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a 2022 video with no extractable claims relevant to the 2026 matchup; the summary notes analysis failure, offering minimal current strategic insight."
+  },
+  "usage": {
+    "prompt_tokens": 234,
+    "completion_tokens": 1212,
+    "total_tokens": 1446,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1088,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0004965,
+  "source": {
+    "id": "BhIJT42gwNc",
+    "url": "https://www.youtube.com/watch?v=BhIJT42gwNc",
+    "title": "Ermes Gasparini vs Artym Morozov | Left Arm | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "channel_id": "UCdCGMR_8NeATGsFTms6m5Ag",
+    "published_at": "2022-11-19T23:02:58Z",
+    "description": "East vs west 5 Devon Larratt vs Evgeny Prudnik\nhttps://app.coresports.tv/signup\nPATREON  https://rb.gy/awjrwr\n\n💪🏋CHECK OUT OLD SCHOOL LABS 🏋💪\nSUPPORT ME AND USE CODE-  \"AWNEWZ\"  FOR 15% OFF.\n● https://t.nylas.com/t1/231/7fa9p2xwn7jambstftrp0f2dd/0/d64dadd2e1380dabec42ab0b2dc70d9c3ffbaa3b69f48f88880f7e043ca110e1",
+    "matched_queries": [
+      "Ermes Morozov East vs West",
+      "Ermes Morozov Armwrestling Newz"
+    ],
+    "duration": "PT2M12S",
+    "caption": "false",
+    "view_count": 47499,
+    "like_count": 691,
+    "license": "youtube",
+    "score": 31,
+    "score_reasons": [
+      "trusted channel: ARMWRESTLING NEWZ",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 132,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

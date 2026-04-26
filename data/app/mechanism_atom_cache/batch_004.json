@@ -1,0 +1,576 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "atoms": [
+      {
+        "atom_id": "a1",
+        "evidence_index": 90,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "rise",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "training",
+        "enables": [
+          "height_gain_against_long_armed_pullers"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "analyst_interpretation",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a2",
+        "evidence_index": 91,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "rise",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "training",
+        "enables": [
+          "height_gain_against_variants_of_opponent"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "analyst_interpretation",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a3",
+        "evidence_index": 92,
+        "actor": "Other/unknown",
+        "target": "",
+        "action": "rise",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "training",
+        "enables": [
+          "height_advantage_for Morozov_to_stay_off_bottom"
+        ],
+        "denies": [
+          "Morozov containment of Ermes"
+        ],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "analyst_interpretation",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a4",
+        "evidence_index": 93,
+        "actor": "Other/unknown",
+        "target": "",
+        "action": "thumb_setup_supination",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "height_and_supination_in_setup"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a5",
+        "evidence_index": 94,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "center_table_hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "neutralizes_back_pressure_when_wrist_forced_back"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "narrator",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a6",
+        "evidence_index": 95,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "inside_hook_struggle",
+        "lane": "inside/hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "inside_pull_problems_for_morozov"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "narrator",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a7",
+        "evidence_index": 96,
+        "actor": "Other/unknown",
+        "target": "",
+        "action": "inside_hook",
+        "lane": "inside/hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "advantage_against_high_level_inside_pullers"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a8",
+        "evidence_index": 97,
+        "actor": "Other/unknown",
+        "target": "",
+        "action": "inside_hook",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "Ermes_handling_in_inside_positions"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a9",
+        "evidence_index": 98,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "wrist_control_unspecified",
+        "lane": "outside/toproll",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "cup_or_control_to_counter_open_toproll"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "unknown",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a10",
+        "evidence_index": 99,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "outside/toproll",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "defensive_and_offensive_tool_in_outside_move"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "unknown",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a11",
+        "evidence_index": 100,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "flop_press_transition",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "transition_to_flop_press_when_wrist_compromised"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a12",
+        "evidence_index": 101,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "center_table_hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "dominant_through_center_table_lane"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "unknown",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a13",
+        "evidence_index": 102,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "shoulder_commitment_elbow_frame_strength",
+        "lane": "inside/hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "defensive_stability_against_frame_pressure"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "unknown",
+        "current_form_usable": true,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a14",
+        "evidence_index": 103,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "rising_through_thumb",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "counter_levan_hand_size_with_thumb_rise"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "athlete_self_report",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a15",
+        "evidence_index": 104,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure; rising_through_thumb",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "extremely_effective_defense_using_back_pressure_and_thumb_rise"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "athlete_self_report",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a16",
+        "evidence_index": 105,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "defensive_stop",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "holds_positions_against_stronger_opponents"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a17",
+        "evidence_index": 106,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "pulling_through_thumb; strap_leverage",
+        "lane": "strap",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "strap_leverage_to_stop_levan"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a18",
+        "evidence_index": 107,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "elbow_flexion",
+        "lane": "inside/hook",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "stop_high_above_pin_line_despite_wrist_compromise"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "medium",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a19",
+        "evidence_index": 108,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "flop_press_transition",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "Plan_B_to_finish_if_pin_is_not_quick"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "observed_match_event",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a20",
+        "evidence_index": 109,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "pronation",
+        "lane": "outside/toproll",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "baseline_pronation_strength_in_training"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a21",
+        "evidence_index": 110,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "elbow_flexion",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "elite_elbow_flexor_strength"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a22",
+        "evidence_index": 111,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "pronation",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "relative_pronation_strength_compared_to_others"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a23",
+        "evidence_index": 112,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "elbow_flexion",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "superiority_in_elbow_flexion_vs_devon"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a24",
+        "evidence_index": 113,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "unknown",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "nearly_100kg_back_pressure_in_training"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      },
+      {
+        "atom_id": "a25",
+        "evidence_index": 114,
+        "actor": "Ermes Gasparini",
+        "target": "",
+        "action": "back_pressure",
+        "lane": "center_table",
+        "position_state": "",
+        "match_phase": "unknown",
+        "enables": [
+          "stops_levan_with_back_pressure_but_lacks_wrist_control_to_finish"
+        ],
+        "denies": [],
+        "follow_up": [],
+        "condition": "",
+        "source_basis": "historical_context",
+        "current_form_usable": false,
+        "durable_style_usable": true,
+        "historical_context_usable": true,
+        "confidence": "low",
+        "caveat": ""
+      }
+    ],
+    "missing_or_underdeveloped_mechanisms": []
+  },
+  "usage": {
+    "prompt_tokens": 5028,
+    "completion_tokens": 15069,
+    "total_tokens": 20097,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 11136,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.006279000000000001
+}

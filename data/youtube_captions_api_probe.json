@@ -1,0 +1,187 @@
+{
+  "video_id": "U0kDxaszCu8",
+  "api_key_captions_list": {
+    "kind": "youtube#captionListResponse",
+    "etag": "inrR6RNxefDmre7tuu3Od6YMEqA",
+    "items": [
+      {
+        "kind": "youtube#caption",
+        "etag": "nIg1LMID3jTfp7wIk4vpJt0Qvqs",
+        "id": "AUieDaZwA2DGn7gbiYqHicXHWWsDjLvsGsSAfJ212GWhzpAdp5o",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T10:48:11.122241Z",
+          "trackKind": "asr",
+          "language": "en",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "izh68nFoqQ2Mr2TxYbjaloY8o4Q",
+        "id": "AUieDaaKvOaITE_fqnHeKzs6g-VJi-3PqWw6RPF2cAxs",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:09.880081Z",
+          "trackKind": "standard",
+          "language": "es",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "ml2IUVwwhXVEsG0z4U7oFAuXGeI",
+        "id": "AUieDaY32QC5VvfhWhkE0cNt9n0F1ZeR_YaHXZUHFGTn",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:43.305506Z",
+          "trackKind": "standard",
+          "language": "tr",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "UgMuDY6a-KhBGHrO6BF3mrH12Cw",
+        "id": "AUieDaYMc_snO3_lfIbzvXFWMZYI5v8yzvQcNzXkOB5H",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:06:51.258819Z",
+          "trackKind": "standard",
+          "language": "en",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "b2aSjZBFqr4NGLvHb8185gh_LlQ",
+        "id": "AUieDabu6YDvFwPf7u-NPZwo4WQdp3vCAhEdLupColbN8qOV",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:25.092838Z",
+          "trackKind": "standard",
+          "language": "pt-BR",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "o6AIvNDc9z4cKwozxBVcvgo1h8c",
+        "id": "AUieDabBI4tFR5uvH3Evwv7pA3d7huvBE3w-_FCayiXG",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:01.432877Z",
+          "trackKind": "standard",
+          "language": "de",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "grsd37y3Fpk9vpr_r_Vyp4hOJPk",
+        "id": "AUieDaYrbhZ3oBeZLynZ_jDB7i8Ojn1jh24WS6FNsqUi",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:17.582204Z",
+          "trackKind": "standard",
+          "language": "it",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      },
+      {
+        "kind": "youtube#caption",
+        "etag": "wZYSTAJchNxxQorAEv_KjNoyAKc",
+        "id": "AUieDabIgu4PdtR74chOa3dtfN_ocA41fNKTE9kehJpq",
+        "snippet": {
+          "videoId": "U0kDxaszCu8",
+          "lastUpdated": "2025-05-17T11:07:33.308252Z",
+          "trackKind": "standard",
+          "language": "ru",
+          "name": "",
+          "audioTrackType": "unknown",
+          "isCC": false,
+          "isLarge": false,
+          "isEasyReader": false,
+          "isDraft": false,
+          "isAutoSynced": false,
+          "status": "serving"
+        }
+      }
+    ]
+  },
+  "api_key_download_attempts": [
+    {
+      "caption_id": "AUieDaZwA2DGn7gbiYqHicXHWWsDjLvsGsSAfJ212GWhzpAdp5o",
+      "track_kind": "asr",
+      "language": "en",
+      "download_result": {
+        "ok": false,
+        "status": 401,
+        "body": "{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"API keys are not supported by this API. Expected OAuth2 access token or other authentication credentials that assert a principal. See https://cloud.google.com/docs/authentication\",\n    \"errors\": [\n      {\n        \"message\": \"Login Required.\",\n        \"domain\": \"global\",\n        \"reason\": \"required\",\n        \"location\": \"Authorization\",\n        \"locationType\": \"header\"\n      }\n    ],\n    \"status\": \"UNAUTHENTICATED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"CREDENTIALS_MISSING\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"method\": \"youtube.api.v3.V3DataCaptionService.Download\",\n          \"service\": \"youtube.googleapis.com\"\n        }\n      }\n    ]\n  }\n}\n"
+      }
+    },
+    {
+      "caption_id": "AUieDaYMc_snO3_lfIbzvXFWMZYI5v8yzvQcNzXkOB5H",
+      "track_kind": "standard",
+      "language": "en",
+      "download_result": {
+        "ok": false,
+        "status": 401,
+        "body": "{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"API keys are not supported by this API. Expected OAuth2 access token or other authentication credentials that assert a principal. See https://cloud.google.com/docs/authentication\",\n    \"errors\": [\n      {\n        \"message\": \"Login Required.\",\n        \"domain\": \"global\",\n        \"reason\": \"required\",\n        \"location\": \"Authorization\",\n        \"locationType\": \"header\"\n      }\n    ],\n    \"status\": \"UNAUTHENTICATED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"CREDENTIALS_MISSING\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"youtube.googleapis.com\",\n          \"method\": \"youtube.api.v3.V3DataCaptionService.Download\"\n        }\n      }\n    ]\n  }\n}\n"
+      }
+    }
+  ],
+  "oauth_captions_list": {
+    "ok": false,
+    "skipped": "Missing YOUTUBE_OAUTH_TOKEN."
+  }
+}

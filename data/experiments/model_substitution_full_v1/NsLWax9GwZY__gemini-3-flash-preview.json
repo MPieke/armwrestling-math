@@ -1,0 +1,94 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini discusses his training weight, recovery from minor injuries, and stylistic matchups against Jerry Cadorette and Artyom Morozov.",
+    "popular_take": "Ermes is at a level where he believes his '85% shape' is sufficient to dominate top-tier super-heavyweights like Jerry Cadorette.",
+    "counter_case": "Ermes admits to lingering elbow pain and acknowledges that Artyom Morozov has evolved significantly since his previous losses, making past footage less reliable.",
+    "claims": [
+      {
+        "timestamp": "11:38",
+        "claim": "Ermes is currently weighing between 127kg and 128kg.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Establishes his baseline mass for the super-heavyweight division.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:05",
+        "claim": "Ermes rates his current shape at 85% of his all-time peak (the Bortolato match).",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Indicates he has a significant ceiling for improvement leading into major matches.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "19:19",
+        "claim": "Ermes claims he never loses once he has established control over the opponent's wrist.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Highlights the central importance of wrist control in his tactical approach against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "23:56",
+        "claim": "Ermes states that 90% of his career focus and training is dedicated to his right arm.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Suggests his right-hand performance is his true priority and highest level.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:35",
+        "claim": "Ermes mentions he is currently dealing with 'a little pain' in his arm.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Potential injury factor that could affect training intensity or match endurance.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "24:56",
+        "claim": "Ermes predicts a match with Morozov will be a toproll battle because Morozov cannot hook him.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Specific stylistic prediction for the match flow.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "58:18",
+        "claim": "Ermes acknowledges that Morozov's current shape is 'very different' and improved compared to his match against Prudnik.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Shows Ermes is not underestimating Morozov's rapid progression.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes maintain his 90% right-hand focus and wrist-control dominance against a version of Morozov that Ermes himself admits is vastly improved?",
+    "usefulness": "high",
+    "notes": [
+      "The video provides direct insight into Ermes' self-assessment of his peak vs. current form.",
+      "Ermes' dismissal of Morozov's hooking ability is a key tactical narrative to track."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 132334,
+    "candidatesTokenCount": 860,
+    "totalTokenCount": 134049,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 131953
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 855
+  },
+  "source": {
+    "id": "NsLWax9GwZY",
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "title": "Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Long-form Ermes source before the 2022 East vs West cycle."
+  }
+}

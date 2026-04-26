@@ -1,0 +1,340 @@
+{
+  "source": {
+    "id": "bZUOAv0Kzxs",
+    "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "very recent Morozov livestream"
+  },
+  "baseline": {
+    "request": {
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "model": "gemini-2.5-flash",
+      "start_seconds": null,
+      "end_seconds": null,
+      "fps": 0.1
+    },
+    "analysis": {
+      "summary": "Artem Morozov discusses his current weight, past match against Vitaly, training philosophy, and confidence against upcoming opponents, emphasizing fair play and continuous improvement.",
+      "popular_take": "Artem Morozov is a strong, disciplined, and ambitious heavyweight who relies on raw power and seeks fair competition, confident in his ability to overcome challenges.",
+      "counter_case": "While confident, Morozov acknowledges past 'strength issues' and that his opponent (Vitaly in a past match) might not have been at their peak, suggesting his own absolute strength level might be variable or still developing. His focus on 'fair starts' also implies a potential vulnerability to aggressive setups.",
+      "claims": [
+        {
+          "timestamp": "03:03",
+          "claim": "Artem Morozov's current weight is 138kg (~305 lbs).",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Provides a current physical metric for Morozov, relevant for a heavyweight match.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "15:04",
+          "claim": "Morozov's self-assessment of his past match against Vitaly Laletin was that it was primarily a 'strength issue' and Vitaly is 'just power.' He believes if he were stronger, he would have had fewer injuries and pulled more efficiently.",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Highlights Morozov's self-perception of needing more raw strength and his analysis of past high-level competition.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "16:11",
+          "claim": "Morozov cannot definitively say if he is stronger now than when he pulled Vitaly Laletin, as Vitaly was not in peak shape then.",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Indicates Morozov's cautious self-assessment and acknowledges the variability of opponent's form, suggesting his own absolute strength might be variable.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "70:15",
+          "claim": "Morozov had a training plan from the beginning and stuck to it. He trains consistently but now goes by feeling, not a strict plan. He tried training twice a day but it's not for him.",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Offers insight into Morozov's training philosophy and discipline, which contributes to his overall preparation.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "69:14",
+          "claim": "Morozov's motivation is driven by the saying, 'A crazy head doesn't let your arms rest.'",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Reveals a strong, personal, and relentless motivational aspect of Morozov's mindset.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "22:54",
+          "claim": "Morozov expresses high confidence, stating he believes he will 'smash' Alizhan in their upcoming match.",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "Demonstrates Morozov's aggressive and confident mindset against a strong opponent, which is relevant for any high-stakes match.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "60:19",
+          "claim": "Morozov humorously refers to himself as a '138kg stepping stone' on Alizhan's path to becoming the strongest armwrestler.",
+          "speaker_or_source": "Artem Morozov",
+          "relevance": "A confident and self-aware statement about his formidable presence as an opponent, despite the humorous tone.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "41:48",
+          "claim": "Morozov values fair, mutual starts with no pre-start movement. He believes if the match starts fairly, the stronger one will win, and considers cheating unfair.",
+          "speaker_or_source": "Alizhan (translating Morozov's sentiment)",
+          "relevance": "Highlights Morozov's preference for strict, fair setups, which could be a tactical factor if his opponent (Ermes) employs aggressive or tricky starts.",
+          "confidence": "high"
+        }
+      ],
+      "key_question": "Can Morozov's raw power and disciplined approach overcome Ermes's technique and unique style, especially if the match conditions are not perfectly 'mutual' at the start?",
+      "usefulness": "high",
+      "notes": [
+        "The discussion about Alizhan vs Artem is for the left-handed title, but insights into Artem's general approach are still relevant.",
+        "The host (Travis) makes a prediction for Artem to win against Alizhan, which is a direct prediction but not a claim about Artem's capabilities.",
+        "The 'Epstein files' and 4:20 jokes are irrelevant."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 253938,
+      "candidatesTokenCount": 1186,
+      "totalTokenCount": 263072,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 345
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 114405
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 139188
+        }
+      ],
+      "thoughtsTokenCount": 7948
+    },
+    "candidate": {
+      "id": "bZUOAv0Kzxs",
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "why": "Very recent Morozov long-form EVW content."
+    },
+    "source": {
+      "id": "bZUOAv0Kzxs",
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "type": "very recent Morozov livestream"
+    }
+  },
+  "locator": {
+    "source": {
+      "id": "bZUOAv0Kzxs",
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "type": "very recent Morozov livestream"
+    },
+    "request": {
+      "url": "https://www.youtube.com/watch?v=bZUOAv0Kzxs",
+      "model": "gemini-2.5-flash-lite",
+      "fps": 0.01
+    },
+    "locator": {
+      "windows": [
+        {
+          "start": "00:11",
+          "end": "01:02",
+          "relevance": 0.8,
+          "reason": "The speaker discusses the upcoming match, introduces the participants, and mentions the 'left-handed title' and the fact that they are from the same town. This sets the stage for opponent comparison and tactical claims.",
+          "expected_claim_types": [
+            "opponent_comparison",
+            "other"
+          ]
+        },
+        {
+          "start": "01:11",
+          "end": "02:04",
+          "relevance": 0.9,
+          "reason": "The speaker talks about their area of expertise, which is ensuring understanding between participants, and mentions their kids' opinions on the participants' skills. This touches on confidence and opponent comparison.",
+          "expected_claim_types": [
+            "confidence",
+            "opponent_comparison"
+          ]
+        },
+        {
+          "start": "02:04",
+          "end": "03:19",
+          "relevance": 0.95,
+          "reason": "The speaker discusses the weight of the participants, specifically mentioning '305' and '300' pounds, and asks about the current weight and expected weight in 10 days. This is direct evidence for form claims.",
+          "expected_claim_types": [
+            "form"
+          ]
+        },
+        {
+          "start": "03:27",
+          "end": "04:12",
+          "relevance": 0.9,
+          "reason": "The speaker highlights the presence of former champions and a current champion in the podcast, specifically mentioning the 'heavyweight left-handed champion of the world'. This is a strong opponent comparison claim.",
+          "expected_claim_types": [
+            "opponent_comparison"
+          ]
+        }
+      ],
+      "notes": [
+        "The timestamps are approximate and may need further refinement based on the full transcript."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 151070,
+      "candidatesTokenCount": 445,
+      "totalTokenCount": 151515,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 310
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 11572
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 139188
+        }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "start": "00:11",
+      "end": "01:02",
+      "relevance": 0.8,
+      "reason": "The speaker discusses the upcoming match, introduces the participants, and mentions the 'left-handed title' and the fact that they are from the same town. This sets the stage for opponent comparison and tactical claims.",
+      "expected_claim_types": [
+        "opponent_comparison",
+        "other"
+      ],
+      "start_seconds": 11,
+      "end_seconds": 62
+    },
+    {
+      "start": "01:11",
+      "end": "02:04",
+      "relevance": 0.9,
+      "reason": "The speaker talks about their area of expertise, which is ensuring understanding between participants, and mentions their kids' opinions on the participants' skills. This touches on confidence and opponent comparison.",
+      "expected_claim_types": [
+        "confidence",
+        "opponent_comparison"
+      ],
+      "start_seconds": 71,
+      "end_seconds": 124
+    },
+    {
+      "start": "02:04",
+      "end": "03:19",
+      "relevance": 0.95,
+      "reason": "The speaker discusses the weight of the participants, specifically mentioning '305' and '300' pounds, and asks about the current weight and expected weight in 10 days. This is direct evidence for form claims.",
+      "expected_claim_types": [
+        "form"
+      ],
+      "start_seconds": 124,
+      "end_seconds": 199
+    },
+    {
+      "start": "03:27",
+      "end": "04:12",
+      "relevance": 0.9,
+      "reason": "The speaker highlights the presence of former champions and a current champion in the podcast, specifically mentioning the 'heavyweight left-handed champion of the world'. This is a strong opponent comparison claim.",
+      "expected_claim_types": [
+        "opponent_comparison"
+      ],
+      "start_seconds": 207,
+      "end_seconds": 252
+    }
+  ],
+  "extractions": [
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 31.211279959s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"31s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "00:11",
+        "end": "01:02",
+        "relevance": 0.8,
+        "reason": "The speaker discusses the upcoming match, introduces the participants, and mentions the 'left-handed title' and the fact that they are from the same town. This sets the stage for opponent comparison and tactical claims.",
+        "expected_claim_types": [
+          "opponent_comparison",
+          "other"
+        ],
+        "start_seconds": 11,
+        "end_seconds": 62
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 30.815784516s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"30s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "01:11",
+        "end": "02:04",
+        "relevance": 0.9,
+        "reason": "The speaker talks about their area of expertise, which is ensuring understanding between participants, and mentions their kids' opinions on the participants' skills. This touches on confidence and opponent comparison.",
+        "expected_claim_types": [
+          "confidence",
+          "opponent_comparison"
+        ],
+        "start_seconds": 71,
+        "end_seconds": 124
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 30.410036686s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"model\": \"gemini-2.5-flash\",\n              \"location\": \"global\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"30s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "02:04",
+        "end": "03:19",
+        "relevance": 0.95,
+        "reason": "The speaker discusses the weight of the participants, specifically mentioning '305' and '300' pounds, and asks about the current weight and expected weight in 10 days. This is direct evidence for form claims.",
+        "expected_claim_types": [
+          "form"
+        ],
+        "start_seconds": 124,
+        "end_seconds": 199
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 29.980394937s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"29s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "03:27",
+        "end": "04:12",
+        "relevance": 0.9,
+        "reason": "The speaker highlights the presence of former champions and a current champion in the podcast, specifically mentioning the 'heavyweight left-handed champion of the world'. This is a strong opponent comparison claim.",
+        "expected_claim_types": [
+          "opponent_comparison"
+        ],
+        "start_seconds": 207,
+        "end_seconds": 252
+      }
+    }
+  ]
+}

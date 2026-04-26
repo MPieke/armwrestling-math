@@ -1,0 +1,87 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov and Alizhan Muratov discuss their training, recovery, and upcoming matches, with Morozov providing specific updates on his right-hand strength and body weight.",
+    "popular_take": "Artyom Morozov is returning to the right-hand elite in peak condition, weighing 140kg and claiming his hand strength, specifically his rising, is better than ever post-surgery.",
+    "counter_case": "While Morozov feels stronger, he admits he hasn't yet tested his absolute maximum ('peaked out') since his surgery, leaving some uncertainty about his top-end power against someone like Ermes.",
+    "claims": [
+      {
+        "timestamp": "02:18",
+        "claim": "Morozov's right arm is feeling better every day and is recovering well.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Crucial for assessing his readiness for a high-intensity right-hand match against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:53",
+        "claim": "Morozov is utilizing IVs and intensive training protocols for this preparation.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates a high level of professional preparation and physical investment.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "67:00",
+        "claim": "Post-surgery, Morozov's 'rising' strength on his right hand does not drop or fatigue as it did before.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Rising is a key defensive and offensive component against Ermes' top-roll.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "67:40",
+        "claim": "Morozov feels he has more 'reserve' strength now than he had previously.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests a higher ceiling for his right-hand performance compared to his pre-injury form.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "67:55",
+        "claim": "Morozov's current body weight is 140kg.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Significant mass increase which usually correlates to increased raw power in the super-heavyweight division.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "68:08",
+        "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests the 140kg version seen now is not yet his final form for the Ermes match.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Will Morozov's reported increase in 'rising' stability and 140kg frame be enough to stop Ermes Gasparini's world-class transition from a hit to a press?",
+    "usefulness": "high",
+    "notes": [
+      "Morozov is very confident about his right hand's structural integrity post-surgery.",
+      "The weight update (140kg) is a major data point for fans comparing him to Ermes' similar frame."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 116976,
+    "candidatesTokenCount": 814,
+    "totalTokenCount": 118431,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 116595
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 641
+  },
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  }
+}

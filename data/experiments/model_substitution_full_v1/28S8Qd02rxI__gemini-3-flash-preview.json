@@ -1,0 +1,87 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini and Evgeny Prudnik discuss their upcoming matches and the current world rankings, with Ermes expressing high confidence in his power but acknowledging potential endurance trade-offs.",
+    "popular_take": "Ermes is physically at his peak power-wise, making him a massive threat in the early rounds against any opponent, including Morozov.",
+    "counter_case": "Ermes's admission of potentially lower endurance due to increased muscle mass suggests he could be vulnerable if he fails to secure a quick pin.",
+    "claims": [
+      {
+        "timestamp": "13:48",
+        "claim": "Ermes claims a 100% chance of victory against Dave Chaffee.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Morozov's win over Chaffee is a key benchmark; Ermes's confidence here sets a high bar for his own performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "29:00",
+        "claim": "Ermes admits he might have less endurance now because he is more muscular than ever before.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Endurance is Morozov's primary path to victory; Ermes acknowledging a decline is a significant tactical detail.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "31:45",
+        "claim": "Ermes asserts that Dave Chaffee will not be able to take his wrist.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Wrist control is the foundation of Ermes's style; if he maintains it against Chaffee-level power, he likely maintains it against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "65:05",
+        "claim": "Prudnik predicts that Revaz Lutidze will beat Artyom Morozov.",
+        "speaker_or_source": "Evgeny Prudnik",
+        "relevance": "Provides an elite peer's perspective on Morozov's standing against other top-tier SHW pullers.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "65:55",
+        "claim": "Prudnik ranks Ermes and Revaz as tied for 3rd in the world, with Morozov ranked 5th.",
+        "speaker_or_source": "Evgeny Prudnik",
+        "relevance": "Establishes a community ranking hierarchy that places Ermes as the favorite over Morozov.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "113:00",
+        "claim": "Prudnik claims he would beat Morozov on both the right and left arms.",
+        "speaker_or_source": "Evgeny Prudnik",
+        "relevance": "Suggests that Morozov may have technical or stylistic vulnerabilities that elite pullers like Prudnik and Ermes can exploit.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Ermes's explosive top roll secure a victory in the first three rounds before his self-admitted endurance limitations become a factor against Morozov's versatility?",
+    "usefulness": "high",
+    "notes": [
+      "The video provides direct insight into Ermes's current weight (261 lbs) and his mental state regarding his physical evolution.",
+      "The comparison to Dave Chaffee is a recurring theme used to gauge the Ermes/Morozov matchup."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 238346,
+    "candidatesTokenCount": 836,
+    "totalTokenCount": 240397,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 237965
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 1215
+  },
+  "source": {
+    "id": "28S8Qd02rxI",
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+  }
+}

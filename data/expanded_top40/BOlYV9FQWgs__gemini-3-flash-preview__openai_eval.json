@@ -1,0 +1,69 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": "low",
+    "recency_risk": "high",
+    "durable_style_value": 0.15,
+    "current_form_value": 0.15,
+    "unsupported_or_stale_claims": [
+      "Claims field is empty; no evaluable claims",
+      "Summary notes 'Gemini analysis failed' but provides no substantiation or evidence",
+      "Video originates from a channel with unclear credibility; lacks match-specific or technical analysis",
+      "No dates or data directly relevant to Ermes Gasparini vs Artyom Morozov right-hand matchup"
+    ],
+    "concise_rationale": "The source provides no concrete, match-relevant claims or data to assess for the 2026 bout; its age (2023) and questionable credibility reduce its usefulness, and there are no substantiated claims to evaluate."
+  },
+  "usage": {
+    "prompt_tokens": 223,
+    "completion_tokens": 1486,
+    "total_tokens": 1709,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1280,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006055500000000001,
+  "source": {
+    "id": "BOlYV9FQWgs",
+    "url": "https://www.youtube.com/watch?v=BOlYV9FQWgs",
+    "title": "ERMES GASPARINI is #1",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2023-07-30T14:00:07Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nPPV- https://www.coresports.world/\n\nEast vs West- @eastvswestarmwrestling \n\nErmes interview- https://www.youtube.com/watch?v=ji4wVQ_mo7s&pp=ygUUZWFzdCB2cyB3ZXN0IGNoYW5uZWw%3D",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT3M42S",
+    "caption": "false",
+    "view_count": 33785,
+    "like_count": 921,
+    "license": "youtube",
+    "score": 29,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: interview",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 222,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

@@ -1,0 +1,63 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 0.2,
+    "recency_risk": 0.7,
+    "durable_style_value": 0.3,
+    "current_form_value": 0.4,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The video covers Morozov vs. Laletin (not Gasparini) and predates the Gasparini–Morozov bout. It notes that Gemini analysis failed, suggesting low relevance and reliability for predicting the June 2026 Gasparini–Morozov matchup."
+  },
+  "usage": {
+    "prompt_tokens": 236,
+    "completion_tokens": 1557,
+    "total_tokens": 1793,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1408,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006346,
+  "source": {
+    "id": "ESV3SAsb2JU",
+    "url": "https://www.youtube.com/watch?v=ESV3SAsb2JU",
+    "title": "VITALY LALETİN VS ARTYOM MOROZOV - EAST VS WEST 13",
+    "channel": "Engin Terzi Enigma of Rage",
+    "channel_id": "UCMzpyrvO3yUeGDclgjixSoA",
+    "published_at": "2024-07-17T13:19:32Z",
+    "description": "💥ESN  PRESENTS\nhttps://int.esn.com/\n\n💥EAST VS WEST 14, AUGUST 10th PPV ON CORESPORTS\nhttps://app.coresports.tv/signup\n\n💥EAST VS WEST 14 SIGNED TRADING CARDS\nhttps://eastvswestarmwrestling.com/product/evw14-signed-trading-cards/\n\n💥EAST VS WEST 14 EVENT TICKET(to attend in person)\nhttps://eastvswestarmwrestling.com/product/east-vs-west-14-event-ticket/\n\n💥 VIP PACKAGE \nhttps://eastvswestarmwrestling.com/vip-sponsors/\n\n\n\n\n\n\n\n#armwrestling #eastvswest",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov"
+    ],
+    "duration": "PT12M27S",
+    "caption": "false",
+    "view_count": 590156,
+    "like_count": 17380,
+    "license": "youtube",
+    "score": 27,
+    "score_reasons": [
+      "trusted channel: Engin Terzi Enigma of Rage",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 747,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "long-form or match-length source"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

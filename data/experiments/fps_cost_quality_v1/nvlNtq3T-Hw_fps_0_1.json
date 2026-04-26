@@ -1,0 +1,107 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "The video features an interview with armwrestlers Artyom Morozov and Alizhan, discussing their upcoming left-hand match, general training, and other matches on the EVW 23 card, but does not specifically address an Ermes Gasparini vs Artyom Morozov right-hand match.",
+    "popular_take": "Fans would likely perceive Artyom Morozov as highly confident and dedicated to his training, with his right arm feeling stronger than ever after surgery, making him a formidable opponent in any upcoming match.",
+    "counter_case": "The video does not provide any counter-narrative regarding a specific match against Ermes Gasparini, as that match is not discussed. However, Morozov's philosophy emphasizes hard work over luck, suggesting he relies on preparation rather than overconfidence.",
+    "claims": [
+      {
+        "timestamp": "02:18",
+        "claim": "Artyom Morozov feels good and trains a lot, with his arm recovering and getting better every day.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "This provides insight into Morozov's current physical condition and training intensity, which is foundational for any upcoming match, including a hypothetical right-hand match against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:30",
+        "claim": "Artyom Morozov is training very hard, including getting IVs, and is determined to perform his best.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Highlights Morozov's commitment to preparation, suggesting he is leaving no stone unturned for his upcoming competitions, which would apply to a match against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:30",
+        "claim": "Artyom Morozov believes in working hard for success rather than relying on luck, stating that luck is only needed to avoid injury during training.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Reveals Morozov's mindset and approach to competition, emphasizing preparation and performance over external factors, which is a key aspect of his competitive philosophy.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "06:20",
+        "claim": "Artyom Morozov's confidence grows with each training session, and he is confident it will be a good match.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates Morozov's strong mental state and belief in his abilities, crucial for high-level competition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:00",
+        "claim": "After surgery, Artyom Morozov's right wrist rising doesn't drop, and he feels stronger right-handed than ever before, weighing 140kg.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "This is a direct tactical claim about Morozov's right arm strength and recovery, indicating a significant improvement and increased power, making him a more formidable opponent for a right-hand match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:20",
+        "claim": "Robert is impressed by Artyom Morozov's increased strength and current weight of 140kg.",
+        "speaker_or_source": "Baxpuller (Robert)",
+        "relevance": "Corroborates Morozov's claims about his physical improvements, suggesting a noticeable gain in mass and power that could impact his performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:20",
+        "claim": "Robert mentions an upcoming right-hand match for Artyom Morozov in about two months (7 weeks).",
+        "speaker_or_source": "Baxpuller (Robert)",
+        "relevance": "Confirms that Morozov has a right-hand match scheduled, although the opponent is not specified as Ermes Gasparini in this video.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "15:00",
+        "claim": "Robert suggests giving Artyom Morozov a left-arm match first to ease him in, then if he wins the contender match, he goes for the title.",
+        "speaker_or_source": "Baxpuller (Robert)",
+        "relevance": "Outlines a potential strategy for Morozov's return to high-level competition, indicating a cautious approach to ensure he is fully prepared for title contention.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "What is Artyom Morozov's current peak right-hand strength and how does it compare to his past performance?",
+    "usefulness": "low",
+    "notes": [
+      "The video does not contain specific information or tactical claims regarding an 'Ermes Gasparini vs Artyom Morozov right-hand match'.",
+      "The claims extracted pertain to Artyom Morozov's general physical condition, training, confidence, and an upcoming right-hand match (opponent unspecified), which are broadly relevant to any of his competitions.",
+      "The 'key_question' has been adapted to reflect the information available in the video about Morozov's general state rather than a specific match not discussed."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 265480,
+    "candidatesTokenCount": 1250,
+    "totalTokenCount": 272285,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 373
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 119665
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 145442
+      }
+    ],
+    "thoughtsTokenCount": 5555
+  },
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast",
+    "why": "Recent Morozov self-assessment and preparation discussion."
+  }
+}

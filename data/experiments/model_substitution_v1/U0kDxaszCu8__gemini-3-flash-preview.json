@@ -1,0 +1,80 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini argues that Jerry Cadorette's losses to himself and Levan shouldn't lead fans to underestimate Jerry against Artyom Morozov, emphasizing Jerry's press as a viable path to victory.",
+    "popular_take": "Artyom Morozov is a heavy favorite because Jerry Cadorette was easily defeated by Ermes Gasparini and Levan Saginashvili.",
+    "counter_case": "Jerry Cadorette can defeat Morozov if he manages to establish his press position before Morozov can engage his hook.",
+    "claims": [
+      {
+        "timestamp": "00:45",
+        "claim": "Fans believe Morozov will win easily based on Jerry's recent performances against Ermes and Levan.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Explains the current community bias against Jerry in the Morozov matchup.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Direct comparisons between athletes are misleading because power levels vary across different technical points.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Argues that Morozov's style might not exploit Jerry's weaknesses the same way Ermes did.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:13",
+        "claim": "Artyom Morozov's hook is 'super strong.'",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Identifies the primary technical threat Jerry must overcome.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:18",
+        "claim": "Jerry can win if he gets his position faster than Morozov.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Highlights the importance of the setup and the start in this specific matchup.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:28",
+        "claim": "Jerry's press is a serious threat, citing his match where he pressed back against Genadi Kvikvinia.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Provides historical evidence that Jerry's press can stop elite hook pullers.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Jerry Cadorette establish his press position before Artyom Morozov can lock in his hook?",
+    "usefulness": "high",
+    "notes": [
+      "The video specifically discusses Jerry Cadorette vs. Artyom Morozov, rather than a direct Ermes vs. Morozov match.",
+      "Ermes provides a peer-level technical analysis of Jerry's style versus Morozov's style."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 2967,
+    "candidatesTokenCount": 668,
+    "totalTokenCount": 4413,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2586
+      }
+    ],
+    "thoughtsTokenCount": 778
+  },
+  "source": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "type": "short commentary clip"
+  }
+}

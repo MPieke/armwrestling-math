@@ -1,0 +1,94 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini demonstrates elite hand control and a versatile transition to a flop press to dominate Dave Chaffee 3-0.",
+    "popular_take": "Ermes is virtually unbeatable if his wrist remains intact, and even if it breaks, his flop press is a world-class secondary weapon.",
+    "counter_case": "Ermes was repeatedly taken to within an inch of the pad by Dave Chaffee's initial hit, suggesting a vulnerability to high-power starters who can finish quickly.",
+    "claims": [
+      {
+        "timestamp": "00:25",
+        "claim": "Ermes gained hand control very near the pad and successfully brought Dave back to the center.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Shows Ermes' ability to recover from deep defensive positions against elite side pressure.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:00",
+        "claim": "Ermes gets behind his shoulder to press immediately after regaining center.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Highlights Ermes' transition from a toproll/defensive position into a finishing press.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:35",
+        "claim": "You cannot beat Ermes Gasparini if you have not taken his wrist.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Crucial for Morozov; the match likely hinges on whether Morozov can crack Ermes' wrist.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "02:50",
+        "claim": "Ermes brought Dave back to center with a single surge despite being less than an inch from being pinned.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Demonstrates Ermes' explosive center-table power and bicep integrity.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Ermes has an incredibly fast flop press transition when his wrist is compromised.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Morozov must be prepared for the 'flop' if he manages to take Ermes' hand.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:10",
+        "claim": "Ermes intentionally dumped his wrist to use the flop press as a tactical choice.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Suggests Ermes is comfortable pulling without a wrist, which complicates Morozov's path to victory.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "04:05",
+        "claim": "Ermes is likely the #2 armwrestler in the world following this performance.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Establishes the tier Ermes is currently in compared to Morozov's rising status.",
+        "confidence": "low"
+      }
+    ],
+    "key_question": "Can Morozov's finishing power overcome Ermes' ability to surge back from the pad and transition into a flop press?",
+    "usefulness": "high",
+    "notes": [
+      "The video emphasizes Ermes' tactical flexibility between toprolling and pressing.",
+      "Dave Chaffee's style is more linear than Morozov's, which may affect the comparison."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 7499,
+    "candidatesTokenCount": 859,
+    "totalTokenCount": 9338,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 7118
+      }
+    ],
+    "thoughtsTokenCount": 980
+  },
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "Ermes right-hand result on same card as Morozov/Ermes left-hand."
+  }
+}

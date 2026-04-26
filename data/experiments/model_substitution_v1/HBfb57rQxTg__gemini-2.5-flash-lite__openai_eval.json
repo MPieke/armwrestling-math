@@ -1,0 +1,75 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "04:25",
+        "claim": "Levan states he identified and worked on his 'minuses' (weight, technique) after his match with Ermes."
+      },
+      {
+        "timestamp": "11:47",
+        "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov."
+      },
+      {
+        "timestamp": "20:29",
+        "claim": "Levan anticipates a close match between Ermes and Denis."
+      },
+      {
+        "timestamp": "20:52",
+        "claim": "Levan considers Ermes a slight favorite (10% edge) against Denis."
+      },
+      {
+        "timestamp": "21:08",
+        "claim": "Levan notes Denis possesses a 'huge hand' and 'very good static' that could challenge Ermes."
+      },
+      {
+        "timestamp": "21:21",
+        "claim": "Levan states Ermes '100% need to shoulder pressure' to defeat Denis."
+      },
+      {
+        "timestamp": "21:37",
+        "claim": "Levan believes if Ermes 'continues again and again' with shoulder pressure, he would win."
+      },
+      {
+        "timestamp": "21:53",
+        "claim": "Levan notes Denis is 'very angry and hungry' after losing to Devon."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "11:47",
+        "claim": "Levan believes Alizhan Muradov (at 150kg) can beat Morozov."
+      }
+    ],
+    "timestamp_quality": 0,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate claims do not align with any baseline claims; zero coverage of baseline content; only one high-value baseline claim (Morozov-related) is missed; overall data quality is insufficient for replacement."
+  },
+  "usage": {
+    "prompt_tokens": 1294,
+    "completion_tokens": 3368,
+    "total_tokens": 4662,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2944,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0014119,
+  "source": {
+    "id": "HBfb57rQxTg",
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "title": "Levan talks about Alizhan and his supermatch against Ermes",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Elite-peer discussion involving Ermes and left-hand title context."
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

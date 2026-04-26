@@ -1,0 +1,351 @@
+{
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "recent Morozov livestream"
+  },
+  "baseline": {
+    "request": {
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "model": "gemini-2.5-flash",
+      "start_seconds": null,
+      "end_seconds": null,
+      "fps": 0.1
+    },
+    "analysis": {
+      "summary": "Artyom Morozov discusses his recovery, intense training, and confidence for the upcoming right-hand match against Ermes Gasparini, with Robert Smith highlighting Morozov's potential and past performance.",
+      "popular_take": "Artyom Morozov is recovering well, training hard, and is confident, potentially being a world champion if not for past injury.",
+      "counter_case": "The video doesn't directly address Ermes Gasparini's current form or specific strategies against Morozov, focusing heavily on Morozov's perspective and recovery.",
+      "claims": [
+        {
+          "timestamp": "02:22",
+          "claim": "Morozov's arm feels better every day, recovering well, and he feels really good.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Indicates Morozov's recovery status and current physical condition, crucial for his performance against Ermes.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "02:31",
+          "claim": "Morozov trains a lot and uses IVs for recovery, indicating intense preparation.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Highlights Morozov's commitment to preparation and recovery strategy, which could impact his endurance and strength in the match.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "11:14",
+          "claim": "Morozov is confident that it will be a good fight.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Shows Morozov's mental state and belief in his performance, which is a factor in high-stakes matches.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "12:15",
+          "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning, reflecting a humble and action-oriented approach.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Reveals Morozov's humble approach and focus on actions over words, a cultural aspect that might influence his pre-match demeanor.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "39:21",
+          "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury.",
+          "speaker_or_source": "Baxpuller",
+          "relevance": "Provides context on Morozov's past performance and potential, suggesting he was a top contender before injury and could return to that level.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "67:10",
+          "claim": "Morozov's right wrist rising doesn't drop post-surgery, indicating sustained strength in that area.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "This is a specific tactical/form claim about his right wrist strength post-surgery, which is vital for hand control and top-rolling against Ermes.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "67:40",
+          "claim": "Morozov feels he has more reserve and capacity now, and can do more than before.",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Indicates increased strength and capacity compared to his previous form, suggesting he is in better physical condition.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "68:15",
+          "claim": "Morozov currently weighs 140 kilograms (290 pounds).",
+          "speaker_or_source": "Steel Morozov",
+          "relevance": "Provides his current weight, indicating his size and potential power for the match, especially if he's competing in a lower weight class or has significantly bulked up.",
+          "confidence": "high"
+        }
+      ],
+      "key_question": "What specific tactical advantages or weaknesses will Morozov's current form and recovery present against Ermes Gasparini's style?",
+      "usefulness": "high",
+      "notes": [
+        "The video focuses heavily on Morozov's perspective and recovery, with less direct discussion of Ermes Gasparini's current form or specific strategies.",
+        "The claims are based on Morozov's self-assessment and Robert Smith's observations/opinions."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 265452,
+      "candidatesTokenCount": 1026,
+      "totalTokenCount": 284206,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 345
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 119665
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 145442
+        }
+      ],
+      "thoughtsTokenCount": 17728
+    },
+    "candidate": {
+      "id": "nvlNtq3T-Hw",
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "why": "Recent Morozov long-form EVW content."
+    },
+    "source": {
+      "id": "nvlNtq3T-Hw",
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "type": "recent Morozov livestream"
+    }
+  },
+  "locator": {
+    "source": {
+      "id": "nvlNtq3T-Hw",
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+      "channel": "East vs West Armwrestling",
+      "type": "recent Morozov livestream"
+    },
+    "request": {
+      "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+      "model": "gemini-2.5-flash-lite",
+      "fps": 0.01
+    },
+    "locator": {
+      "windows": [
+        {
+          "start": "01:49",
+          "end": "02:00",
+          "relevance": 0.8,
+          "reason": "Morozov discusses his training and recovery, mentioning feeling good and improving daily, indicating confidence in his form.",
+          "expected_claim_types": [
+            "form",
+            "confidence"
+          ]
+        },
+        {
+          "start": "03:16",
+          "end": "04:15",
+          "relevance": 0.9,
+          "reason": "Alijan discusses his confidence, the confirmation of the match, and his training mindset, expressing belief in his ability to perform well.",
+          "expected_claim_types": [
+            "confidence",
+            "form",
+            "training"
+          ]
+        },
+        {
+          "start": "08:03",
+          "end": "09:14",
+          "relevance": 0.9,
+          "reason": "Morozov expresses confidence based on hard work and training, downplaying the need for luck and emphasizing results over claims.",
+          "expected_claim_types": [
+            "confidence",
+            "training",
+            "tactic"
+          ]
+        },
+        {
+          "start": "13:04",
+          "end": "14:27",
+          "relevance": 0.8,
+          "reason": "Discussion about past matches between the athletes, specifically mentioning a previous match in 2020 and the context of their previous encounters.",
+          "expected_claim_types": [
+            "opponent_comparison",
+            "other"
+          ]
+        }
+      ],
+      "notes": [
+        "The conversation covers multiple matches and general training, but these windows focus on specific claims about form, confidence, and opponent comparisons relevant to the MVP criteria."
+      ]
+    },
+    "usage_metadata": {
+      "promptTokenCount": 157850,
+      "candidatesTokenCount": 404,
+      "totalTokenCount": 158254,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 310
+        },
+        {
+          "modality": "VIDEO",
+          "tokenCount": 12098
+        },
+        {
+          "modality": "AUDIO",
+          "tokenCount": 145442
+        }
+      ]
+    }
+  },
+  "windows": [
+    {
+      "start": "01:49",
+      "end": "02:00",
+      "relevance": 0.8,
+      "reason": "Morozov discusses his training and recovery, mentioning feeling good and improving daily, indicating confidence in his form.",
+      "expected_claim_types": [
+        "form",
+        "confidence"
+      ],
+      "start_seconds": 109,
+      "end_seconds": 120
+    },
+    {
+      "start": "03:16",
+      "end": "04:15",
+      "relevance": 0.9,
+      "reason": "Alijan discusses his confidence, the confirmation of the match, and his training mindset, expressing belief in his ability to perform well.",
+      "expected_claim_types": [
+        "confidence",
+        "form",
+        "training"
+      ],
+      "start_seconds": 196,
+      "end_seconds": 255
+    },
+    {
+      "start": "08:03",
+      "end": "09:14",
+      "relevance": 0.9,
+      "reason": "Morozov expresses confidence based on hard work and training, downplaying the need for luck and emphasizing results over claims.",
+      "expected_claim_types": [
+        "confidence",
+        "training",
+        "tactic"
+      ],
+      "start_seconds": 483,
+      "end_seconds": 554
+    },
+    {
+      "start": "13:04",
+      "end": "14:27",
+      "relevance": 0.8,
+      "reason": "Discussion about past matches between the athletes, specifically mentioning a previous match in 2020 and the context of their previous encounters.",
+      "expected_claim_types": [
+        "opponent_comparison",
+        "other"
+      ],
+      "start_seconds": 784,
+      "end_seconds": 867
+    }
+  ],
+  "extractions": [
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 30.720028184s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"30s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "01:49",
+        "end": "02:00",
+        "relevance": 0.8,
+        "reason": "Morozov discusses his training and recovery, mentioning feeling good and improving daily, indicating confidence in his form.",
+        "expected_claim_types": [
+          "form",
+          "confidence"
+        ],
+        "start_seconds": 109,
+        "end_seconds": 120
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 30.394797545s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"model\": \"gemini-2.5-flash\",\n              \"location\": \"global\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"30s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "03:16",
+        "end": "04:15",
+        "relevance": 0.9,
+        "reason": "Alijan discusses his confidence, the confirmation of the match, and his training mindset, expressing belief in his ability to perform well.",
+        "expected_claim_types": [
+          "confidence",
+          "form",
+          "training"
+        ],
+        "start_seconds": 196,
+        "end_seconds": 255
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 30.084521618s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"30s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "08:03",
+        "end": "09:14",
+        "relevance": 0.9,
+        "reason": "Morozov expresses confidence based on hard work and training, downplaying the need for luck and emphasizing results over claims.",
+        "expected_claim_types": [
+          "confidence",
+          "training",
+          "tactic"
+        ],
+        "start_seconds": 483,
+        "end_seconds": 554
+      }
+    },
+    {
+      "analysis": {
+        "summary": "Gemini analysis failed.",
+        "claims": [],
+        "notes": [
+          "HTTP 429 from Gemini API:\n{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 29.762324914s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"29s\"\n      }\n    ]\n  }\n}\n"
+        ],
+        "usefulness": "low"
+      },
+      "usage_metadata": {},
+      "window": {
+        "start": "13:04",
+        "end": "14:27",
+        "relevance": 0.8,
+        "reason": "Discussion about past matches between the athletes, specifically mentioning a previous match in 2020 and the context of their previous encounters.",
+        "expected_claim_types": [
+          "opponent_comparison",
+          "other"
+        ],
+        "start_seconds": 784,
+        "end_seconds": 867
+      }
+    }
+  ]
+}

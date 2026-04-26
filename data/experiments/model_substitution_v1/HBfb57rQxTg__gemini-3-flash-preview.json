@@ -1,0 +1,95 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": [
+    {
+      "summary": "Levan Saginashvili and Engin Terzi discuss the current super-heavyweight landscape, specifically highlighting Ermes Gasparini's technical reliance on the shoulder press and Artyom Morozov's vulnerability to elite inside pullers.",
+      "popular_take": "Ermes Gasparini is the clear #3 in the world, but his wrist remains a liability against massive hands, necessitating a transition to a shoulder press.",
+      "counter_case": "While Ermes is ranked higher, Levan suggests Morozov is beatable by specific styles (like Alizhan's), and Ermes's recent inability to take Kirill Sarychev's wrist suggests a potential path for Morozov to win the hand battle.",
+      "claims": [
+        {
+          "timestamp": "04:25",
+          "claim": "Levan identifies his match with Ermes as the point where his own 'minuses' in technique and weight were exposed, leading to his current improvements.",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Establishes Ermes as the technical benchmark for the world #1.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "11:48",
+          "claim": "Levan believes Alizhan Muratov can beat Artyom Morozov.",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Suggests Morozov has vulnerabilities against elite inside/hook pullers.",
+          "confidence": "medium"
+        },
+        {
+          "timestamp": "19:35",
+          "claim": "The current world ranking is stated as Levan #1, Devon #2, and Ermes #3.",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "Confirms the high stakes of the Ermes vs Morozov match for the #3 spot.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "20:00",
+          "claim": "In recent training, Ermes was able to beat Kirill Sarychev but was unable to take Kirill's wrist.",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "Indicates Ermes may still struggle with pure hand control against super-heavyweight frames.",
+          "confidence": "medium"
+        },
+        {
+          "timestamp": "20:15",
+          "claim": "Denis Cyplenkov was able to take Kirill Sarychev's wrist easily a week prior, unlike Ermes.",
+          "speaker_or_source": "Engin Terzi",
+          "relevance": "Provides a comparative metric for Ermes's wrist strength against other top contenders.",
+          "confidence": "medium"
+        },
+        {
+          "timestamp": "21:05",
+          "claim": "Levan predicts Ermes may lose his wrist against pullers with huge hands and strong pronators.",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Directly identifies the tactical risk for Ermes if Morozov can utilize his hand size.",
+          "confidence": "high"
+        },
+        {
+          "timestamp": "21:25",
+          "claim": "Levan states that Ermes '100% needs' the shoulder press to win against elite hand control.",
+          "speaker_or_source": "Levan Saginashvili",
+          "relevance": "Identifies Ermes's primary win condition if he loses the hand battle to Morozov.",
+          "confidence": "high"
+        }
+      ],
+      "key_question": "Can Ermes secure his wrist against Morozov's frame, or will he be forced to rely entirely on his shoulder press transition?",
+      "usefulness": "high",
+      "notes": [
+        "The video focuses on the aftermath of EVW12 but contains direct technical comparisons between Ermes and other top SHWs that are highly relevant to the Morozov matchup."
+      ]
+    }
+  ],
+  "usage_metadata": {
+    "promptTokenCount": 43437,
+    "candidatesTokenCount": 931,
+    "totalTokenCount": 45578,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 43056
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 1210
+  },
+  "source": {
+    "id": "HBfb57rQxTg",
+    "url": "https://www.youtube.com/watch?v=HBfb57rQxTg",
+    "title": "Levan talks about Alizhan and his supermatch against Ermes",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Elite-peer discussion involving Ermes and left-hand title context."
+  }
+}

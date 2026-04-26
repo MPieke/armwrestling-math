@@ -1,0 +1,65 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": 1,
+    "recency_risk": "high",
+    "durable_style_value": 1,
+    "current_form_value": 1,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "Source does not address the Gasparini vs Morozov match. It covers Morozov vs Vitaly from 2024 and notes a failed Gemini analysis. No actionable or claim-based content relevant to the June 2026 bout is provided; the content is outdated and not directly applicable."
+  },
+  "usage": {
+    "prompt_tokens": 233,
+    "completion_tokens": 1486,
+    "total_tokens": 1719,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00060605,
+  "source": {
+    "id": "RSQl_U_YIgw",
+    "url": "https://www.youtube.com/watch?v=RSQl_U_YIgw",
+    "title": "Ermes, Genadi, John, and Devon predict the Morozov vs Vitaly supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2024-06-20T09:39:05Z",
+    "description": "Ermes Gasparini, Genadi Kvikvinia, John Brzenk and Devon Larratt have given their opinions on the right-arm supermatch between Artyom Morozov and Vitaly Laletin, which will take place at the East vs West 13 event on July 6.\n\nSources:\nCoresports channel: https://www.youtube.com/watch?v=Ir2gfpWn18c, https://www.youtube.com/watch?v=HbYf7pTGC9M \nEngin Terzi’s channel: https://www.youtube.com/watch?v=G6dPPxm135k",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M15S",
+    "caption": "true",
+    "view_count": 2583,
+    "like_count": 85,
+    "license": "youtube",
+    "score": 33,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 135,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  },
+  "candidate_model": "gemini-2.5-flash"
+}

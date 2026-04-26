@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "The video showcases Artyom Morozov's dominant left-hand victory over an exhausted and possibly injured Ermes Gasparini, with commentary highlighting both pullers' recent right-hand performances and physical attributes.",
+    "popular_take": "Artyom Morozov is a dominant force with impressive physical attributes and mental toughness, while Ermes Gasparini might be struggling with fatigue or injury, especially after an emotionally taxing right-hand victory.",
+    "counter_case": "Ermes Gasparini's struggles in the left-hand match might be due to prioritizing his right arm and having already expended significant emotional and physical energy in a previous right-hand match, rather than a general decline in his overall form.",
+    "claims": [
+      {
+        "timestamp": "01:15",
+        "claim": "Ermes Gasparini was very happy and a little distracted about his victory over Dave Chaffee (right arm) earlier in the event.",
+        "speaker_or_source": "commentator",
+        "relevance": "This suggests Ermes might have expended significant emotional and physical energy on his right arm prior to this left-hand match, potentially impacting his overall readiness for a future right-hand match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:59",
+        "claim": "Artyom Morozov had a successful night on the right arm against Revaz Lutidze.",
+        "speaker_or_source": "commentator",
+        "relevance": "This is direct evidence of Artyom's recent strong performance and success with his right arm.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:37",
+        "claim": "Artyom Morozov's match against David Dadikyan was phenomenal, showing his heart, ability to go the distance, and fight to the death.",
+        "speaker_or_source": "commentator",
+        "relevance": "This highlights Artyom's exceptional endurance and mental toughness, general attributes that are highly applicable to his right-hand performance in a long, contested match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "05:15",
+        "claim": "Artyom Morozov cups deep on his right arm.",
+        "speaker_or_source": "commentator",
+        "relevance": "This is a specific technical detail about Artyom's right-hand style, which is crucial for understanding his strategic approach and potential advantages in a right-hand match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "06:10",
+        "claim": "Artyom Morozov has a huge frame and genetic God-given size, which is a significant physical advantage.",
+        "speaker_or_source": "commentator",
+        "relevance": "This physical attribute provides Artyom with inherent leverage and overall power, applicable to both arms and a key factor in his armwrestling style.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "08:19",
+        "claim": "Ermes Gasparini stated 'I'm injured' regarding his wrist/arm during the match, and commentary noted scars on his left arm from a previous match.",
+        "speaker_or_source": "Ermes Gasparini / commentator",
+        "relevance": "While the injury is specific to his left arm, a significant injury or general fatigue can impact overall performance, training, and mental state for the right arm as well, suggesting a potential vulnerability.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "10:19",
+        "claim": "Ermes Gasparini left so much emotion on the right arm and celebrated too early.",
+        "speaker_or_source": "commentator",
+        "relevance": "This is a direct commentary on Ermes' emotional and physical expenditure related to his *right arm* prior to this left-hand match, suggesting he might have peaked or over-exerted himself, which is highly relevant to his readiness for a future right-hand match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:27",
+        "claim": "The right arm is so important for Ermes Gasparini; he's gunning for that.",
+        "speaker_or_source": "commentator",
+        "relevance": "This indicates Ermes' prioritization and focus on his right arm, suggesting he might be less invested in his left arm performance, which could explain some of his struggles in the video and highlights his primary competitive focus.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Ermes Gasparini recover sufficiently from his previous right-hand match and potential left-hand injury/fatigue to challenge Artyom Morozov's consistent strength and frame advantage on the right arm?",
+    "usefulness": "high",
+    "notes": [
+      "The video primarily shows a left-hand match, but the commentary frequently references the athletes' right-hand performances and general attributes, making it relevant for the upcoming right-hand match.",
+      "Ermes' injury/fatigue claims are specific to his left wrist/arm in this match, but their impact on his overall readiness for a right-hand match is inferred."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 66173,
+    "candidatesTokenCount": 1209,
+    "totalTokenCount": 72019,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 29719
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 36109
+      }
+    ],
+    "thoughtsTokenCount": 4637
+  },
+  "candidate": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "why": "Direct head-to-head history, but left hand rather than upcoming right hand."
+  }
+}

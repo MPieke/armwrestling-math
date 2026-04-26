@@ -1,0 +1,79 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 12.5,
+    "high_value_coverage_percent": 12.5,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "01:14",
+        "claim": "The match depends on whether Morozov can go faster than Ermes to establish his position."
+      },
+      {
+        "timestamp": "01:22",
+        "claim": "If Ermes establishes his position before Morozov, he can win."
+      },
+      {
+        "timestamp": "01:25",
+        "claim": "Ermes successfully pressed Gennadi Kvikvinia back when he tried to go inside."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "00:00",
+        "claim": "Many consider Morozov's victory against Jerry Cadorette a sure thing."
+      },
+      {
+        "timestamp": "00:13",
+        "claim": "Direct comparisons between athletes can be misleading."
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov's hook is very powerful."
+      },
+      {
+        "timestamp": "00:21",
+        "claim": "If Jerry Cadorette manages to establish his position before Morozov, he can beat him."
+      },
+      {
+        "timestamp": "00:27",
+        "claim": "Jerry Cadorette's press is a serious threat if he sets his position, as demonstrated against Genadi Kvikvinia."
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Athletes do not have the same power in all aspects/positions."
+      },
+      {
+        "timestamp": "01:14",
+        "claim": "The match outcome depends on who establishes their position first; if Jerry starts first, he can win."
+      }
+    ],
+    "timestamp_quality": 25,
+    "pass_fail": "fail",
+    "concise_rationale": "Only one baseline claim is exactly matched by a candidate claim (01:11). The rest are either different claims, not present in baseline, or context-shifted. Coverage is low (≈12.5%), and several high-value baseline claims remain unsupported, indicating the candidate model cannot reliably replace the baseline at this time."
+  },
+  "usage": {
+    "prompt_tokens": 937,
+    "completion_tokens": 4210,
+    "total_tokens": 5147,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3712,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0017308500000000001,
+  "source": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "type": "short commentary clip"
+  },
+  "candidate_model": "gemini-3.1-flash-lite-preview"
+}

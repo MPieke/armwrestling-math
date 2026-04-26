@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini analyzes the Jerry Cadorette vs Artyom Morozov match, acknowledging Morozov's powerful hook but suggesting Jerry's press and initial setup could be key to victory.",
+    "popular_take": "Many fans believe Artyom Morozov will win easily against Jerry Cadorette, based on past performances against Jerry or Levan.",
+    "counter_case": "Ermes suggests that direct comparisons can be misleading, and if Jerry establishes his position first, his powerful press could be a serious threat to Morozov, as demonstrated against Genadi Kvikvinia.",
+    "claims": [
+      {
+        "timestamp": "00:00",
+        "claim": "Many consider Morozov's victory against Jerry Cadorette a sure thing.",
+        "speaker_or_source": "Narrator (summarizing Ermes's observation)",
+        "relevance": "Establishes the prevailing fan narrative about Morozov's strength.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:13",
+        "claim": "Direct comparisons between athletes can be misleading.",
+        "speaker_or_source": "Narrator (summarizing Ermes's suggestion)",
+        "relevance": "Challenges the basis of the popular narrative, suggesting past performances aren't always indicative.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov's hook is very powerful.",
+        "speaker_or_source": "Narrator (summarizing Ermes's acknowledgment)",
+        "relevance": "Identifies a key strength and primary weapon of Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:21",
+        "claim": "If Jerry Cadorette manages to establish his position before Morozov, he can beat him.",
+        "speaker_or_source": "Narrator (summarizing Ermes's belief)",
+        "relevance": "Highlights a crucial tactical path for Jerry to win, emphasizing the importance of the initial setup.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:27",
+        "claim": "Jerry Cadorette's press is a serious threat if he sets his position, as demonstrated against Genadi Kvikvinia.",
+        "speaker_or_source": "Narrator (summarizing Ermes's recall and implication)",
+        "relevance": "Provides a specific counter-tactic for Jerry against an inside move, suggesting his press is effective.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Athletes do not have the same power in all aspects/positions.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Reinforces the idea that specific tactical strengths and weaknesses matter more than general comparisons.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:11",
+        "claim": "Morozov in the hook is super strong.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Reiteration of Morozov's primary weapon and stylistic strength.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:14",
+        "claim": "The match outcome depends on who establishes their position first; if Jerry starts first, he can win.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Pinpoints the critical moment of engagement and setup as decisive for the match.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Jerry Cadorette establish his position and execute his press before Artyom Morozov can engage his powerful hook?",
+    "usefulness": "high",
+    "notes": [
+      "The video is specifically about Jerry Cadorette vs Artyom Morozov, but Ermes Gasparini's commentary provides insights into Morozov's style and potential vulnerabilities/strengths relevant for an upcoming match against Ermes himself.",
+      "Claims are either directly stated by Ermes or summarized by the narrator as Ermes's observations/beliefs."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 6465,
+    "candidatesTokenCount": 978,
+    "totalTokenCount": 9378,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2893
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 3227
+      }
+    ],
+    "thoughtsTokenCount": 1935
+  },
+  "candidate": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "why": "Ermes discussing Morozov's style and risks against an elite right-hand opponent."
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Artyom Morozov discusses his recovery from injury, his match against Vitaly Laletin, and offers tactical insights and predictions for upcoming supermatches, including Ermes Gasparini vs. Laletin.",
+    "popular_take": "A typical fan might believe that Artyom Morozov is incredibly resilient and highly motivated, having overcome injury and performed exceptionally against Vitaly Laletin. They might also be convinced that Vitaly Laletin is an unstoppable force on the right arm, capable of beating top heavyweights like Michael Todd with ease due to his unique style and immense pronation/side pressure.",
+    "counter_case": "The video suggests that while Laletin's style is formidable, his wrist is not unbreakable, and he has shown vulnerabilities against other top pullers (Ferit Osmanli, Zaur, Ermes). It also highlights that Michael Todd, despite his age, is a dangerous opponent whose style can exploit weaknesses in wrist control, making a direct attack risky.",
+    "claims": [
+      {
+        "timestamp": "00:08",
+        "claim": "Artyom Morozov was sick before his match against Vitaly Laletin, but is now recovering from a partial tendon tear in his left arm, with swelling gone and no severe damage according to MRI.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Provides context on Morozov's physical state and resilience, which is relevant for assessing his current form and potential for future matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:03",
+        "claim": "Artyom Morozov managed to stop Vitaly Laletin with only back pressure, even after his arm was already cracking.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Highlights Morozov's immense strength and mental toughness, demonstrating his ability to hold against a top opponent even when injured.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:34",
+        "claim": "Artyom Morozov's wife played a crucial role in his mental preparation, helping him overcome self-doubt and maintain focus, which he believes is key to performance.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Emphasizes the psychological aspect of elite armwrestling and Morozov's personal motivation, suggesting a strong mental game for future matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:8:06",
+        "claim": "Attacking Michael Todd directly with a top roll is very dangerous for the wrist and side pressure, a strategy Ermes Gasparini correctly avoided.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Offers tactical insight into pulling Michael Todd, suggesting that a cautious approach is necessary to avoid injury and exploit Michael's style.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:00",
+        "claim": "Vitaly Laletin has very long fingers, a big hand, and a very long arm, which gives him a significant advantage in pronation and side pressure.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Explains Laletin's physical attributes that contribute to his unique and powerful pulling style, crucial for understanding his potential against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:55",
+        "claim": "Vitaly Laletin demonstrated incredible side pressure, recording 130 kg in Ivan Matyushenko's gym.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Provides a concrete metric of Laletin's strength, supporting the claim of his formidable side pressure and its impact on his matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:45",
+        "claim": "Ermes Gasparini's shoulder press is stronger than Vitaly Laletin's, partly due to Ermes's slightly shorter arm providing a leverage advantage.",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Directly compares a key strength (shoulder press) between Ermes and Laletin, offering a tactical perspective on how their different arm lengths might influence their power.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:57",
+        "claim": "Engin Terzi notes that Vitaly Laletin has struggled with wrist control against opponents like Ferit Osmanli, Zaur, and Ermes Gasparini, indicating his wrist is not unbreakable.",
+        "speaker_or_source": "EnginTerzi",
+        "relevance": "Challenges the perception of Laletin's invincibility, highlighting a potential vulnerability (wrist control) that Ermes or other opponents might exploit.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What decides this match? Will Laletin's superior pronation and side pressure overwhelm Ermes, or will Ermes's tactical approach, potentially stronger shoulder press, and ability to exploit Laletin's wrist vulnerabilities lead to his victory? The endurance and mental state of both athletes, especially Morozov's recovery, will also be critical.",
+    "usefulness": "high",
+    "notes": [
+      "The video is a conversational podcast, so claims are often intertwined with opinions and discussions.",
+      "Morozov's personal experience against Laletin is a significant part of the discussion.",
+      "Engin Terzi often asks clarifying questions or offers counterpoints, which helps to surface different perspectives.",
+      "The discussion about Michael Todd's style and its dangers is a strong comparison point for Laletin's potential strategy.",
+      "The discussion about Laletin's wrist strength and potential weaknesses is a recurring theme.",
+      "Morozov's current injury status is a background factor for his own future matches, but the primary focus of the prompt is Ermes vs. Morozov. However, his recovery and mental state are relevant to his overall narrative."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 333807,
+    "candidatesTokenCount": 1385,
+    "totalTokenCount": 338178,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 150436
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 183026
+      }
+    ],
+    "thoughtsTokenCount": 2986
+  },
+  "candidate": {
+    "id": "yGBrHvylMWs",
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "title": "Artyom Morozov - East vs West Podcast",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "why": "Long-form Morozov source referenced by multiple clip videos."
+  }
+}

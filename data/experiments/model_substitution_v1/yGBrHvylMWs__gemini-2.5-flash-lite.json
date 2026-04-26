@@ -1,0 +1,106 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "model": "gemini-2.5-flash-lite",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "The participants discuss the upcoming armwrestling match between Ermes Gasparini and Artyom Morozov, focusing on Artyom's recent injury, his current form, and the tactical advantages each might have.",
+    "popular_take": "Artyom Morozov is the favorite due to his superior size, strength, and perceived better form, despite a recent injury.",
+    "counter_case": "Artyom's injury might be more significant than he lets on, and Vitaly's endurance and ability to adapt to different styles could be underestimated.",
+    "claims": [
+      {
+        "timestamp": "00:05",
+        "claim": "Artyom Morozov is feeling sick but is otherwise okay.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Artyom's health is a factor in his performance.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:15",
+        "claim": "Artyom Morozov got sick during the press conference.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Explains the onset of Artyom's illness.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:24",
+        "claim": "Artyom Morozov is recovering slowly and wants to train but needs to wait.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates Artyom's recovery is ongoing and might affect his readiness.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:38",
+        "claim": "Artyom Morozov believes having a goal is crucial for motivation.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests Artyom's mindset and preparation are goal-oriented.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:50",
+        "claim": "Artyom Morozov's arm is recovering well, with no swelling and no pain, but he is still being careful.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides an update on Artyom's injury status.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:04",
+        "claim": "Artyom Morozov's injury was initially thought to be a full tear of the tendon and bone, but doctors diagnosed a partial tear.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Details the severity and diagnosis of Artyom's injury.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:53",
+        "claim": "Artyom Morozov describes the moment of his injury, stating it was cracking and he was holding with back pressure.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Recounts the incident of his injury.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "04:45",
+        "claim": "Artyom Morozov's \"DAVA VITALI\" shout was a reaction to pressure from the community and the need to prove himself.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Interprets Artyom's emotional state and motivation during a past match.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "Can Artyom Morozov's arm withstand the pressure and technique of Vitaly Laletin, especially considering his recent injury and the potential for a long match?",
+    "usefulness": "high",
+    "notes": [
+      "The video is a discussion between multiple people, making speaker attribution sometimes difficult.",
+      "Some technical details about Artyom's injury and recovery are provided.",
+      "The discussion touches on Artyom's mental state and motivation.",
+      "There's a comparison of Artyom's style and potential against other top armwrestlers."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 198661,
+    "candidatesTokenCount": 983,
+    "totalTokenCount": 199644,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 15254
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 183026
+      }
+    ]
+  },
+  "source": {
+    "id": "yGBrHvylMWs",
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "title": "Artyom Morozov - East vs West Podcast",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Long-form Morozov source referenced by multiple clip videos."
+  }
+}

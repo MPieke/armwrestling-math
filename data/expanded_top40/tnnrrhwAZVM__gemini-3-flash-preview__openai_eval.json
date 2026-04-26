@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": "low",
+    "recency_risk": 8,
+    "durable_style_value": 2,
+    "current_form_value": 2,
+    "unsupported_or_stale_claims": false,
+    "concise_rationale": "The source is a 2022 YouTube 'top 5' list with no match-specific claims about Gasparini/Morozov. It lacks recent form data, head-to-head info, or actionable prep guidance for a June 2026 match. The summary notes 'Gemini analysis failed', implying unreliability. No claims are present to evaluate; therefore low usefulness for current match prep."
+  },
+  "usage": {
+    "prompt_tokens": 229,
+    "completion_tokens": 2149,
+    "total_tokens": 2378,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1984,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00087105,
+  "source": {
+    "id": "tnnrrhwAZVM",
+    "url": "https://www.youtube.com/watch?v=tnnrrhwAZVM",
+    "title": "Ermes Gasparini's TOP 5 ARMWRESTLERS in the World Right Arm",
+    "channel": "ARMWRESTLING NEWZ",
+    "channel_id": "UCdCGMR_8NeATGsFTms6m5Ag",
+    "published_at": "2022-02-07T13:16:55Z",
+    "description": "Ermes Gasparini was live with Arif Artem on @Engin_Terzi youtube channel and Both Arif and Ermes gave their Top 5 right handed armwrestlers list.\nFull interview: https://youtu.be/z1vuHtuDBBg\n\nFollow Armwrestling Newz on Facebook: https://www.facebook.com/ArmwrestlingNewz/\nSupport me to produce more content\nPatreon: https://rb.gy/awjrwr\nYoutube : https://www.youtube.com/channel/UCdCGMR_8NeATGsFTms6m5Ag/join\n@devlarratt \n@MonsterMichaelTodd \n@LevanSaginashviliOfficial \n@Ermes Gasparini",
+    "matched_queries": [
+      "Ermes Morozov Armwrestling Newz"
+    ],
+    "duration": "PT3M16S",
+    "caption": "false",
+    "view_count": 11699,
+    "like_count": 536,
+    "license": "youtube",
+    "score": 26,
+    "score_reasons": [
+      "trusted channel: ARMWRESTLING NEWZ",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: live",
+      "matched term: interview",
+      "matched term: right hand",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 196,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "right-hand/right-arm signal"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

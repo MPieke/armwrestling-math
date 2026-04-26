@@ -1,0 +1,105 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Artyom Morozov discusses his recovery, intense training, and confidence for the upcoming right-hand match against Ermes Gasparini, with Robert Smith highlighting Morozov's potential and past performance.",
+    "popular_take": "Artyom Morozov is recovering well, training hard, and is confident, potentially being a world champion if not for past injury.",
+    "counter_case": "The video doesn't directly address Ermes Gasparini's current form or specific strategies against Morozov, focusing heavily on Morozov's perspective and recovery.",
+    "claims": [
+      {
+        "timestamp": "02:22",
+        "claim": "Morozov's arm feels better every day, recovering well, and he feels really good.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Indicates Morozov's recovery status and current physical condition, crucial for his performance against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:31",
+        "claim": "Morozov trains a lot and uses IVs for recovery, indicating intense preparation.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Highlights Morozov's commitment to preparation and recovery strategy, which could impact his endurance and strength in the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:14",
+        "claim": "Morozov is confident that it will be a good fight.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Shows Morozov's mental state and belief in his performance, which is a factor in high-stakes matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:15",
+        "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning, reflecting a humble and action-oriented approach.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Reveals Morozov's humble approach and focus on actions over words, a cultural aspect that might influence his pre-match demeanor.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "39:21",
+        "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury.",
+        "speaker_or_source": "Baxpuller",
+        "relevance": "Provides context on Morozov's past performance and potential, suggesting he was a top contender before injury and could return to that level.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "67:10",
+        "claim": "Morozov's right wrist rising doesn't drop post-surgery, indicating sustained strength in that area.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "This is a specific tactical/form claim about his right wrist strength post-surgery, which is vital for hand control and top-rolling against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "67:40",
+        "claim": "Morozov feels he has more reserve and capacity now, and can do more than before.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Indicates increased strength and capacity compared to his previous form, suggesting he is in better physical condition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "68:15",
+        "claim": "Morozov currently weighs 140 kilograms (290 pounds).",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Provides his current weight, indicating his size and potential power for the match, especially if he's competing in a lower weight class or has significantly bulked up.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What specific tactical advantages or weaknesses will Morozov's current form and recovery present against Ermes Gasparini's style?",
+    "usefulness": "high",
+    "notes": [
+      "The video focuses heavily on Morozov's perspective and recovery, with less direct discussion of Ermes Gasparini's current form or specific strategies.",
+      "The claims are based on Morozov's self-assessment and Robert Smith's observations/opinions."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 265452,
+    "candidatesTokenCount": 1026,
+    "totalTokenCount": 284206,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 119665
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 145442
+      }
+    ],
+    "thoughtsTokenCount": 17728
+  },
+  "candidate": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "why": "Recent Morozov long-form EVW content."
+  }
+}

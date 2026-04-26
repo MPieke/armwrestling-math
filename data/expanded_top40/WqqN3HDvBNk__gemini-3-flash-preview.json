@@ -1,0 +1,115 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=WqqN3HDvBNk",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "The video analyzes Ermes Gasparini's training, highlighting his world-class elbow flexion (back pressure) while noting his pronation is relatively weaker compared to other elite super-heavyweights.",
+    "popular_take": "Ermes Gasparini's nearly 100kg back pressure makes him an immovable object capable of stopping any puller's initial hit.",
+    "counter_case": "Ermes' pronation is a potential weak point; if an opponent like Morozov can crack his wrist, Ermes' massive back pressure may not be enough to secure a win.",
+    "claims": [
+      {
+        "timestamp": "00:28",
+        "claim": "Ermes managed 67kg (147 lbs) on a pronation lift, but his arm angle opened significantly during the attempt.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Establishes a baseline for Ermes' pronation strength and form breakdown under heavy load.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:15",
+        "claim": "Ermes likely has a stronger elbow flexor than anyone in the world except Levan Saginashvili.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Highlights Ermes' primary defensive and offensive weapon for the Morozov match.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:30",
+        "claim": "Ermes' pronation is weaker than Devon Larratt's and potentially weaker than Vitaly Laletin's or Georgi Tsvetkov's.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Identifies a specific vector where Ermes might be vulnerable to outside pullers.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "01:45",
+        "claim": "Ermes would outperform Devon Larratt on any lift isolated to the elbow flexors.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Contrasts Ermes' 'inside' frame strength against 'outside' specialists.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:05",
+        "claim": "Ermes has recorded nearly 100kg of back pressure in training.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Quantifies the massive force Morozov will have to pull through to find a pin.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:15",
+        "claim": "In their match, Ermes stopped Levan with back pressure but was unable to crack Levan's wrist back.",
+        "speaker_or_source": "Armwrestling Newz",
+        "relevance": "Shows that Ermes can stop elite power but may lack the hand control to finish easily.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Morozov's cup and hook power bypass Ermes' elite back pressure, or will Ermes' frame prove too heavy to move?",
+    "usefulness": "medium",
+    "notes": [
+      "The video is from early 2024, so specific lift numbers may have increased, but the stylistic analysis of Ermes' strengths remains highly relevant."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 5597,
+    "candidatesTokenCount": 810,
+    "totalTokenCount": 7219,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 484
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5113
+      }
+    ],
+    "thoughtsTokenCount": 812
+  },
+  "source": {
+    "id": "WqqN3HDvBNk",
+    "url": "https://www.youtube.com/watch?v=WqqN3HDvBNk",
+    "title": "ERMES GASPARINI training like DEVON LARRATT",
+    "channel": "Performance Enhancing Pancakes",
+    "channel_id": "UCW0yNJevW2sQ-w3FhxsEnCg",
+    "published_at": "2024-03-20T14:00:21Z",
+    "description": "Subscribe to instantly double your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg?sub_confirmation=1\n\nJoin this channel to instantly triple your side pressure:\nhttps://www.youtube.com/channel/UCW0yNJevW2sQ-w3FhxsEnCg/join\n\nCredit for Featured Content:\n\nErmes and Ray training- https://www.youtube.com/watch?v=S49KIhDIaUk&pp=ygUVdm9pY2Ugb2YgYXJtd3Jlc3RsaW5n\n\nsub to @voiceofarmwrestling \n\nsub to @devlarratt\nsub to @Engin_Terzi  \nsub to @eastvswestarmwrestling  \nsub to @armwarsofficial  \nsub to @coresportsworld  \nsub to @TwoOneSe7en  \nsub to @LevanSaginashviliOfficial  \nsub to @ermesgasparini3239  \nsub to @johnbrzenk9237  \nsub to @toddhutchings906  \nsub to @MonsterMichaelTodd  \nsub to @jekaprudnik11  \nsub to @BeStrongArmwrestling  \nsub to @GeorgianArmwrestling  \nsub to @genadikvikvinia  \nsub to @vitalylaletin4385  \nsub to @AlexKurdecha  \n\nFeatured Matches:\n\nEast vs West Matches:\nMatt Mask vs Frank Lamparelli\nArtem Taynov vs Sasho Andreev\nIrakli zirakashvili vs Rustam Babayev\nGeorgi Tsvetkov vs Zaur Paizulaev\nJohn Brzenk vs Sasho Andreev\nTodd Hutchings vs Kydyrgali Ongarbayev\nPaul Linn vs Ruslan Babayev\nDerek Smith vs Mehdi\nIrakli Ziraskashvili vs Davit Dadyikan\nEvgeny Prudnik vs Davit Dadyikan\nUncle Todd vs Ibragim\nVitaly Laletin vs Revaz Lutidze\nLachy Adair vs Andrei\nChance Shaw vs Oleg Petrenko\nSandris Sedis vs Pavlo Derbedyenyev\nGeorgi Tsvetkov vs Arytom Morozov\nIrakli Zirakashvili vs Kydyrgali Ongarbayev\nDave Chaffee vs Revaz Lutidze\nVitaly Laletin vs Tobias Sporrong\nRVJ vs Zurab Tavberidze\nBacho saginashvili vs Adam Warzinski\nPaul Linn vs Sasho Andreev\nJohn Brzenk vs Oleg Patrenko\nJohn Brzenk vs Irakli Zirakashvili\nDevon Larratt vs Evgeny Prudnik\nDevon Larratt vs Genadi Kvikvinia\nDevon Larratt vs Ermes Gasparini\nErmes Gasparini vs Jerryy Cadorette\nErmes Gasparini vs Artyom Morozov\nJerry Cadorette vs Genadi Kvikvinia\nJerry Cadorette vs Georgi Tsvetkov\nDevon Larratt vs Denis Cyplenkov\nGeorgi Tsvetkov vs Zaur Paizulaev\n\nArm Wars Matches:\nDevon Larratt vs Michael Todd\nDevon Larratt vs Kristoph Ladu\nDevon Larratt vs John Brzenk\nDevon Larratt vs Richard Lupkes\nDevon Larratt vs Travis Bagent\nDevon Larratt vs Tim Bresnan\nDevon Larratt vs Don Underwood\nDevon Larratt vs Sandris Sedis\nDevon Larratt vs Daniel Lund\nDevon Larratt vs Mindauskus Dulskas\nDevon Larratt vs Georgi Tsvetkov\nAyello vs Mackin\nTodd vs Lupkes\nTodd vs Pickup\nYoshi Kanai vs Todd\nLovei vs Haugland\nLuke Kindt vs Cobra Rhodes\nMike Todd vs Chris Chandler\nUnderwood vs Chris Chandler\nMike Todd vs Marcio\nBresnan vs Bagent\nUnderwood vs Bagent\nLupkes vs Rorbaken\nHaugland vs Geoff Hale\nJames Wall vs Haugland\nStratton vs Haugland\n\nKing of the Table Matches:\nDevon Larratt vs Levan Saginasvhili\nDevon Larratt vs Georgi Tsvetkov\nDevon Larratt vs Dave Chaffee\nVitaly Laletin vs Ermes Gasparini\nLevan Saginasvhili vs Ermes Gasparini\nJohn Brzenk vs Denis Cyplenkov\nJohn Brzenk vs Alexey Voevoda\nDevon Larratt vs John Brzenk\nDevon Larratt vs Michael Todd\n\nTwo One Se7en videos:\nJohn Brzenk vs Pavlo\n18 Minutes of Devon Larratt\nDevon Larratt's Final Practice\nCorey West vs Krasi\nDevon vs Artem Taranenko\nDerek Smith vs Austin\nDevon vs Wayne Withers\nTodd Hutchings vs Chance Shaw\nMatt Mask vs Tim Bresnan",
+    "matched_queries": [
+      "Ermes Gasparini Morozov Performance Enhancing Pancakes"
+    ],
+    "duration": "PT3M20S",
+    "caption": "false",
+    "view_count": 18118,
+    "like_count": 681,
+    "license": "youtube",
+    "score": 34,
+    "score_reasons": [
+      "trusted channel: Performance Enhancing Pancakes",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "negative term: edit",
+      "10k+ views"
+    ],
+    "duration_seconds": 200,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  }
+}

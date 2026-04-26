@@ -1,0 +1,71 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 50,
+    "high_value_coverage_percent": 50,
+    "quality_grade": "moderate",
+    "unsupported_claims": [
+      {
+        "timestamp": "00:26",
+        "claim": "After gaining hand control, Ermes immediately brought Dave Chaffee back to the center with a couple of surges."
+      },
+      {
+        "timestamp": "01:07",
+        "claim": "Ermes Gasparini secured hand control, brought Dave Chaffee back to the center, got behind his shoulder, planted his elbow, and pressed him to the pad for a win."
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Dave Chaffee slid his elbow off the pad by 3-4 inches to avoid a pin from Ermes's flop press, forcing a restart."
+      },
+      {
+        "timestamp": "04:09",
+        "claim": "Beating Dave Chaffee in the first couple of rounds is considered a big deal, solidifying Ermes Gasparini as a top arm wrestler, potentially number two in the world."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "00:26",
+        "claim": "After gaining hand control, Ermes immediately brought Dave Chaffee back to the center with a couple of surges."
+      },
+      {
+        "timestamp": "01:07",
+        "claim": "Ermes Gasparini secured hand control, brought Dave Chaffee back to the center, got behind his shoulder, planted his elbow, and pressed him to the pad for a win."
+      },
+      {
+        "timestamp": "03:00",
+        "claim": "Dave Chaffee slid his elbow off the pad by 3-4 inches to avoid a pin from Ermes's flop press, forcing a restart."
+      },
+      {
+        "timestamp": "04:09",
+        "claim": "Beating Dave Chaffee in the first couple of rounds is considered a big deal, solidifying Ermes Gasparini as a top arm wrestler, potentially number two in the world."
+      }
+    ],
+    "timestamp_quality": 50,
+    "pass_fail": "fail",
+    "concise_rationale": "4 of 8 baseline claims (50%) are matched by candidate claims (hand control near the pad, elbow foul under side pressure, flop press effectiveness, motivational framing). Several high-value baseline claims remain unsupported (center surges, detailed win sequence, restart interaction, and top-world status). Timestamp alignment is approximate (roughly within a 10-second window). Overall, the cheaper model does not reliably replace the baseline quality."
+  },
+  "usage": {
+    "prompt_tokens": 1322,
+    "completion_tokens": 6210,
+    "total_tokens": 7532,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5632,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0025501,
+  "source": {
+    "id": "Fg5g-F7TwA4",
+    "url": "https://www.youtube.com/watch?v=Fg5g-F7TwA4",
+    "title": "Dave Chaffee vs Ermes Gasparini | East vs West 5",
+    "channel": "ARMWRESTLING NEWZ",
+    "type": "commentary-heavy match recap"
+  },
+  "candidate_model": "gemini-3.1-flash-lite-preview"
+}

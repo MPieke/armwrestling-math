@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "low",
+    "pass_fail": "fail",
+    "directness": "low",
+    "recency_risk": "high",
+    "durable_style_value": "low",
+    "current_form_value": "poor",
+    "unsupported_or_stale_claims": [
+      "Gemini analysis failed."
+    ],
+    "concise_rationale": "No relevant claims or actionable analysis for the Gasparini–Morozov match; the 2023 video is old and lacks direct content about Morozov; the only note is the unverified summary 'Gemini analysis failed', making the source unreliable for MVP."
+  },
+  "usage": {
+    "prompt_tokens": 225,
+    "completion_tokens": 1743,
+    "total_tokens": 1968,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1600,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00070845,
+  "source": {
+    "id": "Qt-GFWppzoo",
+    "url": "https://www.youtube.com/watch?v=Qt-GFWppzoo",
+    "title": "ERMES GASPARINI puts on a MASTERCLASS of ARMWRESTLING",
+    "channel": "Voice of Armwrestling",
+    "channel_id": "UCAH2krcji9uc3gYSqa33Zyw",
+    "published_at": "2023-08-20T08:32:46Z",
+    "description": "An absolute perfect display of arm wrestling technique from Ermes Gasparini on how to beat a Flop Wrist press vs the best presser of all time in Jerry Cadorette. Ray and Janis go deep into armwrestling mastery and execution. \nhttps://youtu.be/FU5VYf1mSfw\n\n📝Monthly Arm Wrestling training\n▲PATREON: https://www.patreon.com/voiceofarmwrestling\n🏋🏼‍♀️PRO & BASIC WORKOUT PLANS FOR ARMWRESTLING TRAINING\nhttps://voaarmwrestling.com/\n👕T-SHIRTS & MORE\nhttps://teespring.com/en-GB/stores/voice-of-armwrestling\n\n📽️Camera we use: https://amzn.to/3VZyF13\n🎙️Microphone: https://amzn.to/3VZyF13\nSupplements we Love❤️\n🍶Creatine: https://amzn.to/3Zu47r7\n💪🏻Joints: https://amzn.to/3X4yK4P & https://amzn.to/3iuWxMj\n🥦Multi-vitamins: https://amzn.to/3IGSarY\n🥊Pre-Workout: https://amzn.to/3XoLHpT\n\n📲 Social Media\nInstagram\nhttps://www.instagram.com/voiceofarmwrestling/\nhttps://www.instagram.com/janisamolins/\nhttps://www.instagram.com/coach_rayx/\n\nNot Ermes Gasparini vs Jerry Cadorette ONLY HIGHLIGHTS, but Ermes Gasparini vs Jerry Cadorette EAST vs WEST8 World Title Match, but Ermes Gasparini Defeat Denis Cyplenkov | Cyplenkov Vs Gasparini, but Ermes Thinks He Did Same Lift With Devon Larratt, but How to deal with a flop wrist press., but How to Beat FLOP WRIST PRESS but video on ERMES GASPARINI puts on a MASTERCLASS of ARMWRESTLING",
+    "matched_queries": [
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT8M3S",
+    "caption": "false",
+    "view_count": 14989,
+    "like_count": 411,
+    "license": "youtube",
+    "score": 25,
+    "score_reasons": [
+      "trusted channel: Voice of Armwrestling",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: east vs west",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 483,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

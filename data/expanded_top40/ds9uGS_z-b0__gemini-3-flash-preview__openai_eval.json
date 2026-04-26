@@ -1,0 +1,64 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 2,
+    "recency_risk": "high",
+    "durable_style_value": 2,
+    "current_form_value": "unknown",
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a 2022 Morozov vs Lutidze highlight reel with no content about Gasparini or the 2026 match. It offers minimal direct tactical analysis, and the recency is poor for a June 2026 bout; thus low usefulness for the event."
+  },
+  "usage": {
+    "prompt_tokens": 232,
+    "completion_tokens": 2317,
+    "total_tokens": 2549,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2176,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0009384,
+  "source": {
+    "id": "ds9uGS_z-b0",
+    "url": "https://www.youtube.com/watch?v=ds9uGS_z-b0",
+    "title": "Artyom Morozov vs Revaz Lutidze | East vs West 5 Highlights",
+    "channel": "East vs West Armwrestling",
+    "channel_id": "UC3Dw8OYsWmZqrM1qBBZUMhQ",
+    "published_at": "2022-12-14T19:45:00Z",
+    "description": "Artyom Morozov vs Revaz Lutidze – Official Highlights from East vs West 5.\n\nWatch live events, order PPV, and get official East vs West merch at https://evwsports.com\n\n#armwrestling #eastvswest #artyommorozov #revazlutidze",
+    "matched_queries": [
+      "Ermes Morozov East vs West"
+    ],
+    "duration": "PT8M17S",
+    "caption": "false",
+    "view_count": 430461,
+    "like_count": 5113,
+    "license": "youtube",
+    "score": 29,
+    "score_reasons": [
+      "trusted channel: East vs West Armwrestling",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: live",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 497,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

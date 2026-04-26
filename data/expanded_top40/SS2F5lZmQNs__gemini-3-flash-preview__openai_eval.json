@@ -1,0 +1,63 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": 0.25,
+    "recency_risk": 0.3,
+    "durable_style_value": 0.2,
+    "current_form_value": 0.2,
+    "unsupported_or_stale_claims": 0,
+    "concise_rationale": "The source provides no substantive analysis or claims; the summary 'Gemini analysis failed' indicates unreliability. With a short video published 2026-04-24, it offers minimal direct evidence relevant to the June 2026 match and contains no actionable content to inform prep."
+  },
+  "usage": {
+    "prompt_tokens": 227,
+    "completion_tokens": 1494,
+    "total_tokens": 1721,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0006089500000000001,
+  "source": {
+    "id": "SS2F5lZmQNs",
+    "url": "https://www.youtube.com/watch?v=SS2F5lZmQNs",
+    "title": "Artyom Morozov EVW24 USA",
+    "channel": "Ermes Gasparini",
+    "channel_id": "UCt7T3QefqSRB8xasvBrRGkg",
+    "published_at": "2026-04-24T15:58:24Z",
+    "description": "LIKE THE VIDEO, SHARE IT AND DON'T FORGET TO SUBSCRIBE TO THE CHANNEL!\n\nMy training system is now available.\n\nThis is the exact method I use to build strength and performance.\n\n👉 www.ermesgasparini.com\n\nFollow Me On My Other Social!\nInstagram: https://www.instagram.com/ermes.gasparini/\nTik-Tok: https://www.tiktok.com/@ermesgasparini\nFacebook: https://www.facebook.com/gaspariniermes\n\nTrain With The Best Armwrestling Equipment: https://wristball.net/\nCODE DISCOUNT : ERMES",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov"
+    ],
+    "duration": "PT5M17S",
+    "caption": "false",
+    "view_count": 14067,
+    "like_count": 1311,
+    "license": "youtube",
+    "score": 21,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: evw",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 317,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

@@ -1,0 +1,65 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": 2,
+    "recency_risk": 8,
+    "durable_style_value": 4,
+    "current_form_value": 2,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is from 2022 and discusses older matchups; there are no claims to evaluate for the 2026 Gasparini vs Morozov right-hand match. The note 'Gemini analysis failed' suggests limited credibility. Overall, the source has low direct relevance and weak durability for informing the 2026 matchup."
+  },
+  "usage": {
+    "prompt_tokens": 241,
+    "completion_tokens": 1429,
+    "total_tokens": 1670,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1280,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00058365,
+  "source": {
+    "id": "RaQTl_kesgM",
+    "url": "https://www.youtube.com/watch?v=RaQTl_kesgM",
+    "title": "ERMES GASPARINI VS ARTYOM MOROZOV + MICHAEL TODD VS EDDIE HALL",
+    "channel": "ARMWRESTLING NEWZ",
+    "channel_id": "UCdCGMR_8NeATGsFTms6m5Ag",
+    "published_at": "2022-09-24T19:24:04Z",
+    "description": "Kalinchenko interview\nhttps://youtu.be/9D9iTD_zsfg\n💪🏋CHECK OUT OLD SCHOOL LABS 🏋💪\nSUPPORT ME AND USE CODE-  \"AWNEWZ\"  FOR 15% OFF.\n● https://t.nylas.com/t1/231/7fa9p2xwn7jambstftrp0f2dd/0/d64dadd2e1380dabec42ab0b2dc70d9c3ffbaa3b69f48f88880f7e043ca110e1 ●",
+    "matched_queries": [
+      "Ermes vs Morozov prediction",
+      "Ermes Morozov Armwrestling Newz"
+    ],
+    "duration": "PT4M57S",
+    "caption": "false",
+    "view_count": 11083,
+    "like_count": 383,
+    "license": "youtube",
+    "score": 33,
+    "score_reasons": [
+      "trusted channel: ARMWRESTLING NEWZ",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: interview",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 297,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

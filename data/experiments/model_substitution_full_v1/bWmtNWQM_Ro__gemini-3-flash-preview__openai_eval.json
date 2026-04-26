@@ -1,0 +1,46 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 50,
+    "high_value_coverage_percent": 50,
+    "quality_grade": "mixed",
+    "unsupported_claims": [
+      "07:35 Ermes appears to sacrifice the position or 'give up' the wrist early in the rounds.",
+      "11:22 Morozov's hand and wrist are described as 'steel' during the setup and start.",
+      "16:10 Morozov admits the first round was the hardest because he lacked self-confidence initially."
+    ],
+    "missed_high_value_claims": [
+      "01:59 Artyom Morozov had a successful night on the right arm against Revaz Lutidze.",
+      "02:37 Artyom Morozov's match against David Dadikyan was phenomenal, showing his heart, ability to go the distance, and fight to the death.",
+      "08:19 Ermes Gasparini stated 'I'm injured' regarding his wrist/arm during the match, and commentary noted scars on his left arm from a previous match.",
+      "13:27 The right arm is so important for Ermes Gasparini; he's gunning for that."
+    ],
+    "timestamp_quality": "low",
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate coverage is partial (≈50%), with several high-value baseline claims not addressed and multiple candidate claims lacking clear baseline support. Timestamp alignment is weak, reducing reliability."
+  },
+  "usage": {
+    "prompt_tokens": 1455,
+    "completion_tokens": 5946,
+    "total_tokens": 7401,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5632,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00245115,
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Direct head-to-head history, but left hand rather than upcoming right hand."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

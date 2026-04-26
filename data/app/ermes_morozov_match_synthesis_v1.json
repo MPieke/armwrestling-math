@@ -1,0 +1,601 @@
+{
+  "generated_at": "2026-04-26T01:08:18.760373+00:00",
+  "synthesis_model": "gpt-5-nano",
+  "input_claim_count": 115,
+  "classified_claims": [
+    {
+      "evidence_index": 9,
+      "evidence": {
+        "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+        "timestamp": "11:35",
+        "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=695s",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+        "confidence": "high",
+        "video_id": "NsLWax9GwZY",
+        "video_title": "Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "ermes",
+      "claim_type": "form",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 10,
+      "evidence": {
+        "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+        "timestamp": "12:06",
+        "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=726s",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+        "confidence": "high",
+        "video_id": "NsLWax9GwZY",
+        "video_title": "Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "ermes",
+      "claim_type": "form",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 14,
+      "evidence": {
+        "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+        "timestamp": "23:55",
+        "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=1435s",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+        "confidence": "high",
+        "video_id": "NsLWax9GwZY",
+        "video_title": "Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "ermes",
+      "claim_type": "prediction",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 21,
+      "evidence": {
+        "claim": "Ermes Gasparini explains that the first step of his top roll technique is to 'open the finger' of his opponent.",
+        "timestamp": "21:07",
+        "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1267s",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "This provides a specific tactical insight into Ermes's top roll strategy, suggesting he aims to break the opponent's hand control early in the match.",
+        "confidence": "high",
+        "video_id": "28S8Qd02rxI",
+        "video_title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "ermes",
+      "claim_type": "style",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": true,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 22,
+      "evidence": {
+        "claim": "Ermes Gasparini states that using a hook or side pressure is 'impossible' against Levan, and the only way is to 'open his wrist' with a top roll.",
+        "timestamp": "22:32",
+        "source_url": "https://www.youtube.com/watch?v=28S8Qd02rxI&t=1352s",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "While about Levan, this reveals Ermes's strong belief in the top roll as the superior technique against powerful opponents, which could be his primary strategy against Morozov.",
+        "confidence": "high",
+        "video_id": "28S8Qd02rxI",
+        "video_title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "ermes",
+      "claim_type": "style",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": true,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 76,
+      "evidence": {
+        "claim": "Ermes Gasparini is competing at 130kg and is in peak form, having just defeated Dave Chaffee on the right hand.",
+        "timestamp": "00:55",
+        "source_url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro&t=55s",
+        "speaker_or_source": "Commentator",
+        "relevance": "Establishes Ermes's historical weight and right-hand momentum during this period.",
+        "confidence": "high",
+        "video_id": "bWmtNWQM_Ro",
+        "video_title": "Ermes Gasparini vs Artyom Morozov  - East vs West Left Hand Superheavyweight World Title Match",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "ermes",
+      "claim_type": "form",
+      "stance": "supports_ermes",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 32,
+      "evidence": {
+        "claim": "Morozov's right arm is feeling better every day and is recovering well.",
+        "timestamp": "02:18",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=138s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Crucial for assessing his readiness for a high-intensity right-hand match against Ermes.",
+        "confidence": "high",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 33,
+      "evidence": {
+        "claim": "Morozov is utilizing IVs and intensive training protocols for this preparation.",
+        "timestamp": "02:53",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=173s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates a high level of professional preparation and physical investment.",
+        "confidence": "high",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 34,
+      "evidence": {
+        "claim": "Post-surgery, Morozov's 'rising' strength on his right hand does not drop or fatigue as it did before.",
+        "timestamp": "67:00",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4020s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Rising is a key defensive and offensive component against Ermes' top-roll.",
+        "confidence": "medium",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 35,
+      "evidence": {
+        "claim": "Morozov feels he has more 'reserve' strength now than he had previously.",
+        "timestamp": "67:40",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4060s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests a higher ceiling for his right-hand performance compared to his pre-injury form.",
+        "confidence": "medium",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 36,
+      "evidence": {
+        "claim": "Morozov's current body weight is 140kg.",
+        "timestamp": "67:55",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4075s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Significant mass increase which usually correlates to increased raw power in the super-heavyweight division.",
+        "confidence": "high",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 37,
+      "evidence": {
+        "claim": "Morozov believes he will be even stronger when he officially 'peaks' for the match.",
+        "timestamp": "68:08",
+        "source_url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw&t=4088s",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests the 140kg version seen now is not yet his final form for the Ermes match.",
+        "confidence": "medium",
+        "video_id": "nvlNtq3T-Hw",
+        "video_title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+        "channel": "East vs West Armwrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "morozov",
+      "claim_type": "form",
+      "stance": "supports_morozov",
+      "recency": "recent",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": true,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 8,
+      "evidence": {
+        "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+        "timestamp": "02:42",
+        "source_url": "https://www.youtube.com/watch?v=NsLWax9GwZY&t=162s",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+        "confidence": "high",
+        "video_id": "NsLWax9GwZY",
+        "video_title": "Ermes Gasparini - East vs West Podcast",
+        "channel": "Engin Terzi Enigma of Rage",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "other",
+      "claim_type": "psychology",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 28,
+      "evidence": {
+        "claim": "Vitaly Laletin has very long fingers, a big hand, and a very long arm, which gives him a significant advantage in pronation and side pressure.",
+        "timestamp": "02:00",
+        "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=120s",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Explains Laletin's physical attributes that contribute to his unique and powerful pulling style, crucial for understanding his potential against Ermes.",
+        "confidence": "high",
+        "video_id": "yGBrHvylMWs",
+        "video_title": "Artyom Morozov - East vs West Podcast",
+        "channel": "East vs West / Engin Terzi referenced source",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "other",
+      "claim_type": "strength",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 29,
+      "evidence": {
+        "claim": "Vitaly Laletin demonstrated incredible side pressure, recording 130 kg in Ivan Matyushenko's gym.",
+        "timestamp": "02:55",
+        "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=175s",
+        "speaker_or_source": "SteelMorozov",
+        "relevance": "Provides a concrete metric of Laletin's strength, supporting the claim of his formidable side pressure and its impact on his matches.",
+        "confidence": "high",
+        "video_id": "yGBrHvylMWs",
+        "video_title": "Artyom Morozov - East vs West Podcast",
+        "channel": "East vs West / Engin Terzi referenced source",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "other",
+      "claim_type": "strength",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 31,
+      "evidence": {
+        "claim": "Engin Terzi notes that Vitaly Laletin has struggled with wrist control against opponents like Ferit Osmanli, Zaur, and Ermes Gasparini, indicating his wrist is not unbreakable.",
+        "timestamp": "02:57",
+        "source_url": "https://www.youtube.com/watch?v=yGBrHvylMWs&t=177s",
+        "speaker_or_source": "EnginTerzi",
+        "relevance": "Challenges the perception of Laletin's invincibility, highlighting a potential vulnerability (wrist control) that Ermes or other opponents might exploit.",
+        "confidence": "high",
+        "video_id": "yGBrHvylMWs",
+        "video_title": "Artyom Morozov - East vs West Podcast",
+        "channel": "East vs West / Engin Terzi referenced source",
+        "selected_model": "gemini-2.5-flash-baseline"
+      },
+      "athlete": "other",
+      "claim_type": "weakness",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 71,
+      "evidence": {
+        "claim": "Devon believes Morozov vs Gennadi is a close match, highlighting Morozov's top roll vs Gennadi's inside game.",
+        "timestamp": "00:10",
+        "source_url": "https://www.youtube.com/watch?v=pHHR6Bc9zXY&t=10s",
+        "speaker_or_source": "Devon Larratt",
+        "relevance": "Establishes Morozov's stylistic baseline as a top-roller who struggles against elite inside pressure.",
+        "confidence": "high",
+        "video_id": "pHHR6Bc9zXY",
+        "video_title": "Devon's analysis and predictions on the Genadi vs Morozov and Jerry vs Ermes supermatches",
+        "channel": "Victorcali Arm Wrestling",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "other",
+      "claim_type": "other",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    },
+    {
+      "evidence_index": 93,
+      "evidence": {
+        "claim": "Devon was able to 'double cap' his thumb, indicating he had achieved superior height and supination in the setup.",
+        "timestamp": "01:40",
+        "source_url": "https://www.youtube.com/watch?v=drxsBp2g4BM&t=100s",
+        "speaker_or_source": "Narrator",
+        "relevance": "Highlights the importance of the setup; if Morozov can win the height battle, he can compromise Ermes' hand.",
+        "confidence": "medium",
+        "video_id": "drxsBp2g4BM",
+        "video_title": "DEVON LARRATT vs ERMES GASPARINI Analysis",
+        "channel": "Performance Enhancing Pancakes",
+        "selected_model": "gemini-3-flash-preview"
+      },
+      "athlete": "other",
+      "claim_type": "style",
+      "stance": "neutral",
+      "recency": "old_context",
+      "source_quality": "high",
+      "synthesis_value": 1,
+      "durable_style_signal": false,
+      "current_form_signal": false,
+      "caveat": ""
+    }
+  ],
+  "synthesis": {
+    "matchup": "Ermes Gasparini vs Artyom Morozov",
+    "event_context": "June 2026 right-hand match",
+    "popular_take": "Inferred media narrative: Morozov is rising rapidly with a dominant right hand and increasing mass, while Ermes remains a proven counter to top-level power with elite back pressure and toproll defense. The public expects a close, strategical battle hinging on wrist control, height battles, and who can impose their preferred range first.",
+    "counter_case": "Ermes could leverage his upgraded back pressure and evolving press to blunt Morozov's frame-based pressure if he can force Morozov into uncomfortable wrist postures.",
+    "what_community_might_be_missing": "Concrete, independent measurements of Morozov's current wrist health and Ermes's wrist mechanical data; official match footage beyond fan-cut clips; objective timing of Morozov's peak for this bout.",
+    "key_question": "Will Morozov's recent form translate into dominant right-hand pressure, or can Ermes continue to neutralize power with top-roll progression and back pressure? How will wrist posture and height dynamics decide the pace of the match?",
+    "ermes_case": [
+      {
+        "claim_index": 9,
+        "summary": "Ermes's current weight around 127-128 kg; implies mass and leverage for right-hand readiness.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 10,
+        "summary": "Ermes's 80-85% shape suggests relative readiness vs internal benchmarks.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 14,
+        "summary": "Ermes anticipates a difficult Morozov left-arm match, indicating foreseen challenge.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 21,
+        "summary": "Opening the opponent's finger in top-roll demonstrates Ermes's go-to entry for wrist control.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 22,
+        "summary": "Belief in top-roll over hook against Levan signals a strategic baseline for Morozov's upcoming scenario.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 76,
+        "summary": "Ermes' recent 130kg+ weight and victory on the right hand signs peak form against top-level opposition.",
+        "caveat": ""
+      }
+    ],
+    "morozov_case": [
+      {
+        "claim_index": 32,
+        "summary": "Morozov's right arm improving daily; recovery progress.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 33,
+        "summary": "IVs and intensive prep indicate high-level investment in conditioning.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 34,
+        "summary": "Post-surgery strength rising on right hand; defensive/offensive capability improving.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 35,
+        "summary": "Increased reserve strength now; higher ceiling for performance.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 36,
+        "summary": "Official weight at around 140 kg; larger frame translates to power potential.",
+        "caveat": ""
+      },
+      {
+        "claim_index": 37,
+        "summary": "Belief that Morozov will peak for the match; timing matters.",
+        "caveat": ""
+      }
+    ],
+    "uncertainty_flags": [
+      "Reliance on non-official video commentary for current-form signals.",
+      "Injury statuses (Ermes left arm, Morozov wrist) may shift closer to event day.",
+      "Some claims derive from promotional or speculative content rather than formal competitive results.",
+      "Source bias from prominent armwrestling media personas could color interpretation.",
+      "Differences between left-hand vs right-hand performance in reported claims add ambiguity."
+    ],
+    "clusters": [
+      {
+        "title": "Ermes top-roll defense vs Morozov frame power",
+        "summary": "Ermes relies on top-roll entry and back-pressure to blunt Morozov's frontal frame drive; this cluster covers the technique and readiness signals.",
+        "stance": "neutral",
+        "claim_type": "style",
+        "supporting_claim_indices": [
+          9,
+          10,
+          14,
+          21,
+          22,
+          76
+        ],
+        "caveat": ""
+      },
+      {
+        "title": "Morozov current form and readiness",
+        "summary": "Morozov's strength trajectory, training intensity, and mass accumulation shape his immediate capability against Ermes.",
+        "stance": "neutral",
+        "claim_type": "form",
+        "supporting_claim_indices": [
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ],
+        "caveat": ""
+      },
+      {
+        "title": "Height, long-arc dynamics, and neutralizing power",
+        "summary": "Height battles and back-pressure mechanics as both athletes attempt to control the pad and wrist posture.",
+        "stance": "neutral",
+        "claim_type": "setup",
+        "supporting_claim_indices": [
+          69,
+          70,
+          72,
+          73,
+          74,
+          75,
+          76
+        ],
+        "caveat": ""
+      },
+      {
+        "title": "Contextual echoes and public narrative",
+        "summary": "External analyses and public perception frame expectations but do not determine the match outcome.",
+        "stance": "neutral",
+        "claim_type": "other",
+        "supporting_claim_indices": [
+          8,
+          28,
+          29,
+          31,
+          71,
+          93
+        ],
+        "caveat": ""
+      }
+    ],
+    "top_evidence_indices": [
+      9,
+      10,
+      14,
+      21,
+      22,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      76
+    ],
+    "share_card": {
+      "headline": "Ermes vs Morozov: The June 2026 Right-Hand Showdown—Top-Roll Against Frame Power",
+      "key_stat": "Morozov: six-form signals; Ermes: six-form/top-roll signals",
+      "counter_insight": "Match may hinge on wrist control and height battles; Ermes's back-pressure pressure and Morozov's rising strength are pivotal.",
+      "key_question": "Can Morozov's frame power overwhelm Ermes's toproll and back-pressure, or will Ermes' evolving press-force and height advantage hold?"
+    }
+  }
+}

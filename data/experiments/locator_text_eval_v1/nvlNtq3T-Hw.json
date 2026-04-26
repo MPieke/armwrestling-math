@@ -1,0 +1,104 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "coverage_grade": "low",
+    "quality_grade": "moderate",
+    "missed_critical_claims": [
+      {
+        "timestamp": "02:22",
+        "claim": "Morozov's arm feels better every day, recovering well, and he feels really good.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Indicates Morozov's recovery status and current physical condition, crucial for his performance against Ermes",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "02:31",
+        "claim": "Morozov trains a lot and uses IVs for recovery, indicating intense preparation.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Highlights Morozov's commitment to preparation and recovery strategy, which could impact his endurance and strength in the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:14",
+        "claim": "Morozov is confident that it will be a good fight.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Shows Morozov's mental state and belief in his performance, which is a factor in high-stakes matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:15",
+        "claim": "Morozov prefers to focus on hard work and showing results rather than boasting about winning, reflecting a humble and action-oriented approach.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Reveals Morozov's humble approach and focus on actions over words, a cultural aspect that might influence his pre-match demeanor.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "39:21",
+        "claim": "Robert Smith believes Morozov would be a world champion if not for a past injury.",
+        "speaker_or_source": "Baxpuller",
+        "relevance": "Provides context on Morozov's past performance and potential, suggesting he was a top contender before injury and could return to that level.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "67:10",
+        "claim": "Morozov's right wrist rising doesn't drop post-surgery, indicating sustained strength in that area.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "This is a specific tactical/form claim about his right wrist strength post-surgery, which is vital for hand control and top-rolling against Ermes.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "67:40",
+        "claim": "Morozov feels he has more reserve and capacity now, and can do more than before.",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Indicates increased strength and capacity compared to his previous form, suggesting he is in better physical condition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "68:15",
+        "claim": "Morozov currently weighs 140 kilograms (290 pounds).",
+        "speaker_or_source": "Steel Morozov",
+        "relevance": "Provides his current weight, indicating his size and potential power for the match, especially if he's competing in a lower weight class or has significantly bulked up.",
+        "confidence": "high"
+      }
+    ],
+    "locator_failure_modes": [
+      "Time coverage gap: high-value baseline claims occur outside located windows (e.g., 02:22, 02:31, 11:14, 12:15, 39:21, 67:10, 67:40, 68:15)",
+      "Insufficient window duration for dense topics; potential valuable statements truncated or split across windows",
+      "Potential mislabeling of speaker or claim due to multi-speaker/overlapping speech",
+      "Audio quality or compression could obscure subtle assertions or nuance",
+      "No integration of transcripts or visual cues to corroborate spoken claims, increasing risk of misinterpretation",
+      "Bias in window selection based on relevance scores without exhaustive claim targeting for MVP",
+      "Time alignment drift between claim timestamps and actual on-video moments could miss intended statements"
+    ],
+    "recommendation": "1) Broaden and reposition windows to encompass known high-value claim timestamps with additional pre/post seconds (e.g., ±20–60s around 02:22, 02:31, 11:14, 12:15, 39:21, 67:10, 67:40, 68:15). 2) Implement sliding-window analysis with overlap to reduce missed claims. 3) Add speaker diarization and ASR-based claim indexing to automatically tag high-value claims. 4) Validate windows against a baseline claim list and iterate to cover gaps. 5) For MVP, select 3–5 anchor windows centered on high-value claims (recovery, training, confidence, past injuries, and weight/strength) with 30–60 seconds each. 6) Incorporate cross-modal cues (visuals, on-screen text) if available to improve claim attribution.",
+    "concise_rationale": "The locator captured some signal content (training, confidence) but failed to cover any of the high-value baseline claims, indicating significant coverage gaps. Windows are not aligned with key recovery, injury history, or physical condition claims, limiting MVP viability. Expanding and targeting windows, adding diarization/ASR, and using a sliding-window, claim-triggered approach would improve signal-to-noise separation and baseline claim coverage."
+  },
+  "usage": {
+    "prompt_tokens": 1049,
+    "completion_tokens": 4071,
+    "total_tokens": 5120,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2880,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0016808500000000002,
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "recent Morozov livestream"
+  },
+  "coverage_counts": {
+    "baseline_claims": 8,
+    "covered_claims": 0,
+    "missed_claims": 8
+  }
+}

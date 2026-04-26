@@ -1,0 +1,61 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "low",
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "high",
+    "durable_style_value": "low",
+    "current_form_value": "poor",
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is a 2023 YouTube video with no direct content about the 2026 Ermes Morozov matchup; there are no substantiated claims relevant to the event, limiting its usefulness for the MVP."
+  },
+  "usage": {
+    "prompt_tokens": 227,
+    "completion_tokens": 1473,
+    "total_tokens": 1700,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00060055,
+  "source": {
+    "id": "1EccmmVB0lQ",
+    "url": "https://www.youtube.com/watch?v=1EccmmVB0lQ",
+    "title": "Jerry is coming for Ermes and Levan",
+    "channel": "ARMWRESTLING NEWZ",
+    "channel_id": "UCdCGMR_8NeATGsFTms6m5Ag",
+    "published_at": "2023-05-18T03:34:47Z",
+    "description": "@PaulItaliaFitness https://www.youtube.com/live/QVw1yIAK2B4?feature=share\nEVSW 8 - https://app.coresports.tv/\nJoin this channel to get access to perks:\nhttps://www.youtube.com/channel/UCdCGMR_8NeATGsFTms6m5Ag/join\nPATREON  https://rb.gy/awjrwr\n#morozov \n#levansaginashvili  \n#armwrestlingnews\n#armwrestlingnewz",
+    "matched_queries": [
+      "Ermes Morozov Armwrestling Newz"
+    ],
+    "duration": "PT5M8S",
+    "caption": "false",
+    "view_count": 4925,
+    "like_count": 305,
+    "license": "youtube",
+    "score": 28,
+    "score_reasons": [
+      "trusted channel: ARMWRESTLING NEWZ",
+      "matched term: ermes",
+      "matched term: morozov",
+      "matched term: live",
+      "mentions both Ermes and Morozov"
+    ],
+    "duration_seconds": 308,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

@@ -1,0 +1,101 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "model": "gemini-3-flash-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Artyom Morozov discusses his recovery from a left-arm injury and provides technical analysis of top-tier right-hand pullers including Ermes Gasparini and Levan Saginashvili.",
+    "popular_take": "Ermes Gasparini's shoulder pressure and compact frame make him technically superior to pullers with longer levers, such as Vitaly Laletin, in a close-to-the-pad battle.",
+    "counter_case": "Morozov suggests that Ermes' dominance relies on his wrist integrity; if an opponent can compromise Ermes' pronator or wrist, his power drops significantly.",
+    "claims": [
+      {
+        "timestamp": "17:25",
+        "claim": "Ermes is extremely strong and patient, often allowing opponents to work before capitalizing on their mistakes.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Highlights the need for Morozov to avoid over-committing early in the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:37",
+        "claim": "Ermes possesses significantly better shoulder pressure on the right arm than Vitaly Laletin.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Establishes Ermes as a superior 'inside' threat compared to Morozov's previous elite opponents.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "25:05",
+        "claim": "Ermes' shorter arm lever is a tactical advantage for his specific style of pressing and side pressure.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests Morozov's longer arm might be a disadvantage if the match becomes a shoulder-to-shoulder press battle.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "38:02",
+        "claim": "Levan Saginashvili's wrist has not fully recovered, leading to a 'fear' of using it as aggressively as he did in the past.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Contextualizes Ermes' performance against Levan; if Levan was compromised, Ermes' relative level might be slightly lower than perceived.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "39:10",
+        "claim": "Ermes has elite endurance and maintains very strong technical angles even when fatigued.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Indicates that Morozov cannot rely on outlasting Ermes in a long war of attrition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "40:51",
+        "claim": "The key to beating Ermes is controlling his pronator; if his wrist is forced back, he is vulnerable.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Identifies the primary technical target for Morozov's right-hand strategy.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "55:03",
+        "claim": "Morozov's right hand has reached a new level of strength and his mental aggression has increased since his last major matches.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Supports the narrative that Morozov is a significantly different puller than the one who lost to Vitaly previously.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "60:42",
+        "claim": "Morozov trains with a partner who mimics Michael Todd's style, giving him high comfort against defensive 'King's Move' positions.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Suggests Morozov is well-prepared if Ermes attempts to pull defensively or from a low position.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "Can Morozov's improved right-hand side pressure successfully attack Ermes' pronator before Ermes can transition into his elite shoulder press?",
+    "usefulness": "high",
+    "notes": [
+      "Morozov's analysis of Ermes is based on observing Ermes vs Michael Todd and Levan.",
+      "The athlete's confidence in his own right-hand improvement is a central narrative thread."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 147133,
+    "candidatesTokenCount": 1043,
+    "totalTokenCount": 149307,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 146752
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ],
+    "thoughtsTokenCount": 1131
+  },
+  "source": {
+    "id": "yGBrHvylMWs",
+    "url": "https://www.youtube.com/watch?v=yGBrHvylMWs",
+    "title": "Artyom Morozov - East vs West Podcast",
+    "channel": "East vs West / Engin Terzi referenced source",
+    "type": "Long-form Morozov source referenced by multiple clip videos."
+  }
+}

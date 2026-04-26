@@ -1,0 +1,37 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 100,
+    "high_value_coverage_percent": 100,
+    "quality_grade": "Excellent",
+    "unsupported_claims": [],
+    "missed_high_value_claims": [],
+    "timestamp_quality": "mixed",
+    "pass_fail": "pass",
+    "concise_rationale": "Candidate claims semantically cover all baseline claims (8/8). Coverage percent = 100; high-value coverage = 100. Timestamps are offset for most claims (only one exact match at 01:11), indicating imperfect timestamp alignment but content is preserved. No unsupported or missed high-value claims detected. The cheaper candidate model appears viable to replace the baseline for this dataset."
+  },
+  "usage": {
+    "prompt_tokens": 1159,
+    "completion_tokens": 4643,
+    "total_tokens": 5802,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4480,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0019151500000000002,
+  "source": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "type": "short commentary clip"
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

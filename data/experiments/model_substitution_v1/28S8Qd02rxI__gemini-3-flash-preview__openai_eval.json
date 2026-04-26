@@ -1,0 +1,67 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 12.5,
+    "high_value_coverage_percent": 33.3333333333,
+    "quality_grade": "low",
+    "unsupported_claims": [
+      {
+        "timestamp": "29:00",
+        "claim": "Ermes admits he might have less endurance now because he is more muscular than ever before."
+      },
+      {
+        "timestamp": "31:45",
+        "claim": "Ermes asserts that Dave Chaffee will not be able to take his wrist."
+      },
+      {
+        "timestamp": "65:05",
+        "claim": "Prudnik predicts that Revaz Lutidze will beat Artyom Morozov."
+      },
+      {
+        "timestamp": "65:55",
+        "claim": "Prudnik ranks Ermes and Revaz as tied for 3rd in the world, with Morozov ranked 5th."
+      },
+      {
+        "timestamp": "113:00",
+        "claim": "Prudnik claims he would beat Morozov on both the right and left arms."
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "15:59",
+        "claim": "Ermes Gasparini claims Dave Chaffee has 'never felt the top roll like me,' emphasizing his unique wrist and pronation technique."
+      },
+      {
+        "timestamp": "37:07",
+        "claim": "Ermes Gasparini ranks Dave Chaffee as the 'number two in the world,' citing Dave's undefeated record in the first two rounds against anyone."
+      }
+    ],
+    "timestamp_quality": 12.5,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate covers only one baseline claim (13:44) and misses multiple high-value baseline claims; many candidate claims are not echoed in baseline, indicating insufficient coverage to replace the baseline model."
+  },
+  "usage": {
+    "prompt_tokens": 1415,
+    "completion_tokens": 3491,
+    "total_tokens": 4906,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3072,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0014671500000000002,
+  "source": {
+    "id": "28S8Qd02rxI",
+    "url": "https://www.youtube.com/watch?v=28S8Qd02rxI",
+    "title": "Evgeny Prudnyk - Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Pre-EVW5 discussion close to Ermes vs Morozov left-hand and Ermes vs Chaffee right-hand."
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

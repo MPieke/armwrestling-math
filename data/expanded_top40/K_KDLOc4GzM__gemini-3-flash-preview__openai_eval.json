@@ -1,0 +1,62 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 15,
+    "pass_fail": "fail",
+    "directness": 20,
+    "recency_risk": 85,
+    "durable_style_value": 10,
+    "current_form_value": 15,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The source is unrelated to the Gasparini vs Morozov 2026 right-hand match (a 2022 Morozov vs Matt Mask video). No claims about Gasparini, Morozov, or current form are present; a note of 'Gemini analysis failed' suggests unreliability. Data is outdated and not directly applicable to the 2026 matchup, offering minimal direct usefulness for MVP assessment."
+  },
+  "usage": {
+    "prompt_tokens": 233,
+    "completion_tokens": 1512,
+    "total_tokens": 1745,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1344,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00061645,
+  "source": {
+    "id": "K_KDLOc4GzM",
+    "url": "https://www.youtube.com/watch?v=K_KDLOc4GzM",
+    "title": "Matt Mask vs Artyom Morozov - East vs West 3",
+    "channel": "Engin Terzi Enigma of Rage",
+    "channel_id": "UCMzpyrvO3yUeGDclgjixSoA",
+    "published_at": "2022-05-27T09:07:37Z",
+    "description": "East vs West 3 Istanbul May 21st, Matt Mask (Canada) vs Artyom Morozov (Kazakhstan)\n\nEast vs West merch\nhttps://my-store-cb6923.creator-spring.com",
+    "matched_queries": [
+      "Ermes Gasparini Artyom Morozov"
+    ],
+    "duration": "PT8M30S",
+    "caption": "false",
+    "view_count": 314515,
+    "like_count": 6728,
+    "license": "youtube",
+    "score": 25,
+    "score_reasons": [
+      "trusted channel: Engin Terzi Enigma of Rage",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: east vs west",
+      "mentions one target athlete",
+      "10k+ views"
+    ],
+    "duration_seconds": 510,
+    "filter_category": "review",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "ambiguous; keep for review"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

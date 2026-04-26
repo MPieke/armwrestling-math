@@ -1,0 +1,51 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=ha4mymdWrkc",
+    "model": "gemini-3-flash-preview",
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "Gemini analysis failed.",
+    "claims": [],
+    "notes": [
+      "HTTP 400 from Gemini API:\n{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"No frames to extract with given parameters. Verify fps, start/end time and video duration.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n"
+    ],
+    "usefulness": "low"
+  },
+  "usage_metadata": {},
+  "source": {
+    "id": "ha4mymdWrkc",
+    "url": "https://www.youtube.com/watch?v=ha4mymdWrkc",
+    "title": "Ermes Gasparini on Devon and Vitaly 🤯",
+    "channel": "Grip Kings",
+    "channel_id": "UCqAE-A1vvI-wWxTdvSDZauw",
+    "published_at": "2026-02-27T23:29:22Z",
+    "description": "The Gladiator speaks! 🇮🇹 Ermes Gasparini reveals the one armwrestling match he is watching closely at East vs West 22: The titan clash between Devon Larratt and Vitaly Laletin.\nBut the focus shifts to June. Ermes returns to the table to face Martin Morozov! 🇰🇿 No more games. From now on, it's all about calculated preparation:\n\n🔥 Sharpening the Pronator\n✊ Strengthening the Cup\n💪 Unstoppable Side Pressure\nErmes vs Morozov... who takes the hand first?\n Let us know your prediction! 👇\n\n#ErmesGasparini #DevonLarratt #VitalyLaletin #EastVsWest22 #Armwrestling #TheGladiator #MartinMorozov #EvW #Armwrestler #EastVsWest",
+    "matched_queries": [
+      "Ermes Morozov Grip Kings"
+    ],
+    "duration": "PT1M28S",
+    "caption": "false",
+    "view_count": 9490,
+    "like_count": 648,
+    "license": "youtube",
+    "score": 37,
+    "score_reasons": [
+      "trusted channel: Grip Kings",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: prediction",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov"
+    ],
+    "duration_seconds": 88,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  }
+}

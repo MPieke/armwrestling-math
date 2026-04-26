@@ -1,0 +1,65 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 1,
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "low",
+    "durable_style_value": 1,
+    "current_form_value": "unknown",
+    "unsupported_or_stale_claims": false,
+    "concise_rationale": "The source is a short Grip Kings video about Devon and Vitaly, not addressing Ermes Gasparini vs Artyom Morozov. The claims list is empty and the summary notes Gemini analysis failed, indicating no verifiable, match-specific analysis to rely on. Content is moderately recent but not directly applicable to the June 2026 matchup, yielding low usefulness."
+  },
+  "usage": {
+    "prompt_tokens": 224,
+    "completion_tokens": 1951,
+    "total_tokens": 2175,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1792,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0007916000000000002,
+  "source": {
+    "id": "ha4mymdWrkc",
+    "url": "https://www.youtube.com/watch?v=ha4mymdWrkc",
+    "title": "Ermes Gasparini on Devon and Vitaly 🤯",
+    "channel": "Grip Kings",
+    "channel_id": "UCqAE-A1vvI-wWxTdvSDZauw",
+    "published_at": "2026-02-27T23:29:22Z",
+    "description": "The Gladiator speaks! 🇮🇹 Ermes Gasparini reveals the one armwrestling match he is watching closely at East vs West 22: The titan clash between Devon Larratt and Vitaly Laletin.\nBut the focus shifts to June. Ermes returns to the table to face Martin Morozov! 🇰🇿 No more games. From now on, it's all about calculated preparation:\n\n🔥 Sharpening the Pronator\n✊ Strengthening the Cup\n💪 Unstoppable Side Pressure\nErmes vs Morozov... who takes the hand first?\n Let us know your prediction! 👇\n\n#ErmesGasparini #DevonLarratt #VitalyLaletin #EastVsWest22 #Armwrestling #TheGladiator #MartinMorozov #EvW #Armwrestler #EastVsWest",
+    "matched_queries": [
+      "Ermes Morozov Grip Kings"
+    ],
+    "duration": "PT1M28S",
+    "caption": "false",
+    "view_count": 9490,
+    "like_count": 648,
+    "license": "youtube",
+    "score": 37,
+    "score_reasons": [
+      "trusted channel: Grip Kings",
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: prediction",
+      "matched term: east vs west",
+      "matched term: evw",
+      "mentions both Ermes and Morozov"
+    ],
+    "duration_seconds": 88,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

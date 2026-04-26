@@ -1,0 +1,107 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "model": "gemini-2.5-flash",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.1
+  },
+  "analysis": {
+    "summary": "Ermes Gasparini expresses high confidence in beating Jerry Cadorette, viewing the match as a crucial test for a potential future bout with Levan Saginashvili, while also acknowledging a current left arm pain that makes an immediate match with Artyom Morozov difficult.",
+    "popular_take": "Ermes Gasparini is confident he can beat Jerry Cadorette, even at 85% of his peak, and sees this as a stepping stone to face Levan. He also believes he has a good chance against Artyom Morozov with his left arm if he can control the wrist.",
+    "counter_case": "While Ermes is confident, Engin Terzi repeatedly highlights Jerry's unique and historically strong technique, suggesting Ermes might be underestimating Jerry's specific style, similar to how Gennady underestimated him. Engin also points out Ermes's current left arm pain, which could impact a match against Morozov.",
+    "claims": [
+      {
+        "timestamp": "02:42",
+        "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+        "speaker_or_source": "Engin Terzi",
+        "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:35",
+        "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:06",
+        "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:07",
+        "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "14:24",
+        "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:00",
+        "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "23:55",
+        "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:05",
+        "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+        "speaker_or_source": "Ermes Gasparini",
+        "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+        "confidence": "high"
+      }
+    ],
+    "key_question": "What specific tactical approach will Ermes use against Jerry, and how will his current left arm pain affect his match against Morozov?",
+    "usefulness": "high",
+    "notes": [
+      "The conversation frequently jumps between topics and includes many greetings and jokes, requiring careful filtering for relevant claims.",
+      "Engin Terzi often plays a role in challenging Ermes's statements or providing counter-perspectives, which is useful for the 'counter_case' section.",
+      "Ermes's confidence is a recurring theme, but also his strategic thinking and opponent analysis.",
+      "The discussion about Morozov's left arm is directly relevant to the upcoming match."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 300380,
+    "candidatesTokenCount": 1191,
+    "totalTokenCount": 307964,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 135445
+      },
+      {
+        "modality": "AUDIO",
+        "tokenCount": 164590
+      }
+    ],
+    "thoughtsTokenCount": 6393
+  },
+  "candidate": {
+    "id": "NsLWax9GwZY",
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "title": "Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "why": "Long-form Ermes source before the 2022 East vs West cycle."
+  }
+}

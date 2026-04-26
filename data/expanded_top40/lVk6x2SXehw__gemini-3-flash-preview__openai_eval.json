@@ -1,0 +1,62 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": 2,
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "high",
+    "durable_style_value": 2,
+    "current_form_value": 2,
+    "unsupported_or_stale_claims": [],
+    "concise_rationale": "The video discusses Morozov predicting other matches and dates from 2023; it does not analyze the Ermes Gasparini vs Artyom Morozov right-hand matchup. Low direct relevance for the June 2026 bout, plus high recency risk and no actionable or verifiable claims for MVP assessment."
+  },
+  "usage": {
+    "prompt_tokens": 235,
+    "completion_tokens": 1364,
+    "total_tokens": 1599,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1216,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0005573500000000001,
+  "source": {
+    "id": "lVk6x2SXehw",
+    "url": "https://www.youtube.com/watch?v=lVk6x2SXehw",
+    "title": "Genadi and Morozov predict Ermes vs Jerry and Vitaly vs Revaz supermatches",
+    "channel": "Victorcali Arm Wrestling",
+    "channel_id": "UCywg3R9_IejuqcqL3Okc8xg",
+    "published_at": "2023-07-16T09:00:25Z",
+    "description": "Genadi and Morozov have talked about the upcoming Jerry vs Ermes supermatch, and Morozov thinks that Ermes will win if he doesn't lose the center. Genadi believes that Ermes will win the first 2 rounds, but after that, if his endurance is not high enough, Jerry could win the last 3 rounds.\n\nAbout the upcoming Vitaly vs Revaz supermatch, Genadi believes that Revaz will beat Vitaly. Morozov thinks Vitaly will win because he will be very unconfortable for Revaz. \n\nSource:\nEngin Terzi's channel: https://www.youtube.com/watch?v=kgO_RT-U1Dk",
+    "matched_queries": [
+      "Ermes vs Morozov prediction"
+    ],
+    "duration": "PT2M21S",
+    "caption": "true",
+    "view_count": 1201,
+    "like_count": 28,
+    "license": "youtube",
+    "score": 27,
+    "score_reasons": [
+      "trusted channel: Victorcali Arm Wrestling",
+      "matched term: ermes",
+      "matched term: morozov",
+      "mentions both Ermes and Morozov",
+      "caption flag true"
+    ],
+    "duration_seconds": 141,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes",
+      "analysis/prediction language"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

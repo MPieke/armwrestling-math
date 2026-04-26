@@ -1,0 +1,66 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "usefulness_grade": "low",
+    "pass_fail": "fail",
+    "directness": "indirect",
+    "recency_risk": "low",
+    "durable_style_value": "low",
+    "current_form_value": "mixed",
+    "unsupported_or_stale_claims": true,
+    "concise_rationale": "The source is a hype-oriented podcast with no substantive, verifiable claims about the match. The only textual note, 'Gemini analysis failed,' is vague and not substantiated, and there are no actionable or credible analysis items in the data. While the video is relatively recent (March 2026), it does not provide reliable strategic or factual content for June 2026 prep."
+  },
+  "usage": {
+    "prompt_tokens": 233,
+    "completion_tokens": 1698,
+    "total_tokens": 1931,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1536,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00069085,
+  "source": {
+    "id": "n4gUYjTUifw",
+    "url": "https://www.youtube.com/watch?v=n4gUYjTUifw",
+    "title": "Ermes Gasparini vs. Artyom Morozov will be crazy!",
+    "channel": "SHAWSTRENGTH PODCAST",
+    "channel_id": "UCCCzJmU4Z_ZY_jQX9Fk5JEQ",
+    "published_at": "2026-03-13T21:00:56Z",
+    "description": "If you have questions for Brian, topics you would like to hear Brian talk about or guests you would like to see on the podcast email them to: askbrian@shawstrength.com\n\nListen on ⬇⬇\nSPOTIFY: https://open.spotify.com/show/78Ue8VKH0C1AhZrykY6MuB\nAPPLE PODCASTS: https://podcasts.apple.com/us/podcast/shaw-strength-podcast/id1606214993\nCASTBOX: https://castbox.fm/channel/id1405818?utm_campaign=ex_share_ch&utm_medium=exlink&country=us\ni HEART RADIO: https://www.iheart.com/podcast/256-shawstrength-podcast-31077461/\n\nPodcast Instagram: https://www.instagram.com/shawstrengthpodcast/\nBrian's Instagram: https://www.instagram.com/shawstrength/\nClothes, Supplements, and Supportive Gear: https://shawstrength.com?aff=29\nBehind the scenes content and Giveaways: https://shaweliteapp.com/\n\nMain Channel: https://www.youtube.com/c/SHAWSTRENGTH",
+    "matched_queries": [
+      "Ermes Morozov right hand",
+      "Ermes Gasparini Artyom Morozov",
+      "Artyom Morozov Ermes Gasparini analysis",
+      "Ermes Morozov Voice of Armwrestling"
+    ],
+    "duration": "PT56S",
+    "caption": "false",
+    "view_count": 67918,
+    "like_count": 2731,
+    "license": "youtube",
+    "score": 21,
+    "score_reasons": [
+      "matched term: ermes",
+      "matched term: gasparini",
+      "matched term: morozov",
+      "matched term: artyom",
+      "matched term: podcast",
+      "mentions both Ermes and Morozov",
+      "10k+ views"
+    ],
+    "duration_seconds": 56,
+    "filter_category": "direct_or_near_direct",
+    "exclude_high_confidence": false,
+    "filter_reasons": [
+      "mentions both target athletes"
+    ]
+  },
+  "candidate_model": "gemini-3-flash-preview"
+}

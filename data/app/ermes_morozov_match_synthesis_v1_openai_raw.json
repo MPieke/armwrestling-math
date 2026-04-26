@@ -1,0 +1,285 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "classified_claims": [
+      {
+        "evidence_index": 0,
+        "athlete": "ermes",
+        "claim_type": "psychology",
+        "stance": "supports_morozov",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 3,
+        "athlete": "morozov",
+        "claim_type": "style",
+        "stance": "supports_morozov",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 4,
+        "athlete": "morozov",
+        "claim_type": "style",
+        "stance": "supports_morozov",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 5,
+        "athlete": "ermes",
+        "claim_type": "injury",
+        "stance": "counter_case",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 6,
+        "athlete": "ermes",
+        "claim_type": "psychology",
+        "stance": "supports_morozov",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 7,
+        "athlete": "ermes",
+        "claim_type": "style",
+        "stance": "supports_ermes",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 14,
+        "athlete": "ermes",
+        "claim_type": "form",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 15,
+        "athlete": "ermes",
+        "claim_type": "injury",
+        "stance": "counter_case",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 24,
+        "athlete": "morozov",
+        "claim_type": "injury",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 32,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 33,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 48,
+        "athlete": "morozov",
+        "claim_type": "style",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 78,
+        "athlete": "morozov",
+        "claim_type": "style",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 110,
+        "athlete": "ermes",
+        "claim_type": "strength",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "medium",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 113,
+        "athlete": "ermes",
+        "claim_type": "strength",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 114,
+        "athlete": "ermes",
+        "claim_type": "strength",
+        "stance": "neutral",
+        "recency": "current",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      }
+    ],
+    "synthesis": {
+      "matchup": "Ermes Gasparini vs Artyom Morozov",
+      "event_context": "June 2026 right-hand match",
+      "popular_take": "",
+      "counter_case": "",
+      "what_community_might_be_missing": "",
+      "key_question": "",
+      "ermes_case": [
+        {
+          "claim_index": 0,
+          "summary": "Emotional energy from prior victory may influence readiness for Morozov's right-hand contest.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 5,
+          "summary": "Ermes' left-arm wrist injury noted during match; potential vulnerability for right-hand performance.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 14,
+          "summary": "Views left-arm match as very difficult, indicating perceived challenge from Morozov on that side.",
+          "caveat": ""
+        }
+      ],
+      "morozov_case": [
+        {
+          "claim_index": 3,
+          "summary": "Cups deep on right arm; durable in right-hand strategy.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 4,
+          "summary": "Huge frame and leverage; frame advantage affects right-hand dynamics.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 32,
+          "summary": "Right arm feeling better daily; positive current form signal.",
+          "caveat": ""
+        }
+      ],
+      "uncertainty_flags": [],
+      "clusters": [
+        {
+          "title": "Morozov's frame and wrist control vs Ermes' toproll",
+          "summary": "Morozov's physical frame and top-left wrist control are durable signals; Ermes' top-roll and back pressure form the counterbalance.",
+          "stance": "neutral",
+          "claim_type": "style",
+          "supporting_claim_indices": [
+            3,
+            4,
+            48,
+            78
+          ],
+          "caveat": ""
+        }
+      ],
+      "top_evidence_indices": [
+        3,
+        4,
+        48,
+        78
+      ],
+      "share_card": {
+        "headline": "Gasparini vs Morozov: Will Morozov's frame and Morozov's wrist control outpace Ermes's toproll and back pressure?",
+        "key_stat": "Morozov: 140 kg frame; Ermes: ~127-128 kg; Morozov's wrist control (up top) described as phenomenal.",
+        "counter_insight": "Ermes's proven back pressure and flop press provide a Plan B if Morozov corners the wrist.",
+        "key_question": "Can Morozov maintain height and cup against Ermes's top roll and back pressure in a long right-hand clash?"
+      }
+    }
+  },
+  "usage": {
+    "prompt_tokens": 19103,
+    "completion_tokens": 11757,
+    "total_tokens": 30860,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9728,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00565795
+}

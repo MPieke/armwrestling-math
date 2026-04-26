@@ -1,0 +1,99 @@
+{
+  "request": {
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "model": "gemini-3.1-flash-lite-preview",
+    "start_seconds": null,
+    "end_seconds": null,
+    "fps": 0.01
+  },
+  "analysis": {
+    "summary": "This video features a roundtable discussion with armwrestlers Alizhan Muratov and Artyom Morozov, moderated by Baxpull, discussing upcoming East vs West matches and their current training status.",
+    "popular_take": "Artyom Morozov is feeling confident and training heavily, while Alizhan Muratov is focused on his upcoming title match against Vitaly Laletin.",
+    "counter_case": "The discussion highlights that despite confidence, both athletes are managing injuries and recovery, which could impact their performance in high-level matches.",
+    "claims": [
+      {
+        "timestamp": "02:18",
+        "claim": "Artyom Morozov reports feeling good and training heavily, with his arm recovering and improving daily.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides insight into Morozov's current physical condition and training volume.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "03:22",
+        "claim": "Alizhan Muratov confirms his upcoming title match against Vitaly Laletin is officially set for the next event.",
+        "speaker_or_source": "Alizhan Muratov",
+        "relevance": "Confirms the status of a major upcoming match for Alizhan.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "07:11",
+        "claim": "Alizhan Muratov considers pulling Levan Saginashvili left-handed to be an 'easy' task.",
+        "speaker_or_source": "Alizhan Muratov",
+        "relevance": "Highlights Alizhan's confidence in his left-handed strength.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "15:02",
+        "claim": "Morozov expected Vitaly Laletin to win his match against Devon Larratt, but was surprised by Devon's performance.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Provides context on Morozov's assessment of top-tier competition.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "17:15",
+        "claim": "Devon Larratt's performance against Vitaly Laletin was aided by his ability to start first and take bites out of Vitaly's strength.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Analyzes the tactical factors in a high-profile match.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "23:15",
+        "claim": "Morozov believes Vitaly Laletin's right arm is significantly stronger than his left.",
+        "speaker_or_source": "Artyom Morozov",
+        "relevance": "Offers a technical comparison of a top athlete's strengths.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "27:15",
+        "claim": "Morozov notes that Devon Larratt is very strong against top rollers due to his unique pulling style.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Discusses stylistic matchups against Devon Larratt.",
+        "confidence": "medium"
+      },
+      {
+        "timestamp": "28:15",
+        "claim": "Morozov believes Devon Larratt is a clear favorite against Vitaly Laletin due to his experience and strength.",
+        "speaker_or_source": "Alex Bakuradze",
+        "relevance": "Provides a perspective on the competitive landscape.",
+        "confidence": "medium"
+      }
+    ],
+    "key_question": "How will Morozov's recovery and training volume compare to the specific tactical demands of his next opponent?",
+    "usefulness": "medium",
+    "notes": [
+      "The video is a general discussion and does not focus exclusively on Ermes Gasparini vs Artyom Morozov, though it provides context on Morozov's current state."
+    ]
+  },
+  "usage_metadata": {
+    "promptTokenCount": 116976,
+    "candidatesTokenCount": 941,
+    "totalTokenCount": 117917,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 116595
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 381
+      }
+    ]
+  },
+  "source": {
+    "id": "nvlNtq3T-Hw",
+    "url": "https://www.youtube.com/watch?v=nvlNtq3T-Hw",
+    "title": "ARTYOM MOROZOV & ALIZHAN MURATOV | EVW 23 LIVESTREAM",
+    "channel": "East vs West Armwrestling",
+    "type": "long livestream/podcast"
+  }
+}

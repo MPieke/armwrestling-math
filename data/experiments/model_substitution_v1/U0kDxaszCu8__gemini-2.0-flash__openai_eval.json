@@ -1,0 +1,86 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "fail",
+    "unsupported_claims": [
+      {
+        "timestamp": "00:00",
+        "claim": "Many consider Morozov's victory against Jerry Cadorette a sure thing.",
+        "relevance": "Establishes the prevailing fan narrative about Morozov's strength.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:13",
+        "claim": "Direct comparisons between athletes can be misleading.",
+        "relevance": "Challenges the basis of the popular narrative, suggesting past performances aren't always indicative.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:17",
+        "claim": "Morozov's hook is very powerful.",
+        "relevance": "Identifies a key strength and primary weapon of Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:21",
+        "claim": "If Jerry Cadorette manages to establish his position before Morozov, he can beat him.",
+        "relevance": "Highlights a crucial tactical path for Jerry to win, emphasizing the importance of the initial setup.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "00:27",
+        "claim": "Jerry Cadorette's press is a serious threat if he sets his position, as demonstrated against Genadi Kvikvinia.",
+        "relevance": "Provides a specific counter-tactic for Jerry against an inside move, suggesting his press is effective.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:05",
+        "claim": "Athletes do not have the same power in all aspects/positions.",
+        "relevance": "Reinforces the idea that specific tactical strengths and weaknesses matter more than general comparisons.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:11",
+        "claim": "Morozov in the hook is super strong.",
+        "relevance": "Reiteration of Morozov's primary weapon and stylistic strength.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "01:14",
+        "claim": "The match outcome depends on who establishes their position first; if Jerry starts first, he can win.",
+        "relevance": "Pinpoints the critical moment of engagement and setup as decisive for the match.",
+        "confidence": "high"
+      }
+    ],
+    "missed_high_value_claims": 8,
+    "timestamp_quality": 0,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate model provided no timestamped claims (empty candidate_claims); 0% coverage of baseline claims and 0% coverage of high-value claims. Cannot replace baseline gemini-2.5-flash. To be viable, provide timestamped claims with high-value coverage across baseline points."
+  },
+  "usage": {
+    "prompt_tokens": 664,
+    "completion_tokens": 2949,
+    "total_tokens": 3613,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2368,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0012128,
+  "source": {
+    "id": "U0kDxaszCu8",
+    "url": "https://www.youtube.com/watch?v=U0kDxaszCu8",
+    "title": "Ermes Gasparini predicts the Jerry Cadorette vs Artyom Morozov supermatch",
+    "channel": "Victorcali Arm Wrestling",
+    "type": "short commentary clip"
+  },
+  "candidate_model": "gemini-2.0-flash"
+}

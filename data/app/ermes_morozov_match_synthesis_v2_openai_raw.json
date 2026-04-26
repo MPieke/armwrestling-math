@@ -1,0 +1,401 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "classified_claims": [
+      {
+        "evidence_index": 9,
+        "athlete": "ermes",
+        "claim_type": "form",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 10,
+        "athlete": "ermes",
+        "claim_type": "form",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 14,
+        "athlete": "ermes",
+        "claim_type": "prediction",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 21,
+        "athlete": "ermes",
+        "claim_type": "style",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 22,
+        "athlete": "ermes",
+        "claim_type": "style",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": true,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 76,
+        "athlete": "ermes",
+        "claim_type": "form",
+        "stance": "supports_ermes",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 32,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 33,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 34,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 35,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 36,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 37,
+        "athlete": "morozov",
+        "claim_type": "form",
+        "stance": "supports_morozov",
+        "recency": "recent",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": true,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 8,
+        "athlete": "other",
+        "claim_type": "psychology",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 28,
+        "athlete": "other",
+        "claim_type": "physical",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 29,
+        "athlete": "other",
+        "claim_type": "strength",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 31,
+        "athlete": "other",
+        "claim_type": "weakness",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 71,
+        "athlete": "other",
+        "claim_type": "analysis",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      },
+      {
+        "evidence_index": 93,
+        "athlete": "other",
+        "claim_type": "strategy",
+        "stance": "neutral",
+        "recency": "old_context",
+        "source_quality": "high",
+        "synthesis_value": 1,
+        "durable_style_signal": false,
+        "current_form_signal": false,
+        "caveat": ""
+      }
+    ],
+    "synthesis": {
+      "matchup": "Ermes Gasparini vs Artyom Morozov",
+      "event_context": "June 2026 right-hand match",
+      "popular_take": "Inferred media narrative: Morozov is rising rapidly with a dominant right hand and increasing mass, while Ermes remains a proven counter to top-level power with elite back pressure and toproll defense. The public expects a close, strategical battle hinging on wrist control, height battles, and who can impose their preferred range first.",
+      "counter_case": "Ermes could leverage his upgraded back pressure and evolving press to blunt Morozov's frame-based pressure if he can force Morozov into uncomfortable wrist postures.",
+      "what_community_might_be_missing": "Concrete, independent measurements of Morozov's current wrist health and Ermes's wrist mechanical data; official match footage beyond fan-cut clips; objective timing of Morozov's peak for this bout.",
+      "key_question": "Will Morozov's recent form translate into dominant right-hand pressure, or can Ermes continue to neutralize power with top-roll progression and back pressure? How will wrist posture and height dynamics decide the pace of the match?",
+      "ermes_case": [
+        {
+          "claim_index": 9,
+          "summary": "Ermes's current weight around 127-128 kg; implies mass and leverage for right-hand readiness.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 10,
+          "summary": "Ermes's 80-85% shape suggests relative readiness vs internal benchmarks.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 14,
+          "summary": "Ermes anticipates a difficult Morozov left-arm match, indicating foreseen challenge.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 21,
+          "summary": "Opening the opponent's finger in top-roll demonstrates Ermes's go-to entry for wrist control.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 22,
+          "summary": "Belief in top-roll over hook against Levan signals a strategic baseline for Morozov's upcoming scenario.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 76,
+          "summary": "Ermes' recent 130kg+ weight and victory on the right hand signs peak form against top-level opposition.",
+          "caveat": ""
+        }
+      ],
+      "morozov_case": [
+        {
+          "claim_index": 32,
+          "summary": "Morozov's right arm improving daily; recovery progress.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 33,
+          "summary": "IVs and intensive prep indicate high-level investment in conditioning.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 34,
+          "summary": "Post-surgery strength rising on right hand; defensive/offensive capability improving.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 35,
+          "summary": "Increased reserve strength now; higher ceiling for performance.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 36,
+          "summary": "Official weight at around 140 kg; larger frame translates to power potential.",
+          "caveat": ""
+        },
+        {
+          "claim_index": 37,
+          "summary": "Belief that Morozov will peak for the match; timing matters.",
+          "caveat": ""
+        }
+      ],
+      "uncertainty_flags": [
+        "Reliance on non-official video commentary for current-form signals.",
+        "Injury statuses (Ermes left arm, Morozov wrist) may shift closer to event day.",
+        "Some claims derive from promotional or speculative content rather than formal competitive results.",
+        "Source bias from prominent armwrestling media personas could color interpretation.",
+        "Differences between left-hand vs right-hand performance in reported claims add ambiguity."
+      ],
+      "clusters": [
+        {
+          "title": "Ermes top-roll defense vs Morozov frame power",
+          "summary": "Ermes relies on top-roll entry and back-pressure to blunt Morozov's frontal frame drive; this cluster covers the technique and readiness signals.",
+          "stance": "neutral",
+          "claim_type": "style",
+          "supporting_claim_indices": [
+            9,
+            10,
+            14,
+            21,
+            22,
+            76
+          ],
+          "caveat": ""
+        },
+        {
+          "title": "Morozov current form and readiness",
+          "summary": "Morozov's strength trajectory, training intensity, and mass accumulation shape his immediate capability against Ermes.",
+          "stance": "neutral",
+          "claim_type": "form",
+          "supporting_claim_indices": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37
+          ],
+          "caveat": ""
+        },
+        {
+          "title": "Height, long-arc dynamics, and neutralizing power",
+          "summary": "Height battles and back-pressure mechanics as both athletes attempt to control the pad and wrist posture.",
+          "stance": "neutral",
+          "claim_type": "setup|endurance",
+          "supporting_claim_indices": [
+            69,
+            70,
+            72,
+            73,
+            74,
+            75,
+            76
+          ],
+          "caveat": ""
+        },
+        {
+          "title": "Contextual echoes and public narrative",
+          "summary": "External analyses and public perception frame expectations but do not determine the match outcome.",
+          "stance": "neutral",
+          "claim_type": "other",
+          "supporting_claim_indices": [
+            8,
+            28,
+            29,
+            31,
+            71,
+            93
+          ],
+          "caveat": ""
+        }
+      ],
+      "top_evidence_indices": [
+        9,
+        10,
+        14,
+        21,
+        22,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        76
+      ],
+      "share_card": {
+        "headline": "Ermes vs Morozov: The June 2026 Right-Hand Showdown\u2014Top-Roll Against Frame Power",
+        "key_stat": "Morozov: six-form signals; Ermes: six-form/top-roll signals",
+        "counter_insight": "Match may hinge on wrist control and height battles; Ermes's back-pressure pressure and Morozov's rising strength are pivotal.",
+        "key_question": "Can Morozov's frame power overwhelm Ermes's toproll and back-pressure, or will Ermes' evolving press-force and height advantage hold?"
+      }
+    }
+  },
+  "usage": {
+    "prompt_tokens": 19218,
+    "completion_tokens": 19222,
+    "total_tokens": 38440,
+    "prompt_tokens_details": {
+      "cached_tokens": 19072,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 16256,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0086497
+}

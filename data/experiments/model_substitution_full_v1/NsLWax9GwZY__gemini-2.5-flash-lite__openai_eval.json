@@ -1,0 +1,135 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0.0,
+    "high_value_coverage_percent": 0.0,
+    "quality_grade": "F",
+    "unsupported_claims": [
+      {
+        "timestamp": "02:42",
+        "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+        "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:35",
+        "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+        "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:06",
+        "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+        "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:07",
+        "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+        "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "14:24",
+        "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+        "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:00",
+        "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+        "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "23:55",
+        "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+        "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:05",
+        "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+        "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+        "confidence": "high"
+      }
+    ],
+    "missed_high_value_claims": [
+      {
+        "timestamp": "02:42",
+        "claim": "Jerry Cadorette is perceived as 'too powerful' by some fans.",
+        "relevance": "Sets up the narrative of Jerry's perceived strength, which Ermes will later challenge.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "11:35",
+        "claim": "Ermes Gasparini's current weight is around 127-128 kg.",
+        "relevance": "Provides Ermes's current weight, a key physical metric for his upcoming matches.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "12:06",
+        "claim": "Ermes Gasparini's current shape is at 80-85% of his best performance (against Bortolato with left arm).",
+        "relevance": "Indicates Ermes's current readiness level compared to his peak, relevant for assessing his chances.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "13:07",
+        "claim": "Ermes Gasparini believes his current 80-85% shape is 'enough' to beat Jerry Cadorette easily, even if they competed tomorrow.",
+        "relevance": "Shows Ermes's high confidence in beating Jerry, even at his current level, setting a strong narrative for the match.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "14:24",
+        "claim": "Ermes Gasparini doubts Jerry Cadorette's overall strength, believing Jerry would lose to a good hooker like Dave Chaffee.",
+        "relevance": "Ermes's tactical assessment of Jerry's potential weakness against a specific style of opponent.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "22:00",
+        "claim": "The match against Jerry Cadorette is 'very important' for Ermes Gasparini, serving as a test for a potential match against Levan Saginashvili, where losing would mean he's 'not ready'.",
+        "relevance": "Highlights the strategic importance of the Jerry match as a qualifier for Levan, adding high stakes to the bout.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "23:55",
+        "claim": "Ermes Gasparini states that his upcoming left-arm match against Artyom Morozov is 'very difficult'.",
+        "relevance": "Ermes's direct assessment of the difficulty of his upcoming left-arm match against Morozov.",
+        "confidence": "high"
+      },
+      {
+        "timestamp": "24:05",
+        "claim": "Ermes Gasparini currently has 'a little pain' in his left arm.",
+        "relevance": "Reveals a current injury/pain in Ermes's left arm, which could significantly affect his performance in the Morozov match.",
+        "confidence": "high"
+      }
+    ],
+    "timestamp_quality": 0.0,
+    "pass_fail": "fail",
+    "concise_rationale": "Candidate model provides no claims to cover baseline claims; coverage 0%. All baseline timestamped claims remain unsupported by the candidate, indicating inability to match the baseline's timestamped content. Given untrusted source claims, the replacement model fails to meet coverage requirements."
+  },
+  "usage": {
+    "prompt_tokens": 789,
+    "completion_tokens": 3041,
+    "total_tokens": 3830,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1664,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.00125585,
+  "source": {
+    "id": "NsLWax9GwZY",
+    "url": "https://www.youtube.com/watch?v=NsLWax9GwZY",
+    "title": "Ermes Gasparini - East vs West Podcast",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Long-form Ermes source before the 2022 East vs West cycle."
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}

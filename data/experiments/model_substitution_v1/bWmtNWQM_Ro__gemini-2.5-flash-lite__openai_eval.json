@@ -1,0 +1,94 @@
+{
+  "model": "gpt-5-nano",
+  "analysis": {
+    "all_claim_coverage_percent": 0,
+    "high_value_coverage_percent": 0,
+    "quality_grade": "poor",
+    "unsupported_claims": [
+      {
+        "timestamp": "01:03",
+        "claim": "Ermes Gasparini is back on the arm wrestling table today, he already showed how great of form he is in right now.",
+        "relevance": "Highlights Gasparini's presence and perceived good form entering the match.",
+        "confidence": "medium",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "01:10",
+        "claim": "130 kilos of pure arm wrestling awesomeness.",
+        "relevance": "Emphasizes Morozov's physical power and presence.",
+        "confidence": "high",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "01:21",
+        "claim": "He's a little bit distracted about the victory over Dave Chaffey.",
+        "relevance": "Suggests Gasparini might be mentally affected by a previous win, potentially impacting his focus.",
+        "confidence": "low",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "01:35",
+        "claim": "This giant represents the arm wrestling nation of Kazakhstan.",
+        "relevance": "Highlights Morozov's imposing stature and national representation.",
+        "confidence": "high",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "01:50",
+        "claim": "Here comes the man that is the current left arm overall world champion in the East vs West promotion.",
+        "relevance": "Introduces Morozov, emphasizing his world champion status.",
+        "confidence": "high",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "02:04",
+        "claim": "Let's see what he can do against Ermes Gasparini.",
+        "relevance": "Sets up the direct confrontation and anticipation for the match.",
+        "confidence": "high",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "02:25",
+        "claim": "Artyom Morozov defended his title in a tough match versus David Dadikyan about two months ago.",
+        "relevance": "Provides context on Morozov's recent performance and resilience in a difficult match.",
+        "confidence": "high",
+        "supported_by_baseline": false
+      },
+      {
+        "timestamp": "03:49",
+        "claim": "Left hand, many stories to be told.",
+        "relevance": "Suggests the left-hand match was significant and potentially challenging.",
+        "confidence": "medium",
+        "supported_by_baseline": false
+      }
+    ],
+    "missed_high_value_claims": 8,
+    "timestamp_quality": "low",
+    "pass_fail": "fail",
+    "concise_rationale": "No candidate timestamped claims align with any baseline timestamps; none cover baseline high-value assertions. Candidate content is largely independent and lacks direct corroboration, leading to a failed evaluation."
+  },
+  "usage": {
+    "prompt_tokens": 1436,
+    "completion_tokens": 4195,
+    "total_tokens": 5631,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3520,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "estimated_cost": 0.0017498,
+  "source": {
+    "id": "bWmtNWQM_Ro",
+    "url": "https://www.youtube.com/watch?v=bWmtNWQM_Ro",
+    "title": "Ermes Gasparini vs Artyom Morozov - East vs West Left Hand Superheavyweight World Title Match",
+    "channel": "Engin Terzi Enigma of Rage",
+    "type": "Direct head-to-head history, but left hand rather than upcoming right hand."
+  },
+  "candidate_model": "gemini-2.5-flash-lite"
+}
