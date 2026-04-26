@@ -7,18 +7,18 @@ export function BrandMasthead() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        gap: 18,
-        padding: "10px 0 22px",
+        gap: 22,
+        padding: "8px 0 28px",
         borderBottom: `1px solid ${fcColors.rule}`,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 14, minWidth: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, minWidth: 0 }}>
         <img
           src={`${import.meta.env.BASE_URL}logo.png`}
           alt="Armwrestling Math logo"
           style={{
-            width: 70,
-            height: 44,
+            width: "clamp(128px, 18vw, 210px)",
+            height: "auto",
             objectFit: "contain",
             flex: "0 0 auto",
           }}
@@ -28,7 +28,7 @@ export function BrandMasthead() {
             style={{
               ...fcType.display,
               color: fcColors.ink,
-              fontSize: 30,
+              fontSize: "clamp(34px, 5vw, 58px)",
               letterSpacing: "0.02em",
             }}
           >
@@ -38,9 +38,9 @@ export function BrandMasthead() {
             style={{
               ...fcType.mono,
               color: fcColors.contested,
-              fontSize: 11,
+              fontSize: "clamp(10px, 1.4vw, 13px)",
               letterSpacing: "0.18em",
-              marginTop: 4,
+              marginTop: 7,
               textTransform: "uppercase",
             }}
           >
