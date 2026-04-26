@@ -16,7 +16,7 @@ export function useDossier(): DossierState {
   useEffect(() => {
     let cancelled = false;
 
-    fetch("/match_dossier.json")
+    fetch(`${import.meta.env.BASE_URL}match_dossier.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to load dossier: ${response.status}`);
