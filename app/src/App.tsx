@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import {
   FightCardHero,
+  BrandMasthead,
   Pickem,
   Fronts,
   EvidenceStrip,
@@ -71,6 +72,8 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
 
   return (
     <main className="fight-card-shell" style={fcShell}>
+      <BrandMasthead />
+
       <FightCardHero match={dossier.match} generatedAt={dossier.generated_at} />
 
       <Pickem
