@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --pretty false",
-    "smoke": "node scripts/smoke-render.mjs"
+    "smoke": "node scripts/smoke-render.mjs",
+    "stylecheck": "node scripts/check-dark-theme.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.1",

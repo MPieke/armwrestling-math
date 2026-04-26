@@ -1,0 +1,55 @@
+:root {
+  background: #0d0d0e;
+  color: #f3ece0;
+  color-scheme: dark;
+  font-family: "Barlow Condensed", "Oswald", "Helvetica Neue", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background: #0d0d0e;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.fight-card-shell {
+  max-width: none;
+  margin: 0;
+  background: #0d0d0e !important;
+}
+
+@media (max-width: 680px) {
+  .fight-card-shell {
+    padding: 12px !important;
+  }
+}

@@ -1,7 +1,7 @@
 NPM_CACHE ?= /tmp/armwrestling-npm-cache
 PYTHON ?= python3
 
-.PHONY: app-data dev build typecheck smoke validate npm-install
+.PHONY: app-data dev build typecheck smoke stylecheck validate npm-install
 
 app-data:
 	$(PYTHON) scripts/build_app_bundle.py
@@ -22,6 +22,9 @@ smoke: npm-install app-data
 	npm --prefix app run smoke
 	SMOKE_VIEWPORT=mobile npm --prefix app run smoke
 
-validate: app-data typecheck build smoke
+stylecheck: build
+	npm --prefix app run stylecheck
+
+validate: app-data typecheck build stylecheck smoke
 	$(PYTHON) -m py_compile scripts/*.py
 	.venv/bin/ruff check scripts
