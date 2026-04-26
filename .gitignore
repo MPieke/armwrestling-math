@@ -6,3 +6,8 @@ __pycache__/
 data/youtube_search_results.json
 data/caption_probe_results.json
 data/gemini_claims_*.json
+app/node_modules/
+app/dist/
+app/*.tsbuildinfo
+app/vite.config.js
+app/vite.config.d.ts
