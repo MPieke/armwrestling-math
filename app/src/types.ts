@@ -77,13 +77,24 @@ export interface EvidenceDimension {
 }
 
 export interface MechanismAtom {
+  atom_id: string;
   evidence_index: number;
-  subject: string;
-  mechanism: string;
+  actor: string;
+  target: string;
+  action: string;
   lane: string;
-  polarity: string;
-  claim_role: string;
+  position_state: string;
+  match_phase: string;
+  enables: string[];
+  denies: string[];
+  follow_up: string[];
+  condition: string;
+  source_basis: string;
+  current_form_usable: boolean;
+  durable_style_usable: boolean;
+  historical_context_usable: boolean;
   confidence: string;
+  caveat: string;
 }
 
 export interface Claim {

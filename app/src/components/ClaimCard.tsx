@@ -58,8 +58,8 @@ export function ClaimCard({ claim }: { claim: Claim }) {
       {claim.mechanism_atoms.length ? (
         <div className="atom-list">
           {claim.mechanism_atoms.map((atom, index) => (
-            <span key={`${atom.mechanism}-${index}`}>
-              {atom.subject}: {atom.mechanism} ({atom.lane})
+            <span key={`${atom.action}-${index}`}>
+              {atom.actor || "Unknown actor"}: {atom.action || "unknown action"} ({atom.lane || "unknown lane"})
             </span>
           ))}
         </div>

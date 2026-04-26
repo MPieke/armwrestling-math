@@ -19,6 +19,7 @@ typecheck: npm-install
 
 smoke: npm-install app-data
 	npm --prefix app run smoke
+	SMOKE_VIEWPORT=mobile npm --prefix app run smoke
 
 validate: app-data typecheck build smoke
 	.venv/bin/python -m py_compile scripts/*.py

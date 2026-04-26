@@ -16,6 +16,14 @@ Object.defineProperty(globalThis, "navigator", {
   configurable: true,
   value: dom.window.navigator,
 });
+Object.defineProperty(window, "innerWidth", {
+  configurable: true,
+  value: process.env.SMOKE_VIEWPORT === "mobile" ? 390 : 1280,
+});
+Object.defineProperty(window, "innerHeight", {
+  configurable: true,
+  value: process.env.SMOKE_VIEWPORT === "mobile" ? 844 : 900,
+});
 globalThis.HTMLElement = dom.window.HTMLElement;
 globalThis.Node = dom.window.Node;
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
@@ -79,6 +87,8 @@ try {
       "Ermes Gasparini",
       "Artyom Morozov",
       "Evidence Snapshot",
+      "Mechanism Map",
+      "Argument paths you can inspect",
       "Every claim stays inspectable",
       "115",
     ];

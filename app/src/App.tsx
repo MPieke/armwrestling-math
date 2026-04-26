@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ClaimCard } from "./components/ClaimCard";
 import { EvidenceSnapshot } from "./components/EvidenceSnapshot";
 import { MatchHeader } from "./components/MatchHeader";
+import { MechanismMap, type MechanismSelection } from "./components/MechanismMap";
 import { PickemPanel } from "./components/PickemPanel";
 import { ThemeCards } from "./components/ThemeCards";
 import { useDossier } from "./data/useDossier";
@@ -27,7 +28,7 @@ function claimMatchesQuery(claim: Claim, query: string) {
     claim.dimensions?.mechanics.join(" "),
     claim.dimensions?.measurements.join(" "),
     claim.dimensions?.lifts.join(" "),
-    claim.mechanism_atoms.map((atom) => `${atom.subject} ${atom.mechanism} ${atom.lane}`).join(" "),
+    claim.mechanism_atoms.map((atom) => `${atom.actor} ${atom.action} ${atom.lane}`).join(" "),
   ]
     .filter(Boolean)
     .join(" ")
@@ -36,7 +37,36 @@ function claimMatchesQuery(claim: Claim, query: string) {
   return haystack.includes(query.toLowerCase());
 }
 
-function EvidenceLibrary({ claims }: { claims: Claim[] }) {
+function claimMatchesMechanismSelection(claim: Claim, selectedMechanism: MechanismSelection | null) {
+  if (!selectedMechanism) {
+    return true;
+  }
+
+  return claim.mechanism_atoms.some((atom) => {
+    const actor = atom.actor.toLowerCase();
+    const normalizedActor = actor.includes("ermes")
+      ? "ermes gasparini"
+      : actor.includes("morozov")
+        ? "artyom morozov"
+        : atom.actor || "Unassigned";
+    const key = [
+      normalizedActor,
+      atom.action || "unknown action",
+      atom.lane || "unknown lane",
+    ].join("::");
+    return selectedMechanism.key.toLowerCase() === key.toLowerCase();
+  });
+}
+
+function EvidenceLibrary({
+  claims,
+  selectedMechanism,
+  onClearMechanism,
+}: {
+  claims: Claim[];
+  selectedMechanism: MechanismSelection | null;
+  onClearMechanism: () => void;
+}) {
   const [query, setQuery] = useState("");
   const [recency, setRecency] = useState<"all" | Recency>("all");
   const [mechanicsOnly, setMechanicsOnly] = useState(false);
@@ -49,9 +79,12 @@ function EvidenceLibrary({ claims }: { claims: Claim[] }) {
       if (mechanicsOnly && !claim.mechanism_atoms.length && !claim.dimensions?.mechanics.length) {
         return false;
       }
+      if (!claimMatchesMechanismSelection(claim, selectedMechanism)) {
+        return false;
+      }
       return claimMatchesQuery(claim, query);
     });
-  }, [claims, mechanicsOnly, query, recency]);
+  }, [claims, mechanicsOnly, query, recency, selectedMechanism]);
 
   return (
     <section className="panel evidence-library">
@@ -94,6 +127,13 @@ function EvidenceLibrary({ claims }: { claims: Claim[] }) {
         </label>
       </div>
 
+      {selectedMechanism ? (
+        <div className="active-filter">
+          <span>Mechanism filter: {selectedMechanism.label}</span>
+          <button type="button" onClick={onClearMechanism}>Clear</button>
+        </div>
+      ) : null}
+
       <div className="claim-list">
         {filteredClaims.slice(0, 60).map((claim) => (
           <ClaimCard key={claim.evidence_index} claim={claim} />
@@ -105,6 +145,7 @@ function EvidenceLibrary({ claims }: { claims: Claim[] }) {
 
 export default function App() {
   const dossierState = useDossier();
+  const [selectedMechanism, setSelectedMechanism] = useState<MechanismSelection | null>(null);
 
   if (dossierState.status === "loading") {
     return <main className="loading-shell">Loading dossier...</main>;
@@ -122,8 +163,19 @@ export default function App() {
       <div className="page-grid">
         <div className="main-column">
           <EvidenceSnapshot summary={dossier.summary} sources={dossier.sources} />
+          <MechanismMap
+            claims={dossier.claims}
+            match={dossier.match}
+            selection={selectedMechanism}
+            onSelect={setSelectedMechanism}
+            onClear={() => setSelectedMechanism(null)}
+          />
           <ThemeCards themes={dossier.themes} claims={dossier.claims} gaps={dossier.source_gaps} />
-          <EvidenceLibrary claims={dossier.claims} />
+          <EvidenceLibrary
+            claims={dossier.claims}
+            selectedMechanism={selectedMechanism}
+            onClearMechanism={() => setSelectedMechanism(null)}
+          />
         </div>
         <aside className="side-column">
           <PickemPanel athleteA={dossier.match.athlete_a} athleteB={dossier.match.athlete_b} />
