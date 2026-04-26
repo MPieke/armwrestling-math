@@ -1,199 +1,96 @@
-import { useMemo, useState } from "react";
-import { ClaimCard } from "./components/ClaimCard";
-import { EvidenceSnapshot } from "./components/EvidenceSnapshot";
-import { MatchHeader } from "./components/MatchHeader";
-import { MechanismMap, type MechanismSelection } from "./components/MechanismMap";
-import { PickemPanel } from "./components/PickemPanel";
-import { ThemeCards } from "./components/ThemeCards";
+// app/src/App.tsx — drop-in replacement using the Fight Card components.
+import { useMemo } from "react";
+import {
+  FightCardHero,
+  Pickem,
+  Fronts,
+  EvidenceStrip,
+  Storylines,
+  Tactical,
+  ShareCard,
+  fcShell,
+  type Front,
+} from "./components/FightCard";
 import { useDossier } from "./data/useDossier";
-import type { Claim, Recency } from "./types";
-
-const RECENCY_OPTIONS: Array<{ value: "all" | Recency; label: string }> = [
-  { value: "all", label: "All evidence" },
-  { value: "current_window", label: "Current form only" },
-  { value: "recent_context", label: "Recent context" },
-  { value: "historical_context", label: "Historical style" },
-];
-
-function claimMatchesQuery(claim: Claim, query: string) {
-  if (!query.trim()) {
-    return true;
-  }
-  const haystack = [
-    claim.claim,
-    claim.relevance,
-    claim.channel,
-    claim.video_title,
-    claim.speaker_or_source,
-    claim.dimensions?.mechanics.join(" "),
-    claim.dimensions?.measurements.join(" "),
-    claim.dimensions?.lifts.join(" "),
-    claim.mechanism_atoms.map((atom) => `${atom.actor} ${atom.action} ${atom.lane}`).join(" "),
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-
-  return haystack.includes(query.toLowerCase());
-}
-
-function claimMatchesMechanismSelection(claim: Claim, selectedMechanism: MechanismSelection | null) {
-  if (!selectedMechanism) {
-    return true;
-  }
-
-  return claim.mechanism_atoms.some((atom) => {
-    const actor = atom.actor.toLowerCase();
-    const normalizedActor = actor.includes("ermes")
-      ? "ermes gasparini"
-      : actor.includes("morozov")
-        ? "artyom morozov"
-        : atom.actor || "Unassigned";
-    const key = [
-      normalizedActor,
-      atom.action || "unknown action",
-      atom.lane || "unknown lane",
-    ].join("::");
-    return selectedMechanism.key.toLowerCase() === key.toLowerCase();
-  });
-}
-
-function EvidenceLibrary({
-  claims,
-  selectedMechanism,
-  onClearMechanism,
-}: {
-  claims: Claim[];
-  selectedMechanism: MechanismSelection | null;
-  onClearMechanism: () => void;
-}) {
-  const [query, setQuery] = useState("");
-  const [recency, setRecency] = useState<"all" | Recency>("all");
-  const [mechanicsOnly, setMechanicsOnly] = useState(false);
-
-  const filteredClaims = useMemo(() => {
-    return claims.filter((claim) => {
-      if (recency !== "all" && claim.source_recency !== recency) {
-        return false;
-      }
-      if (mechanicsOnly && !claim.mechanism_atoms.length && !claim.dimensions?.mechanics.length) {
-        return false;
-      }
-      if (!claimMatchesMechanismSelection(claim, selectedMechanism)) {
-        return false;
-      }
-      return claimMatchesQuery(claim, query);
-    });
-  }, [claims, mechanicsOnly, query, recency, selectedMechanism]);
-
-  return (
-    <section className="panel evidence-library">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">Evidence Library</p>
-          <h2>Every claim stays inspectable</h2>
-        </div>
-        <p className="muted">{filteredClaims.length} of {claims.length} claims visible</p>
-      </div>
-
-      <div className="filters">
-        <label className="search-field">
-          <span>Search claims, mechanics, channels</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Try hook, wrist, back pressure, measurements..."
-          />
-        </label>
-
-        <label>
-          <span>Evidence age</span>
-          <select value={recency} onChange={(event) => setRecency(event.target.value as "all" | Recency)}>
-            {RECENCY_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="checkbox-field">
-          <input
-            type="checkbox"
-            checked={mechanicsOnly}
-            onChange={(event) => setMechanicsOnly(event.target.checked)}
-          />
-          <span>Mechanics only</span>
-        </label>
-      </div>
-
-      {selectedMechanism ? (
-        <div className="active-filter">
-          <span>Mechanism filter: {selectedMechanism.label}</span>
-          <button type="button" onClick={onClearMechanism}>Clear</button>
-        </div>
-      ) : null}
-
-      <div className="claim-list">
-        {filteredClaims.slice(0, 60).map((claim) => (
-          <ClaimCard key={claim.evidence_index} claim={claim} />
-        ))}
-      </div>
-    </section>
-  );
-}
+import type { Dossier } from "./types";
 
 export default function App() {
   const dossierState = useDossier();
-  const [selectedMechanism, setSelectedMechanism] = useState<MechanismSelection | null>(null);
 
   if (dossierState.status === "loading") {
-    return <main className="loading-shell">Loading dossier...</main>;
+    return <main style={fcShell}>Loading dossier…</main>;
   }
-
   if (dossierState.status === "error") {
-    return <main className="loading-shell">Could not load dossier: {dossierState.error}</main>;
+    return <main style={fcShell}>Could not load dossier: {dossierState.error}</main>;
   }
 
-  const { dossier } = dossierState;
+  return <FightCardApp dossier={dossierState.dossier} />;
+}
+
+function FightCardApp({ dossier }: { dossier: Dossier }) {
+  // The synthesis output should ultimately include `dossier.fronts`.
+  // Until the schema lands, derive a stub from themes so the UI renders.
+  // (See scripts/synthesize_match_fronts_stub.py for the real shape.)
+  const fronts: Front[] = useMemo(() => {
+    const anyDossier = dossier as unknown as { fronts?: Front[] };
+    if (anyDossier.fronts && anyDossier.fronts.length > 0) return anyDossier.fronts;
+
+    return dossier.themes.map((t, i) => {
+      const text = t.label.toLowerCase();
+      const leans: Front["leans"] = text.includes("ermes")
+        ? "ermes"
+        : text.includes("morozov")
+        ? "morozov"
+        : "even";
+      return {
+        id: t.theme_id,
+        ordinal: String(i + 1).padStart(2, "0"),
+        label: t.label.toUpperCase().slice(0, 32),
+        question: t.match_relevance.split(".")[0] + "?",
+        popular_take: t.challenged_assumption ?? t.why_this_theme_emerged.split(".")[0],
+        counter_take: t.current_form_read ?? t.historical_style_read ?? "Evidence pending.",
+        leans,
+        claim_count: t.evidence_refs.length,
+      };
+    });
+  }, [dossier]);
+
+  const matchId = `${dossier.match.athlete_a}-${dossier.match.athlete_b}-${dossier.match.arm}`;
+  const matchTitle = `${dossier.match.athlete_a.split(" ").pop()?.toUpperCase()} vs ${dossier.match.athlete_b
+    .split(" ")
+    .pop()
+    ?.toUpperCase()} · ${dossier.match.event_context.toUpperCase()}`;
+
+  // Pick the "most quotable" claim for the share card — for now, first claim
+  // tagged as current_form. Replace with an explicit `hero_claim_index` from
+  // synthesis once available.
+  const heroClaim =
+    dossier.claims.find((c) => c.source_recency === "current_window") ?? dossier.claims[0];
+  const heroIdx = heroClaim ? dossier.claims.indexOf(heroClaim) : 0;
 
   return (
-    <main>
-      <MatchHeader match={dossier.match} generatedAt={dossier.generated_at} />
-      <div className="page-grid">
-        <div className="main-column">
-          <EvidenceSnapshot summary={dossier.summary} sources={dossier.sources} />
-          <MechanismMap
-            claims={dossier.claims}
-            match={dossier.match}
-            selection={selectedMechanism}
-            onSelect={setSelectedMechanism}
-            onClear={() => setSelectedMechanism(null)}
-          />
-          <ThemeCards themes={dossier.themes} claims={dossier.claims} gaps={dossier.source_gaps} />
-          <EvidenceLibrary
-            claims={dossier.claims}
-            selectedMechanism={selectedMechanism}
-            onClearMechanism={() => setSelectedMechanism(null)}
-          />
-        </div>
-        <aside className="side-column">
-          <PickemPanel athleteA={dossier.match.athlete_a} athleteB={dossier.match.athlete_b} />
-          <section className="panel">
-            <p className="eyebrow">Tensions</p>
-            <h2>What still conflicts</h2>
-            {dossier.cross_theme_tensions.length ? (
-              <ul className="compact-list">
-                {dossier.cross_theme_tensions.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="muted">No cross-theme tensions in this dossier yet.</p>
-            )}
-          </section>
-        </aside>
-      </div>
+    <main style={fcShell}>
+      <FightCardHero match={dossier.match} generatedAt={dossier.generated_at} />
+
+      <Pickem
+        athleteA={dossier.match.athlete_a}
+        athleteB={dossier.match.athlete_b}
+        matchId={matchId}
+      />
+
+      <Fronts fronts={fronts} headlineCount={3} />
+
+      <EvidenceStrip summary={dossier.summary} generatedAt={dossier.generated_at} />
+
+      <Storylines themes={dossier.themes} claims={dossier.claims} />
+
+      <Tactical
+        claims={dossier.claims}
+        athleteA={dossier.match.athlete_a}
+        athleteB={dossier.match.athlete_b}
+      />
+
+      {heroClaim && <ShareCard claim={heroClaim} matchTitle={matchTitle} index={heroIdx} />}
     </main>
   );
 }

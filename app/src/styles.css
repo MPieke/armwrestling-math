@@ -43,18 +43,23 @@ select {
   font: inherit;
 }
 
+/* ── Layout: single column flow ── */
+
 main {
-  width: min(1440px, 100%);
+  display: grid;
+  gap: 24px;
+  width: min(1080px, 100%);
   margin: 0 auto;
   padding: 28px;
 }
 
+/* ── Hero ── */
+
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 24px;
   align-items: end;
-  margin-bottom: 24px;
   padding: 36px;
   border: 1px solid rgb(32 26 21 / 13%);
   border-radius: 34px;
@@ -68,7 +73,7 @@ main {
   max-width: 980px;
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3rem, 8vw, 7.4rem);
+  font-size: clamp(3rem, 8vw, 6.2rem);
   line-height: 0.9;
   letter-spacing: -0.08em;
 }
@@ -83,7 +88,7 @@ main {
   max-width: 760px;
   margin: 24px 0 0;
   color: var(--muted);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .hero-card,
@@ -114,23 +119,127 @@ main {
   color: var(--muted);
 }
 
-.page-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 24px;
-  align-items: start;
+/* ── Pick'em (full width, prominent) ── */
+
+.pickem-hero {
+  text-align: center;
+  padding: 32px;
 }
 
-.main-column,
-.side-column {
-  display: grid;
-  gap: 24px;
+.pickem-hero h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
 }
 
-.side-column {
-  position: sticky;
-  top: 24px;
+.pick-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px auto;
+  max-width: 540px;
 }
+
+.pick-btn {
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  background: #fffaf0;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 20px 16px;
+  transition: all 0.15s ease;
+}
+
+.pick-btn:hover {
+  border-color: var(--rust);
+  box-shadow: 0 8px 24px rgb(167 67 34 / 12%);
+}
+
+.pick-btn.active {
+  border-color: var(--rust);
+  background: var(--rust);
+  color: #fffaf0;
+  box-shadow: 0 8px 24px rgb(167 67 34 / 22%);
+}
+
+.confidence-row {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.pick-confirm {
+  margin: 12px 0 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ── Narrative cards (popular take vs counter-case) ── */
+
+.narrative-section {
+  text-align: center;
+}
+
+.key-question {
+  margin: 0 0 24px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.narrative-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.narrative-card {
+  padding: 28px 24px;
+  border-radius: 28px;
+  text-align: left;
+  box-shadow: var(--shadow);
+}
+
+.narrative-card.popular {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(145deg, rgb(255 249 238 / 95%), rgb(255 239 207 / 80%));
+}
+
+.narrative-card.counter {
+  border: 1px solid rgb(167 67 34 / 18%);
+  background:
+    linear-gradient(145deg, rgb(255 249 238 / 95%), rgb(167 67 34 / 8%));
+}
+
+.narrative-label {
+  margin: 0 0 10px;
+  color: var(--rust);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.narrative-card h3 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.narrative-card p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Panels ── */
 
 .panel {
   padding: 24px;
@@ -159,6 +268,8 @@ main {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
+/* ── Evidence Snapshot ── */
 
 .stat-grid {
   display: grid;
@@ -202,11 +313,63 @@ main {
   background: #fffaf0;
 }
 
+/* ── Theme cards ── */
+
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
+
+.theme-card {
+  padding: 20px;
+  border-radius: 24px;
+  background: #fffaf0;
+  border: 1px solid var(--line);
+}
+
+.theme-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.theme-topline span,
+.badge {
+  align-self: flex-start;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: var(--green);
+  background: rgb(47 96 79 / 10%);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.counter-note,
+.gap-box {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  padding: 14px;
+  border-left: 4px solid var(--gold);
+  border-radius: 14px;
+  background: rgb(211 154 43 / 12%);
+}
+
+.reference-stack {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.compact-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+/* ── Mechanism map ── */
 
 .mechanism-panel {
   overflow: hidden;
@@ -314,52 +477,23 @@ main {
   background: rgb(167 67 34 / 8%);
 }
 
-.theme-card {
-  padding: 20px;
-  border-radius: 24px;
-  background: #fffaf0;
+/* ── Evidence Library (collapsed by default) ── */
+
+.expand-toggle {
   border: 1px solid var(--line);
-}
-
-.theme-topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.theme-topline span,
-.badge {
-  align-self: flex-start;
-  padding: 5px 8px;
   border-radius: 999px;
-  color: var(--green);
-  background: rgb(47 96 79 / 10%);
-  font-size: 0.78rem;
-  font-weight: 700;
+  background: #fffaf0;
+  color: var(--rust);
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 10px 18px;
+  transition: all 0.15s ease;
 }
 
-.counter-note,
-.gap-box {
-  display: grid;
-  gap: 6px;
-  margin: 14px 0;
-  padding: 14px;
-  border-left: 4px solid var(--gold);
-  border-radius: 14px;
-  background: rgb(211 154 43 / 12%);
-}
-
-.reference-stack {
-  display: grid;
-  gap: 8px;
-  margin-top: 16px;
-  font-size: 0.9rem;
-}
-
-.compact-list {
-  margin: 12px 0 0;
-  padding-left: 18px;
+.expand-toggle:hover {
+  border-color: var(--rust);
+  box-shadow: 0 4px 14px rgb(167 67 34 / 10%);
 }
 
 .filters {
@@ -406,6 +540,7 @@ main {
 .claim-list {
   display: grid;
   gap: 14px;
+  margin-top: 14px;
 }
 
 .claim-card {
@@ -451,31 +586,19 @@ main {
   font-size: 0.86rem;
 }
 
-.pick-buttons {
-  display: grid;
-  gap: 10px;
-  margin: 18px 0;
-}
-
-.pick-buttons button {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: #fffaf0;
-  color: var(--ink);
-  cursor: pointer;
-  padding: 13px 14px;
-  text-align: left;
-}
-
-.pick-buttons button.active {
-  border-color: var(--rust);
-  background: var(--rust);
-  color: #fffaf0;
-}
+/* ── Confidence slider ── */
 
 .confidence-slider input {
   accent-color: var(--rust);
 }
+
+/* ── Tensions ── */
+
+.tensions-section {
+  border-left: 4px solid var(--gold);
+}
+
+/* ── Loading ── */
 
 .loading-shell {
   display: grid;
@@ -484,14 +607,11 @@ main {
   color: var(--muted);
 }
 
-@media (max-width: 1050px) {
-  .hero,
-  .page-grid {
-    grid-template-columns: 1fr;
-  }
+/* ── Responsive ── */
 
-  .side-column {
-    position: static;
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr;
   }
 
   .stat-grid,
@@ -508,6 +628,7 @@ main {
 @media (max-width: 680px) {
   main {
     padding: 12px;
+    gap: 16px;
   }
 
   .hero,
@@ -519,7 +640,9 @@ main {
   .filters,
   .stat-grid,
   .theme-grid,
-  .mechanism-map {
+  .mechanism-map,
+  .narrative-grid,
+  .pick-row {
     grid-template-columns: 1fr;
   }
 
@@ -535,6 +658,15 @@ main {
     font-size: 1rem;
   }
 
+  .pickem-hero h2 {
+    font-size: 1.6rem;
+  }
+
+  .pick-btn {
+    font-size: 1rem;
+    padding: 16px;
+  }
+
   .source-pill,
   .active-filter {
     align-items: flex-start;
@@ -543,5 +675,9 @@ main {
 
   .mechanism-lane {
     padding: 12px;
+  }
+
+  .narrative-card {
+    padding: 20px;
   }
 }

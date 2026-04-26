@@ -15,10 +15,9 @@ export function ThemeCards({
     <section className="panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Light Synthesis</p>
-          <h2>Emergent themes from the data</h2>
+          <p className="eyebrow">Key Storylines</p>
+          <h2>What the sources are saying</h2>
         </div>
-        <p className="muted">The app should argue from references, not from hidden summaries.</p>
       </div>
 
       <div className="theme-grid">
@@ -32,19 +31,19 @@ export function ThemeCards({
             <article className="theme-card" key={theme.theme_id}>
               <div className="theme-topline">
                 <h3>{theme.label}</h3>
-                <span>{theme.confidence ?? "unknown"} confidence</span>
+                <span>{theme.confidence ?? "unknown"}</span>
               </div>
               <p>{theme.match_relevance}</p>
               {theme.challenged_assumption ? (
                 <div className="counter-note">
-                  <strong>Challenged assumption</strong>
+                  <strong>What people might be wrong about</strong>
                   <span>{theme.challenged_assumption}</span>
                 </div>
               ) : null}
               <div className="reference-stack">
                 {currentRefs.map((claim) => (
                   <a href={claim.source_url} target="_blank" rel="noreferrer" key={claim.evidence_index}>
-                    Claim {claim.evidence_index}: {claim.channel} at {claim.timestamp}
+                    {claim.channel} at {claim.timestamp}
                   </a>
                 ))}
               </div>
@@ -55,7 +54,7 @@ export function ThemeCards({
 
       {gaps.length ? (
         <div className="gap-box">
-          <strong>Known gaps</strong>
+          <strong>What we don't have yet</strong>
           <ul className="compact-list">
             {gaps.slice(0, 3).map((gap) => (
               <li key={gap.gap}>{gap.gap}</li>

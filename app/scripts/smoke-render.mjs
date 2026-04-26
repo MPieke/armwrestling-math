@@ -84,12 +84,12 @@ try {
 
     const text = document.body.textContent ?? "";
     const requiredText = [
-      "Ermes Gasparini",
-      "Artyom Morozov",
-      "Evidence Snapshot",
-      "Mechanism Map",
-      "Argument paths you can inspect",
-      "Every claim stays inspectable",
+      "ERMES",
+      "MOROZOV",
+      "WHO YOU GOT?",
+      "THE FIGHT IS WON ON",
+      "WHAT WE CHECKED",
+      "HOW EACH ATHLETE WINS",
       "115",
     ];
 

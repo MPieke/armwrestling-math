@@ -118,9 +118,35 @@ export interface Claim {
   mechanism_atoms: MechanismAtom[];
 }
 
+export type FrontLeans = "ermes" | "morozov" | "even";
+
+export interface Front {
+  id: string;
+  ordinal: string;
+  label: string;
+  question: string;
+  popular_take: string;
+  counter_take: string;
+  leans: FrontLeans;
+  claim_count: number;
+}
+
+export interface NarrativeTake {
+  headline: string;
+  detail: string;
+}
+
+export interface Narrative {
+  key_question: string;
+  popular_take: NarrativeTake;
+  counter_case: NarrativeTake;
+}
+
 export interface Dossier {
   generated_at: string;
   match: MatchInfo;
+  narrative?: Narrative;
+  fronts?: Front[];
   summary: Summary;
   sources: Source[];
   themes: Theme[];

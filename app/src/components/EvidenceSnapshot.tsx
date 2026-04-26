@@ -1,11 +1,11 @@
 import type { Source, Summary } from "../types";
 
 const snapshotLabels: Array<[keyof Summary, string]> = [
-  ["claim_count", "Claims"],
-  ["source_count", "Sources"],
-  ["current_form_claim_count", "Current-form claims"],
-  ["mechanism_atom_count", "Mechanism atoms"],
-  ["theme_count", "Emergent themes"],
+  ["claim_count", "Total claims"],
+  ["source_count", "Video sources"],
+  ["current_form_claim_count", "Recent form"],
+  ["mechanism_atom_count", "Tactical moves"],
+  ["theme_count", "Key storylines"],
   ["measurement_dimension_count", "Measurements"],
 ];
 
@@ -14,10 +14,9 @@ export function EvidenceSnapshot({ summary, sources }: { summary: Summary; sourc
     <section className="panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Evidence Snapshot</p>
-          <h2>Structured claims, not transcripts</h2>
+          <p className="eyebrow">What We Found</p>
+          <h2>The evidence behind the takes</h2>
         </div>
-        <p className="muted">Historical sources are style evidence, not current form.</p>
       </div>
 
       <div className="stat-grid">

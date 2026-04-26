@@ -29,8 +29,8 @@ export function ClaimCard({ claim }: { claim: Claim }) {
     <article className="claim-card">
       <div className="claim-meta">
         <Badge>{`Claim ${claim.evidence_index}`}</Badge>
-        <Badge>{claim.source_recency.replace("_", " ")}</Badge>
-        {claim.current_form_allowed ? <Badge>current form usable</Badge> : <Badge>style/history only</Badge>}
+        <Badge>{claim.source_recency === "current_window" ? "recent" : claim.source_recency === "recent_context" ? "recent context" : "historical"}</Badge>
+        {claim.current_form_allowed ? <Badge>relevant now</Badge> : <Badge>style / history</Badge>}
       </div>
 
       <p className="claim-text">{claim.claim}</p>

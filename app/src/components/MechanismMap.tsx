@@ -112,15 +112,15 @@ export function MechanismMap({
     <section className="panel mechanism-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Mechanism Map</p>
-          <h2>Argument paths you can inspect</h2>
+          <p className="eyebrow">How Each Athlete Wins</p>
+          <h2>Tactical paths from the evidence</h2>
         </div>
         {selection ? (
           <button type="button" className="clear-button" onClick={onClear}>
             Clear filter
           </button>
         ) : (
-          <p className="muted">Tap a node to filter the evidence library.</p>
+          <p className="muted">Tap a move to filter the evidence below.</p>
         )}
       </div>
 
@@ -133,7 +133,7 @@ export function MechanismMap({
         </div>
 
         <div className="mechanism-lane middle-lane">
-          <h3>Unassigned / contested</h3>
+          <h3>Shared / contested</h3>
           {sharedNodes.length ? (
             sharedNodes.map((node) => (
               <NodeButton key={node.key} node={node} selected={selection?.key === node.key} onSelect={onSelect} />
