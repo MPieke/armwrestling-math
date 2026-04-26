@@ -53,6 +53,8 @@ export interface SourceGap {
   suggested_source_query: string;
 }
 
+export type DimensionValue = string | Record<string, string | number | boolean | null | undefined>;
+
 export interface EvidenceDimension {
   evidence_index: number;
   evidence_kind: string;
@@ -62,8 +64,8 @@ export interface EvidenceDimension {
   mechanics: string[];
   table_positions: string[];
   physical_attributes: string[];
-  measurements: string[];
-  lifts: string[];
+  measurements: DimensionValue[];
+  lifts: DimensionValue[];
   transferable_lessons: string[];
   current_form_usable: boolean;
   durable_style_usable: boolean;

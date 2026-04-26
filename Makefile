@@ -1,6 +1,6 @@
 NPM_CACHE ?= /tmp/armwrestling-npm-cache
 
-.PHONY: app-data dev build typecheck validate npm-install
+.PHONY: app-data dev build typecheck smoke validate npm-install
 
 app-data:
 	.venv/bin/python scripts/build_app_bundle.py
@@ -17,6 +17,9 @@ build: npm-install app-data
 typecheck: npm-install
 	npm --prefix app run typecheck
 
-validate: app-data typecheck build
+smoke: npm-install app-data
+	npm --prefix app run smoke
+
+validate: app-data typecheck build smoke
 	.venv/bin/python -m py_compile scripts/*.py
 	.venv/bin/ruff check scripts
