@@ -2,6 +2,8 @@
 import React from "react";
 import { fcColors, fcType, leansAccent, type Side } from "./styles";
 import { FCEyebrow } from "./atoms";
+import { ClaimReceipts } from "./ClaimReceipts";
+import type { Claim } from "../../types";
 
 export interface Front {
   id: string;
@@ -12,16 +14,23 @@ export interface Front {
   counter_take: string;     // 1-line evidence-based pushback
   leans: Side;              // ermes | morozov | even
   claim_count: number;
+  evidence_indexes?: number[];
 }
 
 interface FrontsProps {
   fronts: Front[];
+  claims: Claim[];
   /** How many top fronts to show as headline cards. Rest collapsed. */
   headlineCount?: number;
 }
 
-export function Fronts({ fronts, headlineCount = 3 }: FrontsProps) {
+export function Fronts({ fronts, claims, headlineCount = 3 }: FrontsProps) {
   const [expanded, setExpanded] = React.useState(false);
+  const [openFrontId, setOpenFrontId] = React.useState<string | null>(fronts[0]?.id ?? null);
+  const claimsByIndex = React.useMemo(
+    () => new Map(claims.map((claim) => [claim.evidence_index, claim])),
+    [claims],
+  );
 
   const headline = fronts.slice(0, headlineCount);
   const rest = fronts.slice(headlineCount);
@@ -116,7 +125,13 @@ export function Fronts({ fronts, headlineCount = 3 }: FrontsProps) {
       {/* Headline fronts */}
       <div style={{ marginTop: 20 }}>
         {headline.map((f) => (
-          <FrontRow key={f.id} f={f} />
+          <FrontRow
+            key={f.id}
+            f={f}
+            claims={frontClaims(f, claimsByIndex)}
+            open={openFrontId === f.id}
+            onToggle={() => setOpenFrontId(openFrontId === f.id ? null : f.id)}
+          />
         ))}
         <div style={{ borderTop: `1px solid ${fcColors.rule}` }} />
       </div>
@@ -145,7 +160,13 @@ export function Fronts({ fronts, headlineCount = 3 }: FrontsProps) {
           {expanded && (
             <div style={{ marginTop: 14 }}>
               {rest.map((f) => (
-                <FrontMini key={f.id} f={f} />
+                <FrontMini
+                  key={f.id}
+                  f={f}
+                  claims={frontClaims(f, claimsByIndex)}
+                  open={openFrontId === f.id}
+                  onToggle={() => setOpenFrontId(openFrontId === f.id ? null : f.id)}
+                />
               ))}
             </div>
           )}
@@ -155,7 +176,23 @@ export function Fronts({ fronts, headlineCount = 3 }: FrontsProps) {
   );
 }
 
-function FrontRow({ f }: { f: Front }) {
+function frontClaims(f: Front, claimsByIndex: Map<number, Claim>) {
+  return (f.evidence_indexes ?? [])
+    .map((index) => claimsByIndex.get(index))
+    .filter((claim): claim is Claim => Boolean(claim));
+}
+
+function FrontRow({
+  f,
+  claims,
+  open,
+  onToggle,
+}: {
+  f: Front;
+  claims: Claim[];
+  open: boolean;
+  onToggle: () => void;
+}) {
   const accent = leansAccent(f.leans);
   const leansLabel =
     f.leans === "ermes" ? "→ ERMES" : f.leans === "morozov" ? "→ MOROZOV" : "→ TOO CLOSE";
@@ -167,9 +204,25 @@ function FrontRow({ f }: { f: Front }) {
           {f.ordinal}
         </div>
         <div>
-          <FCEyebrow color={accent}>
-            {f.label} · {f.claim_count} claims
-          </FCEyebrow>
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-expanded={open}
+            style={{
+              ...fcType.mono,
+              background: "transparent",
+              border: "none",
+              color: accent,
+              cursor: "pointer",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.2em",
+              padding: 0,
+              textTransform: "uppercase",
+            }}
+          >
+            {f.label} · {f.claim_count} claims · {open ? "hide receipts" : "view receipts"}
+          </button>
           <div
             style={{
               ...fcType.display,
@@ -204,43 +257,76 @@ function FrontRow({ f }: { f: Front }) {
           </div>
         </div>
       </div>
+      {open && (
+        <div style={{ marginLeft: 76, marginTop: 14, padding: 14, border: `1px solid ${fcColors.ruleStrong}`, background: fcColors.bgRaised }}>
+          <FCEyebrow color={accent}>FRONT RECEIPTS · CLICK TIMESTAMP FOR ORIGINAL</FCEyebrow>
+          <div style={{ marginTop: 12 }}>
+            <ClaimReceipts claims={claims} accent={accent} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function FrontMini({ f }: { f: Front }) {
+function FrontMini({
+  f,
+  claims,
+  open,
+  onToggle,
+}: {
+  f: Front;
+  claims: Claim[];
+  open: boolean;
+  onToggle: () => void;
+}) {
   const accent = leansAccent(f.leans);
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr auto auto",
-        gap: 14,
-        padding: "10px 12px",
-        borderBottom: `1px dashed ${fcColors.ruleStrong}`,
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <div style={{ ...fcType.display, fontSize: 16, color: fcColors.ink }}>{f.label}</div>
-        <div
-          style={{
-            fontFamily: "Georgia, serif",
-            fontSize: 12,
-            color: fcColors.inkDim,
-            marginTop: 2,
-            fontStyle: "italic",
-          }}
-        >
-          {f.question}
+    <div style={{ borderBottom: `1px dashed ${fcColors.ruleStrong}` }}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr auto auto",
+          gap: 14,
+          width: "100%",
+          background: "transparent",
+          border: "none",
+          color: "inherit",
+          cursor: "pointer",
+          padding: "10px 12px",
+          textAlign: "left",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <div style={{ ...fcType.display, fontSize: 16, color: fcColors.ink }}>{f.label}</div>
+          <div
+            style={{
+              fontFamily: "Georgia, serif",
+              fontSize: 12,
+              color: fcColors.inkDim,
+              marginTop: 2,
+              fontStyle: "italic",
+            }}
+          >
+            {f.question}
+          </div>
         </div>
-      </div>
-      <div style={{ ...fcType.mono, fontSize: 11, color: fcColors.muted, letterSpacing: "0.14em" }}>
-        {f.claim_count} claims
-      </div>
-      <div style={{ ...fcType.mono, fontSize: 11, color: accent, letterSpacing: "0.18em", fontWeight: 700 }}>
-        {f.leans === "even" ? "→ EVEN" : f.leans === "ermes" ? "→ ERMES" : "→ MOROZOV"}
-      </div>
+        <div style={{ ...fcType.mono, fontSize: 11, color: fcColors.muted, letterSpacing: "0.14em" }}>
+          {f.claim_count} claims
+        </div>
+        <div style={{ ...fcType.mono, fontSize: 11, color: accent, letterSpacing: "0.18em", fontWeight: 700 }}>
+          {open ? "HIDE" : f.leans === "even" ? "→ EVEN" : f.leans === "ermes" ? "→ ERMES" : "→ MOROZOV"}
+        </div>
+      </button>
+      {open && (
+        <div style={{ padding: "4px 12px 16px" }}>
+          <ClaimReceipts claims={claims} accent={accent} maxHeight={360} />
+        </div>
+      )}
     </div>
   );
 }

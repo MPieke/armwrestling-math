@@ -3,16 +3,25 @@
 import React from "react";
 import { fcColors, fcType } from "./styles";
 import { FCEyebrow } from "./atoms";
-import type { Summary } from "../../types";
+import { ClaimReceipts } from "./ClaimReceipts";
+import type { Claim, Summary } from "../../types";
 
 interface EvidenceStripProps {
   summary: Summary;
   generatedAt: string;
+  claims: Claim[];
 }
 
-export function EvidenceStrip({ summary, generatedAt }: EvidenceStripProps) {
+type OpenStat = "claims" | "moves" | "current" | null;
+
+export function EvidenceStrip({ summary, generatedAt, claims }: EvidenceStripProps) {
+  const [openStat, setOpenStat] = React.useState<OpenStat>(null);
   const dateStr = new Date(generatedAt).toLocaleDateString("en-GB");
   const histCount = summary.claim_count - summary.current_form_claim_count;
+  const currentClaims = claims.filter((claim) => claim.current_form_allowed);
+  const claimsWithMoves = claims.filter((claim) => claim.mechanism_atoms.length > 0);
+  const activeClaims =
+    openStat === "current" ? currentClaims : openStat === "moves" ? claimsWithMoves : claims;
 
   return (
     <div style={{ marginTop: 16, padding: 28, background: fcColors.bgRaised }}>
@@ -41,19 +50,30 @@ export function EvidenceStrip({ summary, generatedAt }: EvidenceStripProps) {
         }}
       >
         {[
-          { v: summary.claim_count, l: "claims", sub: `across ${summary.source_count} channels` },
-          { v: summary.mechanism_atom_count, l: "tactical moves", sub: "mapped to mechanics" },
+          { id: "claims" as const, v: summary.claim_count, l: "claims", sub: `across ${summary.source_count} channels` },
+          { id: "moves" as const, v: summary.mechanism_atom_count, l: "tactical moves", sub: "mapped to mechanics" },
           {
+            id: "current" as const,
             v: summary.current_form_claim_count,
             l: "from last 90 days",
             sub: `${histCount} historical`,
           },
         ].map((stat, i) => (
-          <div
+          <button
+            type="button"
             key={stat.l}
+            onClick={() => setOpenStat(openStat === stat.id ? null : stat.id)}
+            aria-expanded={openStat === stat.id}
             style={{
               padding: "22px 20px",
               borderLeft: i ? `1px solid ${fcColors.ruleStrong}` : "none",
+              borderTop: "none",
+              borderRight: "none",
+              borderBottom: "none",
+              background: openStat === stat.id ? fcColors.bg : "transparent",
+              color: "inherit",
+              cursor: "pointer",
+              textAlign: "left",
             }}
           >
             <div style={{ ...fcType.display, fontSize: 64, color: fcColors.ermes, lineHeight: 0.9 }}>
@@ -74,9 +94,27 @@ export function EvidenceStrip({ summary, generatedAt }: EvidenceStripProps) {
             >
               {stat.sub}
             </div>
-          </div>
+            <div style={{ ...fcType.mono, color: fcColors.ermes, fontSize: 10, letterSpacing: "0.15em", marginTop: 8 }}>
+              {openStat === stat.id ? "HIDE DATA" : "VIEW DATA"}
+            </div>
+          </button>
         ))}
       </div>
+
+      {openStat && (
+        <div style={{ marginTop: 16, padding: 14, background: fcColors.bg, border: `1px solid ${fcColors.ruleStrong}` }}>
+          <FCEyebrow>
+            {openStat === "claims"
+              ? `ALL CLAIMS · ${activeClaims.length}`
+              : openStat === "moves"
+                ? `CLAIMS WITH TACTICAL MOVES · ${activeClaims.length}`
+                : `CURRENT-FORM CLAIMS · ${activeClaims.length}`}
+          </FCEyebrow>
+          <div style={{ marginTop: 12 }}>
+            <ClaimReceipts claims={activeClaims} maxHeight={620} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@
 import React from "react";
 import { fcColors, fcType } from "./styles";
 import { FCEyebrow } from "./atoms";
+import { ClaimReceipts } from "./ClaimReceipts";
 import type { Claim } from "../../types";
 
 interface TacticalProps {
@@ -11,9 +12,11 @@ interface TacticalProps {
 }
 
 interface MoveRow {
+  key: string;
   move: string;
   lane: string;
   count: number;
+  claimIndexes: number[];
 }
 
 function moveKey(actor: string, action: string): string {
@@ -40,12 +43,17 @@ function aggregateMoves(claims: Claim[], a: string, b: string) {
 
       const key = moveKey(atom.actor, atom.action);
       const existing = buckets[bucket].get(key);
-      if (existing) existing.count += 1;
+      if (existing) {
+        existing.count += 1;
+        if (!existing.claimIndexes.includes(c.evidence_index)) existing.claimIndexes.push(c.evidence_index);
+      }
       else
         buckets[bucket].set(key, {
+          key: `${bucket}::${key}`,
           move: atom.action || "unspecified",
           lane: atom.lane || "unknown",
           count: 1,
+          claimIndexes: [c.evidence_index],
         });
     }
   }
@@ -61,6 +69,11 @@ function aggregateMoves(claims: Claim[], a: string, b: string) {
 }
 
 export function Tactical({ claims, athleteA, athleteB }: TacticalProps) {
+  const [openMoveKey, setOpenMoveKey] = React.useState<string | null>(null);
+  const claimsByIndex = React.useMemo(
+    () => new Map(claims.map((claim) => [claim.evidence_index, claim])),
+    [claims],
+  );
   const moves = React.useMemo(
     () => aggregateMoves(claims, athleteA, athleteB),
     [claims, athleteA, athleteB]
@@ -88,15 +101,31 @@ export function Tactical({ claims, athleteA, athleteB }: TacticalProps) {
                 No tactical moves attributed yet.
               </div>
             )}
-            {col.moves.map((mv) => (
-              <div
+            {col.moves.map((mv) => {
+              const open = openMoveKey === mv.key;
+              const receipts = mv.claimIndexes
+                .map((index) => claimsByIndex.get(index))
+                .filter((claim): claim is Claim => Boolean(claim));
+
+              return (
+              <div key={`${col.name}-${mv.move}`}>
+                <button
+                  type="button"
+                  onClick={() => setOpenMoveKey(open ? null : mv.key)}
+                  aria-expanded={open}
                 key={`${col.name}-${mv.move}`}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "baseline",
+                  width: "100%",
+                  background: "transparent",
+                  border: "none",
+                  color: "inherit",
+                  cursor: "pointer",
                   padding: "10px 0",
                   borderBottom: `1px dashed ${fcColors.rule}`,
+                  textAlign: "left",
                 }}
               >
                 <div>
@@ -116,10 +145,16 @@ export function Tactical({ claims, athleteA, athleteB }: TacticalProps) {
                   </div>
                 </div>
                 <div style={{ ...fcType.display, fontSize: 18, color: col.color }}>
-                  ×{mv.count}
+                  {open ? "VIEWING" : `×${mv.count}`}
                 </div>
+                </button>
+                {open && (
+                  <div style={{ padding: "8px 0 16px" }}>
+                    <ClaimReceipts claims={receipts} accent={col.color} maxHeight={360} />
+                  </div>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         ))}
       </div>
@@ -130,21 +165,37 @@ export function Tactical({ claims, athleteA, athleteB }: TacticalProps) {
             CONTESTED GROUND · {moves.shared.length} moves
           </FCEyebrow>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
-            {moves.shared.map((mv) => (
-              <div
-                key={mv.move}
+            {moves.shared.map((mv) => {
+              const open = openMoveKey === mv.key;
+              const receipts = mv.claimIndexes
+                .map((index) => claimsByIndex.get(index))
+                .filter((claim): claim is Claim => Boolean(claim));
+
+              return (
+              <div key={mv.key}>
+              <button
+                type="button"
+                onClick={() => setOpenMoveKey(open ? null : mv.key)}
+                aria-expanded={open}
                 style={{
                   ...fcType.mono,
                   fontSize: 11,
                   padding: "6px 10px",
                   background: fcColors.bg,
                   border: `1px solid ${fcColors.ruleStrong}`,
-                  color: fcColors.inkDim,
+                  color: open ? fcColors.contested : fcColors.inkDim,
+                  cursor: "pointer",
                 }}
               >
                 {mv.move.toUpperCase()}
+              </button>
+              {open && (
+                <div style={{ flexBasis: "100%", marginTop: 8 }}>
+                  <ClaimReceipts claims={receipts} accent={fcColors.contested} maxHeight={360} />
+                </div>
+              )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
       )}

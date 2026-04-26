@@ -51,6 +51,7 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
         counter_take: t.current_form_read ?? t.historical_style_read ?? "Evidence pending.",
         leans,
         claim_count: t.evidence_refs.length,
+        evidence_indexes: t.evidence_refs.map((ref) => ref.evidence_index),
       };
     });
   }, [dossier]);
@@ -78,9 +79,9 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
         matchId={matchId}
       />
 
-      <Fronts fronts={fronts} headlineCount={3} />
+      <Fronts fronts={fronts} claims={dossier.claims} headlineCount={3} />
 
-      <EvidenceStrip summary={dossier.summary} generatedAt={dossier.generated_at} />
+      <EvidenceStrip summary={dossier.summary} generatedAt={dossier.generated_at} claims={dossier.claims} />
 
       <Storylines themes={dossier.themes} claims={dossier.claims} />
 

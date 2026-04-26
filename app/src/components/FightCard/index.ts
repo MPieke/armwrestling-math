@@ -6,4 +6,5 @@ export { EvidenceStrip } from "./EvidenceStrip";
 export { Storylines } from "./Storylines";
 export { Tactical } from "./Tactical";
 export { ShareCard } from "./ShareCard";
+export { ClaimReceipts } from "./ClaimReceipts";
 export { fcColors, fcType, fcShell, leansAccent, type Side } from "./styles";
