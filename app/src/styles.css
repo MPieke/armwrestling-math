@@ -681,3 +681,33 @@ main {
     padding: 20px;
   }
 }
+
+/* Fight Card handoff is inline-styled and dark. Keep legacy cream globals from
+   leaking through around mobile overflow, page edges, and the root shell. */
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #0d0d0e;
+  color: #f3ece0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.fight-card-shell {
+  max-width: none;
+  margin: 0;
+  background: #0d0d0e !important;
+}
+
+@media (max-width: 680px) {
+  .fight-card-shell {
+    padding: 12px !important;
+  }
+}

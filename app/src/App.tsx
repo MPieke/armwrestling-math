@@ -69,7 +69,7 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
   const heroIdx = heroClaim ? dossier.claims.indexOf(heroClaim) : 0;
 
   return (
-    <main style={fcShell}>
+    <main className="fight-card-shell" style={fcShell}>
       <FightCardHero match={dossier.match} generatedAt={dossier.generated_at} />
 
       <Pickem
