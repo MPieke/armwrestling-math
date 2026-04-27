@@ -6,7 +6,6 @@ import {
   Pickem,
   Fronts,
   EvidenceStrip,
-  Storylines,
   Tactical,
   ShareCard,
   fcShell,
@@ -85,8 +84,6 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
       <Fronts fronts={fronts} claims={dossier.claims} headlineCount={fronts.length} />
 
       <EvidenceStrip summary={dossier.summary} generatedAt={dossier.generated_at} claims={dossier.claims} />
-
-      <Storylines themes={dossier.themes} claims={dossier.claims} />
 
       <Tactical
         claims={dossier.claims}
