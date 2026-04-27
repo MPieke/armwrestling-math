@@ -23,10 +23,11 @@ export function ClaimReceipts({
   }
 
   return (
-    <div style={{ display: "grid", gap: 12, maxHeight, overflowY: "auto", paddingRight: 4 }}>
+    <div className="claim-receipt-list" style={{ display: "grid", gap: 12, maxHeight, overflowY: "auto", paddingRight: 4 }}>
       {claims.map((claim) => (
         <div
           key={claim.evidence_index}
+          className="claim-receipt-row"
           style={{
             display: "grid",
             gridTemplateColumns: "92px 1fr",

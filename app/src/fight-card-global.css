@@ -184,6 +184,11 @@ img {
     margin-left: 0 !important;
   }
 
+  .claim-receipt-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6px !important;
+  }
+
   .storyline-row {
     grid-template-columns: 42px minmax(0, 1fr) !important;
     gap: 12px;

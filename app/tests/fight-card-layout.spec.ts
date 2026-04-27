@@ -69,7 +69,8 @@ test("expanded receipts stay usable on the target viewport", async ({ page }, te
   await page.goto("/");
   await page.getByText("VIEW DATA").first().click();
   await expect(page.getByText("ALL CLAIMS")).toBeVisible();
-  await expect(page.getByText("CLICK TIMESTAMP FOR ORIGINAL").first()).toBeVisible();
+  await expect(page.getByText(/Claim #\d+/).first()).toBeVisible();
+  await expect(page.locator(".claim-receipt-row").first()).toBeVisible();
 
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
