@@ -206,6 +206,7 @@ function FrontRow({
         <div>
           <button
             type="button"
+            className="front-toggle"
             onClick={onToggle}
             aria-expanded={open}
             style={{
@@ -223,32 +224,36 @@ function FrontRow({
           >
             {f.label} · {f.claim_count} claims · {open ? "hide receipts" : "view receipts"}
           </button>
-          <div
-            style={{
-              ...fcType.display,
-              fontSize: 24,
-              marginTop: 6,
-              color: fcColors.ink,
-              textWrap: "balance",
-              lineHeight: 1.05,
-            }}
-          >
-            {f.question}
-          </div>
-          <div className="front-data-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 14 }}>
-            <div style={{ padding: "10px 12px", border: `1px dashed ${fcColors.ruleStrong}` }}>
-              <FCEyebrow color={fcColors.muted}>CROWD</FCEyebrow>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: fcColors.inkDim, marginTop: 6, lineHeight: 1.45 }}>
-                "{f.popular_take}"
+          {open && (
+            <>
+              <div
+                style={{
+                  ...fcType.display,
+                  fontSize: 24,
+                  marginTop: 6,
+                  color: fcColors.ink,
+                  textWrap: "balance",
+                  lineHeight: 1.05,
+                }}
+              >
+                {f.question}
               </div>
-            </div>
-            <div style={{ padding: "10px 12px", border: `1px solid ${accent}`, background: "rgba(226,59,33,0.04)" }}>
-              <FCEyebrow color={accent}>TAPE</FCEyebrow>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: "#d6cdb9", marginTop: 6, lineHeight: 1.45 }}>
-                "{f.counter_take}"
+              <div className="front-data-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 14 }}>
+                <div style={{ padding: "10px 12px", border: `1px dashed ${fcColors.ruleStrong}` }}>
+                  <FCEyebrow color={fcColors.muted}>CROWD</FCEyebrow>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: fcColors.inkDim, marginTop: 6, lineHeight: 1.45 }}>
+                    "{f.popular_take}"
+                  </div>
+                </div>
+                <div style={{ padding: "10px 12px", border: `1px solid ${accent}`, background: "rgba(226,59,33,0.04)" }}>
+                  <FCEyebrow color={accent}>TAPE</FCEyebrow>
+                  <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: "#d6cdb9", marginTop: 6, lineHeight: 1.45 }}>
+                    "{f.counter_take}"
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
         <div className="front-lean-panel" style={{ textAlign: "right", paddingTop: 4 }}>
           <FCEyebrow color={fcColors.muted}>TAPE LEANS</FCEyebrow>
@@ -258,7 +263,7 @@ function FrontRow({
         </div>
       </div>
       {open && (
-        <div className="front-receipts" style={{ marginLeft: 76, marginTop: 14, padding: 14, border: `1px solid ${fcColors.ruleStrong}`, background: fcColors.bgRaised }}>
+        <div className="front-receipts front-detail" style={{ marginLeft: 76, marginTop: 14, padding: 14, border: `1px solid ${fcColors.ruleStrong}`, background: fcColors.bgRaised }}>
           <FCEyebrow color={accent}>FRONT RECEIPTS · CLICK TIMESTAMP FOR ORIGINAL</FCEyebrow>
           <div style={{ marginTop: 12 }}>
             <ClaimReceipts claims={claims} accent={accent} />

@@ -75,7 +75,7 @@ export function FightCardHero({ match, tape, generatedAt }: HeroProps) {
           firstName={bFirst}
           lastName={bLast}
           accent={fcColors.morozov}
-          imageSrc={`${import.meta.env.BASE_URL}athletes/morozov.png`}
+          imageSrc={`${import.meta.env.BASE_URL}athletes/morozov.png?v=20260427`}
           imageSide="right"
         />
       </div>

@@ -82,7 +82,7 @@ function FightCardApp({ dossier }: { dossier: Dossier }) {
         matchId={matchId}
       />
 
-      <Fronts fronts={fronts} claims={dossier.claims} headlineCount={3} />
+      <Fronts fronts={fronts} claims={dossier.claims} headlineCount={fronts.length} />
 
       <EvidenceStrip summary={dossier.summary} generatedAt={dossier.generated_at} claims={dossier.claims} />
 

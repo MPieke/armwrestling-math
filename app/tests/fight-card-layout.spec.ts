@@ -78,3 +78,16 @@ test("expanded receipts stay usable on the target viewport", async ({ page }, te
     fullPage: false,
   });
 });
+
+test("front rows start collapsed and expand on demand", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByText("THE FIGHT IS WON ON 4 FRONTS")).toBeVisible();
+  await expect(page.locator(".front-toggle")).toHaveCount(4);
+  await expect(page.locator(".front-detail")).toHaveCount(0);
+
+  await page.locator(".front-toggle").first().click();
+  await expect(page.locator(".front-detail")).toHaveCount(1);
+  await expect(page.getByText("FRONT RECEIPTS").first()).toBeVisible();
+
+  await expectNoHorizontalOverflow(page);
+});
