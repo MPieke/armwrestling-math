@@ -22,7 +22,7 @@ function deriveLeans(theme: Theme): Side {
 }
 
 export function Storylines({ themes, claims }: StorylinesProps) {
-  const [openThemeId, setOpenThemeId] = React.useState<string | null>(themes[0]?.theme_id ?? null);
+  const [openThemeId, setOpenThemeId] = React.useState<string | null>(null);
   const claimsByIndex = React.useMemo(
     () => new Map(claims.map((claim) => [claim.evidence_index, claim])),
     [claims],
@@ -54,6 +54,7 @@ export function Storylines({ themes, claims }: StorylinesProps) {
                 type="button"
                 onClick={() => setOpenThemeId(open ? null : s.theme_id)}
                 aria-expanded={open}
+                className="storyline-row"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "70px 1fr 130px",
@@ -67,10 +68,10 @@ export function Storylines({ themes, claims }: StorylinesProps) {
                   alignItems: "center",
                 }}
               >
-                <div style={{ ...fcType.display, fontSize: 56, color: accent, paddingLeft: 4 }}>
+                <div className="storyline-index" style={{ ...fcType.display, fontSize: 56, color: accent, paddingLeft: 4 }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div>
+                <div className="storyline-copy">
                   <div style={{ ...fcType.display, fontSize: 22, color: fcColors.ink }}>
                     {s.label}
                   </div>
@@ -98,7 +99,7 @@ export function Storylines({ themes, claims }: StorylinesProps) {
                     {s.why_this_theme_emerged}
                   </div>
                 </div>
-                <div style={{ textAlign: "right", paddingRight: 4 }}>
+                <div className="storyline-meta" style={{ textAlign: "right", paddingRight: 4 }}>
                   <div style={{ ...fcType.mono, fontSize: 10, color: fcColors.muted, letterSpacing: "0.18em" }}>
                     LEANS
                   </div>
@@ -123,6 +124,7 @@ export function Storylines({ themes, claims }: StorylinesProps) {
                     background: fcColors.bgRaised,
                     border: `1px solid ${fcColors.ruleStrong}`,
                   }}
+                  className="storyline-receipts"
                 >
                   <div style={{ ...fcType.mono, fontSize: 10, color: accent, letterSpacing: "0.18em" }}>
                     SOURCE RECEIPTS · CLICK TIMESTAMP FOR ORIGINAL

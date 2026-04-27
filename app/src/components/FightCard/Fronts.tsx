@@ -26,7 +26,7 @@ interface FrontsProps {
 
 export function Fronts({ fronts, claims, headlineCount = 3 }: FrontsProps) {
   const [expanded, setExpanded] = React.useState(false);
-  const [openFrontId, setOpenFrontId] = React.useState<string | null>(fronts[0]?.id ?? null);
+  const [openFrontId, setOpenFrontId] = React.useState<string | null>(null);
   const claimsByIndex = React.useMemo(
     () => new Map(claims.map((claim) => [claim.evidence_index, claim])),
     [claims],
@@ -58,14 +58,14 @@ export function Fronts({ fronts, claims, headlineCount = 3 }: FrontsProps) {
 
   return (
     <div style={{ marginTop: 16, padding: 32, background: fcColors.bg, border: `1px solid ${fcColors.rule}` }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+      <div className="fronts-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
         <FCEyebrow>THE FIGHT IS WON ON {fronts.length} FRONTS</FCEyebrow>
         <div style={{ ...fcType.mono, fontSize: 11, color: fcColors.muted, letterSpacing: "0.18em" }}>
           NO SINGLE QUESTION DECIDES IT
         </div>
       </div>
 
-      <div style={{ ...fcType.display, fontSize: 30, marginTop: 6, color: fcColors.ink, textWrap: "balance", maxWidth: 760 }}>
+      <div className="fronts-summary" style={{ ...fcType.display, fontSize: 30, marginTop: 6, color: fcColors.ink, textWrap: "balance", maxWidth: 760 }}>
         Tape leans <span style={{ color: fcColors.ermes }}>Ermes on {counts.ermes ?? 0}</span>,{" "}
         <span style={{ color: fcColors.morozov }}>Morozov on {counts.morozov ?? 0}</span>,{" "}
         <span style={{ color: fcColors.contested }}>even on {counts.even ?? 0}</span>.
@@ -199,7 +199,7 @@ function FrontRow({
 
   return (
     <div style={{ borderTop: `1px solid ${fcColors.rule}`, padding: "20px 0" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "60px 1fr 130px", gap: 16, alignItems: "start" }}>
+      <div className="front-row-grid" style={{ display: "grid", gridTemplateColumns: "60px 1fr 130px", gap: 16, alignItems: "start" }}>
         <div style={{ ...fcType.display, fontSize: 38, color: accent, lineHeight: 0.9 }}>
           {f.ordinal}
         </div>
@@ -235,7 +235,7 @@ function FrontRow({
           >
             {f.question}
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 14 }}>
+          <div className="front-data-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 14 }}>
             <div style={{ padding: "10px 12px", border: `1px dashed ${fcColors.ruleStrong}` }}>
               <FCEyebrow color={fcColors.muted}>CROWD</FCEyebrow>
               <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: fcColors.inkDim, marginTop: 6, lineHeight: 1.45 }}>
@@ -250,7 +250,7 @@ function FrontRow({
             </div>
           </div>
         </div>
-        <div style={{ textAlign: "right", paddingTop: 4 }}>
+        <div className="front-lean-panel" style={{ textAlign: "right", paddingTop: 4 }}>
           <FCEyebrow color={fcColors.muted}>TAPE LEANS</FCEyebrow>
           <div style={{ ...fcType.display, fontSize: 18, color: accent, marginTop: 4, lineHeight: 1 }}>
             {leansLabel}
@@ -258,7 +258,7 @@ function FrontRow({
         </div>
       </div>
       {open && (
-        <div style={{ marginLeft: 76, marginTop: 14, padding: 14, border: `1px solid ${fcColors.ruleStrong}`, background: fcColors.bgRaised }}>
+        <div className="front-receipts" style={{ marginLeft: 76, marginTop: 14, padding: 14, border: `1px solid ${fcColors.ruleStrong}`, background: fcColors.bgRaised }}>
           <FCEyebrow color={accent}>FRONT RECEIPTS · CLICK TIMESTAMP FOR ORIGINAL</FCEyebrow>
           <div style={{ marginTop: 12 }}>
             <ClaimReceipts claims={claims} accent={accent} />
