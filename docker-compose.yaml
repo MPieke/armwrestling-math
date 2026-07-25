@@ -1,8 +1,4 @@
 services:
-  golang:
-    image: golang:1.24
-  node: 
-    image: node:22-bookworm
   postgres:
     image: postgres:17-bookworm
     volumes:

@@ -25,11 +25,14 @@ func TestRunIsIdempotentAndRecordsTransactionalFailure(t *testing.T) {
 	if _, err := pool.Exec(ctx, "truncate claim_subjects, claims, sources, match_competitors, matches, athletes, ingestion_runs restart identity cascade"); err != nil {
 		t.Fatalf("reset database: %v", err)
 	}
+	t.Log("reset dedicated integration schema to a known empty state")
 
 	batch := fixtureBatch(json.RawMessage(`{"source":true}`))
+	t.Log("run valid fixture once to prove canonical rows and a completed run are persisted")
 	if _, err := Run(ctx, pool, batch); err != nil {
 		t.Fatalf("first Run() error = %v", err)
 	}
+	t.Log("run the identical fixture again to prove database upserts are idempotent")
 	if _, err := Run(ctx, pool, batch); err != nil {
 		t.Fatalf("second Run() error = %v", err)
 	}
@@ -37,6 +40,7 @@ func TestRunIsIdempotentAndRecordsTransactionalFailure(t *testing.T) {
 	assertCount(t, ctx, pool, "claims", 1)
 	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed'", 2)
 
+	t.Log("inject invalid JSON to prove transaction rollback and compensating failed-run recording")
 	failed := fixtureBatch(json.RawMessage(`not-json`))
 	if _, err := Run(ctx, pool, failed); err == nil {
 		t.Fatal("Run() error = nil, want invalid JSON failure")
@@ -61,6 +65,7 @@ func integrationDatabaseURL(t *testing.T) string {
 	if config.ConnConfig.Database != integrationDatabaseName {
 		t.Fatalf("INGEST_TEST_DATABASE_URL must target %q, got %q", integrationDatabaseName, config.ConnConfig.Database)
 	}
+	t.Logf("accepted dedicated integration database %q", integrationDatabaseName)
 	return databaseURL
 }
 
@@ -83,5 +88,7 @@ func assertCount(t *testing.T, ctx context.Context, pool *pgxpool.Pool, relation
 	}
 	if got != want {
 		t.Errorf("count %s = %d, want %d", relation, got, want)
+		return
 	}
+	t.Logf("verified %s count is %d", relation, got)
 }
