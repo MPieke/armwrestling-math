@@ -6,7 +6,7 @@ services:
   postgres:
     image: postgres:17-bookworm
     volumes:
-      - /db/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
