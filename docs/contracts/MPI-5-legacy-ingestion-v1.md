@@ -3,7 +3,7 @@ linear_issue: MPI-5
 status: proposed
 ---
 
-# Contract: V1 Legacy Ingestion Pipeline
+# Contract MPI-5: V1 Legacy Ingestion Pipeline
 
 Import the existing Morozov–Ermes pre-match legacy JSON evidence into
 PostgreSQL, safely and idempotently, via a Go importer: legacy adapter →

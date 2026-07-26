@@ -3,7 +3,7 @@ linear_issue: MPI-14
 status: proposed
 ---
 
-# Contract: Generic Ingestion CI
+# Contract MPI-14: Generic Ingestion CI
 
 Add a dedicated CI workflow for the reusable Go ingestion core, PostgreSQL
 schema, and sqlc-generated package. The existing Pages workflow and all static

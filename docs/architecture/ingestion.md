@@ -159,6 +159,38 @@ ingestion_runs: standalone run-level audit records
 
 ## Operations And Verification
 
+## Test Boundaries
+
+The ingestion core is verified at the boundary that owns each behavior:
+
+```text
+IngestBatch
+    |
+    v
+Validate --------------------------------------------------+
+  required fields, duplicate local keys, unresolved refs   |
+  deterministic Go unit tests                              |
+    |                                                       |
+    v                                                       |
+Run -> sqlc queries -> PostgreSQL                           |
+  transactions, JSONB, upserts, links, run audits          |
+  real PostgreSQL integration tests                         |
+                                                            |
+invalid batch ---------------------------------------------+
+  returns before Run accesses a database pool
+```
+
+Validation tests use representative structural and reference failure classes,
+plus a valid batch. They do not require PostgreSQL. Integration tests create a
+fresh schema in `armwrestling_math_test`, then verify exact persisted values
+and relationship counts, idempotent replay, transactional rollback, and run
+auditing. Generated `internal/dbgen` code has no hand-written tests; the
+integration suite exercises its queries against the migrated schema.
+
+CI lists discovered unit and integration tests before running them. It runs
+both suites verbosely with Go's result cache disabled so logs show the exact
+tests executed by the reviewed commit.
+
 Apply migrations before running an adapter command:
 
 ```sh
@@ -171,7 +203,7 @@ Run the normal checks from `services/importer`:
 
 ```sh
 go vet ./...
-go test ./...
+go test -v -count=1 ./...
 ```
 
 For the destructive integration test, create and migrate only the dedicated
@@ -179,7 +211,7 @@ test database, then run:
 
 ```sh
 INGEST_TEST_DATABASE_URL='postgres://.../armwrestling_math_test?sslmode=disable' \
-  go test -tags integration ./internal/ingest
+  go test -v -count=1 -tags integration ./internal/ingest
 ```
 
 Regenerate query code after changing migration or query SQL:

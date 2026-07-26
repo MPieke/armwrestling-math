@@ -3,7 +3,7 @@ linear_issue: MPI-13
 status: approved
 ---
 
-# Contract: Document Generic Ingestion Architecture And Retire Legacy Backfill
+# Contract MPI-13: Document Generic Ingestion Architecture And Retire Legacy Backfill
 
 ## 1. Current-State Architecture
 
