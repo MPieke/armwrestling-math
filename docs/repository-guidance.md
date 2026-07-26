@@ -149,3 +149,19 @@ A test change is incomplete when it:
 - hides skipped, tagged, or undiscovered tests behind opaque CI output;
 - uses broad mocks where a narrow real-boundary test is necessary to prove the
   contract.
+
+## Readability
+
+Use descriptive names for hand-written code when a short name would hide a
+value's domain role, ownership, lifetime, or side effect. For example, prefer
+`transactionQueries` to `qtx` when distinguishing transaction-bound database
+operations from ordinary pool-backed operations.
+
+Keep established language idioms where they improve recognition: in Go, retain
+`ctx` for `context.Context`, `err` for errors, and conventional short loop
+indices such as `i` and `j`.
+
+Add concise comments for non-obvious decisions or boundaries, including
+resource ownership, transaction or lifecycle behavior, ordered workflows, and
+unusual control flow. Do not comment code whose purpose is already clear from
+its names and structure.
