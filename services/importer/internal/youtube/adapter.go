@@ -26,7 +26,7 @@ func Submission(video Video, matchNaturalKey string, analysis Analysis, competit
 	sourceKey, extractionKey := "youtube:"+video.ID, "gemini:"+video.ID+":"+model+":"+PromptVersion
 	title, publishedAt := video.Title, video.PublishedAt
 	submission := ingest.EvidenceSubmission{
-		SchemaVersion: "evidence-submission-v1", BatchKey: extractionKey, MatchNaturalKey: matchNaturalKey,
+		SchemaVersion: ingest.EvidenceSubmissionSchemaVersion, BatchKey: extractionKey, MatchNaturalKey: matchNaturalKey,
 		Sources:     []ingest.SourceInput{{Key: sourceKey, SourceType: "youtube", ExternalID: video.ID, URL: video.URL, Title: &title, PublishedAt: &publishedAt, RawPayload: sourcePayload}},
 		Extractions: []ingest.SourceExtractionInput{{Key: extractionKey, SourceKey: sourceKey, Provider: "gemini", Model: model, PromptVersion: PromptVersion, Status: "completed", ExtractedAt: extractedAt, RawResponse: analysis.RawResponse, Usage: analysis.Usage}},
 	}
@@ -54,7 +54,7 @@ func FailedSubmission(video Video, matchNaturalKey, model string, matchedQueries
 		MatchedQueries []string        `json:"matched_queries"`
 	}{Metadata: video.RawPayload, MatchedQueries: matchedQueries})
 	return ingest.EvidenceSubmission{
-		SchemaVersion: "evidence-submission-v1", BatchKey: extractionKey + ":failed", MatchNaturalKey: matchNaturalKey,
+		SchemaVersion: ingest.EvidenceSubmissionSchemaVersion, BatchKey: extractionKey + ":failed", MatchNaturalKey: matchNaturalKey,
 		Sources:     []ingest.SourceInput{{Key: sourceKey, SourceType: "youtube", ExternalID: video.ID, URL: video.URL, Title: &title, PublishedAt: &publishedAt, RawPayload: sourcePayload}},
 		Extractions: []ingest.SourceExtractionInput{{Key: extractionKey, SourceKey: sourceKey, Provider: "gemini", Model: model, PromptVersion: PromptVersion, Status: "failed", ExtractedAt: extractedAt, ErrorMessage: &message}},
 	}

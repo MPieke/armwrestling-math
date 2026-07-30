@@ -30,6 +30,11 @@ func TestSubmitPersistsEvidenceForExistingMatchWithoutMutatingCanonicalData(t *t
 	if label != "Ermes Gasparini vs Artyom Morozov" || arm != "right" {
 		t.Errorf("match changed to (%q, %q), want seeded canonical data", label, arm)
 	}
+	if _, err := Submit(ctx, pool, submission); err != nil {
+		t.Fatalf("second Submit() error = %v", err)
+	}
+	assertCanonicalCounts(t, ctx, pool, 2, 1, 2, 1, 1, 1)
+	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed'", 2)
 }
 
 func TestSubmitRejectsMissingMatchBeforeEvidencePersistence(t *testing.T) {
@@ -57,6 +62,20 @@ func TestSubmitRejectsSubjectOutsideExistingMatch(t *testing.T) {
 		t.Fatalf("Submit() error = %v, want subject validation error", err)
 	}
 	assertCanonicalCounts(t, ctx, pool, 2, 1, 2, 0, 0, 0)
+}
+
+func TestSubmitRollsBackEvidenceAndRecordsFailure(t *testing.T) {
+	ctx, pool := integrationPool(t)
+	resetIntegrationSchema(t, ctx, pool)
+	seedExistingMatch(t, ctx, pool)
+	submission := evidenceFixture()
+	submission.Sources[0].RawPayload = json.RawMessage(`not-json`)
+	if _, err := Submit(ctx, pool, submission); err == nil {
+		t.Fatal("Submit() error = nil, want invalid JSON failure")
+	}
+	assertCanonicalCounts(t, ctx, pool, 2, 1, 2, 0, 0, 0)
+	assertCount(t, ctx, pool, "source_extractions", 0)
+	assertCount(t, ctx, pool, "ingestion_runs where status = 'failed' and error_message is not null", 1)
 }
 
 func seedExistingMatch(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {

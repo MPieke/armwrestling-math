@@ -11,7 +11,7 @@ import (
 	"github.com/mpieke/armwrestling-math/services/importer/internal/dbgen"
 )
 
-const evidenceSubmissionSchemaVersion = "evidence-submission-v1"
+const EvidenceSubmissionSchemaVersion = "evidence-submission-v1"
 
 func Submit(ctx context.Context, databasePool *pgxpool.Pool, submission EvidenceSubmission) (result Result, err error) {
 	if err := ValidateEvidence(submission); err != nil {
@@ -65,7 +65,7 @@ func Submit(ctx context.Context, databasePool *pgxpool.Pool, submission Evidence
 
 func ValidateEvidence(submission EvidenceSubmission) error {
 	problems := make([]string, 0)
-	if submission.SchemaVersion != evidenceSubmissionSchemaVersion {
+	if submission.SchemaVersion != EvidenceSubmissionSchemaVersion {
 		problems = append(problems, "unsupported evidence submission schema version")
 	}
 	if submission.BatchKey == "" || submission.MatchNaturalKey == "" {
@@ -90,6 +90,12 @@ func ValidateEvidence(submission EvidenceSubmission) error {
 		}
 		if extraction.Status != "completed" && extraction.Status != "failed" {
 			problems = append(problems, "extraction status must be completed or failed")
+		}
+		if extraction.Status == "failed" && extraction.ErrorMessage == nil {
+			problems = append(problems, "failed extraction requires an error message")
+		}
+		if extraction.Status == "completed" && extraction.ErrorMessage != nil {
+			problems = append(problems, "completed extraction cannot contain an error message")
 		}
 		if _, exists := sources[extraction.SourceKey]; !exists {
 			problems = append(problems, "extraction references unknown source: "+extraction.SourceKey)

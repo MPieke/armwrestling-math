@@ -6,22 +6,13 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/mpieke/armwrestling-math/services/importer/internal/dbgen"
 )
 
 type Result struct {
-	RunID    int64
-	Athletes int
-	Sources  int
-	Claims   int
-}
-
-func Run(ctx context.Context, databasePool *pgxpool.Pool, batch IngestBatch) (result Result, err error) {
-	if err := Validate(batch); err != nil {
-		return Result{}, err
-	}
-	return Submit(ctx, databasePool, evidenceSubmissionFromBatch(batch))
+	RunID   int64
+	Sources int
+	Claims  int
 }
 
 func failRun(ctx context.Context, databaseQueries *dbgen.Queries, runID int64, cause error) error {
