@@ -40,6 +40,46 @@ func (q *Queries) CreateIngestionRun(ctx context.Context, batchKey string) (int6
 	return id, err
 }
 
+const createSourceExtraction = `-- name: CreateSourceExtraction :one
+insert into source_extractions (
+    source_id, match_id, provider, model, prompt_version, status, extracted_at,
+    raw_response, usage, error_message
+)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+returning id
+`
+
+type CreateSourceExtractionParams struct {
+	SourceID      int64
+	MatchID       int64
+	Provider      string
+	Model         string
+	PromptVersion string
+	Status        string
+	ExtractedAt   pgtype.Timestamptz
+	RawResponse   []byte
+	Usage         []byte
+	ErrorMessage  pgtype.Text
+}
+
+func (q *Queries) CreateSourceExtraction(ctx context.Context, arg CreateSourceExtractionParams) (int64, error) {
+	row := q.db.QueryRow(ctx, createSourceExtraction,
+		arg.SourceID,
+		arg.MatchID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+		arg.Status,
+		arg.ExtractedAt,
+		arg.RawResponse,
+		arg.Usage,
+		arg.ErrorMessage,
+	)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
 const failIngestionRun = `-- name: FailIngestionRun :exec
 update ingestion_runs
 set status = 'failed', finished_at = now(), error_message = $2
@@ -54,6 +94,38 @@ type FailIngestionRunParams struct {
 func (q *Queries) FailIngestionRun(ctx context.Context, arg FailIngestionRunParams) error {
 	_, err := q.db.Exec(ctx, failIngestionRun, arg.ID, arg.ErrorMessage)
 	return err
+}
+
+const getCompletedSourceExtraction = `-- name: GetCompletedSourceExtraction :one
+select id
+from source_extractions
+where source_id = $1
+  and match_id = $2
+  and provider = $3
+  and model = $4
+  and prompt_version = $5
+  and status = 'completed'
+`
+
+type GetCompletedSourceExtractionParams struct {
+	SourceID      int64
+	MatchID       int64
+	Provider      string
+	Model         string
+	PromptVersion string
+}
+
+func (q *Queries) GetCompletedSourceExtraction(ctx context.Context, arg GetCompletedSourceExtractionParams) (int64, error) {
+	row := q.db.QueryRow(ctx, getCompletedSourceExtraction,
+		arg.SourceID,
+		arg.MatchID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+	)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
 }
 
 const linkClaimSubject = `-- name: LinkClaimSubject :exec

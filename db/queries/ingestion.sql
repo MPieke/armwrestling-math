@@ -62,3 +62,21 @@ returning id;
 insert into claim_subjects (claim_id, athlete_id)
 values ($1, $2)
 on conflict do nothing;
+
+-- name: GetCompletedSourceExtraction :one
+select id
+from source_extractions
+where source_id = $1
+  and match_id = $2
+  and provider = $3
+  and model = $4
+  and prompt_version = $5
+  and status = 'completed';
+
+-- name: CreateSourceExtraction :one
+insert into source_extractions (
+    source_id, match_id, provider, model, prompt_version, status, extracted_at,
+    raw_response, usage, error_message
+)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+returning id;

@@ -15,19 +15,20 @@ type Athlete struct {
 }
 
 type Claim struct {
-	ID               int64
-	SourceID         int64
-	MatchID          int64
-	ClaimText        string
-	TimestampSeconds pgtype.Int4
-	Speaker          pgtype.Text
-	Confidence       pgtype.Text
-	Relevance        pgtype.Text
-	ObservedAt       pgtype.Timestamptz
-	ExtractedAt      pgtype.Timestamptz
-	ExtractionModel  pgtype.Text
-	RawPayload       []byte
-	CreatedAt        pgtype.Timestamptz
+	ID                 int64
+	SourceID           int64
+	MatchID            int64
+	ClaimText          string
+	TimestampSeconds   pgtype.Int4
+	Speaker            pgtype.Text
+	Confidence         pgtype.Text
+	Relevance          pgtype.Text
+	ObservedAt         pgtype.Timestamptz
+	ExtractedAt        pgtype.Timestamptz
+	ExtractionModel    pgtype.Text
+	RawPayload         []byte
+	CreatedAt          pgtype.Timestamptz
+	SourceExtractionID pgtype.Int8
 }
 
 type ClaimSubject struct {
@@ -68,4 +69,19 @@ type Source struct {
 	PublishedAt pgtype.Timestamptz
 	RawPayload  []byte
 	CreatedAt   pgtype.Timestamptz
+}
+
+type SourceExtraction struct {
+	ID            int64
+	SourceID      int64
+	MatchID       int64
+	Provider      string
+	Model         string
+	PromptVersion string
+	Status        string
+	ExtractedAt   pgtype.Timestamptz
+	RawResponse   []byte
+	Usage         []byte
+	ErrorMessage  pgtype.Text
+	CreatedAt     pgtype.Timestamptz
 }
