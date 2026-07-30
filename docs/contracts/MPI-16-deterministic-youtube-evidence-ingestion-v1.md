@@ -105,6 +105,46 @@ internal/youtube ---------------------> EvidenceSubmission v1
 internal/ingest ----------------------> PostgreSQL transaction
 ```
 
+### What Each Step Does
+
+1. **Resolve the match.** The operator supplies `--match-natural-key`; the
+   command asks `internal/matchup` for that already-registered match and its
+   competitors. The result is a read-only `MatchContext` containing the
+   canonical competitor names and arm. If the key is missing, ambiguous, or the
+   match lacks competitors, the command stops before it calls YouTube or Gemini.
+
+2. **Build a deterministic search plan.** `internal/research` turns that
+   `MatchContext` into the fixed query templates defined below. It does not
+   decide that a video is relevant and it does not call an external service; it
+   only creates the exact searches that V1 will make.
+
+3. **Find possible videos.** `internal/youtube` executes each planned YouTube
+   search and retrieves the metadata needed to inspect the resulting videos. It
+   returns candidate lists with video IDs, metadata, raw provider responses, and
+   the query that found each video. Repeated `--video-id` flags skip search and
+   become candidates directly, but still use the same later steps.
+
+4. **Choose a bounded, repeatable set of candidates.** `internal/research`
+   removes duplicate video IDs, keeps the discovery provenance, and walks the
+   query-result lists round-robin until `--max-videos` is reached. Given the
+   same candidate lists and limit, it always produces the same ordered list.
+   This limits provider cost without treating titles or descriptions as proof
+   that a video contains relevant evidence.
+
+5. **Analyze one video at a time.** For each ordered candidate,
+   `internal/youtube` asks Gemini to inspect the actual public video using the
+   resolved match context and a versioned structured-output schema. It validates
+   the returned JSON and its meaning: for example, each subject must be a match
+   competitor and each timestamp must fit the video duration. A valid result is
+   mapped to an `EvidenceSubmission v1`; a failed attempt records no claims.
+
+6. **Persist the evidence atomically.** `internal/ingest` revalidates the
+   `EvidenceSubmission v1`, then writes the source, extraction provenance,
+   claims, and subject links in one PostgreSQL transaction. It never creates or
+   updates the match, athletes, or competitor membership. A failure rolls back
+   that video's database changes; it does not undo evidence already persisted
+   for an earlier video.
+
 Ownership is explicit:
 
 - PostgreSQL owns matches and athletes.
