@@ -17,6 +17,7 @@ const integrationDatabaseName = "armwrestling_math_test"
 func TestRunPersistsCompleteGraphAndIsIdempotent(t *testing.T) {
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
+	seedExistingMatch(t, ctx, pool)
 
 	batch := fixtureBatch(json.RawMessage(`{"source":true}`))
 	t.Log("run valid fixture once to persist its complete canonical graph")
@@ -24,12 +25,12 @@ func TestRunPersistsCompleteGraphAndIsIdempotent(t *testing.T) {
 	if err != nil {
 		t.Fatalf("first Run() error = %v", err)
 	}
-	if result.Athletes != 2 || result.Sources != 1 || result.Claims != 1 {
-		t.Fatalf("first Run() result = %+v, want 2 athletes, 1 source, and 1 claim", result)
+	if result.Athletes != 0 || result.Sources != 1 || result.Claims != 1 {
+		t.Fatalf("first Run() result = %+v, want no athlete writes, 1 source, and 1 claim", result)
 	}
 	assertFixturePersisted(t, ctx, pool)
 	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed'", 1)
-	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed' and summary @> '{\"athletes\": 2, \"sources\": 1, \"claims\": 1}'", 1)
+	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed' and summary @> '{\"sources\": 1, \"claims\": 1}'", 1)
 
 	t.Log("run the identical fixture again to prove canonical rows and links stay idempotent")
 	if _, err := Run(ctx, pool, batch); err != nil {
@@ -42,12 +43,13 @@ func TestRunPersistsCompleteGraphAndIsIdempotent(t *testing.T) {
 func TestRunRollsBackCanonicalWritesAndRecordsFailure(t *testing.T) {
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
+	seedExistingMatch(t, ctx, pool)
 
 	t.Log("inject invalid source JSON after transaction work begins")
 	if _, err := Run(ctx, pool, fixtureBatch(json.RawMessage(`not-json`))); err == nil {
 		t.Fatal("Run() error = nil, want invalid JSON failure")
 	}
-	assertCanonicalCounts(t, ctx, pool, 0, 0, 0, 0, 0, 0)
+	assertCanonicalCounts(t, ctx, pool, 2, 1, 2, 0, 0, 0)
 	assertCount(t, ctx, pool, "ingestion_runs where status = 'completed'", 0)
 	assertCount(t, ctx, pool, "ingestion_runs where status = 'failed' and error_message is not null", 1)
 }

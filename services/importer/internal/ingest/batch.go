@@ -75,3 +75,31 @@ type EvidenceClaimInput struct {
 	ExtractionModel  string
 	RawPayload       json.RawMessage
 }
+
+func evidenceSubmissionFromBatch(batch IngestBatch) EvidenceSubmission {
+	athleteNames := make(map[string]string, len(batch.Athletes))
+	for _, athlete := range batch.Athletes {
+		athleteNames[athlete.Key] = athlete.CanonicalName
+	}
+	claims := make([]EvidenceClaimInput, 0, len(batch.Claims))
+	for _, claim := range batch.Claims {
+		subjectNames := make([]string, 0, len(claim.SubjectKeys))
+		for _, subjectKey := range claim.SubjectKeys {
+			subjectNames = append(subjectNames, athleteNames[subjectKey])
+		}
+		extractionModel := ""
+		if claim.ExtractionModel != nil {
+			extractionModel = *claim.ExtractionModel
+		}
+		claims = append(claims, EvidenceClaimInput{
+			SourceKey: claim.SourceKey, SubjectNames: subjectNames, Text: claim.Text,
+			TimestampSeconds: claim.TimestampSeconds, Speaker: claim.Speaker,
+			Confidence: claim.Confidence, Relevance: claim.Relevance, ObservedAt: claim.ObservedAt,
+			ExtractedAt: claim.ExtractedAt, ExtractionModel: extractionModel, RawPayload: claim.RawPayload,
+		})
+	}
+	return EvidenceSubmission{
+		SchemaVersion: evidenceSubmissionSchemaVersion, BatchKey: batch.BatchKey,
+		MatchNaturalKey: batch.Match.NaturalKey, Sources: batch.Sources, Claims: claims,
+	}
+}

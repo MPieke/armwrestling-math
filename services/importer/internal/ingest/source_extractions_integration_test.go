@@ -3,7 +3,6 @@
 package ingest
 
 import (
-	"encoding/json"
 	"errors"
 	"testing"
 
@@ -65,8 +64,9 @@ func TestSourceExtractionSchema(t *testing.T) {
 func TestSourceExtractionMigrationPreservesLegacyClaims(t *testing.T) {
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
+	seedExistingMatch(t, ctx, pool)
 
-	if _, err := Run(ctx, pool, fixtureBatch(json.RawMessage(`{"source":true}`))); err != nil {
+	if _, err := Submit(ctx, pool, evidenceFixture()); err != nil {
 		t.Fatalf("persist legacy-shaped claim: %v", err)
 	}
 
@@ -82,8 +82,9 @@ func TestSourceExtractionMigrationPreservesLegacyClaims(t *testing.T) {
 func TestSourceExtractionStatusConstraint(t *testing.T) {
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
+	seedExistingMatch(t, ctx, pool)
 
-	if _, err := Run(ctx, pool, fixtureBatch(json.RawMessage(`{"source":true}`))); err != nil {
+	if _, err := Submit(ctx, pool, evidenceFixture()); err != nil {
 		t.Fatalf("seed source and match: %v", err)
 	}
 
