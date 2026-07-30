@@ -527,6 +527,14 @@ CI must:
       extension points, limitations, and commands.
     - Reviewable alone because it records the implemented architecture.
 
+14. `refactor(MPI-16): remove obsolete batch ingestion`
+    - Remove the superseded match-creating `IngestBatch` compatibility surface
+      after every caller and test uses `EvidenceSubmission`.
+    - Retain replay, rollback, validation-gate, and database-safety assertions
+      against the canonical submission path.
+    - Reviewable alone because it deletes obsolete concepts without changing
+      the approved YouTube workflow.
+
 ## 5. Verification Plan
 
 1. Run formatting, static analysis, unit tests, and test discovery:
