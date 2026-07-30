@@ -1,6 +1,6 @@
 ---
 linear_issue: MPI-16
-status: proposed
+status: implemented
 ---
 
 # Contract MPI-16: Deterministic YouTube Evidence Ingestion V1
