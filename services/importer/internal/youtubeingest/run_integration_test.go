@@ -17,6 +17,8 @@ import (
 	"github.com/mpieke/armwrestling-math/services/importer/internal/youtube"
 )
 
+const integrationDatabaseLockID int64 = 742016
+
 func TestRunEndToEndWithFakeProvidersAndPostgreSQL(t *testing.T) {
 	ctx := context.Background()
 	pool := integrationPool(t, ctx)
@@ -125,6 +127,18 @@ func integrationPool(t *testing.T, ctx context.Context) *pgxpool.Pool {
 		t.Fatal(err)
 	}
 	t.Cleanup(pool.Close)
+	connection, err := pool.Acquire(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := connection.Exec(ctx, "select pg_advisory_lock($1)", integrationDatabaseLockID); err != nil {
+		connection.Release()
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		_, _ = connection.Exec(ctx, "select pg_advisory_unlock($1)", integrationDatabaseLockID)
+		connection.Release()
+	})
 	return pool
 }
 

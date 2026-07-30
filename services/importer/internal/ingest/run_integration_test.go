@@ -11,6 +11,7 @@ import (
 )
 
 const integrationDatabaseName = "armwrestling_math_test"
+const integrationDatabaseLockID int64 = 742016
 
 func integrationPool(t *testing.T) (context.Context, *pgxpool.Pool) {
 	t.Helper()
@@ -21,6 +22,18 @@ func integrationPool(t *testing.T) (context.Context, *pgxpool.Pool) {
 		t.Fatalf("connect: %v", err)
 	}
 	t.Cleanup(pool.Close)
+	connection, err := pool.Acquire(ctx)
+	if err != nil {
+		t.Fatalf("acquire integration lock connection: %v", err)
+	}
+	if _, err := connection.Exec(ctx, "select pg_advisory_lock($1)", integrationDatabaseLockID); err != nil {
+		connection.Release()
+		t.Fatalf("lock integration database: %v", err)
+	}
+	t.Cleanup(func() {
+		_, _ = connection.Exec(ctx, "select pg_advisory_unlock($1)", integrationDatabaseLockID)
+		connection.Release()
+	})
 	return ctx, pool
 }
 
