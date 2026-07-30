@@ -94,12 +94,12 @@ func evidenceFixture() EvidenceSubmission {
 			RawPayload: json.RawMessage(`{"source":true}`),
 		}},
 		Claims: []EvidenceClaimInput{{
-			SourceKey:        "youtube:fixture",
-			SubjectNames:     []string{"Ermes Gasparini"},
-			Text:             "Ermes claim",
-			ExtractedAt:      extractedAt,
-			RawPayload:       json.RawMessage(`{"claim":true}`),
-			ExtractionModel:  "fixture-model",
+			SourceKey:       "youtube:fixture",
+			SubjectNames:    []string{"Ermes Gasparini"},
+			Text:            "Ermes claim",
+			ExtractedAt:     extractedAt,
+			RawPayload:      json.RawMessage(`{"claim":true}`),
+			ExtractionModel: "fixture-model",
 		}},
 	}
 }

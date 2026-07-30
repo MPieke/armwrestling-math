@@ -128,6 +128,33 @@ func (q *Queries) GetCompletedSourceExtraction(ctx context.Context, arg GetCompl
 	return id, err
 }
 
+const getMatchByNaturalKey = `-- name: GetMatchByNaturalKey :one
+select id, natural_key, label, arm, scheduled_at
+from matches
+where natural_key = $1
+`
+
+type GetMatchByNaturalKeyRow struct {
+	ID          int64
+	NaturalKey  string
+	Label       pgtype.Text
+	Arm         string
+	ScheduledAt pgtype.Timestamptz
+}
+
+func (q *Queries) GetMatchByNaturalKey(ctx context.Context, naturalKey string) (GetMatchByNaturalKeyRow, error) {
+	row := q.db.QueryRow(ctx, getMatchByNaturalKey, naturalKey)
+	var i GetMatchByNaturalKeyRow
+	err := row.Scan(
+		&i.ID,
+		&i.NaturalKey,
+		&i.Label,
+		&i.Arm,
+		&i.ScheduledAt,
+	)
+	return i, err
+}
+
 const linkClaimSubject = `-- name: LinkClaimSubject :exec
 insert into claim_subjects (claim_id, athlete_id)
 values ($1, $2)
@@ -158,6 +185,39 @@ type LinkMatchCompetitorParams struct {
 func (q *Queries) LinkMatchCompetitor(ctx context.Context, arg LinkMatchCompetitorParams) error {
 	_, err := q.db.Exec(ctx, linkMatchCompetitor, arg.MatchID, arg.AthleteID)
 	return err
+}
+
+const listMatchCompetitors = `-- name: ListMatchCompetitors :many
+select athletes.id, athletes.canonical_name
+from match_competitors
+join athletes on athletes.id = match_competitors.athlete_id
+where match_competitors.match_id = $1
+order by athletes.canonical_name
+`
+
+type ListMatchCompetitorsRow struct {
+	ID            int64
+	CanonicalName string
+}
+
+func (q *Queries) ListMatchCompetitors(ctx context.Context, matchID int64) ([]ListMatchCompetitorsRow, error) {
+	rows, err := q.db.Query(ctx, listMatchCompetitors, matchID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListMatchCompetitorsRow
+	for rows.Next() {
+		var i ListMatchCompetitorsRow
+		if err := rows.Scan(&i.ID, &i.CanonicalName); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const upsertAthlete = `-- name: UpsertAthlete :one

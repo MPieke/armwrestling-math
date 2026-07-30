@@ -51,3 +51,27 @@ type ClaimInput struct {
 	ExtractionModel  *string
 	RawPayload       json.RawMessage
 }
+
+// EvidenceSubmission is the database-independent boundary used by source
+// adapters. Match and athlete identities remain canonical database data.
+type EvidenceSubmission struct {
+	SchemaVersion   string
+	BatchKey        string
+	MatchNaturalKey string
+	Sources         []SourceInput
+	Claims          []EvidenceClaimInput
+}
+
+type EvidenceClaimInput struct {
+	SourceKey        string
+	SubjectNames     []string
+	Text             string
+	TimestampSeconds *int
+	Speaker          *string
+	Confidence       *string
+	Relevance        *string
+	ObservedAt       *time.Time
+	ExtractedAt      time.Time
+	ExtractionModel  string
+	RawPayload       json.RawMessage
+}

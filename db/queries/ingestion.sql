@@ -80,3 +80,15 @@ insert into source_extractions (
 )
 values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 returning id;
+
+-- name: GetMatchByNaturalKey :one
+select id, natural_key, label, arm, scheduled_at
+from matches
+where natural_key = $1;
+
+-- name: ListMatchCompetitors :many
+select athletes.id, athletes.canonical_name
+from match_competitors
+join athletes on athletes.id = match_competitors.athlete_id
+where match_competitors.match_id = $1
+order by athletes.canonical_name;
