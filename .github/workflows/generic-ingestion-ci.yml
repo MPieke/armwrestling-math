@@ -116,27 +116,35 @@ jobs:
           psql -h 127.0.0.1 -U admin -d armwrestling_math_test \
             -c "select current_database() as integration_database;"
 
-      - name: Apply ingestion migration
+      - name: Apply every ordered migration
         env:
           PGPASSWORD: admin
         run: |
-          echo "Applying db/migrations/0001_init.sql to the empty integration database."
-          psql -h 127.0.0.1 -U admin -d armwrestling_math_test \
-            -v ON_ERROR_STOP=1 -f ../../db/migrations/0001_init.sql
+          echo "Applying every ordered db/migrations/*.sql file to the empty integration database."
+          mapfile -t migrations < <(find ../../db/migrations -maxdepth 1 -type f -name '*.sql' | LC_ALL=C sort)
+          if [ "${#migrations[@]}" -eq 0 ]; then
+            echo "FAIL: no migrations found."
+            exit 1
+          fi
+          for migration in "${migrations[@]}"; do
+            echo "Applying ${migration}"
+            psql -h 127.0.0.1 -U admin -d armwrestling_math_test \
+              -v ON_ERROR_STOP=1 -f "${migration}"
+          done
           echo "Created ingestion tables:"
           psql -h 127.0.0.1 -U admin -d armwrestling_math_test -c "\\dt"
 
       - name: List discovered integration tests
         run: |
-          echo "Discovering tests included by the integration build tag in internal/ingest."
+          echo "Discovering tests included by the integration build tag in every importer package."
           echo "This includes normal validation tests and PostgreSQL tests marked //go:build integration."
-          go test -tags integration -list . ./internal/ingest
+          go test -tags integration -list . ./...
 
       - name: Run guarded integration tests
         env:
           INGEST_TEST_DATABASE_URL: postgres://admin:admin@127.0.0.1:5432/armwrestling_math_test?sslmode=disable
         run: |
           echo "Running every discovered integration-tagged test with verbose output and no Go result cache."
-          echo "The suite proves complete graph persistence, idempotent replay, transaction rollback, and failed-run recording."
-          go test -v -count=1 -tags integration ./internal/ingest
-          echo "PASS: generic ingestion behavior is correct against PostgreSQL."
+          echo "The suite proves database behavior, provider-boundary orchestration, and tagged end-to-end flows."
+          go test -v -count=1 -tags integration ./...
+          echo "PASS: all importer integration tests passed against PostgreSQL."
