@@ -81,30 +81,28 @@ prompt version, usage, and extraction status have no durable owner.
 ### Components
 
 ```text
-+-----------------------------------------------------------------------+
-| cmd/ingest-youtube                                                    |
-|                                                                       |
-| 1. resolve existing match by natural key                              |
-| 2. build fixed SearchPlan from competitor names and arm               |
-| 3. retrieve YouTube candidates or accept explicit video IDs           |
-| 4. select candidates deterministically                                |
-| 5. analyze each candidate with Gemini                                 |
-| 6. produce a versioned, serializable EvidenceSubmission               |
-| 7. validate and persist one video's evidence atomically               |
-+-----------+-----------------------+---------------------+--------------+
-            |                       |                     |
-            v                       v                     v
-  internal/matchup          internal/research      internal/youtube
-  canonical lookup         fixed templates         search + metadata
-  read-only context        round-robin dedupe       Gemini + mapping
-            |                       |                     |
-            +-----------------------+---------------------+
-                                    |
-                                    v
-                         internal/ingest evidence path
-                                    |
-                                    v
-                               PostgreSQL
++----------------------- cmd/ingest-youtube ------------------------+
+| The command is the sequential coordinator; package placement does  |
+| not imply concurrent execution.                                    |
++--------------------------------------------------------------------+
+     | 1. Resolve(match natural key)
+     v
+internal/matchup ---------------------> MatchContext
+     | 2. BuildPlan(MatchContext)
+     v
+internal/research --------------------> SearchPlan
+     | 3. Search(SearchPlan), or use explicit video IDs
+     v
+internal/youtube ---------------------> candidate lists
+     | 4. Select(candidate lists, max-videos)
+     v
+internal/research --------------------> ordered candidates
+     | 5. Analyze(one candidate, MatchContext) [repeat in order]
+     v
+internal/youtube ---------------------> EvidenceSubmission v1
+     | 6. Submit(EvidenceSubmission v1)
+     v
+internal/ingest ----------------------> PostgreSQL transaction
 ```
 
 Ownership is explicit:
@@ -191,19 +189,23 @@ analysis, validation, and persistence path.
 ### Target Runtime Sequence
 
 ```text
-operator       matchup       research       YouTube       Gemini       ingest/DB
+command       matchup       research       YouTube       Gemini       ingest/DB
    |              |              |              |             |             |
-   |-- natural -->|              |              |             |             |
+   |-- resolve -->|              |              |             |             |
    |<-- context --|              |              |             |             |
+   |-- plan ------------------->|              |             |             |
+   |<-- queries ----------------|              |             |             |
+   |-- search -------------------------------->|             |             |
+   |<-- candidate lists ------------------------|             |             |
+   |-- select ----------------->|              |             |             |
+   |<-- ordered candidates -----|              |             |             |
    |              |              |              |             |             |
-   |-------------- build plan -->|              |             |             |
-   |              |              |-- queries -->|             |             |
-   |              |              |<-- candidates|             |             |
-   |              |              |-- select ----|             |             |
+   |  for each ordered candidate, sequentially: |             |             |
+   |-- analyze -------------------------------->|             |             |
    |              |              |              |-- video --->|             |
    |              |              |              |<-- JSON ----|             |
-   |              |              |              |-- validate -|             |
-   |              |              |              |------------- evidence --->|
+   |<-- EvidenceSubmission v1 ------------------|             |             |
+   |-- submit ---------------------------------------------------------->|
    |              |              |              |             |       BEGIN |
    |              |              |              |             | source      |
    |              |              |              |             | extraction  |
