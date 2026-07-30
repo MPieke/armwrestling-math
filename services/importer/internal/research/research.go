@@ -26,29 +26,32 @@ func BuildPlan(context MatchContext) ([]string, error) {
 }
 
 func Select(lists [][]Candidate, maximum int) []Candidate {
+	if maximum <= 0 {
+		return nil
+	}
+	provenance := make(map[string][]string)
+	for _, list := range lists {
+		for _, candidate := range list {
+			provenance[candidate.VideoID] = appendUnique(provenance[candidate.VideoID], candidate.MatchedQueries...)
+		}
+	}
 	selected := make([]Candidate, 0, maximum)
-	seen := make(map[string]int)
-	for offset := 0; len(selected) < maximum; offset++ {
-		progressed := false
+	seen := make(map[string]struct{})
+	for offset := 0; offset < longest(lists) && len(selected) < maximum; offset++ {
 		for _, list := range lists {
-			if offset >= len(list) || len(selected) == maximum {
+			if offset >= len(list) || len(selected) >= maximum {
 				continue
 			}
 			candidate := list[offset]
 			if candidate.VideoID == "" {
 				continue
 			}
-			if index, exists := seen[candidate.VideoID]; exists {
-				selected[index].MatchedQueries = appendUnique(selected[index].MatchedQueries, candidate.MatchedQueries...)
+			if _, exists := seen[candidate.VideoID]; exists {
 				continue
 			}
-			candidate.MatchedQueries = appendUnique(nil, candidate.MatchedQueries...)
-			seen[candidate.VideoID] = len(selected)
+			candidate.MatchedQueries = provenance[candidate.VideoID]
+			seen[candidate.VideoID] = struct{}{}
 			selected = append(selected, candidate)
-			progressed = true
-		}
-		if !progressed && offset >= longest(lists) {
-			return selected
 		}
 	}
 	return selected

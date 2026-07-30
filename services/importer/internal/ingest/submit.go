@@ -82,6 +82,23 @@ func ValidateEvidence(submission EvidenceSubmission) error {
 		}
 		sources[source.Key] = struct{}{}
 	}
+	extractions := make(map[string]SourceExtractionInput, len(submission.Extractions))
+	for _, extraction := range submission.Extractions {
+		if extraction.Key == "" || extraction.SourceKey == "" || extraction.Provider == "" ||
+			extraction.Model == "" || extraction.PromptVersion == "" || extraction.ExtractedAt.IsZero() {
+			problems = append(problems, "extractions require key, source, provider, model, prompt version, and extracted-at")
+		}
+		if extraction.Status != "completed" && extraction.Status != "failed" {
+			problems = append(problems, "extraction status must be completed or failed")
+		}
+		if _, exists := sources[extraction.SourceKey]; !exists {
+			problems = append(problems, "extraction references unknown source: "+extraction.SourceKey)
+		}
+		if _, exists := extractions[extraction.Key]; exists {
+			problems = append(problems, "duplicate extraction key: "+extraction.Key)
+		}
+		extractions[extraction.Key] = extraction
+	}
 	for index, claim := range submission.Claims {
 		if claim.SourceKey == "" || claim.Text == "" || claim.ExtractedAt.IsZero() {
 			problems = append(problems, fmt.Sprintf("claim %d requires source, text, and extracted-at", index))
@@ -91,6 +108,14 @@ func ValidateEvidence(submission EvidenceSubmission) error {
 		}
 		if len(claim.SubjectNames) == 0 {
 			problems = append(problems, fmt.Sprintf("claim %d requires at least one subject", index))
+		}
+		if claim.ExtractionKey != "" {
+			extraction, exists := extractions[claim.ExtractionKey]
+			if !exists {
+				problems = append(problems, fmt.Sprintf("claim %d references unknown extraction: %s", index, claim.ExtractionKey))
+			} else if extraction.Status != "completed" || extraction.SourceKey != claim.SourceKey {
+				problems = append(problems, fmt.Sprintf("claim %d extraction must be completed and reference the same source", index))
+			}
 		}
 	}
 	if len(problems) == 0 {
@@ -127,19 +152,33 @@ func submitEvidence(ctx context.Context, queries *dbgen.Queries, matchID int64, 
 		}
 		sourceIDs[source.Key] = id
 	}
+	extractionIDs := make(map[string]int64, len(submission.Extractions))
+	for _, extraction := range submission.Extractions {
+		id, err := queries.CreateSourceExtraction(ctx, dbgen.CreateSourceExtractionParams{
+			SourceID: sourceIDs[extraction.SourceKey], MatchID: matchID,
+			Provider: extraction.Provider, Model: extraction.Model, PromptVersion: extraction.PromptVersion,
+			Status: extraction.Status, ExtractedAt: timeValue(&extraction.ExtractedAt),
+			RawResponse: extraction.RawResponse, Usage: extraction.Usage, ErrorMessage: textPointer(extraction.ErrorMessage),
+		})
+		if err != nil {
+			return fmt.Errorf("create source extraction %q: %w", extraction.Key, err)
+		}
+		extractionIDs[extraction.Key] = id
+	}
 	for _, claim := range submission.Claims {
 		claimID, err := queries.UpsertClaim(ctx, dbgen.UpsertClaimParams{
-			SourceID:         sourceIDs[claim.SourceKey],
-			MatchID:          matchID,
-			ClaimText:        claim.Text,
-			TimestampSeconds: intPointer(claim.TimestampSeconds),
-			Speaker:          textPointer(claim.Speaker),
-			Confidence:       textPointer(claim.Confidence),
-			Relevance:        textPointer(claim.Relevance),
-			ObservedAt:       timeValue(claim.ObservedAt),
-			ExtractedAt:      timeValue(&claim.ExtractedAt),
-			ExtractionModel:  textPointer(&claim.ExtractionModel),
-			RawPayload:       claim.RawPayload,
+			SourceID:           sourceIDs[claim.SourceKey],
+			MatchID:            matchID,
+			ClaimText:          claim.Text,
+			TimestampSeconds:   intPointer(claim.TimestampSeconds),
+			Speaker:            textPointer(claim.Speaker),
+			Confidence:         textPointer(claim.Confidence),
+			Relevance:          textPointer(claim.Relevance),
+			ObservedAt:         timeValue(claim.ObservedAt),
+			ExtractedAt:        timeValue(&claim.ExtractedAt),
+			ExtractionModel:    textPointer(&claim.ExtractionModel),
+			RawPayload:         claim.RawPayload,
+			SourceExtractionID: int64Value(extractionIDs[claim.ExtractionKey], claim.ExtractionKey != ""),
 		})
 		if err != nil {
 			return fmt.Errorf("upsert claim %q: %w", claim.Text, err)

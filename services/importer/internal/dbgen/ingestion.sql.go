@@ -27,6 +27,45 @@ func (q *Queries) CompleteIngestionRun(ctx context.Context, arg CompleteIngestio
 	return err
 }
 
+const completedExtractionExists = `-- name: CompletedExtractionExists :one
+select exists (
+    select 1
+    from source_extractions
+    join sources on sources.id = source_extractions.source_id
+    join matches on matches.id = source_extractions.match_id
+    where matches.natural_key = $1
+      and sources.source_type = $2
+      and sources.external_id = $3
+      and source_extractions.provider = $4
+      and source_extractions.model = $5
+      and source_extractions.prompt_version = $6
+      and source_extractions.status = 'completed'
+)
+`
+
+type CompletedExtractionExistsParams struct {
+	NaturalKey    string
+	SourceType    string
+	ExternalID    string
+	Provider      string
+	Model         string
+	PromptVersion string
+}
+
+func (q *Queries) CompletedExtractionExists(ctx context.Context, arg CompletedExtractionExistsParams) (bool, error) {
+	row := q.db.QueryRow(ctx, completedExtractionExists,
+		arg.NaturalKey,
+		arg.SourceType,
+		arg.ExternalID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+	)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
 const createIngestionRun = `-- name: CreateIngestionRun :one
 insert into ingestion_runs (batch_key)
 values ($1)
@@ -46,6 +85,13 @@ insert into source_extractions (
     raw_response, usage, error_message
 )
 values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+on conflict (source_id, match_id, provider, model, prompt_version)
+    where status = 'completed'
+do update set
+    extracted_at = excluded.extracted_at,
+    raw_response = excluded.raw_response,
+    usage = excluded.usage,
+    error_message = excluded.error_message
 returning id
 `
 
@@ -237,9 +283,10 @@ func (q *Queries) UpsertAthlete(ctx context.Context, canonicalName string) (int6
 const upsertClaim = `-- name: UpsertClaim :one
 insert into claims (
     source_id, match_id, claim_text, timestamp_seconds, speaker, confidence,
-    relevance, observed_at, extracted_at, extraction_model, raw_payload
+    relevance, observed_at, extracted_at, extraction_model, raw_payload,
+    source_extraction_id
 )
-values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
 on conflict (source_id, coalesce(timestamp_seconds, -1), claim_text) do update
 set match_id = excluded.match_id,
     speaker = excluded.speaker,
@@ -248,22 +295,24 @@ set match_id = excluded.match_id,
     observed_at = excluded.observed_at,
     extracted_at = excluded.extracted_at,
     extraction_model = excluded.extraction_model,
-    raw_payload = excluded.raw_payload
+    raw_payload = excluded.raw_payload,
+    source_extraction_id = excluded.source_extraction_id
 returning id
 `
 
 type UpsertClaimParams struct {
-	SourceID         int64
-	MatchID          int64
-	ClaimText        string
-	TimestampSeconds pgtype.Int4
-	Speaker          pgtype.Text
-	Confidence       pgtype.Text
-	Relevance        pgtype.Text
-	ObservedAt       pgtype.Timestamptz
-	ExtractedAt      pgtype.Timestamptz
-	ExtractionModel  pgtype.Text
-	RawPayload       []byte
+	SourceID           int64
+	MatchID            int64
+	ClaimText          string
+	TimestampSeconds   pgtype.Int4
+	Speaker            pgtype.Text
+	Confidence         pgtype.Text
+	Relevance          pgtype.Text
+	ObservedAt         pgtype.Timestamptz
+	ExtractedAt        pgtype.Timestamptz
+	ExtractionModel    pgtype.Text
+	RawPayload         []byte
+	SourceExtractionID pgtype.Int8
 }
 
 func (q *Queries) UpsertClaim(ctx context.Context, arg UpsertClaimParams) (int64, error) {
@@ -279,6 +328,7 @@ func (q *Queries) UpsertClaim(ctx context.Context, arg UpsertClaimParams) (int64
 		arg.ExtractedAt,
 		arg.ExtractionModel,
 		arg.RawPayload,
+		arg.SourceExtractionID,
 	)
 	var id int64
 	err := row.Scan(&id)

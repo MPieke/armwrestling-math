@@ -44,12 +44,15 @@ type GeminiExtractionResponse struct {
 	Claims        []GeminiClaim                 `json:"claims"`
 	Limitations   []string                      `json:"limitations"`
 }
+
+func (*GeminiExtractionResponse) StructuredOutput() {}
+
 type GeminiClaim struct {
 	Text             string          `json:"text"`
 	TimestampSeconds *int            `json:"timestamp_seconds,omitempty"`
 	SubjectNames     []string        `json:"subject_names"`
 	Speaker          *string         `json:"speaker,omitempty"`
-	Confidence       ClaimConfidence `json:"confidence"`
+	Confidence       ClaimConfidence `json:"confidence" enum:"low,medium,high"`
 	Relevance        string          `json:"relevance"`
-	ClaimType        GeminiClaimType `json:"claim_type"`
+	ClaimType        GeminiClaimType `json:"claim_type" enum:"form,tactic,injury,endurance,setup,opponent_comparison,other"`
 }

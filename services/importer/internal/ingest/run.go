@@ -45,6 +45,9 @@ func intPointer(value *int) pgtype.Int4 {
 	}
 	return pgtype.Int4{Int32: int32(*value), Valid: true}
 }
+func int64Value(value int64, valid bool) pgtype.Int8 {
+	return pgtype.Int8{Int64: value, Valid: valid}
+}
 func timeValue(value *time.Time) pgtype.Timestamptz {
 	if value != nil {
 		return pgtype.Timestamptz{Time: *value, Valid: true}
