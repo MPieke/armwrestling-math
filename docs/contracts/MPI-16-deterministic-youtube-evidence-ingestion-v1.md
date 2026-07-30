@@ -133,10 +133,11 @@ internal/ingest ----------------------> PostgreSQL transaction
 
 5. **Analyze one video at a time.** For each ordered candidate,
    `internal/youtube` asks Gemini to inspect the actual public video using the
-   resolved match context and a versioned structured-output schema. It validates
-   the returned JSON and its meaning: for example, each subject must be a match
-   competitor and each timestamp must fit the video duration. A valid result is
-   mapped to an `EvidenceSubmission v1`; a failed attempt records no claims.
+   resolved match context and a structured schema derived from the Go response
+   type. It parses Gemini's JSON directly into that type, then validates its
+   meaning: for example, each subject must be a match competitor and each
+   timestamp must fit the video duration. A valid result is mapped to an
+   `EvidenceSubmission v1`; a failed attempt records no claims.
 
 6. **Persist the evidence atomically.** `internal/ingest` revalidates the
    `EvidenceSubmission v1`, then writes the source, extraction provenance,
@@ -264,28 +265,64 @@ the candidate is skipped. V1 has no force/reprocess mode.
 ### Structured Gemini Output
 
 The command requires `GEMINI_MODEL`; it does not use a moving `latest` alias.
-The prompt version is a source constant. Gemini structured output uses this
-logical schema:
+The prompt version is a source constant. The Go response type is the canonical
+description of Gemini's structured output and is the single source from which
+the request schema is derived:
 
-```json
-{
-  "schema_version": "youtube-claims-v1",
-  "claims": [
-    {
-      "text": "Paraphrased, independently understandable claim",
-      "timestamp_seconds": 123,
-      "subject_names": ["Canonical Athlete Name"],
-      "speaker": "Speaker name or null",
-      "confidence": "low|medium|high",
-      "relevance": "Why this matters for the requested match",
-      "claim_type": "form|tactic|injury|endurance|setup|opponent_comparison|other"
-    }
-  ],
-  "limitations": []
+```go
+type GeminiExtractionResponse struct {
+	SchemaVersion GeminiExtractionSchemaVersion `json:"schema_version"`
+	Claims        []GeminiClaim                  `json:"claims"`
+	Limitations   []string                       `json:"limitations"`
 }
+
+type GeminiExtractionSchemaVersion string
+
+const GeminiExtractionSchemaVersionV1 GeminiExtractionSchemaVersion = "youtube-claims-v1"
+
+type GeminiClaim struct {
+	Text             string          `json:"text"`
+	TimestampSeconds *int            `json:"timestamp_seconds,omitempty"`
+	SubjectNames     []string        `json:"subject_names"`
+	Speaker          *string         `json:"speaker,omitempty"`
+	Confidence       ClaimConfidence `json:"confidence"`
+	Relevance        string          `json:"relevance"`
+	ClaimType        GeminiClaimType `json:"claim_type"`
+}
+
+type ClaimConfidence string
+
+const (
+	ClaimConfidenceLow    ClaimConfidence = "low"
+	ClaimConfidenceMedium ClaimConfidence = "medium"
+	ClaimConfidenceHigh   ClaimConfidence = "high"
+)
+
+type GeminiClaimType string
+
+const (
+	GeminiClaimTypeForm               GeminiClaimType = "form"
+	GeminiClaimTypeTactic             GeminiClaimType = "tactic"
+	GeminiClaimTypeInjury             GeminiClaimType = "injury"
+	GeminiClaimTypeEndurance          GeminiClaimType = "endurance"
+	GeminiClaimTypeSetup              GeminiClaimType = "setup"
+	GeminiClaimTypeOpponentComparison GeminiClaimType = "opponent_comparison"
+	GeminiClaimTypeOther              GeminiClaimType = "other"
+)
 ```
 
-Go performs semantic validation after JSON-schema validation:
+The implementation derives Gemini's supported JSON schema from this type,
+sends it as the structured-output constraint, and unmarshals the response into
+the same type. It must not maintain a second hand-written JSON schema. The
+chosen schema generator must emit only the Gemini-supported subset, and a test
+must make incompatible emitted schema a visible failure.
+
+`GeminiExtractionResponse` is deliberately not `EvidenceSubmission`.
+Gemini may supply only untrusted extraction content. `internal/youtube` adds
+trusted source metadata, provider/model/prompt provenance, and resolved match
+identity while mapping the validated response into `EvidenceSubmission`.
+
+Go performs semantic validation after structured parsing:
 
 - timestamps are non-negative and do not exceed video duration;
 - subjects are members of the resolved match;
@@ -363,7 +400,9 @@ without weakening the assertions.
 - maps metadata, duration, raw responses, and discovery ranks;
 - rejects missing or malformed YouTube resources;
 - emits a Gemini request with an explicit model, prompt version, video URL,
-  match context, and structured schema;
+  match context, and a schema derived from `GeminiExtractionResponse`;
+- parses valid Gemini JSON directly into `GeminiExtractionResponse` and proves
+  the generated schema remains within the Gemini-supported subset;
 - rejects malformed JSON, unknown subjects, invalid enums, negative or
   out-of-range timestamps, empty claim fields, and unexplained zero claims;
 - maps valid output into canonical source, extraction, claim, and subject
