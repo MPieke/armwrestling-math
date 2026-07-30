@@ -14,7 +14,9 @@ claims, and persist sources, extraction provenance, claims, and subject links.
 MPI-17 owns future AI-generated research plans. V1 uses only fixed query
 templates. Match registration, autonomous search, captions/transcripts,
 polling, scheduling, concurrency, and multiple matches per run are out of
-scope.
+scope. Separately deployed source adapters and a network-facing generic-ingest
+API are also deferred; V1 preserves that boundary in-process without taking on
+distributed authentication, retries, or operations.
 
 ## 1. Current-State Architecture
 
@@ -87,7 +89,8 @@ prompt version, usage, and extraction status have no durable owner.
 | 3. retrieve YouTube candidates or accept explicit video IDs           |
 | 4. select candidates deterministically                                |
 | 5. analyze each candidate with Gemini                                 |
-| 6. validate and persist one video's evidence atomically               |
+| 6. produce a versioned, serializable EvidenceSubmission               |
+| 7. validate and persist one video's evidence atomically               |
 +-----------+-----------------------+---------------------+--------------+
             |                       |                     |
             v                       v                     v
@@ -113,6 +116,44 @@ Ownership is explicit:
 - `internal/youtube` owns YouTube API shapes, URL normalization, metadata, and
   Gemini video analysis.
 - `internal/ingest` owns atomic evidence persistence and audit records.
+
+`internal/youtube` must not import `internal/dbgen`, execute SQL, accept a
+database pool, or expose PostgreSQL-specific types. It produces a
+provider-neutral `EvidenceSubmission` that the command passes to
+`internal/ingest` in-process.
+
+### Durable Deployment Boundary
+
+```text
+V1: one deployable
+
+  ingest-youtube command
+          |
+          +-- youtube.Collect(...) --> EvidenceSubmission v1
+          |
+          `-- ingest.Submit(...)   --> PostgreSQL
+
+Future deployment split (not implemented by MPI-16)
+
+  YouTube adapter service
+          |
+          | authenticated API or queue
+          v
+  EvidenceSubmission v1
+          |
+          v
+  Generic ingest service --> PostgreSQL
+```
+
+`EvidenceSubmission` must be JSON-serializable, carry an explicit schema
+version, and contain stable identities rather than database-generated IDs.
+The generic ingest boundary revalidates it before any database mutation. This
+keeps transport replaceable: moving the submission across an authenticated
+API or queue later must not change its evidence semantics.
+
+MPI-16 deliberately excludes HTTP endpoints, queues, service authentication,
+adapter-specific containers, distributed retry policy, and independent
+deployment configuration.
 
 The command requires `--match-natural-key`. A missing match, a match without
 competitors, or an ambiguous match fails before any YouTube or Gemini request.
@@ -284,7 +325,11 @@ without weakening the assertions.
 - rejects malformed JSON, unknown subjects, invalid enums, negative or
   out-of-range timestamps, empty claim fields, and unexplained zero claims;
 - maps valid output into canonical source, extraction, claim, and subject
-  inputs without losing raw payloads.
+  inputs without losing raw payloads;
+- round-trips `EvidenceSubmission` through JSON without semantic or raw-payload
+  loss;
+- enforces that `internal/youtube` does not import generated database or
+  PostgreSQL implementation packages.
 
 Command/orchestration:
 
@@ -371,11 +416,13 @@ CI must:
    - Reviewable alone because it makes commit 7 green without provider calls.
 
 9. `test(MPI-16): define YouTube and Gemini boundaries`
-   - Add red HTTP fixture tests and semantic validation/mapping tests.
+   - Add red HTTP fixture, semantic validation/mapping, submission JSON
+     round-trip, and package-boundary tests.
    - Expected failure: YouTube and Gemini clients do not exist.
 
 10. `feat(MPI-16): add YouTube search and Gemini analysis`
-    - Implement the source boundary defined by commit 9.
+    - Implement the source boundary and versioned `EvidenceSubmission` defined
+      by commit 9, without database or generated-query dependencies.
     - Reviewable alone because it makes commit 9 green without a CLI.
 
 11. `test(MPI-16): define YouTube ingestion orchestration`
@@ -385,6 +432,8 @@ CI must:
 
 12. `feat(MPI-16): add YouTube ingestion command`
     - Add `cmd/ingest-youtube` and implement the workflow defined by commit 11.
+    - Compose YouTube collection and generic submission in-process; do not add a
+      network ingest API.
     - Require `DATABASE_URL`, `YOUTUBE_API_KEY`, `GEMINI_API_KEY`,
       `GEMINI_MODEL`, and `--match-natural-key`.
     - Support deterministic discovery, repeated explicit `--video-id`, and
