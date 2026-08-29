@@ -3,6 +3,7 @@ package youtubeingest
 import (
 	"context"
 	"log/slog"
+	"math"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -111,6 +112,13 @@ func RunTranscript(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtub
 			continue
 		}
 		logger.Info("claim extraction completed", "video_id", video.ID, "duration", time.Since(extractionStarted), "claims", len(structured.Claims))
+		// Transcript timestamps are the authoritative clock for extracted claims;
+		// YouTube's integer metadata duration can be rounded down slightly.
+		for _, segment := range transcribed.Segments {
+			if transcriptDuration := int(math.Ceil(segment.EndSeconds)); transcriptDuration > video.DurationSeconds {
+				video.DurationSeconds = transcriptDuration
+			}
+		}
 		submission, err := youtube.TranscriptSubmission(video, matchContext.NaturalKey, structured, rawExtraction, extractionUsage, matchContext.Competitors, extractorModel(extractor), candidate.MatchedQueries, extractedAt)
 		if err != nil {
 			logger.Error("evidence submission construction failed", "video_id", video.ID, "duration", time.Since(extractionStarted), "error", err)
