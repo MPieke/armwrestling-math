@@ -19,7 +19,8 @@ cmd/ingest-youtube (sequential coordinator)
         |
         +--> internal/research -----> fixed queries + bounded selection
         |
-        +--> internal/youtube ------> YouTube metadata + Gemini extraction
+        +--> internal/youtube ------> YouTube metadata
+        +--> internal/transcript ---> temporary audio + OpenAI transcript/claims
         |           |
         |           `--------------> EvidenceSubmission v1
         |
@@ -35,8 +36,8 @@ may transport the same submission without changing its semantics.
 ## Runtime
 
 ```text
-operator  command  matchup  research  YouTube  Gemini  ingest/PostgreSQL
-   |         |        |        |         |        |            |
+operator  command  matchup  research  YouTube  audio/OpenAI  ingest/PostgreSQL
+   |         |        |        |         |          |                |
    |-- key ->|-- read>|        |         |        |            |
    |         |< context        |         |        |            |
    |         |-- plan/select ->|         |        |            |
@@ -48,7 +49,8 @@ operator  command  matchup  research  YouTube  Gemini  ingest/PostgreSQL
    |         |-- completed extraction? ----------------------->|
    |         |<------------------------- yes: skip / no: run --|
    |         |--------------------------- video -->|            |
-   |         |<---------- typed structured JSON ---|            |
+   |         |<--------- transcript segments ------|            |
+   |         |---------------------- claims ------>|            |
    |         |-- EvidenceSubmission --------------------------->|
    |         |                                     BEGIN/source |
    |         |                              extraction/claims    |
@@ -59,7 +61,12 @@ Ten deterministic queries are built from the two canonical competitor names
 and arm. YouTube relevance ordering supplies candidates; round-robin selection
 prevents one broad query from consuming the whole budget. Metadata bounds and
 diagnoses the work but never establishes relevance. Gemini must inspect the
-actual public video.
+actual public video. Selected videos are downloaded to a temporary directory,
+transcribed by OpenAI, and then passed to structured claim extraction. The
+audio source, transcription provider, and claim extractor are independent Go
+interfaces; the current implementations use direct `yt-dlp` execution and
+OpenAI HTTP calls. A future Python adapter can replace an implementation at
+composition time without changing the coordinator or persistence boundary.
 
 Repeated `--video-id` flags bypass search while retaining the same metadata,
 analysis, validation, and persistence path.
@@ -67,10 +74,10 @@ analysis, validation, and persistence path.
 ## Boundaries And Validation
 
 ```text
-Gemini JSON
+OpenAI structured JSON
    |
    v
-GeminiExtractionResponse (schema derived from this Go type)
+StructuredExtraction (schema derived from this Go type)
    |
    +--> structural parse
    +--> source validation: enum, timestamp, subject, required meaning
@@ -107,11 +114,11 @@ claim_subjects ---> claims ------------+
 ingestion_runs records each database submission attempt.
 ```
 
-Each actual Gemini attempt produces a `source_extractions` row. Completed
+Each actual OpenAI extraction attempt produces a `source_extractions` row. Completed
 zero-claim results are durable. Failed attempts store their error and no
 claims. New claims reference the exact completed extraction. The completed
 extraction identity is `(source, match, provider, model, prompt version)`, so
-reruns skip Gemini and do not duplicate evidence.
+reruns skip transcription and extraction and do not duplicate evidence.
 
 Sources, extractions, claims, and subject links for one video are atomic. A
 failure rolls back that video's evidence and records a failed ingestion run.
@@ -152,15 +159,15 @@ Copy `.env.example` to `.env` for local setup. The command requires:
 ```text
 DATABASE_URL
 YOUTUBE_API_KEY
-GEMINI_API_KEY
-GEMINI_MODEL
+OPENAI_API_KEY
+OPENAI_EXTRACTION_MODEL
 ```
 
 Optional provider endpoint overrides are also supported:
 
 ```text
 YOUTUBE_API_BASE_URL
-GEMINI_API_BASE_URL
+OPENAI_API_BASE_URL
 ```
 
 The default provider endpoints are used when the optional values are absent.
@@ -196,6 +203,9 @@ go run ./cmd/ingest-youtube \
   --match-natural-key '2026-06:artyom-morozov:ermes-gasparini:right' \
   --video-id bWmtNWQM_Ro
 ```
+
+The local command also requires `yt-dlp` and `ffmpeg` on `PATH`. The same
+runtime dependencies must be installed in the CI or cloud worker image.
 
 Verification:
 

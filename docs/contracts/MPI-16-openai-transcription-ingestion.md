@@ -1,6 +1,6 @@
 ---
 linear_issue: MPI-16
-status: proposed
+status: approved
 ---
 
 # Contract MPI-16: OpenAI Transcription Ingestion
@@ -117,7 +117,7 @@ Configuration is injected consistently across environments:
 
 ```text
 OPENAI_API_KEY
-OPENAI_TRANSCRIPTION_MODEL   default: gpt-transcribe
+OPENAI_TRANSCRIPTION_MODEL   default: whisper-1 (timestamped segments)
 OPENAI_EXTRACTION_MODEL      explicit text model
 INGEST_AUDIO_TIMEOUT         bounded download timeout
 INGEST_HTTP_TIMEOUT          bounded API timeout
