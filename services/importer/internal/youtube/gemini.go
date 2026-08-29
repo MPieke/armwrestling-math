@@ -61,7 +61,7 @@ func (client GeminiClient) Analyze(ctx context.Context, video Video, competitors
 	request.Header.Set("Content-Type", "application/json")
 	response, err := client.HTTPClient.Do(request)
 	if err != nil {
-		return Analysis{}, err
+		return Analysis{}, fmt.Errorf("Gemini request failed: %s", redactProviderError(err, client.APIKey))
 	}
 	defer response.Body.Close()
 	raw, err := io.ReadAll(response.Body)

@@ -90,7 +90,7 @@ func (client Client) get(ctx context.Context, path string) (json.RawMessage, err
 	}
 	response, err := client.HTTPClient.Do(request)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("YouTube request failed: %s", redactProviderError(err, client.APIKey))
 	}
 	defer response.Body.Close()
 	raw, err := io.ReadAll(response.Body)
@@ -101,6 +101,13 @@ func (client Client) get(ctx context.Context, path string) (json.RawMessage, err
 		return nil, fmt.Errorf("YouTube HTTP %d: %s", response.StatusCode, raw)
 	}
 	return raw, nil
+}
+
+func redactProviderError(err error, secret string) string {
+	if secret == "" {
+		return err.Error()
+	}
+	return strings.ReplaceAll(err.Error(), secret, "[REDACTED]")
 }
 
 func parseDuration(value string) (int, error) {
