@@ -113,6 +113,10 @@ func RunTranscript(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtub
 		logger.Info("claim extraction completed", "video_id", video.ID, "duration", time.Since(extractionStarted), "claims", len(structured.Claims))
 		submission, err := youtube.TranscriptSubmission(video, matchContext.NaturalKey, structured, rawExtraction, extractionUsage, matchContext.Competitors, extractorModel(extractor), candidate.MatchedQueries, extractedAt)
 		if err != nil {
+			logger.Error("evidence submission construction failed", "video_id", video.ID, "duration", time.Since(extractionStarted), "error", err)
+			if _, submitErr := ingest.Submit(ctx, pool, youtube.FailedTranscriptSubmission(video, matchContext.NaturalKey, extractorModel(extractor), candidate.MatchedQueries, extractedAt, err)); submitErr != nil {
+				return result, submitErr
+			}
 			result.Failed++
 			continue
 		}
