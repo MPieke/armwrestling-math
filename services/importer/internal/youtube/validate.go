@@ -1,22 +1,26 @@
 package youtube
 
-import "fmt"
+import (
+	"fmt"
 
-func ValidateExtraction(response GeminiExtractionResponse, competitors map[string]struct{}, durationSeconds int) error {
-	if response.SchemaVersion != GeminiExtractionSchemaVersionV1 {
-		return fmt.Errorf("unsupported extraction schema version: %s", response.SchemaVersion)
+	"github.com/mpieke/armwrestling-math/services/importer/internal/transcript"
+)
+
+func ValidateExtraction(extraction transcript.StructuredExtraction, competitors map[string]struct{}, durationSeconds int) error {
+	if extraction.SchemaVersion != transcript.ExtractionSchemaVersion {
+		return fmt.Errorf("unsupported extraction schema version: %s", extraction.SchemaVersion)
 	}
-	if len(response.Claims) == 0 && len(response.Limitations) == 0 {
+	if len(extraction.Claims) == 0 && len(extraction.Limitations) == 0 {
 		return fmt.Errorf("zero claims require a limitation")
 	}
-	for index, claim := range response.Claims {
+	for index, claim := range extraction.Claims {
 		if claim.Text == "" || claim.Relevance == "" {
 			return fmt.Errorf("claim %d requires text and relevance", index)
 		}
 		if claim.TimestampSeconds != nil && (*claim.TimestampSeconds < 0 || *claim.TimestampSeconds > durationSeconds) {
 			return fmt.Errorf("claim %d timestamp is outside video duration", index)
 		}
-		if claim.Confidence != ClaimConfidenceLow && claim.Confidence != ClaimConfidenceMedium && claim.Confidence != ClaimConfidenceHigh {
+		if claim.Confidence != "low" && claim.Confidence != "medium" && claim.Confidence != "high" {
 			return fmt.Errorf("claim %d has unknown confidence", index)
 		}
 		if !validClaimType(claim.ClaimType) {
@@ -30,9 +34,9 @@ func ValidateExtraction(response GeminiExtractionResponse, competitors map[strin
 	}
 	return nil
 }
-func validClaimType(value GeminiClaimType) bool {
+func validClaimType(value string) bool {
 	switch value {
-	case GeminiClaimTypeForm, GeminiClaimTypeTactic, GeminiClaimTypeInjury, GeminiClaimTypeEndurance, GeminiClaimTypeSetup, GeminiClaimTypeOpponentComparison, GeminiClaimTypeOther:
+	case "form", "tactic", "injury", "endurance", "setup", "opponent_comparison", "other":
 		return true
 	}
 	return false

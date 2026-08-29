@@ -12,8 +12,6 @@ func TestLoadRequiresProviderAndDatabaseSettings(t *testing.T) {
 		"YOUTUBE_API_KEY":         "youtube-key",
 		"OPENAI_API_KEY":          "openai-key",
 		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
-		"GEMINI_API_KEY":          "gemini-key",
-		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -22,9 +20,6 @@ func TestLoadRequiresProviderAndDatabaseSettings(t *testing.T) {
 	}
 	if configuration.DatabaseURL != settings["DATABASE_URL"] {
 		t.Fatalf("DatabaseURL = %q, want %q", configuration.DatabaseURL, settings["DATABASE_URL"])
-	}
-	if configuration.GeminiModel != settings["GEMINI_MODEL"] {
-		t.Fatalf("GeminiModel = %q, want %q", configuration.GeminiModel, settings["GEMINI_MODEL"])
 	}
 	if configuration.HTTPTimeout != defaultHTTPTimeout {
 		t.Fatalf("HTTPTimeout = %s, want %s", configuration.HTTPTimeout, defaultHTTPTimeout)
@@ -43,8 +38,6 @@ func TestLoadAppliesProviderBaseURLDefaults(t *testing.T) {
 		"YOUTUBE_API_KEY":         "youtube-key",
 		"OPENAI_API_KEY":          "openai-key",
 		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
-		"GEMINI_API_KEY":          "gemini-key",
-		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -54,9 +47,6 @@ func TestLoadAppliesProviderBaseURLDefaults(t *testing.T) {
 	if configuration.YouTubeAPIBaseURL != defaultYouTubeAPIBaseURL {
 		t.Fatalf("YouTubeAPIBaseURL = %q, want %q", configuration.YouTubeAPIBaseURL, defaultYouTubeAPIBaseURL)
 	}
-	if configuration.GeminiAPIBaseURL != defaultGeminiAPIBaseURL {
-		t.Fatalf("GeminiAPIBaseURL = %q, want %q", configuration.GeminiAPIBaseURL, defaultGeminiAPIBaseURL)
-	}
 }
 
 func TestLoadUsesExplicitProviderBaseURLs(t *testing.T) {
@@ -65,10 +55,8 @@ func TestLoadUsesExplicitProviderBaseURLs(t *testing.T) {
 		"YOUTUBE_API_KEY":         "youtube-key",
 		"OPENAI_API_KEY":          "openai-key",
 		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
-		"GEMINI_API_KEY":          "gemini-key",
-		"GEMINI_MODEL":            "gemini-2.5-flash",
 		"YOUTUBE_API_BASE_URL":    "http://youtube.test",
-		"GEMINI_API_BASE_URL":     "http://gemini.test",
+		"OPENAI_API_BASE_URL":     "http://openai.test",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -78,8 +66,8 @@ func TestLoadUsesExplicitProviderBaseURLs(t *testing.T) {
 	if configuration.YouTubeAPIBaseURL != settings["YOUTUBE_API_BASE_URL"] {
 		t.Fatalf("YouTubeAPIBaseURL = %q, want %q", configuration.YouTubeAPIBaseURL, settings["YOUTUBE_API_BASE_URL"])
 	}
-	if configuration.GeminiAPIBaseURL != settings["GEMINI_API_BASE_URL"] {
-		t.Fatalf("GeminiAPIBaseURL = %q, want %q", configuration.GeminiAPIBaseURL, settings["GEMINI_API_BASE_URL"])
+	if configuration.OpenAIAPIBaseURL != settings["OPENAI_API_BASE_URL"] {
+		t.Fatalf("OpenAIAPIBaseURL = %q, want %q", configuration.OpenAIAPIBaseURL, settings["OPENAI_API_BASE_URL"])
 	}
 }
 
@@ -101,8 +89,6 @@ func TestLoadParsesLoggingAndTimeoutSettings(t *testing.T) {
 		"YOUTUBE_API_KEY":         "youtube-key",
 		"OPENAI_API_KEY":          "openai-key",
 		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
-		"GEMINI_API_KEY":          "gemini-key",
-		"GEMINI_MODEL":            "gemini-2.5-flash",
 		"INGEST_HTTP_TIMEOUT":     "17s",
 		"INGEST_AUDIO_TIMEOUT":    "23m",
 		"INGEST_LOG_FORMAT":       "json",
@@ -130,8 +116,6 @@ func TestLoadRejectsInvalidOperationalSettings(t *testing.T) {
 		"YOUTUBE_API_KEY":         "youtube-key",
 		"OPENAI_API_KEY":          "openai-key",
 		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
-		"GEMINI_API_KEY":          "gemini-key",
-		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 	for name, value := range map[string]string{
 		"INGEST_HTTP_TIMEOUT":  "not-a-duration",

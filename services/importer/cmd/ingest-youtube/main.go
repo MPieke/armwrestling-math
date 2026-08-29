@@ -63,7 +63,7 @@ func run() int {
 	}
 	defer pool.Close()
 	httpClient := &http.Client{Timeout: configuration.HTTPTimeout}
-	result, err := youtubeingest.RunTranscript(ctx, pool,
+	result, err := youtubeingest.Run(ctx, pool,
 		youtube.Client{HTTPClient: httpClient, BaseURL: configuration.YouTubeAPIBaseURL, APIKey: configuration.YouTubeAPIKey},
 		transcript.YTDLPAudioSource{Command: os.Getenv("YTDLP_COMMAND")},
 		transcript.OpenAITranscriber{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAITranscriptionModel},

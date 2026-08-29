@@ -4,6 +4,7 @@ package youtubeingest
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -97,21 +98,21 @@ func (source *fakeAudioSource) Cleanup(transcript.AudioArtifact) error {
 
 type fakeTranscriber struct{}
 
-func (fakeTranscriber) Transcribe(_ context.Context, artifact transcript.AudioArtifact, _ []string) (transcript.Transcript, []byte, []byte, error) {
-	return transcript.Transcript{SchemaVersion: transcript.TranscriptSchemaVersion, Text: artifact.Path, Segments: []transcript.Segment{{StartSeconds: 0, EndSeconds: 121, Text: artifact.Path}}}, []byte(`{"text":"fixture"}`), []byte(`{"total_tokens":1}`), nil
+func (fakeTranscriber) Transcribe(_ context.Context, artifact transcript.AudioArtifact, _ []string) (transcript.Transcript, json.RawMessage, json.RawMessage, error) {
+	return transcript.Transcript{SchemaVersion: transcript.TranscriptSchemaVersion, Text: artifact.Path, Segments: []transcript.Segment{{StartSeconds: 0, EndSeconds: 121, Text: artifact.Path}}}, json.RawMessage(`{"text":"fixture"}`), json.RawMessage(`{"total_tokens":1}`), nil
 }
 
 type fakeExtractor struct{ calls int }
 
 func (extractor *fakeExtractor) ModelName() string { return "fixture-model" }
 
-func (extractor *fakeExtractor) Extract(_ context.Context, value transcript.Transcript, _ transcript.MatchContext) (transcript.StructuredExtraction, []byte, []byte, error) {
+func (extractor *fakeExtractor) Extract(_ context.Context, value transcript.Transcript, _ transcript.MatchContext) (transcript.StructuredExtraction, json.RawMessage, json.RawMessage, error) {
 	extractor.calls++
 	if strings.Contains(value.Text, "bad") {
 		return transcript.StructuredExtraction{}, nil, nil, errors.New("fixture extraction failure")
 	}
 	timestamp := 121
-	return transcript.StructuredExtraction{SchemaVersion: transcript.ExtractionSchemaVersion, Claims: []transcript.Claim{{Text: "Ermes has improved his setup", TimestampSeconds: &timestamp, SubjectNames: []string{"Ermes Gasparini"}, Confidence: "high", Relevance: "Relevant setup evidence", ClaimType: "setup"}}}, []byte(`{"claims":1}`), []byte(`{"total_tokens":1}`), nil
+	return transcript.StructuredExtraction{SchemaVersion: transcript.ExtractionSchemaVersion, Claims: []transcript.Claim{{Text: "Ermes has improved his setup", TimestampSeconds: &timestamp, SubjectNames: []string{"Ermes Gasparini"}, Confidence: "high", Relevance: "Relevant setup evidence", ClaimType: "setup"}}}, json.RawMessage(`{"claims":1}`), json.RawMessage(`{"total_tokens":1}`), nil
 }
 
 func integrationPool(t *testing.T, ctx context.Context) *pgxpool.Pool {

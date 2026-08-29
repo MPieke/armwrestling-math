@@ -14,7 +14,7 @@ func TestValidateEvidence(t *testing.T) {
 		return EvidenceSubmission{
 			SchemaVersion: EvidenceSubmissionSchemaVersion, BatchKey: "batch", MatchNaturalKey: "match",
 			Sources:     []SourceInput{{Key: "source", SourceType: "youtube", ExternalID: "video", URL: "https://example.test/video", RawPayload: json.RawMessage(`{}`)}},
-			Extractions: []SourceExtractionInput{{Key: "extraction", SourceKey: "source", Provider: "gemini", Model: "model", PromptVersion: "v1", Status: "completed", ExtractedAt: extractedAt}},
+			Extractions: []SourceExtractionInput{{Key: "extraction", SourceKey: "source", Provider: "fixture-provider", Model: "model", PromptVersion: "v1", Status: "completed", ExtractedAt: extractedAt}},
 			Claims:      []EvidenceClaimInput{{SourceKey: "source", ExtractionKey: "extraction", SubjectNames: []string{"Ermes"}, Text: "claim", ExtractedAt: extractedAt, RawPayload: json.RawMessage(`{}`)}},
 		}
 	}

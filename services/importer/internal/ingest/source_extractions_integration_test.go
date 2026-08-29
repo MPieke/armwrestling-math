@@ -90,7 +90,7 @@ func TestSourceExtractionStatusConstraint(t *testing.T) {
 
 	_, err := pool.Exec(ctx, `
 		insert into source_extractions (source_id, match_id, provider, model, prompt_version, status, extracted_at)
-		select sources.id, matches.id, 'gemini', 'test-model', 'v1', 'not-a-status', now()
+		select sources.id, matches.id, 'fixture-provider', 'test-model', 'v1', 'not-a-status', now()
 		from sources cross join matches
 	`)
 	if err == nil {
