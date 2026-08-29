@@ -165,6 +165,21 @@ GEMINI_API_BASE_URL
 
 The default provider endpoints are used when the optional values are absent.
 
+Operational settings are optional:
+
+```text
+INGEST_HTTP_TIMEOUT   request timeout duration, default 60s
+INGEST_LOG_FORMAT     text (default) or json
+INGEST_LOG_LEVEL      debug, info (default), warn, or error
+```
+
+The command emits structured progress events for match resolution, provider
+requests, candidate selection, extraction, persistence, skips, failures, and
+the final summary. Logs go to standard error, so the local wrapper and CI pass
+them through without owning logging behavior. JSON output is suitable for CI
+collection; text output is intended for local operation. API keys, prompts, and
+raw provider payloads are not logged.
+
 Example:
 
 ```sh
