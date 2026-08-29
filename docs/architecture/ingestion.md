@@ -2,220 +2,233 @@
 
 ## Purpose And Scope
 
-This document defines the reusable PostgreSQL ingestion core in
-`services/importer`. It is independent of any particular evidence format,
-source provider, or command. A future source adapter owns its input parsing and
-normalization; the core owns validation, idempotent persistence, and run audit
-records.
+`services/importer` contains a provider-independent PostgreSQL evidence core
+and source-specific adapters. PostgreSQL owns registered matches, athletes,
+and competitor membership. Evidence adapters may read that context but cannot
+create or modify it.
 
-The Python scripts and static React application are separate systems. They
-continue to use committed JSON evidence files and do not read PostgreSQL.
+The static React application and historical Python evidence scripts remain
+separate. They do not read PostgreSQL.
 
-## System Context
-
-```
-+-------------------------+                    +-------------------------+
-| Python evidence pipeline|                    | Future source adapter   |
-| scripts -> data/app     |                    | provider input -> batch |
-+------------+------------+                    +------------+------------+
-             |                                              |
-             v                                              v
-      Static app bundle                         services/importer/internal/ingest
-             |                                              |
-             v                                              v
-        React application                         PostgreSQL evidence store
-```
-
-The two paths intentionally coexist. Importing evidence into PostgreSQL does
-not change the static application's source of data.
-
-## Importer Components
-
-```
-+-----------------------------------------------------------------------+
-| services/importer                                                     |
-|                                                                       |
-| future adapter / command                                              |
-|   - parse provider-specific input                                     |
-|   - preserve original JSON                                            |
-|   - construct IngestBatch                                             |
-|                |                                                      |
-|                v                                                      |
-| internal/ingest                                                       |
-|   batch.go       canonical input contract                             |
-|   validate.go    reference and invariant checks                       |
-|   run.go         transaction, idempotent writes, run audit lifecycle |
-|                |                                                      |
-|                v                                                      |
-| internal/dbgen                                                        |
-|   sqlc-generated pgx query package                                    |
-+------------------------------|----------------------------------------+
-                               v
-                           PostgreSQL
-```
-
-## Canonical Batch Boundary
-
-An adapter produces one `IngestBatch`:
+## Components
 
 ```text
-IngestBatch
-  athletes: stable adapter keys + canonical display names
-  match: batch-local key + database natural key + competitors
-  sources: provider type/external ID + metadata + original payload
-  claims: source/match references + optional subjects + evidence fields
+cmd/ingest-youtube (sequential coordinator)
+        |
+        +--> internal/matchup ------> read existing match context
+        |
+        +--> internal/research -----> fixed queries + bounded selection
+        |
+        +--> internal/youtube ------> YouTube metadata
+        +--> internal/transcript ---> temporary audio + OpenAI transcript/claims
+        |           |
+        |           `--------------> EvidenceSubmission v1
+        |
+        `--> internal/ingest -------> sqlc queries -------> PostgreSQL
 ```
 
-The adapter may use any provider-specific models internally, but it must not
-push those models into `internal/ingest`. This keeps future formats from adding
-branches to shared persistence code.
+`internal/youtube` has no PostgreSQL, pgx, or generated-query dependency.
+`EvidenceSubmission` is a versioned JSON-serializable boundary containing
+stable source and match identities, never database-generated IDs. The command
+passes it to `internal/ingest` in-process. A future authenticated API or queue
+may transport the same submission without changing its semantics.
 
-`Validate` runs before a database connection is mutated. It rejects duplicate
-keys and unresolved athlete, source, match, or subject references.
+## Runtime
 
-## Run Lifecycle
-
+```text
+operator  command  matchup  research  YouTube  audio/OpenAI  ingest/PostgreSQL
+   |         |        |        |         |          |                |
+   |-- key ->|-- read>|        |         |        |            |
+   |         |< context        |         |        |            |
+   |         |-- plan/select ->|         |        |            |
+   |         |---------------- search -->|        |            |
+   |         |<----------- candidates ---|        |            |
+   |         |                            |        |            |
+   |         | for each selected video, sequentially:          |
+   |         |---------------- metadata ->|        |            |
+   |         |-- completed extraction? ----------------------->|
+   |         |<------------------------- yes: skip / no: run --|
+   |         |--------------------------- video -->|            |
+   |         |<--------- transcript segments ------|            |
+   |         |---------------------- claims ------>|            |
+   |         |-- EvidenceSubmission --------------------------->|
+   |         |                                     BEGIN/source |
+   |         |                              extraction/claims    |
+   |         |                                      links/COMMIT|
 ```
-adapter             Validate              Run                     PostgreSQL
-  |                    |                    |                           |
-  |-- IngestBatch ---->|                    |                           |
-  |<-- valid/error ----|                    |                           |
-  |                    |                    |                           |
-  |-- Run(batch) -------------------------->|-- create running run ---->|
-  |                    |                    |-- BEGIN ----------------->|
-  |                    |                    |-- upsert athletes -------->|
-  |                    |                    |-- upsert match + links --->|
-  |                    |                    |-- upsert sources --------->|
-  |                    |                    |-- upsert claims + links -->|
-  |                    |                    |-- complete run ---------->|
-  |                    |                    |-- COMMIT ---------------->|
-  |<-- run ID/counts -----------------------|                           |
 
-  transaction error: ROLLBACK, then mark the already-created run failed
+Ten deterministic queries are built from the two canonical competitor names
+and arm. YouTube relevance ordering supplies candidates; round-robin selection
+prevents one broad query from consuming the whole budget. Metadata bounds and
+diagnoses the work but never establishes relevance. Selected videos are
+downloaded to a temporary directory,
+transcribed by OpenAI, and then passed to structured claim extraction. The
+audio source, transcription provider, and claim extractor are independent Go
+interfaces; the current implementations use direct `yt-dlp` execution and
+OpenAI HTTP calls. A future Python adapter can replace an implementation at
+composition time without changing the coordinator or persistence boundary.
+
+Repeated `--video-id` flags bypass search while retaining the same metadata,
+analysis, validation, and persistence path.
+
+## Boundaries And Validation
+
+```text
+OpenAI structured JSON
+   |
+   v
+StructuredExtraction (schema derived from this Go type)
+   |
+   +--> structural parse
+   +--> source validation: enum, timestamp, subject, required meaning
+   |
+   v
+EvidenceSubmission v1
+   |
+   +--> generic structural/reference validation
+   +--> read canonical match and competitor IDs
+   |
+   v
+one PostgreSQL evidence transaction
 ```
 
-Success is written in the transaction immediately before commit. Failure is a
-compensating write after rollback because a rollback cannot retain a failed
-status. A connection failure before a run is created cannot be audited in that
-database; callers receive the connection error instead.
+The Go response type is the structured-output source of truth. The derived
+schema is sent to OpenAI and the response is parsed back into that type.
+Domain validation remains explicit because a JSON schema cannot prove that a
+subject belongs to the selected match or that a timestamp fits the video.
 
 ## Data Model
 
-```
-athletes                    matches                       sources
-+----------------+          +----------------+            +-------------------------+
-| id             |          | id             |            | id                      |
-| canonical_name |          | natural_key    |            | source_type/external_id |
-+----------------+          | arm            |            | url, title              |
-      ^    ^                 | scheduled_at   |            | published_at            |
-      |    |                 +----------------+            | raw_payload             |
-      |    +-- match_competitors ---^                       +-------------------------+
-      |                                                             ^
-      +-------- claim_subjects                                       |
-                    ^                                                |
-                    |                                                |
-                  claims -------------------------------- source_id -+
-                  +-----------------------+
-                  | source_id, match_id   |
-                  | claim_text, timestamp |
-                  | evidence metadata     |
-                  | raw_payload           |
-                  +-----------------------+
+```text
+athletes <--- match_competitors ---> matches
+   ^                                   ^
+   |                                   |
+claim_subjects ---> claims ------------+
+                      |                 |
+                      v                 |
+              source_extractions ------+
+                      |
+                      v
+                   sources
 
-ingestion_runs: standalone run-level audit records
+ingestion_runs records each database submission attempt.
 ```
 
-## Durable Decisions
+Each actual OpenAI extraction attempt produces a `source_extractions` row. Completed
+zero-claim results are durable. Failed attempts store their error and no
+claims. New claims reference the exact completed extraction. The completed
+extraction identity is `(source, match, provider, model, prompt version)`, so
+reruns skip transcription and extraction and do not duplicate evidence.
 
-| Decision | Rationale |
-|---|---|
-| Generic batch, provider-specific adapters | Parsing changes most often; transactional persistence must remain stable and simple. |
-| Adapter-owned natural keys | A generic persistence layer cannot infer domain-specific rematch identity safely. |
-| PostgreSQL unique constraints and upserts | Idempotency is enforced by the database, not process-local state. |
-| Claim dedupe expression | `source_id + coalesced timestamp + claim text` handles claims with no timestamp while retaining a meaningful natural identity. |
-| Raw JSON payloads | Preserve provenance and future reprocessing inputs without polluting canonical columns. |
-| sqlc-generated pgx package committed to Git | Query signatures are reviewable and consumers do not require sqlc at build time. Change SQL then regenerate; never hand-edit `internal/dbgen`. |
-| One transaction for evidence writes | A completed run corresponds to an atomic set of athletes, match links, sources, claims, and subject links. |
-| Standalone `ingestion_runs` | Run audit records describe an import attempt; sources and claims are reused across runs and therefore do not have misleading `created_by_run_id` columns. |
-| Optional subjects | An adapter records subjects only when it has reliable evidence; it must not default ambiguous claims to every match competitor. |
-| Dedicated integration database | Integration tests truncate state and must use `INGEST_TEST_DATABASE_URL` targeting `armwrestling_math_test`, never a primary database. |
+Sources, extractions, claims, and subject links for one video are atomic. A
+failure rolls back that video's evidence and records a failed ingestion run.
+Other videos are independent.
 
 ## Adding A Source Adapter
 
-1. Create a focused package beneath `services/importer/internal/` for the new
-   provider or format. Keep parsing models, normalization rules, and provider
-   identifiers there.
-2. Transform input into `ingest.IngestBatch`. Give every batch-local reference
-   a stable key and compute a domain-appropriate `MatchInput.NaturalKey`.
-3. Preserve original source and claim payloads in `RawPayload`.
-4. Add adapter tests using representative provider fixtures. Assert meaningful
-   output counts, references, and domain invariants rather than parser coverage
-   alone.
-5. Add a provider command that reads its own input configuration, builds the
-   batch, opens a pgx pool, and calls `ingest.Run`.
-6. Add a schema migration only when the canonical model needs a new durable
-   concept. Do not add provider-specific columns for data that belongs in raw
-   payloads.
+1. Add a provider package below `services/importer/internal`.
+2. Keep provider request/response types, HTTP behavior, and semantic validation
+   inside that package.
+3. Map validated output to `ingest.EvidenceSubmission`; preserve original
+   provider payloads.
+4. Do not import `internal/dbgen`, pgx, or accept a database pool.
+5. Add HTTP fixture tests and a real-PostgreSQL orchestration test.
+6. Add a command that resolves an existing match and composes the adapter with
+   `ingest.Submit`.
 
-## Operations And Verification
+## Operations
 
-## Test Boundaries
+Apply all migrations in lexical order before running an importer command.
+The Go command reads configuration from its process environment. It does not
+load `.env`, select a database based on an environment name, or run database
+migrations. Local development may use the repository wrapper, which loads the
+ignored `.env` before executing the same command:
 
-The ingestion core is verified at the boundary that owns each behavior:
+```sh
+cd services/importer
+./scripts/run-ingest-youtube.sh --help
+```
+
+CI, staging, and production should inject the variables through their native
+configuration and secret mechanisms. Every deployment supplies its own
+`DATABASE_URL`; environments use separate databases with the same ordered
+migration set.
+
+Copy `.env.example` to `.env` for local setup. The command requires:
 
 ```text
-IngestBatch
-    |
-    v
-Validate --------------------------------------------------+
-  required fields, duplicate local keys, unresolved refs   |
-  deterministic Go unit tests                              |
-    |                                                       |
-    v                                                       |
-Run -> sqlc queries -> PostgreSQL                           |
-  transactions, JSONB, upserts, links, run audits          |
-  real PostgreSQL integration tests                         |
-                                                            |
-invalid batch ---------------------------------------------+
-  returns before Run accesses a database pool
+DATABASE_URL
+YOUTUBE_API_KEY
+OPENAI_API_KEY
+OPENAI_EXTRACTION_MODEL
 ```
 
-Validation tests use representative structural and reference failure classes,
-plus a valid batch. They do not require PostgreSQL. Integration tests create a
-fresh schema in `armwrestling_math_test`, then verify exact persisted values
-and relationship counts, idempotent replay, transactional rollback, and run
-auditing. Generated `internal/dbgen` code has no hand-written tests; the
-integration suite exercises its queries against the migrated schema.
+Optional provider endpoint overrides are also supported:
 
-CI lists discovered unit and integration tests before running them. It runs
-both suites verbosely with Go's result cache disabled so logs show the exact
-tests executed by the reviewed commit.
-
-Apply migrations before running an adapter command:
-
-```sh
-docker compose up -d postgres
-docker compose exec -T postgres psql -U admin -d armwrestling-math \
-  < db/migrations/0001_init.sql
+```text
+YOUTUBE_API_BASE_URL
+OPENAI_API_BASE_URL
 ```
 
-Run the normal checks from `services/importer`:
+The default provider endpoints are used when the optional values are absent.
+
+Operational settings are optional:
+
+```text
+INGEST_HTTP_TIMEOUT   request timeout duration, default 60s
+INGEST_AUDIO_TIMEOUT  audio download timeout, default 15m
+INGEST_LOG_FORMAT     text (default) or json
+INGEST_LOG_LEVEL      debug, info (default), warn, or error
+```
+
+The command emits structured progress events for match resolution, provider
+requests, candidate selection, extraction, persistence, skips, failures, and
+the final summary. Logs go to standard error, so the local wrapper and CI pass
+them through without owning logging behavior. JSON output is suitable for CI
+collection; text output is intended for local operation. API keys, prompts, and
+raw provider payloads are not logged.
+
+Example:
 
 ```sh
+cd services/importer
+go run ./cmd/ingest-youtube \
+  --match-natural-key '2026-06:artyom-morozov:ermes-gasparini:right' \
+  --max-videos 10
+```
+
+For direct videos:
+
+```sh
+go run ./cmd/ingest-youtube \
+  --match-natural-key '2026-06:artyom-morozov:ermes-gasparini:right' \
+  --video-id bWmtNWQM_Ro
+```
+
+The local command also requires `yt-dlp` and `ffmpeg` on `PATH`. The same
+runtime dependencies must be installed in the CI or cloud worker image.
+
+Verification:
+
+```sh
+cd services/importer
+gofmt -l .
 go vet ./...
+go test -list . ./...
 go test -v -count=1 ./...
+INGEST_TEST_DATABASE_URL='postgres://admin:admin@127.0.0.1:5432/armwrestling_math_test?sslmode=disable' \
+  go test -v -count=1 -tags integration ./...
 ```
 
-For the destructive integration test, create and migrate only the dedicated
-test database, then run:
+Integration tests reject any database not named
+`armwrestling_math_test` before destructive setup.
 
-```sh
-INGEST_TEST_DATABASE_URL='postgres://.../armwrestling_math_test?sslmode=disable' \
-  go test -v -count=1 -tags integration ./internal/ingest
-```
+## Review Guide
 
-Regenerate query code after changing migration or query SQL:
-
-```sh
-sqlc generate -f sqlc.yaml
-```
+The ingestion command has one active runtime path: YouTube metadata, temporary
+audio, OpenAI transcription, OpenAI claim extraction, and atomic evidence
+persistence. `internal/transcript` holds replaceable processing ports and their
+current adapters; `internal/youtube` owns source metadata and direct evidence
+mapping; `internal/youtubeingest` coordinates the workflow. Generated sqlc
+files and historical contracts are committed for reproducibility and audit,
+but are not hand-written runtime behavior.

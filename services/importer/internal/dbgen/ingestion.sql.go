@@ -27,6 +27,45 @@ func (q *Queries) CompleteIngestionRun(ctx context.Context, arg CompleteIngestio
 	return err
 }
 
+const completedExtractionExists = `-- name: CompletedExtractionExists :one
+select exists (
+    select 1
+    from source_extractions
+    join sources on sources.id = source_extractions.source_id
+    join matches on matches.id = source_extractions.match_id
+    where matches.natural_key = $1
+      and sources.source_type = $2
+      and sources.external_id = $3
+      and source_extractions.provider = $4
+      and source_extractions.model = $5
+      and source_extractions.prompt_version = $6
+      and source_extractions.status = 'completed'
+)
+`
+
+type CompletedExtractionExistsParams struct {
+	NaturalKey    string
+	SourceType    string
+	ExternalID    string
+	Provider      string
+	Model         string
+	PromptVersion string
+}
+
+func (q *Queries) CompletedExtractionExists(ctx context.Context, arg CompletedExtractionExistsParams) (bool, error) {
+	row := q.db.QueryRow(ctx, completedExtractionExists,
+		arg.NaturalKey,
+		arg.SourceType,
+		arg.ExternalID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+	)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
 const createIngestionRun = `-- name: CreateIngestionRun :one
 insert into ingestion_runs (batch_key)
 values ($1)
@@ -35,6 +74,53 @@ returning id
 
 func (q *Queries) CreateIngestionRun(ctx context.Context, batchKey string) (int64, error) {
 	row := q.db.QueryRow(ctx, createIngestionRun, batchKey)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
+const createSourceExtraction = `-- name: CreateSourceExtraction :one
+insert into source_extractions (
+    source_id, match_id, provider, model, prompt_version, status, extracted_at,
+    raw_response, usage, error_message
+)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+on conflict (source_id, match_id, provider, model, prompt_version)
+    where status = 'completed'
+do update set
+    extracted_at = excluded.extracted_at,
+    raw_response = excluded.raw_response,
+    usage = excluded.usage,
+    error_message = excluded.error_message
+returning id
+`
+
+type CreateSourceExtractionParams struct {
+	SourceID      int64
+	MatchID       int64
+	Provider      string
+	Model         string
+	PromptVersion string
+	Status        string
+	ExtractedAt   pgtype.Timestamptz
+	RawResponse   []byte
+	Usage         []byte
+	ErrorMessage  pgtype.Text
+}
+
+func (q *Queries) CreateSourceExtraction(ctx context.Context, arg CreateSourceExtractionParams) (int64, error) {
+	row := q.db.QueryRow(ctx, createSourceExtraction,
+		arg.SourceID,
+		arg.MatchID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+		arg.Status,
+		arg.ExtractedAt,
+		arg.RawResponse,
+		arg.Usage,
+		arg.ErrorMessage,
+	)
 	var id int64
 	err := row.Scan(&id)
 	return id, err
@@ -54,6 +140,65 @@ type FailIngestionRunParams struct {
 func (q *Queries) FailIngestionRun(ctx context.Context, arg FailIngestionRunParams) error {
 	_, err := q.db.Exec(ctx, failIngestionRun, arg.ID, arg.ErrorMessage)
 	return err
+}
+
+const getCompletedSourceExtraction = `-- name: GetCompletedSourceExtraction :one
+select id
+from source_extractions
+where source_id = $1
+  and match_id = $2
+  and provider = $3
+  and model = $4
+  and prompt_version = $5
+  and status = 'completed'
+`
+
+type GetCompletedSourceExtractionParams struct {
+	SourceID      int64
+	MatchID       int64
+	Provider      string
+	Model         string
+	PromptVersion string
+}
+
+func (q *Queries) GetCompletedSourceExtraction(ctx context.Context, arg GetCompletedSourceExtractionParams) (int64, error) {
+	row := q.db.QueryRow(ctx, getCompletedSourceExtraction,
+		arg.SourceID,
+		arg.MatchID,
+		arg.Provider,
+		arg.Model,
+		arg.PromptVersion,
+	)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
+const getMatchByNaturalKey = `-- name: GetMatchByNaturalKey :one
+select id, natural_key, label, arm, scheduled_at
+from matches
+where natural_key = $1
+`
+
+type GetMatchByNaturalKeyRow struct {
+	ID          int64
+	NaturalKey  string
+	Label       pgtype.Text
+	Arm         string
+	ScheduledAt pgtype.Timestamptz
+}
+
+func (q *Queries) GetMatchByNaturalKey(ctx context.Context, naturalKey string) (GetMatchByNaturalKeyRow, error) {
+	row := q.db.QueryRow(ctx, getMatchByNaturalKey, naturalKey)
+	var i GetMatchByNaturalKeyRow
+	err := row.Scan(
+		&i.ID,
+		&i.NaturalKey,
+		&i.Label,
+		&i.Arm,
+		&i.ScheduledAt,
+	)
+	return i, err
 }
 
 const linkClaimSubject = `-- name: LinkClaimSubject :exec
@@ -88,6 +233,39 @@ func (q *Queries) LinkMatchCompetitor(ctx context.Context, arg LinkMatchCompetit
 	return err
 }
 
+const listMatchCompetitors = `-- name: ListMatchCompetitors :many
+select athletes.id, athletes.canonical_name
+from match_competitors
+join athletes on athletes.id = match_competitors.athlete_id
+where match_competitors.match_id = $1
+order by athletes.canonical_name
+`
+
+type ListMatchCompetitorsRow struct {
+	ID            int64
+	CanonicalName string
+}
+
+func (q *Queries) ListMatchCompetitors(ctx context.Context, matchID int64) ([]ListMatchCompetitorsRow, error) {
+	rows, err := q.db.Query(ctx, listMatchCompetitors, matchID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListMatchCompetitorsRow
+	for rows.Next() {
+		var i ListMatchCompetitorsRow
+		if err := rows.Scan(&i.ID, &i.CanonicalName); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const upsertAthlete = `-- name: UpsertAthlete :one
 insert into athletes (canonical_name)
 values ($1)
@@ -105,9 +283,10 @@ func (q *Queries) UpsertAthlete(ctx context.Context, canonicalName string) (int6
 const upsertClaim = `-- name: UpsertClaim :one
 insert into claims (
     source_id, match_id, claim_text, timestamp_seconds, speaker, confidence,
-    relevance, observed_at, extracted_at, extraction_model, raw_payload
+    relevance, observed_at, extracted_at, extraction_model, raw_payload,
+    source_extraction_id
 )
-values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
 on conflict (source_id, coalesce(timestamp_seconds, -1), claim_text) do update
 set match_id = excluded.match_id,
     speaker = excluded.speaker,
@@ -116,22 +295,24 @@ set match_id = excluded.match_id,
     observed_at = excluded.observed_at,
     extracted_at = excluded.extracted_at,
     extraction_model = excluded.extraction_model,
-    raw_payload = excluded.raw_payload
+    raw_payload = excluded.raw_payload,
+    source_extraction_id = excluded.source_extraction_id
 returning id
 `
 
 type UpsertClaimParams struct {
-	SourceID         int64
-	MatchID          int64
-	ClaimText        string
-	TimestampSeconds pgtype.Int4
-	Speaker          pgtype.Text
-	Confidence       pgtype.Text
-	Relevance        pgtype.Text
-	ObservedAt       pgtype.Timestamptz
-	ExtractedAt      pgtype.Timestamptz
-	ExtractionModel  pgtype.Text
-	RawPayload       []byte
+	SourceID           int64
+	MatchID            int64
+	ClaimText          string
+	TimestampSeconds   pgtype.Int4
+	Speaker            pgtype.Text
+	Confidence         pgtype.Text
+	Relevance          pgtype.Text
+	ObservedAt         pgtype.Timestamptz
+	ExtractedAt        pgtype.Timestamptz
+	ExtractionModel    pgtype.Text
+	RawPayload         []byte
+	SourceExtractionID pgtype.Int8
 }
 
 func (q *Queries) UpsertClaim(ctx context.Context, arg UpsertClaimParams) (int64, error) {
@@ -147,6 +328,7 @@ func (q *Queries) UpsertClaim(ctx context.Context, arg UpsertClaimParams) (int64
 		arg.ExtractedAt,
 		arg.ExtractionModel,
 		arg.RawPayload,
+		arg.SourceExtractionID,
 	)
 	var id int64
 	err := row.Scan(&id)

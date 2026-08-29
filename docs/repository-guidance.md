@@ -93,6 +93,27 @@ asserting the observable contract.
   observable behavior over private helper calls, call ordering, or incidental
   internal structure.
 
+### Test-First Workflow
+
+For non-trivial behavior changes governed by a software-change contract, write
+and commit the behavior-defining tests before the implementation that makes
+them pass.
+
+- The contract's commit breakdown must place each test commit immediately
+  before its corresponding implementation commit.
+- Run the new tests before implementation and record the expected failure. A
+  red test commit is intentionally allowed when its failure demonstrates the
+  missing behavior named by the contract.
+- The following implementation commit must make those tests pass without
+  weakening, deleting, skipping, or replacing their assertions.
+- Add CI discovery and execution for a new test layer before considering the
+  feature complete. A local-only test suite is incomplete.
+- Test-first does not mean testing private implementation structure. Tests
+  still define observable behavior at the smallest appropriate boundary.
+- Generated code is exempt from hand-written unit tests, but the schema,
+  generator inputs, and generated boundary must be covered by integration or
+  reproducibility checks.
+
 ### Test Layers
 
 - Unit tests cover deterministic, in-memory business rules: parsing, mapping,
