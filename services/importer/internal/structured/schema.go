@@ -16,6 +16,7 @@ type Schema struct {
 	Properties           map[string]Schema `json:"properties,omitempty"`
 	Required             []string          `json:"required,omitempty"`
 	AdditionalProperties *bool             `json:"additionalProperties,omitempty"`
+	AnyOf                []Schema          `json:"anyOf,omitempty"`
 	Items                *Schema           `json:"items,omitempty"`
 	Enum                 []string          `json:"enum,omitempty"`
 }
@@ -38,7 +39,8 @@ func Decode(raw []byte, destination Output) error {
 func schemaForType(valueType reflect.Type) (Schema, error) {
 	switch valueType.Kind() {
 	case reflect.Pointer:
-		return schemaForType(valueType.Elem())
+		value, err := schemaForType(valueType.Elem())
+		return Schema{AnyOf: []Schema{value, {Type: "null"}}}, err
 	case reflect.String:
 		return Schema{Type: "string"}, nil
 	case reflect.Int:
@@ -63,9 +65,9 @@ func schemaForType(valueType reflect.Type) (Schema, error) {
 				property.Enum = strings.Split(enum, ",")
 			}
 			result.Properties[jsonName] = property
-			if field.Type.Kind() != reflect.Pointer {
-				result.Required = append(result.Required, jsonName)
-			}
+			// OpenAI strict structured outputs require every property to be
+			// required. Pointer fields are represented as nullable anyOf schemas.
+			result.Required = append(result.Required, jsonName)
 		}
 		return result, nil
 	default:
