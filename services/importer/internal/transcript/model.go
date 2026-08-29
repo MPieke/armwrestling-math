@@ -43,6 +43,8 @@ type StructuredExtraction struct {
 	Limitations   []string `json:"limitations"`
 }
 
+func (*StructuredExtraction) StructuredOutput() {}
+
 type Claim struct {
 	Text             string   `json:"text"`
 	TimestampSeconds *int     `json:"timestamp_seconds,omitempty"`
