@@ -44,17 +44,36 @@ operator -> YouTube metadata -> Gemini video analysis -> claims -> PostgreSQL
 cmd/ingest-youtube
     |
     +--> YouTube metadata
-    +--> audio.Acquire(video URL)
+    +--> AudioSource.Acquire(video URL)
     |       `--> temporary audio file
-    +--> transcription.Transcribe(audio file)
+    +--> TranscriptionProvider.Transcribe(audio file)
     |       `--> timestamped transcript segments
-    +--> extraction.Extract(transcript, match context)
+    +--> ClaimExtractor.Extract(transcript, match context)
     |       `--> validated structured claims
     `--> ingest.Submit(EvidenceSubmission) -> PostgreSQL
 
 Temporary audio and transcript data are deleted after the video attempt.
 Provider credentials and raw media are never logged.
 ```
+
+The coordinator depends on these provider-neutral ports:
+
+```text
+AudioSource
+  Acquire(ctx, video URL) -> AudioArtifact
+
+TranscriptionProvider
+  Transcribe(ctx, AudioArtifact, hints) -> Transcript
+
+ClaimExtractor
+  Extract(ctx, Transcript, MatchContext) -> StructuredExtraction
+```
+
+The initial adapters are `yt-dlp` for `AudioSource`, OpenAI file
+transcription for `TranscriptionProvider`, and OpenAI structured text
+extraction for `ClaimExtractor`. These concrete providers are selected at the
+composition root. The workflow, validation, persistence, and replay behavior
+must not import provider-specific packages or types.
 
 Runtime sequence:
 
@@ -89,7 +108,8 @@ values directly. No dotenv loading is added to the Go binary.
    - Tests use local fixtures and fake HTTP/process boundaries.
 
 2. `feat(MPI-16): add OpenAI transcript pipeline`
-   - Add audio acquisition and OpenAI transcription adapters.
+   - Add provider-neutral audio, transcription, and claim-extraction ports.
+   - Add `yt-dlp` and OpenAI adapters at the composition root.
    - Replace Gemini video analysis with transcript-based structured extraction.
    - Add bounded timeouts, cancellation, and safe per-video failure auditing.
 
