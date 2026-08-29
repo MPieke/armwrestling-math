@@ -19,6 +19,8 @@ type OpenAIClaimExtractor struct {
 	Model      string
 }
 
+func (extractor OpenAIClaimExtractor) ModelName() string { return extractor.Model }
+
 func (extractor OpenAIClaimExtractor) Extract(ctx context.Context, value Transcript, match MatchContext) (StructuredExtraction, json.RawMessage, json.RawMessage, error) {
 	var output StructuredExtraction
 	schema, err := structured.SchemaFor(&output)

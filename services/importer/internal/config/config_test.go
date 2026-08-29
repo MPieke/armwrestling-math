@@ -8,10 +8,12 @@ import (
 
 func TestLoadRequiresProviderAndDatabaseSettings(t *testing.T) {
 	settings := map[string]string{
-		"DATABASE_URL":    "postgres://db/app",
-		"YOUTUBE_API_KEY": "youtube-key",
-		"GEMINI_API_KEY":  "gemini-key",
-		"GEMINI_MODEL":    "gemini-2.5-flash",
+		"DATABASE_URL":            "postgres://db/app",
+		"YOUTUBE_API_KEY":         "youtube-key",
+		"OPENAI_API_KEY":          "openai-key",
+		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
+		"GEMINI_API_KEY":          "gemini-key",
+		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -34,10 +36,12 @@ func TestLoadRequiresProviderAndDatabaseSettings(t *testing.T) {
 
 func TestLoadAppliesProviderBaseURLDefaults(t *testing.T) {
 	settings := map[string]string{
-		"DATABASE_URL":    "postgres://db/app",
-		"YOUTUBE_API_KEY": "youtube-key",
-		"GEMINI_API_KEY":  "gemini-key",
-		"GEMINI_MODEL":    "gemini-2.5-flash",
+		"DATABASE_URL":            "postgres://db/app",
+		"YOUTUBE_API_KEY":         "youtube-key",
+		"OPENAI_API_KEY":          "openai-key",
+		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
+		"GEMINI_API_KEY":          "gemini-key",
+		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -54,12 +58,14 @@ func TestLoadAppliesProviderBaseURLDefaults(t *testing.T) {
 
 func TestLoadUsesExplicitProviderBaseURLs(t *testing.T) {
 	settings := map[string]string{
-		"DATABASE_URL":         "postgres://db/app",
-		"YOUTUBE_API_KEY":      "youtube-key",
-		"GEMINI_API_KEY":       "gemini-key",
-		"GEMINI_MODEL":         "gemini-2.5-flash",
-		"YOUTUBE_API_BASE_URL": "http://youtube.test",
-		"GEMINI_API_BASE_URL":  "http://gemini.test",
+		"DATABASE_URL":            "postgres://db/app",
+		"YOUTUBE_API_KEY":         "youtube-key",
+		"OPENAI_API_KEY":          "openai-key",
+		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
+		"GEMINI_API_KEY":          "gemini-key",
+		"GEMINI_MODEL":            "gemini-2.5-flash",
+		"YOUTUBE_API_BASE_URL":    "http://youtube.test",
+		"GEMINI_API_BASE_URL":     "http://gemini.test",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -79,7 +85,7 @@ func TestLoadReportsAllMissingRequiredSettings(t *testing.T) {
 	if err == nil {
 		t.Fatal("Load returned nil error for missing required settings")
 	}
-	for _, name := range []string{"DATABASE_URL", "YOUTUBE_API_KEY", "GEMINI_API_KEY", "GEMINI_MODEL"} {
+	for _, name := range []string{"DATABASE_URL", "YOUTUBE_API_KEY", "OPENAI_API_KEY", "OPENAI_EXTRACTION_MODEL"} {
 		if !contains(err.Error(), name) {
 			t.Errorf("error %q does not mention missing %s", err, name)
 		}
@@ -88,13 +94,15 @@ func TestLoadReportsAllMissingRequiredSettings(t *testing.T) {
 
 func TestLoadParsesLoggingAndTimeoutSettings(t *testing.T) {
 	settings := map[string]string{
-		"DATABASE_URL":        "postgres://db/app",
-		"YOUTUBE_API_KEY":     "youtube-key",
-		"GEMINI_API_KEY":      "gemini-key",
-		"GEMINI_MODEL":        "gemini-2.5-flash",
-		"INGEST_HTTP_TIMEOUT": "17s",
-		"INGEST_LOG_FORMAT":   "json",
-		"INGEST_LOG_LEVEL":    "debug",
+		"DATABASE_URL":            "postgres://db/app",
+		"YOUTUBE_API_KEY":         "youtube-key",
+		"OPENAI_API_KEY":          "openai-key",
+		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
+		"GEMINI_API_KEY":          "gemini-key",
+		"GEMINI_MODEL":            "gemini-2.5-flash",
+		"INGEST_HTTP_TIMEOUT":     "17s",
+		"INGEST_LOG_FORMAT":       "json",
+		"INGEST_LOG_LEVEL":        "debug",
 	}
 
 	configuration, err := Load(func(name string) string { return settings[name] })
@@ -111,10 +119,12 @@ func TestLoadParsesLoggingAndTimeoutSettings(t *testing.T) {
 
 func TestLoadRejectsInvalidOperationalSettings(t *testing.T) {
 	base := map[string]string{
-		"DATABASE_URL":    "postgres://db/app",
-		"YOUTUBE_API_KEY": "youtube-key",
-		"GEMINI_API_KEY":  "gemini-key",
-		"GEMINI_MODEL":    "gemini-2.5-flash",
+		"DATABASE_URL":            "postgres://db/app",
+		"YOUTUBE_API_KEY":         "youtube-key",
+		"OPENAI_API_KEY":          "openai-key",
+		"OPENAI_EXTRACTION_MODEL": "gpt-4.1-mini",
+		"GEMINI_API_KEY":          "gemini-key",
+		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 	for name, value := range map[string]string{
 		"INGEST_HTTP_TIMEOUT": "not-a-duration",

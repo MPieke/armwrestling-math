@@ -123,5 +123,6 @@ func (provider OpenAITranscriber) Transcribe(ctx context.Context, artifact Audio
 }
 
 func redact(err error, secret string) string {
-	return strings.ReplaceAll(err.Error(), url.QueryEscape(secret), "[REDACTED]")
+	message := strings.ReplaceAll(err.Error(), secret, "[REDACTED]")
+	return strings.ReplaceAll(message, url.QueryEscape(secret), "[REDACTED]")
 }

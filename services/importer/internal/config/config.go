@@ -10,6 +10,7 @@ import (
 const (
 	defaultYouTubeAPIBaseURL = "https://www.googleapis.com"
 	defaultGeminiAPIBaseURL  = "https://generativelanguage.googleapis.com"
+	defaultOpenAIAPIBaseURL  = "https://api.openai.com"
 	defaultHTTPTimeout       = 60 * time.Second
 )
 
@@ -17,21 +18,25 @@ const (
 // runtime. Environment loading is deliberately owned by the caller so CI and
 // deployed processes can use their native secret injection mechanisms.
 type Config struct {
-	DatabaseURL       string
-	YouTubeAPIKey     string
-	GeminiAPIKey      string
-	GeminiModel       string
-	YouTubeAPIBaseURL string
-	GeminiAPIBaseURL  string
-	HTTPTimeout       time.Duration
-	LogFormat         string
-	LogLevel          slog.Level
+	DatabaseURL              string
+	YouTubeAPIKey            string
+	GeminiAPIKey             string
+	GeminiModel              string
+	YouTubeAPIBaseURL        string
+	GeminiAPIBaseURL         string
+	OpenAIAPIKey             string
+	OpenAIAPIBaseURL         string
+	OpenAITranscriptionModel string
+	OpenAIExtractionModel    string
+	HTTPTimeout              time.Duration
+	LogFormat                string
+	LogLevel                 slog.Level
 }
 
 // Load reads configuration from getenv and applies defaults for optional
 // provider endpoints. It never reads files or mutates the process environment.
 func Load(getenv func(string) string) (Config, error) {
-	required := []string{"DATABASE_URL", "YOUTUBE_API_KEY", "GEMINI_API_KEY", "GEMINI_MODEL"}
+	required := []string{"DATABASE_URL", "YOUTUBE_API_KEY", "OPENAI_API_KEY", "OPENAI_EXTRACTION_MODEL"}
 	missing := make([]string, 0, len(required))
 	for _, name := range required {
 		if strings.TrimSpace(getenv(name)) == "" {
@@ -43,18 +48,28 @@ func Load(getenv func(string) string) (Config, error) {
 	}
 
 	configuration := Config{
-		DatabaseURL:       getenv("DATABASE_URL"),
-		YouTubeAPIKey:     getenv("YOUTUBE_API_KEY"),
-		GeminiAPIKey:      getenv("GEMINI_API_KEY"),
-		GeminiModel:       getenv("GEMINI_MODEL"),
-		YouTubeAPIBaseURL: getenv("YOUTUBE_API_BASE_URL"),
-		GeminiAPIBaseURL:  getenv("GEMINI_API_BASE_URL"),
+		DatabaseURL:              getenv("DATABASE_URL"),
+		YouTubeAPIKey:            getenv("YOUTUBE_API_KEY"),
+		GeminiAPIKey:             getenv("GEMINI_API_KEY"),
+		GeminiModel:              getenv("GEMINI_MODEL"),
+		YouTubeAPIBaseURL:        getenv("YOUTUBE_API_BASE_URL"),
+		GeminiAPIBaseURL:         getenv("GEMINI_API_BASE_URL"),
+		OpenAIAPIKey:             getenv("OPENAI_API_KEY"),
+		OpenAIAPIBaseURL:         getenv("OPENAI_API_BASE_URL"),
+		OpenAITranscriptionModel: getenv("OPENAI_TRANSCRIPTION_MODEL"),
+		OpenAIExtractionModel:    getenv("OPENAI_EXTRACTION_MODEL"),
 	}
 	if configuration.YouTubeAPIBaseURL == "" {
 		configuration.YouTubeAPIBaseURL = defaultYouTubeAPIBaseURL
 	}
 	if configuration.GeminiAPIBaseURL == "" {
 		configuration.GeminiAPIBaseURL = defaultGeminiAPIBaseURL
+	}
+	if configuration.OpenAIAPIBaseURL == "" {
+		configuration.OpenAIAPIBaseURL = defaultOpenAIAPIBaseURL
+	}
+	if configuration.OpenAITranscriptionModel == "" {
+		configuration.OpenAITranscriptionModel = "whisper-1"
 	}
 	configuration.HTTPTimeout = defaultHTTPTimeout
 	if value := getenv("INGEST_HTTP_TIMEOUT"); value != "" {

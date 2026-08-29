@@ -57,6 +57,7 @@ type Claim struct {
 
 type AudioSource interface {
 	Acquire(context.Context, string) (AudioArtifact, error)
+	Cleanup(AudioArtifact) error
 }
 
 type TranscriptionProvider interface {

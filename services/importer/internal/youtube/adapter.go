@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/mpieke/armwrestling-math/services/importer/internal/ingest"
+	"github.com/mpieke/armwrestling-math/services/importer/internal/transcript"
 )
 
 func Submission(video Video, matchNaturalKey string, analysis Analysis, competitors []string, model string, matchedQueries []string, extractedAt time.Time) (ingest.EvidenceSubmission, error) {
@@ -44,6 +45,41 @@ func Submission(video Video, matchNaturalKey string, analysis Analysis, competit
 		})
 	}
 	return submission, nil
+}
+
+func TranscriptSubmission(video Video, matchNaturalKey string, extraction transcript.StructuredExtraction, rawResponse, usage json.RawMessage, competitors []string, model string, matchedQueries []string, extractedAt time.Time) (ingest.EvidenceSubmission, error) {
+	claims := make([]GeminiClaim, 0, len(extraction.Claims))
+	for _, claim := range extraction.Claims {
+		claims = append(claims, GeminiClaim{Text: claim.Text, TimestampSeconds: claim.TimestampSeconds, SubjectNames: claim.SubjectNames, Speaker: claim.Speaker, Confidence: ClaimConfidence(claim.Confidence), Relevance: claim.Relevance, ClaimType: GeminiClaimType(claim.ClaimType)})
+	}
+	analysis := Analysis{Output: GeminiExtractionResponse{SchemaVersion: GeminiExtractionSchemaVersion(extraction.SchemaVersion), Claims: claims, Limitations: extraction.Limitations}, RawResponse: rawResponse, Usage: usage}
+	submission, err := Submission(video, matchNaturalKey, analysis, competitors, model, matchedQueries, extractedAt)
+	if err != nil {
+		return ingest.EvidenceSubmission{}, err
+	}
+	return rewriteProviderSubmission(submission, "openai", model), nil
+}
+
+func FailedTranscriptSubmission(video Video, matchNaturalKey, model string, matchedQueries []string, extractedAt time.Time, cause error) ingest.EvidenceSubmission {
+	return rewriteProviderSubmission(FailedSubmission(video, matchNaturalKey, model, matchedQueries, extractedAt, cause), "openai", model)
+}
+
+func rewriteProviderSubmission(submission ingest.EvidenceSubmission, provider, model string) ingest.EvidenceSubmission {
+	oldSourceKey, oldExtractionKey := "youtube:"+submission.Sources[0].ExternalID, submission.Extractions[0].Key
+	newExtractionKey := provider + ":" + submission.Sources[0].ExternalID + ":" + model + ":" + PromptVersion
+	submission.Extractions[0].Key = newExtractionKey
+	submission.Extractions[0].Provider = provider
+	submission.Extractions[0].Model = model
+	for i := range submission.Claims {
+		if submission.Claims[i].SourceKey == oldSourceKey {
+			submission.Claims[i].SourceKey = oldSourceKey
+		}
+		if submission.Claims[i].ExtractionKey == oldExtractionKey {
+			submission.Claims[i].ExtractionKey = newExtractionKey
+		}
+		submission.Claims[i].ExtractionModel = model
+	}
+	return submission
 }
 
 func FailedSubmission(video Video, matchNaturalKey, model string, matchedQueries []string, extractedAt time.Time, cause error) ingest.EvidenceSubmission {
