@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"strings"
@@ -45,6 +46,14 @@ func run() int {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
+	var logHandler slog.Handler
+	logOptions := &slog.HandlerOptions{Level: configuration.LogLevel}
+	if configuration.LogFormat == "json" {
+		logHandler = slog.NewJSONHandler(os.Stderr, logOptions)
+	} else {
+		logHandler = slog.NewTextHandler(os.Stderr, logOptions)
+	}
+	logger := slog.New(logHandler)
 	ctx := context.Background()
 	pool, err := pgxpool.New(ctx, configuration.DatabaseURL)
 	if err != nil {
@@ -52,10 +61,11 @@ func run() int {
 		return 1
 	}
 	defer pool.Close()
+	httpClient := &http.Client{Timeout: configuration.HTTPTimeout}
 	result, err := youtubeingest.Run(ctx, pool,
-		youtube.Client{HTTPClient: http.DefaultClient, BaseURL: configuration.YouTubeAPIBaseURL, APIKey: configuration.YouTubeAPIKey},
-		youtube.GeminiClient{HTTPClient: http.DefaultClient, BaseURL: configuration.GeminiAPIBaseURL, APIKey: configuration.GeminiAPIKey, Model: configuration.GeminiModel},
-		youtubeingest.Options{MatchNaturalKey: *matchNaturalKey, VideoIDs: videoIDs, MaxVideos: *maxVideos, SearchPageSize: *searchPageSize},
+		youtube.Client{HTTPClient: httpClient, BaseURL: configuration.YouTubeAPIBaseURL, APIKey: configuration.YouTubeAPIKey},
+		youtube.GeminiClient{HTTPClient: httpClient, BaseURL: configuration.GeminiAPIBaseURL, APIKey: configuration.GeminiAPIKey, Model: configuration.GeminiModel},
+		youtubeingest.Options{MatchNaturalKey: *matchNaturalKey, VideoIDs: videoIDs, MaxVideos: *maxVideos, SearchPageSize: *searchPageSize, Logger: logger},
 	)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
