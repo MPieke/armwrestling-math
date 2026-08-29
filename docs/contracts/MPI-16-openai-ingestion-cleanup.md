@@ -1,6 +1,6 @@
 ---
 linear_issue: MPI-16
-status: approved
+status: implemented
 ---
 
 # Contract MPI-16: OpenAI Ingestion Cleanup

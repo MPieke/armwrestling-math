@@ -60,8 +60,8 @@ operator  command  matchup  research  YouTube  audio/OpenAI  ingest/PostgreSQL
 Ten deterministic queries are built from the two canonical competitor names
 and arm. YouTube relevance ordering supplies candidates; round-robin selection
 prevents one broad query from consuming the whole budget. Metadata bounds and
-diagnoses the work but never establishes relevance. Gemini must inspect the
-actual public video. Selected videos are downloaded to a temporary directory,
+diagnoses the work but never establishes relevance. Selected videos are
+downloaded to a temporary directory,
 transcribed by OpenAI, and then passed to structured claim extraction. The
 audio source, transcription provider, and claim extractor are independent Go
 interfaces; the current implementations use direct `yt-dlp` execution and
@@ -93,7 +93,7 @@ one PostgreSQL evidence transaction
 ```
 
 The Go response type is the structured-output source of truth. The derived
-schema is sent to Gemini and the response is parsed back into that type.
+schema is sent to OpenAI and the response is parsed back into that type.
 Domain validation remains explicit because a JSON schema cannot prove that a
 subject belongs to the selected match or that a timestamp fits the video.
 
@@ -222,3 +222,13 @@ INGEST_TEST_DATABASE_URL='postgres://admin:admin@127.0.0.1:5432/armwrestling_mat
 
 Integration tests reject any database not named
 `armwrestling_math_test` before destructive setup.
+
+## Review Guide
+
+The ingestion command has one active runtime path: YouTube metadata, temporary
+audio, OpenAI transcription, OpenAI claim extraction, and atomic evidence
+persistence. `internal/transcript` holds replaceable processing ports and their
+current adapters; `internal/youtube` owns source metadata and direct evidence
+mapping; `internal/youtubeingest` coordinates the workflow. Generated sqlc
+files and historical contracts are committed for reproducibility and audit,
+but are not hand-written runtime behavior.
