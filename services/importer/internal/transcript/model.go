@@ -50,9 +50,9 @@ type Claim struct {
 	TimestampSeconds *int     `json:"timestamp_seconds,omitempty"`
 	SubjectNames     []string `json:"subject_names"`
 	Speaker          *string  `json:"speaker,omitempty"`
-	Confidence       string   `json:"confidence"`
+	Confidence       string   `json:"confidence" enum:"low,medium,high"`
 	Relevance        string   `json:"relevance"`
-	ClaimType        string   `json:"claim_type"`
+	ClaimType        string   `json:"claim_type" enum:"form,tactic,injury,endurance,setup,opponent_comparison,other"`
 }
 
 type AudioSource interface {
