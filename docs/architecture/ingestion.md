@@ -176,6 +176,7 @@ Operational settings are optional:
 
 ```text
 INGEST_HTTP_TIMEOUT   request timeout duration, default 60s
+INGEST_AUDIO_TIMEOUT  audio download timeout, default 15m
 INGEST_LOG_FORMAT     text (default) or json
 INGEST_LOG_LEVEL      debug, info (default), warn, or error
 ```

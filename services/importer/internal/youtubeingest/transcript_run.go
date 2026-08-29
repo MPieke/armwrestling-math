@@ -18,6 +18,9 @@ func RunTranscript(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtub
 	if logger == nil {
 		logger = slog.Default()
 	}
+	if options.AudioTimeout <= 0 {
+		options.AudioTimeout = 15 * time.Minute
+	}
 	matchContext, err := matchup.Resolve(ctx, pool, options.MatchNaturalKey)
 	if err != nil {
 		logger.Error("match resolution failed", "error", err)
@@ -67,36 +70,47 @@ func RunTranscript(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtub
 			continue
 		}
 		extractedAt := time.Now().UTC()
-		audio, err := audioSource.Acquire(ctx, video.URL)
+		logger.Info("audio acquisition started", "video_id", video.ID)
+		audioStarted := time.Now()
+		audioContext, cancelAudio := context.WithTimeout(ctx, options.AudioTimeout)
+		audio, err := audioSource.Acquire(audioContext, video.URL)
+		cancelAudio()
 		if err != nil {
-			logger.Error("audio acquisition failed", "video_id", video.ID, "error", err)
+			logger.Error("audio acquisition failed", "video_id", video.ID, "duration", time.Since(audioStarted), "error", err)
 			if _, submitErr := ingest.Submit(ctx, pool, youtube.FailedTranscriptSubmission(video, matchContext.NaturalKey, extractorModel(extractor), candidate.MatchedQueries, extractedAt, err)); submitErr != nil {
 				return result, submitErr
 			}
 			result.Failed++
 			continue
 		}
+		logger.Info("audio acquisition completed", "video_id", video.ID, "duration", time.Since(audioStarted))
+		transcriptionStarted := time.Now()
+		logger.Info("transcription started", "video_id", video.ID)
 		transcribed, rawTranscript, usage, err := transcriber.Transcribe(ctx, audio, matchContext.Competitors)
 		if cleanupErr := audioSource.Cleanup(audio); cleanupErr != nil {
 			logger.Warn("audio cleanup failed", "video_id", video.ID, "error", cleanupErr)
 		}
 		if err != nil {
-			logger.Error("transcription failed", "video_id", video.ID, "error", err)
+			logger.Error("transcription failed", "video_id", video.ID, "duration", time.Since(transcriptionStarted), "error", err)
 			if _, submitErr := ingest.Submit(ctx, pool, youtube.FailedTranscriptSubmission(video, matchContext.NaturalKey, extractorModel(extractor), candidate.MatchedQueries, extractedAt, err)); submitErr != nil {
 				return result, submitErr
 			}
 			result.Failed++
 			continue
 		}
+		logger.Info("transcription completed", "video_id", video.ID, "duration", time.Since(transcriptionStarted), "segments", len(transcribed.Segments))
+		extractionStarted := time.Now()
+		logger.Info("claim extraction started", "video_id", video.ID, "model", extractorModel(extractor))
 		structured, rawExtraction, extractionUsage, err := extractor.Extract(ctx, transcribed, transcript.MatchContext{NaturalKey: matchContext.NaturalKey, Competitors: matchContext.Competitors, Arm: matchContext.Arm})
 		if err != nil {
-			logger.Error("claim extraction failed", "video_id", video.ID, "error", err)
+			logger.Error("claim extraction failed", "video_id", video.ID, "duration", time.Since(extractionStarted), "error", err)
 			if _, submitErr := ingest.Submit(ctx, pool, youtube.FailedTranscriptSubmission(video, matchContext.NaturalKey, extractorModel(extractor), candidate.MatchedQueries, extractedAt, err)); submitErr != nil {
 				return result, submitErr
 			}
 			result.Failed++
 			continue
 		}
+		logger.Info("claim extraction completed", "video_id", video.ID, "duration", time.Since(extractionStarted), "claims", len(structured.Claims))
 		submission, err := youtube.TranscriptSubmission(video, matchContext.NaturalKey, structured, rawExtraction, extractionUsage, matchContext.Competitors, extractorModel(extractor), candidate.MatchedQueries, extractedAt)
 		if err != nil {
 			result.Failed++

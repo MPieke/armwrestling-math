@@ -29,6 +29,9 @@ func TestLoadRequiresProviderAndDatabaseSettings(t *testing.T) {
 	if configuration.HTTPTimeout != defaultHTTPTimeout {
 		t.Fatalf("HTTPTimeout = %s, want %s", configuration.HTTPTimeout, defaultHTTPTimeout)
 	}
+	if configuration.AudioTimeout != defaultAudioTimeout {
+		t.Fatalf("AudioTimeout = %s, want %s", configuration.AudioTimeout, defaultAudioTimeout)
+	}
 	if configuration.LogFormat != "text" || configuration.LogLevel != slog.LevelInfo {
 		t.Fatalf("logging defaults = (%q, %s), want (text, INFO)", configuration.LogFormat, slog.LevelInfo)
 	}
@@ -101,6 +104,7 @@ func TestLoadParsesLoggingAndTimeoutSettings(t *testing.T) {
 		"GEMINI_API_KEY":          "gemini-key",
 		"GEMINI_MODEL":            "gemini-2.5-flash",
 		"INGEST_HTTP_TIMEOUT":     "17s",
+		"INGEST_AUDIO_TIMEOUT":    "23m",
 		"INGEST_LOG_FORMAT":       "json",
 		"INGEST_LOG_LEVEL":        "debug",
 	}
@@ -111,6 +115,9 @@ func TestLoadParsesLoggingAndTimeoutSettings(t *testing.T) {
 	}
 	if configuration.HTTPTimeout != 17*time.Second {
 		t.Fatalf("HTTPTimeout = %s, want 17s", configuration.HTTPTimeout)
+	}
+	if configuration.AudioTimeout != 23*time.Minute {
+		t.Fatalf("AudioTimeout = %s, want 23m", configuration.AudioTimeout)
 	}
 	if configuration.LogFormat != "json" || configuration.LogLevel != slog.LevelDebug {
 		t.Fatalf("logging settings = (%q, %s), want (json, DEBUG)", configuration.LogFormat, slog.LevelDebug)
@@ -127,9 +134,10 @@ func TestLoadRejectsInvalidOperationalSettings(t *testing.T) {
 		"GEMINI_MODEL":            "gemini-2.5-flash",
 	}
 	for name, value := range map[string]string{
-		"INGEST_HTTP_TIMEOUT": "not-a-duration",
-		"INGEST_LOG_FORMAT":   "xml",
-		"INGEST_LOG_LEVEL":    "verbose",
+		"INGEST_HTTP_TIMEOUT":  "not-a-duration",
+		"INGEST_AUDIO_TIMEOUT": "not-a-duration",
+		"INGEST_LOG_FORMAT":    "xml",
+		"INGEST_LOG_LEVEL":     "verbose",
 	} {
 		t.Run(name, func(t *testing.T) {
 			settings := make(map[string]string, len(base)+1)

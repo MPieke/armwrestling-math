@@ -68,7 +68,7 @@ func run() int {
 		transcript.YTDLPAudioSource{Command: os.Getenv("YTDLP_COMMAND")},
 		transcript.OpenAITranscriber{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAITranscriptionModel},
 		transcript.OpenAIClaimExtractor{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAIExtractionModel},
-		youtubeingest.Options{MatchNaturalKey: *matchNaturalKey, VideoIDs: videoIDs, MaxVideos: *maxVideos, SearchPageSize: *searchPageSize, Logger: logger},
+		youtubeingest.Options{MatchNaturalKey: *matchNaturalKey, VideoIDs: videoIDs, MaxVideos: *maxVideos, SearchPageSize: *searchPageSize, AudioTimeout: configuration.AudioTimeout, Logger: logger},
 	)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)

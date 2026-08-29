@@ -12,6 +12,7 @@ const (
 	defaultGeminiAPIBaseURL  = "https://generativelanguage.googleapis.com"
 	defaultOpenAIAPIBaseURL  = "https://api.openai.com"
 	defaultHTTPTimeout       = 60 * time.Second
+	defaultAudioTimeout      = 15 * time.Minute
 )
 
 // Config contains only values needed to construct the YouTube ingestion
@@ -29,6 +30,7 @@ type Config struct {
 	OpenAITranscriptionModel string
 	OpenAIExtractionModel    string
 	HTTPTimeout              time.Duration
+	AudioTimeout             time.Duration
 	LogFormat                string
 	LogLevel                 slog.Level
 }
@@ -78,6 +80,14 @@ func Load(getenv func(string) string) (Config, error) {
 			return Config{}, fmt.Errorf("INGEST_HTTP_TIMEOUT must be a positive duration, got %q", value)
 		}
 		configuration.HTTPTimeout = parsed
+	}
+	configuration.AudioTimeout = defaultAudioTimeout
+	if value := getenv("INGEST_AUDIO_TIMEOUT"); value != "" {
+		parsed, err := time.ParseDuration(value)
+		if err != nil || parsed <= 0 {
+			return Config{}, fmt.Errorf("INGEST_AUDIO_TIMEOUT must be a positive duration, got %q", value)
+		}
+		configuration.AudioTimeout = parsed
 	}
 	configuration.LogFormat = getenv("INGEST_LOG_FORMAT")
 	if configuration.LogFormat == "" {

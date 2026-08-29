@@ -18,6 +18,7 @@ type Options struct {
 	VideoIDs        []string
 	MaxVideos       int
 	SearchPageSize  int
+	AudioTimeout    time.Duration
 	Logger          *slog.Logger
 }
 
