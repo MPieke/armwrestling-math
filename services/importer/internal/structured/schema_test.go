@@ -1,6 +1,10 @@
 package structured
 
-import "testing"
+import (
+	"encoding/json"
+	"strings"
+	"testing"
+)
 
 type fixture struct {
 	Name  string `json:"name"`
@@ -19,6 +23,13 @@ func TestSchemaForAndDecode(t *testing.T) {
 	}
 	if len(schema.Properties["count"].AnyOf) != 2 || schema.Properties["count"].AnyOf[1].Type != "null" {
 		t.Fatalf("nullable count schema = %#v", schema.Properties["count"])
+	}
+	encoded, err := json.Marshal(schema)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(encoded), `"type":""`) {
+		t.Fatalf("schema contains an empty type: %s", encoded)
 	}
 	if schema.AdditionalProperties == nil || *schema.AdditionalProperties {
 		t.Fatalf("schema additionalProperties = %#v, want false", schema.AdditionalProperties)
