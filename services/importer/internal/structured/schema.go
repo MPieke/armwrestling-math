@@ -12,7 +12,7 @@ type Output interface {
 }
 
 type Schema struct {
-	Type                 string            `json:"type"`
+	Type                 string            `json:"type,omitempty"`
 	Properties           map[string]Schema `json:"properties,omitempty"`
 	Required             []string          `json:"required,omitempty"`
 	AdditionalProperties *bool             `json:"additionalProperties,omitempty"`
