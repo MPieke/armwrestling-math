@@ -12,11 +12,12 @@ type Output interface {
 }
 
 type Schema struct {
-	Type       string            `json:"type"`
-	Properties map[string]Schema `json:"properties,omitempty"`
-	Required   []string          `json:"required,omitempty"`
-	Items      *Schema           `json:"items,omitempty"`
-	Enum       []string          `json:"enum,omitempty"`
+	Type                 string            `json:"type"`
+	Properties           map[string]Schema `json:"properties,omitempty"`
+	Required             []string          `json:"required,omitempty"`
+	AdditionalProperties *bool             `json:"additionalProperties,omitempty"`
+	Items                *Schema           `json:"items,omitempty"`
+	Enum                 []string          `json:"enum,omitempty"`
 }
 
 func SchemaFor(output Output) (Schema, error) {
@@ -46,7 +47,8 @@ func schemaForType(valueType reflect.Type) (Schema, error) {
 		item, err := schemaForType(valueType.Elem())
 		return Schema{Type: "array", Items: &item}, err
 	case reflect.Struct:
-		result := Schema{Type: "object", Properties: make(map[string]Schema)}
+		additionalProperties := false
+		result := Schema{Type: "object", Properties: make(map[string]Schema), AdditionalProperties: &additionalProperties}
 		for index := 0; index < valueType.NumField(); index++ {
 			field := valueType.Field(index)
 			jsonName := strings.Split(field.Tag.Get("json"), ",")[0]
