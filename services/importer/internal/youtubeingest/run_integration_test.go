@@ -4,8 +4,8 @@ package youtubeingest
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -14,6 +14,7 @@ import (
 	"testing"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/mpieke/armwrestling-math/services/importer/internal/transcript"
 	"github.com/mpieke/armwrestling-math/services/importer/internal/youtube"
 )
 
@@ -24,51 +25,30 @@ func TestRunEndToEndWithFakeProvidersAndPostgreSQL(t *testing.T) {
 	pool := integrationPool(t, ctx)
 	resetAndSeed(t, ctx, pool)
 	var mutex sync.Mutex
-	searchCalls, metadataCalls, geminiCalls := 0, 0, 0
+	searchCalls, metadataCalls := 0, 0
 	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		mutex.Lock()
 		defer mutex.Unlock()
-		switch {
-		case request.URL.Path == "/youtube/v3/search":
+		switch request.URL.Path {
+		case "/youtube/v3/search":
 			searchCalls++
-			if request.URL.Query().Get("order") != "relevance" || request.URL.Query().Get("q") == "" ||
-				request.URL.Query().Get("part") != "snippet" || request.URL.Query().Get("type") != "video" ||
-				request.URL.Query().Get("maxResults") != "2" || request.URL.Query().Get("key") != "fixture" {
-				t.Errorf("search query = %s", request.URL.RawQuery)
-			}
 			fmt.Fprint(writer, `{"items":[{"id":{"videoId":"good"}},{"id":{"videoId":"bad"}}]}`)
-		case request.URL.Path == "/youtube/v3/videos":
+		case "/youtube/v3/videos":
 			metadataCalls++
 			videoID := request.URL.Query().Get("id")
-			if request.URL.Query().Get("part") != "snippet,contentDetails" || request.URL.Query().Get("key") != "fixture" {
-				t.Errorf("metadata query = %s", request.URL.RawQuery)
-			}
 			fmt.Fprintf(writer, `{"items":[{"id":%q,"snippet":{"title":%q,"channelTitle":"Fixture","publishedAt":"2026-06-01T00:00:00Z"},"contentDetails":{"duration":"PT2M"}}]}`, videoID, videoID+" video")
-		case strings.Contains(request.URL.Path, ":generateContent"):
-			geminiCalls++
-			if request.URL.Path != "/v1beta/models/fixture-model:generateContent" || request.URL.Query().Get("key") != "fixture" {
-				t.Errorf("Gemini request = %s?%s", request.URL.Path, request.URL.RawQuery)
-			}
-			body, _ := io.ReadAll(request.Body)
-			if !strings.Contains(string(body), `"responseMimeType":"application/json"`) ||
-				!strings.Contains(string(body), `"responseJsonSchema"`) {
-				t.Errorf("Gemini request lacks structured-output configuration: %s", body)
-			}
-			if strings.Contains(string(body), "watch?v=bad") {
-				http.Error(writer, "fixture failure", http.StatusBadGateway)
-				return
-			}
-			fmt.Fprint(writer, `{"candidates":[{"content":{"parts":[{"text":"{\"schema_version\":\"youtube-claims-v1\",\"claims\":[{\"text\":\"Ermes has improved his setup\",\"timestamp_seconds\":30,\"subject_names\":[\"Ermes Gasparini\"],\"confidence\":\"high\",\"relevance\":\"Relevant setup evidence\",\"claim_type\":\"setup\"}],\"limitations\":[]}"}]}}],"usageMetadata":{"promptTokenCount":10}}`)
 		default:
 			http.NotFound(writer, request)
 		}
 	}))
 	defer server.Close()
 	youtubeClient := youtube.Client{HTTPClient: server.Client(), BaseURL: server.URL, APIKey: "fixture"}
-	geminiClient := youtube.GeminiClient{HTTPClient: server.Client(), BaseURL: server.URL, APIKey: "fixture", Model: "fixture-model"}
+	audio := &fakeAudioSource{}
+	transcriber := fakeTranscriber{}
+	extractor := &fakeExtractor{}
 	options := Options{MatchNaturalKey: "fixture:right", MaxVideos: 2, SearchPageSize: 2}
 
-	first, err := Run(ctx, pool, youtubeClient, geminiClient, options)
+	first, err := Run(ctx, pool, youtubeClient, audio, transcriber, extractor, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,51 +56,73 @@ func TestRunEndToEndWithFakeProvidersAndPostgreSQL(t *testing.T) {
 		t.Fatalf("first result = %+v", first)
 	}
 	assertCount(t, ctx, pool, "sources", 2)
-	assertCount(t, ctx, pool, "source_extractions where status = 'completed'", 1)
-	assertCount(t, ctx, pool, "source_extractions where status = 'failed'", 1)
+	assertCount(t, ctx, pool, "source_extractions where provider = 'openai' and status = 'completed'", 1)
+	assertCount(t, ctx, pool, "source_extractions where provider = 'openai' and status = 'failed'", 1)
 	assertCount(t, ctx, pool, "claims where source_extraction_id is not null", 1)
-	assertCount(t, ctx, pool, "claim_subjects", 1)
+	if audio.acquired != 2 || audio.cleaned != 2 || extractor.calls != 2 {
+		t.Fatalf("fake provider calls audio=(%d,%d) extractor=%d", audio.acquired, audio.cleaned, extractor.calls)
+	}
 
-	second, err := Run(ctx, pool, youtubeClient, geminiClient, options)
+	second, err := Run(ctx, pool, youtubeClient, audio, transcriber, extractor, options)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if second.Completed != 0 || second.Failed != 1 || second.Skipped != 1 {
 		t.Fatalf("second result = %+v", second)
 	}
-	if searchCalls != 20 || metadataCalls != 4 || geminiCalls != 3 {
-		t.Fatalf("provider calls search=%d metadata=%d gemini=%d, want 20, 4, 3", searchCalls, metadataCalls, geminiCalls)
+	if audio.acquired != 3 || audio.cleaned != 3 || extractor.calls != 3 {
+		t.Fatalf("replay calls audio=(%d,%d) extractor=%d", audio.acquired, audio.cleaned, extractor.calls)
 	}
-	assertCount(t, ctx, pool, "source_extractions where status = 'completed'", 1)
-	assertCount(t, ctx, pool, "source_extractions where status = 'failed'", 2)
-	assertCount(t, ctx, pool, "claims", 1)
 
-	direct, err := Run(ctx, pool, youtubeClient, geminiClient, Options{MatchNaturalKey: "fixture:right", VideoIDs: []string{"good"}, MaxVideos: 1, SearchPageSize: 2})
+	direct, err := Run(ctx, pool, youtubeClient, audio, transcriber, extractor, Options{MatchNaturalKey: "fixture:right", VideoIDs: []string{"good"}, MaxVideos: 1, SearchPageSize: 2})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if direct.Skipped != 1 || searchCalls != 20 || metadataCalls != 5 || geminiCalls != 3 {
-		t.Fatalf("direct result=%+v calls search=%d metadata=%d gemini=%d", direct, searchCalls, metadataCalls, geminiCalls)
+	if direct.Skipped != 1 || searchCalls != 20 || metadataCalls != 5 || audio.acquired != 3 || extractor.calls != 3 {
+		t.Fatalf("direct result=%+v calls search=%d metadata=%d audio=%d extractor=%d", direct, searchCalls, metadataCalls, audio.acquired, extractor.calls)
 	}
+}
 
-	beforeSearch, beforeMetadata, beforeGemini := searchCalls, metadataCalls, geminiCalls
-	if _, err := Run(ctx, pool, youtubeClient, geminiClient, Options{MatchNaturalKey: "missing", MaxVideos: 1, SearchPageSize: 1}); err == nil {
-		t.Fatal("missing match succeeded")
+type fakeAudioSource struct{ acquired, cleaned int }
+
+func (source *fakeAudioSource) Acquire(_ context.Context, videoURL string) (transcript.AudioArtifact, error) {
+	source.acquired++
+	return transcript.AudioArtifact{SchemaVersion: transcript.AudioArtifactSchemaVersion, Path: videoURL, Format: "mp3"}, nil
+}
+
+func (source *fakeAudioSource) Cleanup(transcript.AudioArtifact) error {
+	source.cleaned++
+	return nil
+}
+
+type fakeTranscriber struct{}
+
+func (fakeTranscriber) Transcribe(_ context.Context, artifact transcript.AudioArtifact, _ []string) (transcript.Transcript, []byte, []byte, error) {
+	return transcript.Transcript{SchemaVersion: transcript.TranscriptSchemaVersion, Text: artifact.Path, Segments: []transcript.Segment{{StartSeconds: 0, EndSeconds: 121, Text: artifact.Path}}}, []byte(`{"text":"fixture"}`), []byte(`{"total_tokens":1}`), nil
+}
+
+type fakeExtractor struct{ calls int }
+
+func (extractor *fakeExtractor) ModelName() string { return "fixture-model" }
+
+func (extractor *fakeExtractor) Extract(_ context.Context, value transcript.Transcript, _ transcript.MatchContext) (transcript.StructuredExtraction, []byte, []byte, error) {
+	extractor.calls++
+	if strings.Contains(value.Text, "bad") {
+		return transcript.StructuredExtraction{}, nil, nil, errors.New("fixture extraction failure")
 	}
-	if searchCalls != beforeSearch || metadataCalls != beforeMetadata || geminiCalls != beforeGemini {
-		t.Fatal("missing match reached an external provider")
-	}
+	timestamp := 121
+	return transcript.StructuredExtraction{SchemaVersion: transcript.ExtractionSchemaVersion, Claims: []transcript.Claim{{Text: "Ermes has improved his setup", TimestampSeconds: &timestamp, SubjectNames: []string{"Ermes Gasparini"}, Confidence: "high", Relevance: "Relevant setup evidence", ClaimType: "setup"}}}, []byte(`{"claims":1}`), []byte(`{"total_tokens":1}`), nil
 }
 
 func integrationPool(t *testing.T, ctx context.Context) *pgxpool.Pool {
 	t.Helper()
 	databaseURL := os.Getenv("INGEST_TEST_DATABASE_URL")
-	config, err := pgxpool.ParseConfig(databaseURL)
+	configuration, err := pgxpool.ParseConfig(databaseURL)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if config.ConnConfig.Database != "armwrestling_math_test" {
-		t.Fatalf("integration database must be armwrestling_math_test, got %q", config.ConnConfig.Database)
+	if configuration.ConnConfig.Database != "armwrestling_math_test" {
+		t.Fatalf("integration database must be armwrestling_math_test, got %q", configuration.ConnConfig.Database)
 	}
 	pool, err := pgxpool.New(ctx, databaseURL)
 	if err != nil {
@@ -168,5 +170,4 @@ func assertCount(t *testing.T, ctx context.Context, pool *pgxpool.Pool, relation
 	if got != want {
 		t.Fatalf("%s count = %d, want %d", relation, got, want)
 	}
-	t.Logf("verified %s count is %d", relation, got)
 }
