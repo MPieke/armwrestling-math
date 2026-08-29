@@ -132,7 +132,22 @@ Other videos are independent.
 ## Operations
 
 Apply all migrations in lexical order before running an importer command.
-The YouTube command requires:
+The Go command reads configuration from its process environment. It does not
+load `.env`, select a database based on an environment name, or run database
+migrations. Local development may use the repository wrapper, which loads the
+ignored `.env` before executing the same command:
+
+```sh
+cd services/importer
+./scripts/run-ingest-youtube.sh --help
+```
+
+CI, staging, and production should inject the variables through their native
+configuration and secret mechanisms. Every deployment supplies its own
+`DATABASE_URL`; environments use separate databases with the same ordered
+migration set.
+
+Copy `.env.example` to `.env` for local setup. The command requires:
 
 ```text
 DATABASE_URL
@@ -140,6 +155,15 @@ YOUTUBE_API_KEY
 GEMINI_API_KEY
 GEMINI_MODEL
 ```
+
+Optional provider endpoint overrides are also supported:
+
+```text
+YOUTUBE_API_BASE_URL
+GEMINI_API_BASE_URL
+```
+
+The default provider endpoints are used when the optional values are absent.
 
 Example:
 
