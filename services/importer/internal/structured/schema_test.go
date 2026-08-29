@@ -17,6 +17,9 @@ func TestSchemaForAndDecode(t *testing.T) {
 	if schema.Type != "object" || schema.Properties["name"].Type != "string" || len(schema.Required) != 1 {
 		t.Fatalf("schema = %#v", schema)
 	}
+	if schema.AdditionalProperties == nil || *schema.AdditionalProperties {
+		t.Fatalf("schema additionalProperties = %#v, want false", schema.AdditionalProperties)
+	}
 	var decoded fixture
 	if err := Decode([]byte(`{"name":"evidence","count":2}`), &decoded); err != nil {
 		t.Fatal(err)
