@@ -14,10 +14,9 @@ video is downloaded as temporary audio with `yt-dlp`, transcribed through the
 OpenAI file transcription API, and passed as timestamped text to an OpenAI
 structured claim-extraction step.
 
-The transcript is an intermediate artifact by default. The database continues
-to store claims, source metadata, extraction provenance, and audit records; it
-does not permanently store full transcripts unless a later data-policy ticket
-explicitly adds that requirement.
+Transcript persistence and long-term media storage are out of scope. This
+contract concerns the processing architecture and the existing evidence
+persistence boundary only.
 
 ## 1. Current-state architecture
 
@@ -56,7 +55,7 @@ Temporary audio and transcript data are deleted after the video attempt.
 Provider credentials and raw media are never logged.
 ```
 
-The coordinator depends on these provider-neutral ports:
+The Go coordinator depends on these provider-neutral ports:
 
 ```text
 AudioSource
@@ -74,6 +73,34 @@ transcription for `TranscriptionProvider`, and OpenAI structured text
 extraction for `ClaimExtractor`. These concrete providers are selected at the
 composition root. The workflow, validation, persistence, and replay behavior
 must not import provider-specific packages or types.
+
+```text
+Go coordinator
+    |
+    +--> AudioSource interface
+    |       `--> YTDLPAudioSource
+    |              `--> exec.CommandContext("yt-dlp", ...)
+    |
+    +--> TranscriptionProvider interface
+    |       `--> OpenAITranscriptionProvider
+    |              `--> OpenAI HTTP API
+    |
+    `--> ClaimExtractor interface
+            `--> OpenAIClaimExtractor
+                   `--> OpenAI HTTP API
+```
+
+The initial audio adapter executes `yt-dlp` directly without invoking a shell.
+Subprocess arguments are passed as an argument vector, execution is bounded by
+the request context, and stdout/stderr are captured through explicit process
+streams.
+
+The interfaces do not expose subprocess, HTTP, OpenAI, or Python concepts.
+Their request and response structures are versioned, JSON-serializable domain
+types. A future implementation may satisfy the same interface by invoking a
+Python process, calling a Python HTTP/gRPC worker, or using another provider.
+That future replacement changes composition-root wiring and its adapter only;
+the coordinator, retries, validation, and persistence remain unchanged.
 
 Runtime sequence:
 
@@ -102,6 +129,7 @@ values directly. No dotenv loading is added to the Go binary.
 ## 3. Commit-by-commit breakdown
 
 1. `test(MPI-16): define audio acquisition and transcription behavior`
+   - Define versioned, JSON-serializable port types and contract tests.
    - Add tests for deterministic `yt-dlp` invocation, temporary-file cleanup,
      OpenAI multipart transcription requests, timestamped response parsing,
      timeout handling, and provider failure classification.
@@ -109,7 +137,8 @@ values directly. No dotenv loading is added to the Go binary.
 
 2. `feat(MPI-16): add OpenAI transcript pipeline`
    - Add provider-neutral audio, transcription, and claim-extraction ports.
-   - Add `yt-dlp` and OpenAI adapters at the composition root.
+   - Add a direct-exec `yt-dlp` adapter and OpenAI HTTP adapters at the
+     composition root.
    - Replace Gemini video analysis with transcript-based structured extraction.
    - Add bounded timeouts, cancellation, and safe per-video failure auditing.
 
@@ -141,8 +170,10 @@ git diff --quiet -- internal/dbgen
 
 Boundary tests must prove:
 
-- `yt-dlp` receives the expected video URL and writes only within a temporary
-  directory;
+- the coordinator tests use fake interfaces without subprocess or HTTP access;
+- port request and response types round-trip through JSON without loss;
+- `yt-dlp` receives the expected argument vector without shell interpretation
+  and writes only within a temporary directory;
 - temporary audio is removed on success, failure, and cancellation;
 - OpenAI receives an accepted audio format and the configured transcription
   model;
@@ -151,6 +182,16 @@ Boundary tests must prove:
 - one failed video does not affect another video or leave partial evidence;
 - replay skips completed extraction without repeating transcription or claim
   extraction.
+
+The adapter design must also be reviewable against this future substitution:
+
+```text
+Current: Go coordinator -> in-process OpenAI adapter -> OpenAI API
+Future:  Go coordinator -> Python adapter/service  -> processing implementation
+```
+
+No Python runtime, Python service, generic plugin framework, HTTP server, gRPC
+schema, or queue is implemented by this contract.
 
 Manual pilot:
 
