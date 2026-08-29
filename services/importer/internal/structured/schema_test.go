@@ -14,8 +14,11 @@ func TestSchemaForAndDecode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if schema.Type != "object" || schema.Properties["name"].Type != "string" || len(schema.Required) != 1 {
+	if schema.Type != "object" || schema.Properties["name"].Type != "string" || len(schema.Required) != 2 {
 		t.Fatalf("schema = %#v", schema)
+	}
+	if len(schema.Properties["count"].AnyOf) != 2 || schema.Properties["count"].AnyOf[1].Type != "null" {
+		t.Fatalf("nullable count schema = %#v", schema.Properties["count"])
 	}
 	if schema.AdditionalProperties == nil || *schema.AdditionalProperties {
 		t.Fatalf("schema additionalProperties = %#v, want false", schema.AdditionalProperties)
