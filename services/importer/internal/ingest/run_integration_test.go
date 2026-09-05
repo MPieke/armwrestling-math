@@ -4,9 +4,11 @@ package ingest
 
 import (
 	"context"
+	"errors"
 	"os"
 	"testing"
 
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -39,10 +41,38 @@ func integrationPool(t *testing.T) (context.Context, *pgxpool.Pool) {
 
 func resetIntegrationSchema(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {
 	t.Helper()
-	if _, err := pool.Exec(ctx, "truncate claim_subjects, claims, source_extractions, sources, match_competitors, matches, athletes, ingestion_runs restart identity cascade"); err != nil {
+	if _, err := pool.Exec(ctx, "truncate claim_subjects, claims, source_extractions, sources, match_competitors, matches, events, athletes, ingestion_runs restart identity cascade"); err != nil {
 		t.Fatalf("reset database: %v", err)
 	}
 	t.Log("reset dedicated integration schema to a known empty state")
+}
+
+func assertColumnNullable(t *testing.T, ctx context.Context, pool *pgxpool.Pool, table, column, wantNullable string) {
+	t.Helper()
+	var actual string
+	err := pool.QueryRow(ctx, `
+		select is_nullable
+		from information_schema.columns
+		where table_schema = 'public' and table_name = $1 and column_name = $2
+	`, table, column).Scan(&actual)
+	if err != nil {
+		t.Fatalf("read %s.%s: %v", table, column, err)
+	}
+	if actual != wantNullable {
+		t.Errorf("%s.%s is_nullable = %q, want %q", table, column, actual, wantNullable)
+	}
+}
+
+func assertCheckConstraintViolation(t *testing.T, ctx context.Context, pool *pgxpool.Pool, sql string) {
+	t.Helper()
+	_, err := pool.Exec(ctx, sql)
+	if err == nil {
+		t.Fatal("statement succeeded, want a check-constraint violation")
+	}
+	var databaseError *pgconn.PgError
+	if !errors.As(err, &databaseError) || databaseError.Code != "23514" {
+		t.Fatalf("error = %v, want PostgreSQL check-constraint violation (23514)", err)
+	}
 }
 
 func integrationDatabaseURL(t *testing.T) string {
