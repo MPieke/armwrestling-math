@@ -100,6 +100,26 @@ A `lockbox_prospective` protocol may grow only through the explicit
 including scheduled matches, while preserving idempotency. Protocol and fold
 membership remain inspectable through `prediction.report`.
 
+### First real baseline (2026-09-05)
+
+The canonical database's first non-fixture data: 57 completed dyadic matches
+across `east-vs-west-22` through `east-vs-west-25` (4 events, 90 athletes,
+48 with a linked YouTube video), hand-transcribed from armsport.app's
+rendered competition pages — not its API — into
+`data/manual_results/east_vs_west_22_25.csv` and loaded via
+`cmd/load-results`. `east-vs-west-25` (2026-08-01, the most recent event) was
+chosen as `lockbox_retrospective_v1`'s sole event, freezing training data to
+matches strictly before that date; `rolling_origin_v1` was seeded against the
+remaining 3 events with `min_training_events=1` (the smallest value that
+still produces any folds at this data volume).
+
+Run 2 (`elo`, `k_factor=24.0`, git SHA `ae858d6`, promotable): accuracy
+0.828 (Wilson 95% CI [0.655, 0.924], n=29), log-loss 0.701, Brier 0.254.
+The CI is honestly wide — this is a first-pass signal from 2 rolling-origin
+folds, not a stable estimate, and both the lockbox event choice and
+`min_training_events=1` should be revisited once more real events are
+collected.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
