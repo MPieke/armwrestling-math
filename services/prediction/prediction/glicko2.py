@@ -135,6 +135,8 @@ class Glicko2Predictor:
 
 
 class Glicko2Family:
+    representation_kind = "rating"
+
     def hyperparams(self) -> dict:
         return {}
 

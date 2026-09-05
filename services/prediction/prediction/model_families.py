@@ -16,6 +16,7 @@ from prediction import elo
 from prediction.bradley_terry import BradleyTerryFamily
 from prediction.db import CompletedMatch
 from prediction.glicko2 import Glicko2Family
+from prediction.logreg import LogRegFamily
 
 
 class Predictor(Protocol):
@@ -29,6 +30,11 @@ class Predictor(Protocol):
 
 
 class ModelFamily(Protocol):
+    representation_kind: str
+    """Which feature_specs.representation_kind this family can consume --
+    checked via feature_specs.require_compatible before every run, so a
+    schema/model mismatch fails before any database write."""
+
     def fit(self, train_matches: list[CompletedMatch]) -> Predictor: ...
 
     def hyperparams(self) -> dict:
@@ -63,6 +69,8 @@ class EloFamily:
     """Thin adapter: identical behavior to calling elo.fit/elo.predict
     directly, just behind the common interface."""
 
+    representation_kind = "rating"
+
     def __init__(self, k_factor: float = elo.DEFAULT_K_FACTOR):
         self.k_factor = k_factor
 
@@ -79,4 +87,13 @@ MODEL_FAMILIES: dict[str, ModelFamily] = {
     "elo": EloFamily(),
     "glicko2": Glicko2Family(),
     "bradley_terry": BradleyTerryFamily(),
+    "logreg": LogRegFamily(),
 }
+
+try:
+    from prediction.tabpfn_family import TABPFN_AVAILABLE, TabPFNFamily
+
+    if TABPFN_AVAILABLE:
+        MODEL_FAMILIES["tabpfn"] = TabPFNFamily()
+except ImportError:  # pragma: no cover - tabpfn_family itself has no hard import
+    pass

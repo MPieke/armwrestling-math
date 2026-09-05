@@ -49,7 +49,7 @@ def _reset_schema(conn: psycopg.Connection) -> None:
         cursor.execute(
             """
             delete from feature_specs
-            where not (name = 'outcomes_elo' and version = 1)
+            where not ((name, version) in (('outcomes_elo', 1), ('history', 1)))
             """
         )
     conn.commit()

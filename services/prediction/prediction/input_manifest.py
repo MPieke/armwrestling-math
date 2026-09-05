@@ -4,13 +4,15 @@ from __future__ import annotations
 
 from collections import Counter
 import json
-from typing import Iterable
+from typing import Callable, Iterable
 
 import psycopg
 
 from prediction import db
 from prediction.feature_specs import FeatureSchema, canonical_json_sha256
 from prediction.folds import Fold
+
+FoldPayloadBuilder = Callable[[Fold, dict[int, "db.CompletedMatch"]], dict[tuple[int, str], dict]]
 
 
 def outcomes_elo_payload(match: db.CompletedMatch, *, role: str) -> dict:
@@ -27,24 +29,27 @@ def outcomes_elo_payload(match: db.CompletedMatch, *, role: str) -> dict:
     return payload
 
 
+def outcomes_elo_fold_payloads(
+    fold: Fold, matches_by_id: dict[int, db.CompletedMatch]
+) -> dict[tuple[int, str], dict]:
+    payloads: dict[tuple[int, str], dict] = {}
+    for role, match_ids in (("train", fold.train_match_ids), ("test", fold.test_match_ids)):
+        for match_id in match_ids:
+            payloads[(match_id, role)] = outcomes_elo_payload(matches_by_id[match_id], role=role)
+    return payloads
+
+
 def persist_inputs(
     connection: psycopg.Connection,
     run_id: int,
     folds: Iterable[Fold],
     matches_by_id: dict[int, db.CompletedMatch],
+    build_fold_payloads: FoldPayloadBuilder = outcomes_elo_fold_payloads,
 ) -> None:
     rows: list[tuple[int, int, str, dict]] = []
     for fold in folds:
-        for role, match_ids in (("train", fold.train_match_ids), ("test", fold.test_match_ids)):
-            for match_id in match_ids:
-                rows.append(
-                    (
-                        fold.fold_index,
-                        match_id,
-                        role,
-                        outcomes_elo_payload(matches_by_id[match_id], role=role),
-                    )
-                )
+        for (match_id, role), payload in build_fold_payloads(fold, matches_by_id).items():
+            rows.append((fold.fold_index, match_id, role, payload))
 
     with connection.cursor() as cursor:
         for fold_index, match_id, role, payload in rows:
