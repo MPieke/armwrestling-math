@@ -199,6 +199,32 @@ already a no-op-safe optional parameter throughout
 `point_in_time_features.py` and `logreg.py`, so wiring a real source in
 later is additive, not a redesign.
 
+## Paired Comparison And The Lockbox Gate (MPI-27)
+
+`comparison_stats.py` is pure: given two runs' paired predictions on the
+same matches, it reports McNemar's exact (binomial, not the
+continuity-corrected chi-square approximation — the discordant-pair counts
+here are in the dozens, not hundreds) test on accuracy alongside a paired
+bootstrap CI on the log-loss difference. The bootstrap CI is the primary
+verdict (`distinguishable` iff it excludes zero) because it uses the full
+predicted probability, not just the thresholded pick; two runs can tie on
+accuracy while still being reliably distinguishable on calibration, and the
+reverse is also possible. `compare.py` is the thin database-facing wrapper:
+it refuses two runs on different protocols outright, restricts to an
+explicit `match_ids` subset when given one (MPI-28 needs this for
+evidence-covered matches only), and reports the exact evaluated scope so a
+comparison can't be misread as covering a different population than it did.
+
+`evaluate_lockbox.py` treats a lockbox protocol as a scarce,
+non-renewable-within-a-session resource: it refuses outright on a dirty
+working tree (stricter than the ordinary `run_baseline` path, which merely
+records `git_dirty` and lets a human judge later — spending a lockbox
+consultation on an unreproducible run is worse than flagging one after the
+fact), and reports how many times a protocol has already been consulted
+(`count(experiment_runs where protocol_id = ...)`, no new tracking table)
+before and after. `--dry-run` runs every guard and shows what would be
+evaluated without inserting a run or spending a consultation.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
@@ -303,3 +329,5 @@ leak into a dev protocol's training set either.
   Bradley-Terry behind the same interface as Elo.
 - `docs/contracts/MPI-26-point-in-time-feature-models.md` — the inner
   temporal loop, LogReg/TabPFN, and feature-provenance explanation.
+- `docs/contracts/MPI-27-paired-comparison-lockbox-gate.md` — statistically
+  honest comparison and the lockbox consultation gate.

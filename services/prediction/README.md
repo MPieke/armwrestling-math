@@ -40,6 +40,12 @@ uv run python -m prediction.seed_lockbox \
   --event-slug selected-event --dry-run
 uv run python -m prediction.prospective \
   --protocol-name lockbox_prospective_v1 --event-slug future-event --dry-run
+
+uv run python -m prediction.compare --run-a 1 --run-b 2
+uv run python -m prediction.compare --run-a 1 --run-b 2 --match-ids 42,43
+
+uv run python -m prediction.evaluate_lockbox \
+  --protocol-name lockbox_retrospective_v1 --model-family elo --dry-run
 ```
 
 `DATABASE_URL` (not `PREDICTION_TEST_DATABASE_URL`) is required for
