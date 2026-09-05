@@ -51,10 +51,7 @@ func TestEvalFoldsRoundTripsMatchIDArraysIncludingEmpty(t *testing.T) {
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
 
-	var protocolID int64
-	if err := pool.QueryRow(ctx, "insert into eval_protocols (name, kind) values ('dev', 'rolling_origin') returning id").Scan(&protocolID); err != nil {
-		t.Fatalf("insert protocol: %v", err)
-	}
+	protocolID := seedProtocol(t, ctx, pool, "dev", "rolling_origin")
 	if _, err := pool.Exec(ctx, `
 		insert into eval_folds (protocol_id, fold_index, train_match_ids, test_match_ids)
 		values ($1, 0, '{}', '{1,2,3}')`, protocolID); err != nil {
@@ -76,10 +73,7 @@ func TestExperimentRunsSupportIndependentRunsPerProtocolAndParentLineage(t *test
 	ctx, pool := integrationPool(t)
 	resetIntegrationSchema(t, ctx, pool)
 
-	var protocolID int64
-	if err := pool.QueryRow(ctx, "insert into eval_protocols (name, kind) values ('dev', 'rolling_origin') returning id").Scan(&protocolID); err != nil {
-		t.Fatalf("insert protocol: %v", err)
-	}
+	protocolID := seedProtocol(t, ctx, pool, "dev", "rolling_origin")
 
 	var firstRunID int64
 	if err := pool.QueryRow(ctx, `
@@ -165,15 +159,21 @@ func TestDeletingExperimentRunCascadesPredictionsAndModelsOnly(t *testing.T) {
 	assertCount(t, ctx, pool, "eval_protocols", 1)
 }
 
+func seedProtocol(t *testing.T, ctx context.Context, pool *pgxpool.Pool, name, kind string) int64 {
+	t.Helper()
+	var protocolID int64
+	if err := pool.QueryRow(ctx, "insert into eval_protocols (name, kind) values ($1, $2) returning id", name, kind).Scan(&protocolID); err != nil {
+		t.Fatalf("insert protocol: %v", err)
+	}
+	return protocolID
+}
+
 // seedCompletedRunAndFixtureIdentity seeds one protocol, one completed run
 // against it, and returns the run id alongside an existing match/athlete
 // pair from seedExistingMatch for use as a prediction target.
 func seedCompletedRunAndFixtureIdentity(t *testing.T, ctx context.Context, pool *pgxpool.Pool) (runID, matchID, athleteID int64) {
 	t.Helper()
-	var protocolID int64
-	if err := pool.QueryRow(ctx, "insert into eval_protocols (name, kind) values ('dev', 'rolling_origin') returning id").Scan(&protocolID); err != nil {
-		t.Fatalf("insert protocol: %v", err)
-	}
+	protocolID := seedProtocol(t, ctx, pool, "dev", "rolling_origin")
 	if err := pool.QueryRow(ctx, `
 		insert into experiment_runs (git_sha, git_dirty, protocol_id, model_family, seed, status)
 		values ('abc123', false, $1, 'elo', 1, 'completed') returning id`, protocolID).Scan(&runID); err != nil {
