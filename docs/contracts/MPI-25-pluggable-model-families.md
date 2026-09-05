@@ -10,6 +10,8 @@ status: proposed
 Move Elo behind a small model interface without changing its behavior, then
 add Glicko-2 (hand-rolled) and Bradley-Terry (`choix`) behind it. Minimal
 refactor — one interface, three families — not a modeling framework.
+Depends on MPI-30: each family must declare compatible feature
+representation kinds and use its persisted input-provenance boundary.
 
 ## 1. Current-State Architecture
 
@@ -45,6 +47,12 @@ MODEL_FAMILIES: dict[str, ModelFamily] = {
 `run_baseline._fit_predict_and_record` calls `MODEL_FAMILIES[model_family].fit(...)`
 instead of `elo.fit`/`elo.predict` directly. `--model-family` added to the
 CLI (default `elo`, preserving current behavior).
+
+Each family must expose its fitted, inspectable state through `params()` so
+MPI-24's `report --run-id` can show the exact model basis: Elo/Glicko-2
+athlete ratings and uncertainty where applicable, or Bradley-Terry athlete
+strengths. The common report JSON contract applies unchanged; a model family
+must not hide its state behind a family-specific CLI or log line.
 
 ### Glicko-2 (hand-rolled)
 
@@ -113,6 +121,8 @@ before.
   even for a fold with an all-one-sided record
 - each family run twice on the same fold with fresh state produces
   identical output (no hidden cross-fold state)
+- `report --run-id` exposes each family's fitted parameters and identifying
+  hyperparameters with no family-specific database inspection required
 
 ## 4. Commit-by-Commit Breakdown
 
