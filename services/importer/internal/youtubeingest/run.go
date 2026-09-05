@@ -60,14 +60,33 @@ func Run(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtube.Client, 
 	return result, nil
 }
 
+// selectCandidates always includes every explicit VideoID (guaranteed, not
+// merely preferred -- an operator who names a video wants it processed).
+// It also searches for additional candidates whenever there's room left
+// under MaxVideos, so a known "full match" video no longer forecloses
+// discovering separate interview/analysis/breakdown videos about the same
+// match. It skips the search entirely (no YouTube quota spent, no added
+// latency) when the explicit list already fills MaxVideos on its own.
 func selectCandidates(ctx context.Context, youtubeClient youtube.Client, matchContext research.MatchContext, options Options, logger *slog.Logger) ([]research.Candidate, error) {
+	var lists [][]research.Candidate
 	if len(options.VideoIDs) > 0 {
 		explicit := make([]research.Candidate, 0, len(options.VideoIDs))
 		for _, videoID := range options.VideoIDs {
 			explicit = append(explicit, research.Candidate{VideoID: videoID, MatchedQueries: []string{"explicit-video-id"}})
 		}
-		return research.Select([][]research.Candidate{explicit}, options.MaxVideos), nil
+		lists = append(lists, explicit)
 	}
+	if len(options.VideoIDs) < options.MaxVideos {
+		searchLists, err := searchCandidates(ctx, youtubeClient, matchContext, options, logger)
+		if err != nil {
+			return nil, err
+		}
+		lists = append(lists, searchLists...)
+	}
+	return research.Select(lists, options.MaxVideos), nil
+}
+
+func searchCandidates(ctx context.Context, youtubeClient youtube.Client, matchContext research.MatchContext, options Options, logger *slog.Logger) ([][]research.Candidate, error) {
 	queries, err := research.BuildPlan(matchContext)
 	if err != nil {
 		return nil, err
@@ -84,7 +103,7 @@ func selectCandidates(ctx context.Context, youtubeClient youtube.Client, matchCo
 		logger.Info("YouTube search completed", "query", query, "candidates", len(candidates), "duration", time.Since(started))
 		lists = append(lists, candidates)
 	}
-	return research.Select(lists, options.MaxVideos), nil
+	return lists, nil
 }
 
 func ingestCandidate(ctx context.Context, pool *pgxpool.Pool, youtubeClient youtube.Client, audioSource transcript.AudioSource, transcriber transcript.TranscriptionProvider, extractor transcript.ClaimExtractor, matchContext research.MatchContext, candidate research.Candidate, options Options, logger *slog.Logger, result *Result) error {
