@@ -31,6 +31,21 @@ type Claim struct {
 	SourceExtractionID pgtype.Int8
 }
 
+type ClaimAnnotation struct {
+	ID               int64
+	ClaimID          int64
+	Model            string
+	PromptVersion    string
+	ClaimType        string
+	Concepts         []string
+	SubjectAthleteID pgtype.Int8
+	Arm              pgtype.Text
+	Temporality      string
+	Certainty        string
+	RawPayload       []byte
+	CreatedAt        pgtype.Timestamptz
+}
+
 type ClaimSubject struct {
 	ClaimID   int64
 	AthleteID int64
