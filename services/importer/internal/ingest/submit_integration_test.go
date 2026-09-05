@@ -90,11 +90,12 @@ func seedExistingMatch(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {
 			values ('fixture-event', 'Fixture Promoter', 'Fixture Event', '2026-06-15')
 			returning id
 		), matchup as (
-			insert into matches (natural_key, label, arm, scheduled_at, event_id, status)
+			insert into matches (natural_key, label, arm, weight_class, scheduled_at, event_id, status)
 			select
 				'2026-06:artyom-morozov:ermes-gasparini:right',
 				'Ermes Gasparini vs Artyom Morozov',
 				'right',
+				'105 kg',
 				'2026-06-15T18:30:00Z',
 				event.id,
 				'scheduled'

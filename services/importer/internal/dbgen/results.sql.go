@@ -104,12 +104,28 @@ func (q *Queries) UpsertMatchCompetitorOutcome(ctx context.Context, arg UpsertMa
 	return err
 }
 
+const upsertMatchVideo = `-- name: UpsertMatchVideo :exec
+insert into match_videos (match_id, youtube_video_id)
+values ($1, $2)
+on conflict (match_id, youtube_video_id) do nothing
+`
+
+type UpsertMatchVideoParams struct {
+	MatchID        int64
+	YoutubeVideoID string
+}
+
+func (q *Queries) UpsertMatchVideo(ctx context.Context, arg UpsertMatchVideoParams) error {
+	_, err := q.db.Exec(ctx, upsertMatchVideo, arg.MatchID, arg.YoutubeVideoID)
+	return err
+}
+
 const upsertResultMatch = `-- name: UpsertResultMatch :one
-insert into matches (natural_key, label, arm, scheduled_at, event_id, status)
-values ($1, $2, $3, $4, $5, $6)
+insert into matches (natural_key, label, arm, weight_class, scheduled_at, event_id, status)
+values ($1, $2, $3, $4, $5, $6, $7)
 on conflict (natural_key) do update
-set label = excluded.label, arm = excluded.arm, scheduled_at = excluded.scheduled_at,
-    event_id = excluded.event_id, status = excluded.status
+set label = excluded.label, arm = excluded.arm, weight_class = excluded.weight_class,
+    scheduled_at = excluded.scheduled_at, event_id = excluded.event_id, status = excluded.status
 returning id
 `
 
@@ -117,6 +133,7 @@ type UpsertResultMatchParams struct {
 	NaturalKey  string
 	Label       pgtype.Text
 	Arm         string
+	WeightClass string
 	ScheduledAt pgtype.Timestamptz
 	EventID     int64
 	Status      string
@@ -127,6 +144,7 @@ func (q *Queries) UpsertResultMatch(ctx context.Context, arg UpsertResultMatchPa
 		arg.NaturalKey,
 		arg.Label,
 		arg.Arm,
+		arg.WeightClass,
 		arg.ScheduledAt,
 		arg.EventID,
 		arg.Status,

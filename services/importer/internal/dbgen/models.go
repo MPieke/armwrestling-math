@@ -96,6 +96,7 @@ type Match struct {
 	CreatedAt   pgtype.Timestamptz
 	EventID     int64
 	Status      string
+	WeightClass string
 }
 
 type MatchCompetitor struct {
@@ -103,6 +104,11 @@ type MatchCompetitor struct {
 	AthleteID int64
 	Score     pgtype.Int4
 	Result    pgtype.Text
+}
+
+type MatchVideo struct {
+	MatchID        int64
+	YoutubeVideoID string
 }
 
 type RunModel struct {
@@ -148,6 +154,7 @@ type VCompletedMatch struct {
 	EventID     int64
 	ScheduledAt pgtype.Timestamptz
 	Arm         string
+	WeightClass string
 	AthleteAID  int64
 	AthleteBID  int64
 	ResultA     pgtype.Text

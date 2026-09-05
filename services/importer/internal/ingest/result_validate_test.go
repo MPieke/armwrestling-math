@@ -16,6 +16,7 @@ func validResult() ResultSubmission {
 			HeldOn: time.Date(2026, time.August, 1, 0, 0, 0, 0, time.UTC),
 		},
 		Arm:         "right",
+		WeightClass: "105 kg",
 		ScheduledAt: time.Date(2026, time.August, 1, 18, 0, 0, 0, time.UTC),
 		Status:      "completed",
 		Competitors: []CompetitorResultInput{

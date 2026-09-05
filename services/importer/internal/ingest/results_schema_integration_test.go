@@ -67,8 +67,8 @@ func TestMatchStatusConstraintRejectsUnrecognizedValue(t *testing.T) {
 
 	assertCheckConstraintViolation(t, ctx, pool, `
 		with e as (insert into events (slug, promoter, name, held_on) values ('e', 'p', 'n', '2026-01-01') returning id)
-		insert into matches (natural_key, arm, scheduled_at, event_id, status)
-		select 'k', 'right', now(), e.id, 'not-a-status' from e
+		insert into matches (natural_key, arm, weight_class, scheduled_at, event_id, status)
+		select 'k', 'right', '105 kg', now(), e.id, 'not-a-status' from e
 	`)
 }
 
