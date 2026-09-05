@@ -142,3 +142,13 @@ type SourceExtraction struct {
 	ErrorMessage  pgtype.Text
 	CreatedAt     pgtype.Timestamptz
 }
+
+type VCompletedMatch struct {
+	MatchID     int64
+	EventID     int64
+	ScheduledAt pgtype.Timestamptz
+	Arm         string
+	AthleteAID  int64
+	AthleteBID  int64
+	ResultA     pgtype.Text
+}
