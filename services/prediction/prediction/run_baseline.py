@@ -16,6 +16,7 @@ from pathlib import Path
 import psycopg
 
 from prediction import db, elo, input_manifest
+from prediction.feature_specs import require_compatible
 from prediction.folds import Fold, generate_rolling_origin
 from prediction.metrics import ScoredPrediction, compute_metrics
 
@@ -106,9 +107,10 @@ def run_baseline(
 ) -> int:
     git_sha, git_dirty = get_git_info(repo_root)
     schema_name, schema_version = feature_schema.rsplit("_v", maxsplit=1)
-    feature_spec_id = input_manifest.get_feature_spec_id(
+    feature_spec_id, schema = input_manifest.get_feature_spec(
         connection, schema_name, int(schema_version)
     )
+    require_compatible(schema, {"rating"})
     hyperparams = {"k_factor": k_factor}
 
     with connection.cursor() as cursor:

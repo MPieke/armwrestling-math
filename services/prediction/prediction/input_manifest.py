@@ -9,7 +9,7 @@ from typing import Iterable
 import psycopg
 
 from prediction import db
-from prediction.feature_specs import canonical_json_sha256
+from prediction.feature_specs import FeatureSchema, canonical_json_sha256
 from prediction.folds import Fold
 
 
@@ -92,12 +92,21 @@ def persist_inputs(
         )
 
 
-def get_feature_spec_id(connection: psycopg.Connection, name: str, version: int) -> int:
+def get_feature_spec(
+    connection: psycopg.Connection, name: str, version: int
+) -> tuple[int, FeatureSchema]:
     with connection.cursor() as cursor:
         cursor.execute(
-            "select id from feature_specs where name = %s and version = %s", (name, version)
+            """
+            select id, name, version, representation_kind, definition
+            from feature_specs
+            where name = %s and version = %s
+            """,
+            (name, version),
         )
         row = cursor.fetchone()
     if row is None:
         raise ValueError(f"unknown feature schema {name}_v{version}")
-    return row[0]
+    return row[0], FeatureSchema(
+        name=row[1], version=row[2], representation_kind=row[3], definition=row[4]
+    )
