@@ -31,6 +31,18 @@ func main() {
 	os.Exit(run())
 }
 
+// transcriptionProvider selects OpenAI's API or a self-hosted whisper.cpp
+// server per TRANSCRIPTION_PROVIDER: the choice that lets local dev run
+// against a fast, free, Metal-accelerated native whisper-server while CI
+// runs the portable Docker image, without either environment needing a
+// different code path.
+func transcriptionProvider(httpClient *http.Client, configuration config.Config) transcript.TranscriptionProvider {
+	if configuration.TranscriptionProvider == config.TranscriptionProviderWhisper {
+		return transcript.WhisperCPPTranscriber{HTTPClient: httpClient, BaseURL: configuration.WhisperServerBaseURL}
+	}
+	return transcript.OpenAITranscriber{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAITranscriptionModel}
+}
+
 func run() int {
 	var videoIDs repeatedStrings
 	matchNaturalKey := flag.String("match-natural-key", "", "existing match natural key")
@@ -66,7 +78,7 @@ func run() int {
 	result, err := youtubeingest.Run(ctx, pool,
 		youtube.Client{HTTPClient: httpClient, BaseURL: configuration.YouTubeAPIBaseURL, APIKey: configuration.YouTubeAPIKey},
 		transcript.YTDLPAudioSource{Command: os.Getenv("YTDLP_COMMAND")},
-		transcript.OpenAITranscriber{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAITranscriptionModel},
+		transcriptionProvider(httpClient, configuration),
 		transcript.OpenAIClaimExtractor{HTTPClient: httpClient, BaseURL: configuration.OpenAIAPIBaseURL, APIKey: configuration.OpenAIAPIKey, Model: configuration.OpenAIExtractionModel},
 		youtubeingest.Options{MatchNaturalKey: *matchNaturalKey, VideoIDs: videoIDs, MaxVideos: *maxVideos, SearchPageSize: *searchPageSize, AudioTimeout: configuration.AudioTimeout, Logger: logger},
 	)

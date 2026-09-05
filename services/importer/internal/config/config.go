@@ -8,10 +8,13 @@ import (
 )
 
 const (
-	defaultYouTubeAPIBaseURL = "https://www.googleapis.com"
-	defaultOpenAIAPIBaseURL  = "https://api.openai.com"
-	defaultHTTPTimeout       = 60 * time.Second
-	defaultAudioTimeout      = 15 * time.Minute
+	defaultYouTubeAPIBaseURL     = "https://www.googleapis.com"
+	defaultOpenAIAPIBaseURL      = "https://api.openai.com"
+	defaultWhisperServerBaseURL  = "http://127.0.0.1:8080"
+	defaultHTTPTimeout           = 60 * time.Second
+	defaultAudioTimeout          = 15 * time.Minute
+	TranscriptionProviderOpenAI  = "openai"
+	TranscriptionProviderWhisper = "whisper_cpp"
 )
 
 // Config contains only values needed to construct the YouTube ingestion
@@ -25,6 +28,8 @@ type Config struct {
 	OpenAIAPIBaseURL         string
 	OpenAITranscriptionModel string
 	OpenAIExtractionModel    string
+	TranscriptionProvider    string
+	WhisperServerBaseURL     string
 	HTTPTimeout              time.Duration
 	AudioTimeout             time.Duration
 	LogFormat                string
@@ -62,6 +67,17 @@ func Load(getenv func(string) string) (Config, error) {
 	}
 	if configuration.OpenAITranscriptionModel == "" {
 		configuration.OpenAITranscriptionModel = "whisper-1"
+	}
+	configuration.TranscriptionProvider = getenv("TRANSCRIPTION_PROVIDER")
+	if configuration.TranscriptionProvider == "" {
+		configuration.TranscriptionProvider = TranscriptionProviderOpenAI
+	}
+	if configuration.TranscriptionProvider != TranscriptionProviderOpenAI && configuration.TranscriptionProvider != TranscriptionProviderWhisper {
+		return Config{}, fmt.Errorf("TRANSCRIPTION_PROVIDER must be %q or %q, got %q", TranscriptionProviderOpenAI, TranscriptionProviderWhisper, configuration.TranscriptionProvider)
+	}
+	configuration.WhisperServerBaseURL = getenv("WHISPER_SERVER_BASE_URL")
+	if configuration.WhisperServerBaseURL == "" {
+		configuration.WhisperServerBaseURL = defaultWhisperServerBaseURL
 	}
 	configuration.HTTPTimeout = defaultHTTPTimeout
 	if value := getenv("INGEST_HTTP_TIMEOUT"); value != "" {
