@@ -67,7 +67,7 @@ func (extractor OpenAIClaimExtractor) Extract(ctx context.Context, value Transcr
 	}
 	response, err := client.Do(request)
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, fmt.Errorf("OpenAI extraction request failed: %s", redact(err, extractor.APIKey))
+		return StructuredExtraction{}, nil, nil, fmt.Errorf("OpenAI extraction request failed: %s", Redact(err, extractor.APIKey))
 	}
 	defer response.Body.Close()
 	raw, err := io.ReadAll(response.Body)
