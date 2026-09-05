@@ -4,7 +4,11 @@
 
 Read the relevant document under [`docs/architecture/`](architecture/) before
 changing a documented subsystem. The current ingestion architecture is defined
-in [`docs/architecture/ingestion.md`](architecture/ingestion.md).
+in [`docs/architecture/ingestion.md`](architecture/ingestion.md); the
+prediction track (experiment ledger, evaluation protocols, rating/model
+computation) is defined separately in
+[`docs/architecture/prediction.md`](architecture/prediction.md), since it is
+a distinct concern from ingestion that happens to share the same database.
 
 Update the relevant architecture document in the same change when an approved
 implementation changes a system boundary, ownership model, data flow,
