@@ -40,27 +40,15 @@ func Submit(ctx context.Context, databasePool *pgxpool.Pool, submission Evidence
 		return Result{}, err
 	}
 
-	runID, err := databaseQueries.CreateIngestionRun(ctx, submission.BatchKey)
-	if err != nil {
-		return Result{}, fmt.Errorf("create ingestion run: %w", err)
-	}
-	result = Result{RunID: runID, Sources: len(submission.Sources), Claims: len(submission.Claims)}
-	transaction, err := databasePool.Begin(ctx)
-	if err != nil {
-		return result, failRun(ctx, databaseQueries, runID, err)
-	}
-	defer func() { _ = transaction.Rollback(ctx) }()
-	transactionQueries := databaseQueries.WithTx(transaction)
-	if err := submitEvidence(ctx, transactionQueries, match.ID, competitorIDs, submission); err != nil {
-		return result, failRun(ctx, databaseQueries, runID, err)
-	}
-	if err := transactionQueries.CompleteIngestionRun(ctx, dbgen.CompleteIngestionRunParams{ID: runID, Summary: evidenceSummary(result)}); err != nil {
-		return result, failRun(ctx, databaseQueries, runID, err)
-	}
-	if err := transaction.Commit(ctx); err != nil {
-		return result, failRun(ctx, databaseQueries, runID, err)
-	}
-	return result, nil
+	result = Result{Sources: len(submission.Sources), Claims: len(submission.Claims)}
+	runID, err := runIngestion(ctx, databasePool, submission.BatchKey, func(transactionQueries *dbgen.Queries) ([]byte, error) {
+		if err := submitEvidence(ctx, transactionQueries, match.ID, competitorIDs, submission); err != nil {
+			return nil, err
+		}
+		return evidenceSummary(result), nil
+	})
+	result.RunID = runID
+	return result, err
 }
 
 func ValidateEvidence(submission EvidenceSubmission) error {

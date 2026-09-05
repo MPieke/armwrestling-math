@@ -52,16 +52,16 @@ func ValidateResult(submission ResultSubmission) error {
 
 func validateCompetitors(submission ResultSubmission) []string {
 	problems := make([]string, 0)
-	names := make(map[string]struct{}, len(submission.Competitors))
+	names := make(map[string]bool, len(submission.Competitors))
 	winners := 0
 	for index, competitor := range submission.Competitors {
 		switch {
 		case competitor.AthleteName == "":
 			problems = append(problems, fmt.Sprintf("competitor %d requires a name", index))
-		case has(names, competitor.AthleteName):
+		case names[competitor.AthleteName]:
 			problems = append(problems, "duplicate competitor name: "+competitor.AthleteName)
 		}
-		names[competitor.AthleteName] = struct{}{}
+		names[competitor.AthleteName] = true
 
 		if !recognizedCompetitorResults[competitor.Result] {
 			problems = append(problems, fmt.Sprintf("competitor %d has an unrecognized result: %s", index, competitor.Result))
@@ -77,11 +77,6 @@ func validateCompetitors(submission ResultSubmission) []string {
 		problems = append(problems, fmt.Sprintf("a completed match requires exactly one winner, got %d", winners))
 	}
 	return problems
-}
-
-func has(set map[string]struct{}, key string) bool {
-	_, exists := set[key]
-	return exists
 }
 
 var nonAlphanumericRun = regexp.MustCompile(`[^a-z0-9]+`)

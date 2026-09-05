@@ -25,30 +25,14 @@ func SubmitResult(ctx context.Context, databasePool *pgxpool.Pool, submission Re
 	if err := ValidateResult(submission); err != nil {
 		return ResultOutcome{}, err
 	}
-	databaseQueries := dbgen.New(databasePool)
-
-	runID, err := databaseQueries.CreateIngestionRun(ctx, submission.BatchKey)
-	if err != nil {
-		return ResultOutcome{}, fmt.Errorf("create ingestion run: %w", err)
-	}
-	outcome = ResultOutcome{RunID: runID}
-	transaction, err := databasePool.Begin(ctx)
-	if err != nil {
-		return outcome, failRun(ctx, databaseQueries, runID, err)
-	}
-	defer func() { _ = transaction.Rollback(ctx) }()
-	transactionQueries := databaseQueries.WithTx(transaction)
-
-	if err := submitResult(ctx, transactionQueries, submission, &outcome); err != nil {
-		return outcome, failRun(ctx, databaseQueries, runID, err)
-	}
-	if err := transactionQueries.CompleteIngestionRun(ctx, dbgen.CompleteIngestionRunParams{ID: runID, Summary: resultSummary(outcome)}); err != nil {
-		return outcome, failRun(ctx, databaseQueries, runID, err)
-	}
-	if err := transaction.Commit(ctx); err != nil {
-		return outcome, failRun(ctx, databaseQueries, runID, err)
-	}
-	return outcome, nil
+	runID, err := runIngestion(ctx, databasePool, submission.BatchKey, func(transactionQueries *dbgen.Queries) ([]byte, error) {
+		if err := submitResult(ctx, transactionQueries, submission, &outcome); err != nil {
+			return nil, err
+		}
+		return resultSummary(outcome), nil
+	})
+	outcome.RunID = runID
+	return outcome, err
 }
 
 func submitResult(ctx context.Context, queries *dbgen.Queries, submission ResultSubmission, outcome *ResultOutcome) error {
