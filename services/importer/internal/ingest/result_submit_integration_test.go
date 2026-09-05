@@ -17,8 +17,10 @@ func resultFixture() ResultSubmission {
 			HeldOn: time.Date(2026, time.August, 1, 0, 0, 0, 0, time.UTC),
 		},
 		Arm:         "right",
+		WeightClass: "105 kg",
 		ScheduledAt: time.Date(2026, time.August, 1, 18, 0, 0, 0, time.UTC),
 		Status:      "completed",
+		VideoIDs:    []string{"video-1", "video-2"},
 		Competitors: []CompetitorResultInput{
 			{AthleteName: "Adam Wawrzynski", Score: score(3), Result: "win"},
 			{AthleteName: "Nurdaulet Aidarkhan", Score: score(2), Result: "loss"},
@@ -35,15 +37,19 @@ func TestSubmitResultCreatesEventMatchAndCompetitorOutcomes(t *testing.T) {
 		t.Fatalf("SubmitResult() error = %v", err)
 	}
 
-	var status, eventSlug string
+	var status, eventSlug, weightClass string
 	if err := pool.QueryRow(ctx, `
-		select m.status, e.slug from matches m join events e on e.id = m.event_id
-	`).Scan(&status, &eventSlug); err != nil {
+		select m.status, e.slug, m.weight_class from matches m join events e on e.id = m.event_id
+	`).Scan(&status, &eventSlug, &weightClass); err != nil {
 		t.Fatalf("read match/event: %v", err)
 	}
 	if status != "completed" || eventSlug != submission.Event.Slug {
 		t.Errorf("status=%q eventSlug=%q, want completed/%q", status, eventSlug, submission.Event.Slug)
 	}
+	if weightClass != submission.WeightClass {
+		t.Errorf("weightClass=%q, want %q", weightClass, submission.WeightClass)
+	}
+	assertCount(t, ctx, pool, "match_videos", 2)
 
 	rows, err := pool.Query(ctx, `
 		select a.canonical_name, mc.score, mc.result

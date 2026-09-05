@@ -18,8 +18,9 @@ func TestEventAndOutcomeSchema(t *testing.T) {
 	}
 
 	expectedMatchColumns := map[string]string{
-		"event_id": "NO",
-		"status":   "NO",
+		"event_id":     "NO",
+		"status":       "NO",
+		"weight_class": "NO",
 	}
 	for column, nullable := range expectedMatchColumns {
 		assertColumnNullable(t, ctx, pool, "matches", column, nullable)
@@ -32,6 +33,31 @@ func TestEventAndOutcomeSchema(t *testing.T) {
 	}
 	for column, nullable := range expectedCompetitorColumns {
 		assertColumnNullable(t, ctx, pool, "match_competitors", column, nullable)
+	}
+}
+
+func TestMatchVideosSchemaUsesMatchAndVideoAsItsPrimaryKey(t *testing.T) {
+	ctx, pool := integrationPool(t)
+	resetIntegrationSchema(t, ctx, pool)
+
+	var exists bool
+	if err := pool.QueryRow(ctx, "select to_regclass('public.match_videos') is not null").Scan(&exists); err != nil {
+		t.Fatalf("check match_videos relation: %v", err)
+	}
+	if !exists {
+		t.Fatal("match_videos table does not exist")
+	}
+
+	seedExistingMatch(t, ctx, pool)
+	var matchID int64
+	if err := pool.QueryRow(ctx, "select id from matches limit 1").Scan(&matchID); err != nil {
+		t.Fatalf("read seeded match id: %v", err)
+	}
+	if _, err := pool.Exec(ctx, "insert into match_videos (match_id, youtube_video_id) values ($1, 'video-1')", matchID); err != nil {
+		t.Fatalf("insert match video: %v", err)
+	}
+	if _, err := pool.Exec(ctx, "insert into match_videos (match_id, youtube_video_id) values ($1, 'video-1')", matchID); err == nil {
+		t.Fatal("duplicate match video succeeded, want primary-key violation")
 	}
 }
 
