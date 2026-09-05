@@ -10,6 +10,16 @@ select count(*)
 from matches
 where natural_key = $1 or natural_key like $2;
 
+-- name: FindMatchNaturalKeyByBaseAndScheduledAt :one
+-- A rematch (same pair, arm, event) is a different real-world match; a
+-- replay of the same submission is not. scheduled_at disambiguates them:
+-- an identical timestamp under the same base key is treated as the same
+-- match being resubmitted, reusing its exact natural key so the later
+-- upsert updates in place instead of minting a new sequence-suffixed one.
+select natural_key
+from matches
+where (natural_key = $1 or natural_key like $2) and scheduled_at = $3;
+
 -- name: UpsertResultMatch :one
 insert into matches (natural_key, label, arm, scheduled_at, event_id, status)
 values ($1, $2, $3, $4, $5, $6)

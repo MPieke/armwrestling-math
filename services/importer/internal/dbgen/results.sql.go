@@ -29,6 +29,30 @@ func (q *Queries) CountMatchesWithNaturalKeyPrefix(ctx context.Context, arg Coun
 	return count, err
 }
 
+const findMatchNaturalKeyByBaseAndScheduledAt = `-- name: FindMatchNaturalKeyByBaseAndScheduledAt :one
+select natural_key
+from matches
+where (natural_key = $1 or natural_key like $2) and scheduled_at = $3
+`
+
+type FindMatchNaturalKeyByBaseAndScheduledAtParams struct {
+	NaturalKey   string
+	NaturalKey_2 string
+	ScheduledAt  pgtype.Timestamptz
+}
+
+// A rematch (same pair, arm, event) is a different real-world match; a
+// replay of the same submission is not. scheduled_at disambiguates them:
+// an identical timestamp under the same base key is treated as the same
+// match being resubmitted, reusing its exact natural key so the later
+// upsert updates in place instead of minting a new sequence-suffixed one.
+func (q *Queries) FindMatchNaturalKeyByBaseAndScheduledAt(ctx context.Context, arg FindMatchNaturalKeyByBaseAndScheduledAtParams) (string, error) {
+	row := q.db.QueryRow(ctx, findMatchNaturalKeyByBaseAndScheduledAt, arg.NaturalKey, arg.NaturalKey_2, arg.ScheduledAt)
+	var natural_key string
+	err := row.Scan(&natural_key)
+	return natural_key, err
+}
+
 const upsertEvent = `-- name: UpsertEvent :one
 insert into events (slug, promoter, name, held_on)
 values ($1, $2, $3, $4)

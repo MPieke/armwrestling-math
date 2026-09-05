@@ -45,3 +45,4 @@ func timeValue(value *time.Time) pgtype.Timestamptz {
 	}
 	return pgtype.Timestamptz{}
 }
+func dateValue(value time.Time) pgtype.Date { return pgtype.Date{Time: value, Valid: true} }
