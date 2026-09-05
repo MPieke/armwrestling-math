@@ -36,6 +36,15 @@ type ClaimSubject struct {
 	AthleteID int64
 }
 
+type Event struct {
+	ID        int64
+	Slug      string
+	Promoter  string
+	Name      string
+	HeldOn    pgtype.Date
+	CreatedAt pgtype.Timestamptz
+}
+
 type IngestionRun struct {
 	ID           int64
 	BatchKey     string
@@ -53,11 +62,15 @@ type Match struct {
 	Arm         string
 	ScheduledAt pgtype.Timestamptz
 	CreatedAt   pgtype.Timestamptz
+	EventID     int64
+	Status      string
 }
 
 type MatchCompetitor struct {
 	MatchID   int64
 	AthleteID int64
+	Score     pgtype.Int4
+	Result    pgtype.Text
 }
 
 type Source struct {
