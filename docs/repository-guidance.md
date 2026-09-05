@@ -70,6 +70,21 @@ docs/contracts/MPI-14-generic-ingestion-test-expansion.md
 Keep the `linear_issue: <CODE>` frontmatter field. The filename, heading, and
 frontmatter must all use the same ticket identifier.
 
+A meta-contract — one that sequences several already-written contracts
+(dependency order, gate conditions, parallelism) rather than implementing a
+ticket itself — lives in `docs/meta-contracts/` instead, named after every
+ticket code it spans, with a `linear_issues: [<CODE>, ...]` frontmatter list
+rather than a single `linear_issue`. It does not replace or duplicate the
+verification detail already in the contracts it sequences.
+
+## Contract Precision
+
+A contract is read by someone without full context of the discussion that
+produced it. Every claim about scope or a boundary — "read-only," "owns X,"
+"cannot modify Y" — must name exactly what it covers: the specific tables,
+files, or paths, not left to be inferred from prior discussion or another
+document.
+
 ## Testing Standards
 
 Tests must prove meaningful behavior, invariants, or failure handling. A
@@ -186,3 +201,28 @@ Add concise comments for non-obvious decisions or boundaries, including
 resource ownership, transaction or lifecycle behavior, ordered workflows, and
 unusual control flow. Do not comment code whose purpose is already clear from
 its names and structure.
+
+## Function And Module Design
+
+Each function does one thing. When a function does several, extract named
+helpers so each piece is independently readable and testable on its own —
+prefer three small functions a reader can verify at a glance over one that
+requires holding the whole sequence in their head.
+
+Prefer pure functions with explicit inputs and outputs for domain logic
+(validation rules, rating math, scoring, mapping) over hidden state or side
+effects. Push I/O (database, network, filesystem, subprocess) to the edges of
+a component and keep the logic between those edges plain and directly unit
+testable without a real database or provider. `services/importer`'s
+`internal/youtube` (no PostgreSQL dependency) and `services/prediction`'s
+`elo.py` (pure `fit`/`predict`, no database dependency) are the existing
+examples of this shape.
+
+Do not duplicate logic across call sites. Extract a shared, named helper in
+the layer that already owns the concept rather than repeating it inline or
+introducing a near-duplicate elsewhere.
+
+This is the writing-time version of the bar the
+`thermo-nuclear-code-quality-review` skill enforces on review — treat that
+skill's criteria as the detailed standard this section summarizes, not a
+separate one.
