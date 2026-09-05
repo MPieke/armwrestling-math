@@ -19,6 +19,7 @@ from prediction import db, elo, input_manifest
 from prediction.feature_specs import require_compatible
 from prediction.folds import Fold, generate_rolling_origin
 from prediction.metrics import ScoredPrediction, compute_metrics
+from prediction.model_families import MODEL_FAMILIES, EloFamily, ModelFamily
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parents[3]
 
@@ -120,7 +121,8 @@ def run_baseline(
         connection, schema_name, int(schema_version)
     )
     require_compatible(schema, {"rating"})
-    hyperparams = {"k_factor": k_factor}
+    family = _resolve_model_family(model_family, k_factor)
+    hyperparams = family.hyperparams()
 
     with connection.cursor() as cursor:
         cursor.execute(
@@ -146,11 +148,11 @@ def run_baseline(
         folds = _load_folds(connection, protocol_id)
         matches_by_id = {match.match_id: match for match in db.list_completed_matches(connection)}
         input_manifest.persist_inputs(connection, run_id, folds, matches_by_id)
-        scored, final_ratings = _fit_predict_and_record(
-            connection, run_id, folds, matches_by_id, k_factor
+        scored, final_params = _fit_predict_and_record(
+            connection, run_id, folds, matches_by_id, family
         )
         metrics = compute_metrics(scored)
-        _complete_run(connection, run_id, metrics, final_ratings)
+        _complete_run(connection, run_id, metrics, final_params)
         connection.commit()
     except Exception as error:
         connection.rollback()
@@ -175,35 +177,38 @@ def _load_folds(connection: psycopg.Connection, protocol_id: int) -> list[Fold]:
         ]
 
 
+def _resolve_model_family(model_family: str, k_factor: float) -> ModelFamily:
+    """Elo's k_factor stays CLI-tunable, so it gets a fresh instance per
+    call rather than the registry's fixed default. Other families have no
+    run-to-run tunable hyperparameter yet, so the shared registry instance
+    is used directly."""
+    if model_family == "elo":
+        return EloFamily(k_factor=k_factor)
+    if model_family not in MODEL_FAMILIES:
+        raise ValueError(f"unknown model family {model_family!r}")
+    return MODEL_FAMILIES[model_family]
+
+
 def _fit_predict_and_record(
     connection: psycopg.Connection,
     run_id: int,
     folds: list[Fold],
     matches_by_id: dict[int, db.CompletedMatch],
-    k_factor: float,
-) -> tuple[list[ScoredPrediction], dict[int, float]]:
+    family: ModelFamily,
+) -> tuple[list[ScoredPrediction], dict]:
     scored: list[ScoredPrediction] = []
-    ratings: dict[int, float] = {}
+    params: dict = {}
     for fold in folds:
-        train_matches = [_to_match_result(matches_by_id[mid]) for mid in fold.train_match_ids]
-        ratings = elo.fit(train_matches, k_factor=k_factor)
+        train_matches = [matches_by_id[mid] for mid in fold.train_match_ids]
+        predictor = family.fit(train_matches)
+        params = predictor.params()
         for match_id in fold.test_match_ids:
             match = matches_by_id[match_id]
-            rating_a = ratings.get(match.athlete_a_id, elo.DEFAULT_RATING)
-            rating_b = ratings.get(match.athlete_b_id, elo.DEFAULT_RATING)
-            p_win_a = elo.predict(rating_a, rating_b)
+            p_win_a = predictor.predict(match)
             _record_prediction(connection, run_id, match_id, match.athlete_a_id, p_win_a)
             _record_prediction(connection, run_id, match_id, match.athlete_b_id, 1.0 - p_win_a)
             scored.append(ScoredPrediction(p_win_a=p_win_a, athlete_a_won=match.result_a == "win"))
-    return scored, ratings
-
-
-def _to_match_result(match: db.CompletedMatch) -> elo.MatchResult:
-    return elo.MatchResult(
-        athlete_a_id=match.athlete_a_id,
-        athlete_b_id=match.athlete_b_id,
-        athlete_a_won=match.result_a == "win",
-    )
+    return scored, params
 
 
 def _record_prediction(
@@ -216,9 +221,7 @@ def _record_prediction(
         )
 
 
-def _complete_run(
-    connection: psycopg.Connection, run_id: int, metrics: dict, ratings: dict[int, float]
-) -> None:
+def _complete_run(connection: psycopg.Connection, run_id: int, metrics: dict, params: dict) -> None:
     with connection.cursor() as cursor:
         cursor.execute(
             "update experiment_runs set status = 'completed', finished_at = now(), metrics = %s where id = %s",
@@ -226,10 +229,7 @@ def _complete_run(
         )
         cursor.execute(
             "insert into run_models (run_id, params) values (%s, %s)",
-            (
-                run_id,
-                json.dumps({str(athlete_id): rating for athlete_id, rating in ratings.items()}),
-            ),
+            (run_id, json.dumps(params)),
         )
 
 
@@ -247,6 +247,7 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("--protocol-name", required=True)
     parser.add_argument("--min-training-events", type=int, required=True)
+    parser.add_argument("--model-family", choices=sorted(MODEL_FAMILIES), default="elo")
     parser.add_argument("--k-factor", type=float, default=elo.DEFAULT_K_FACTOR)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--feature-schema", default="outcomes_elo_v1")
@@ -260,6 +261,7 @@ def main(argv: list[str] | None = None) -> None:
         run_id = run_baseline(
             connection,
             protocol_id,
+            model_family=args.model_family,
             k_factor=args.k_factor,
             seed=args.seed,
             feature_schema=args.feature_schema,
