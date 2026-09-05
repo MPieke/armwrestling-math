@@ -84,6 +84,46 @@ func TestRunEndToEndWithFakeProvidersAndPostgreSQL(t *testing.T) {
 	}
 }
 
+// TestRunSearchesForAdditionalVideosWhenMaxVideosExceedsExplicitIDs proves
+// an explicit video ID no longer forecloses discovering other videos about
+// the same match (e.g. a separate interview): it's always included, and
+// search fills any remaining MaxVideos slots.
+func TestRunSearchesForAdditionalVideosWhenMaxVideosExceedsExplicitIDs(t *testing.T) {
+	ctx := context.Background()
+	pool := integrationPool(t, ctx)
+	resetAndSeed(t, ctx, pool)
+	searchCalls := 0
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		switch request.URL.Path {
+		case "/youtube/v3/search":
+			searchCalls++
+			fmt.Fprint(writer, `{"items":[{"id":{"videoId":"discovered"}}]}`)
+		case "/youtube/v3/videos":
+			videoID := request.URL.Query().Get("id")
+			fmt.Fprintf(writer, `{"items":[{"id":%q,"snippet":{"title":%q,"channelTitle":"Fixture","publishedAt":"2026-06-01T00:00:00Z"},"contentDetails":{"duration":"PT2M"}}]}`, videoID, videoID+" video")
+		default:
+			http.NotFound(writer, request)
+		}
+	}))
+	defer server.Close()
+	youtubeClient := youtube.Client{HTTPClient: server.Client(), BaseURL: server.URL, APIKey: "fixture"}
+	extractor := &fakeExtractor{}
+
+	result, err := Run(ctx, pool, youtubeClient, &fakeAudioSource{}, fakeTranscriber{}, extractor,
+		Options{MatchNaturalKey: "fixture:right", VideoIDs: []string{"known"}, MaxVideos: 2, SearchPageSize: 2})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if searchCalls == 0 {
+		t.Fatal("expected search to run because MaxVideos (2) exceeds the explicit video count (1)")
+	}
+	if result.Selected != 2 {
+		t.Fatalf("selected = %d, want 2 (the explicit video plus one discovered)", result.Selected)
+	}
+	assertCount(t, ctx, pool, "sources where external_id = 'known'", 1)
+	assertCount(t, ctx, pool, "sources where external_id = 'discovered'", 1)
+}
+
 type fakeAudioSource struct{ acquired, cleaned int }
 
 func (source *fakeAudioSource) Acquire(_ context.Context, videoURL string) (transcript.AudioArtifact, error) {
