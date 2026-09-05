@@ -1,4 +1,4 @@
-package transcript
+package annotate
 
 import (
 	"bytes"
@@ -10,24 +10,30 @@ import (
 	"strings"
 
 	"github.com/mpieke/armwrestling-math/services/importer/internal/structured"
+	"github.com/mpieke/armwrestling-math/services/importer/internal/transcript"
 )
 
-type OpenAIClaimExtractor struct {
+type OpenAIAnnotator struct {
 	HTTPClient *http.Client
 	BaseURL    string
 	APIKey     string
 	Model      string
 }
 
-func (extractor OpenAIClaimExtractor) ModelName() string { return extractor.Model }
+func (annotator OpenAIAnnotator) ModelName() string { return annotator.Model }
 
-func (extractor OpenAIClaimExtractor) Extract(ctx context.Context, value Transcript, match MatchContext) (StructuredExtraction, json.RawMessage, json.RawMessage, error) {
-	var output StructuredExtraction
+func (annotator OpenAIAnnotator) Annotate(ctx context.Context, claim ClaimContext) (ClaimAnnotation, json.RawMessage, json.RawMessage, error) {
+	var output ClaimAnnotation
 	schema, err := structured.SchemaFor(&output)
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, err
+		return ClaimAnnotation{}, nil, nil, err
 	}
-	prompt := fmt.Sprintf("Extract match-relevant claims about %s versus %s on the %s arm. Use schema version %s. Every timestamp must refer to the transcript segment containing the claim.", match.Competitors[0], match.Competitors[1], match.Arm, ExtractionSchemaVersion)
+	prompt := fmt.Sprintf(
+		"Annotate this armwrestling claim about a match between %s. Use schema version %s. "+
+			"subject_athlete_name must be exactly one of the two competitor names if the claim is "+
+			"clearly about one of them, or empty if it is general or about both.",
+		strings.Join(claim.Competitors, " vs "), AnnotationSchemaVersion,
+	)
 	requestBody := struct {
 		Model    string `json:"model"`
 		Messages []struct {
@@ -42,40 +48,40 @@ func (extractor OpenAIClaimExtractor) Extract(ctx context.Context, value Transcr
 				Schema structured.Schema `json:"schema"`
 			} `json:"json_schema"`
 		} `json:"response_format"`
-	}{Model: extractor.Model}
+	}{Model: annotator.Model}
 	requestBody.Messages = []struct {
 		Role    string `json:"role"`
 		Content string `json:"content"`
-	}{{Role: "system", Content: prompt}, {Role: "user", Content: value.Text}}
+	}{{Role: "system", Content: prompt}, {Role: "user", Content: claim.ClaimText}}
 	requestBody.ResponseFormat.Type = "json_schema"
-	requestBody.ResponseFormat.JSONSchema.Name = "youtube_claims"
+	requestBody.ResponseFormat.JSONSchema.Name = "claim_annotation"
 	requestBody.ResponseFormat.JSONSchema.Strict = true
 	requestBody.ResponseFormat.JSONSchema.Schema = schema
 	encoded, err := json.Marshal(requestBody)
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, err
+		return ClaimAnnotation{}, nil, nil, err
 	}
-	request, err := http.NewRequestWithContext(ctx, http.MethodPost, strings.TrimRight(extractor.BaseURL, "/")+"/v1/chat/completions", bytes.NewReader(encoded))
+	request, err := http.NewRequestWithContext(ctx, http.MethodPost, strings.TrimRight(annotator.BaseURL, "/")+"/v1/chat/completions", bytes.NewReader(encoded))
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, err
+		return ClaimAnnotation{}, nil, nil, err
 	}
-	request.Header.Set("Authorization", "Bearer "+extractor.APIKey)
+	request.Header.Set("Authorization", "Bearer "+annotator.APIKey)
 	request.Header.Set("Content-Type", "application/json")
-	client := extractor.HTTPClient
+	client := annotator.HTTPClient
 	if client == nil {
 		client = http.DefaultClient
 	}
 	response, err := client.Do(request)
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, fmt.Errorf("OpenAI extraction request failed: %s", Redact(err, extractor.APIKey))
+		return ClaimAnnotation{}, nil, nil, fmt.Errorf("OpenAI annotation request failed: %s", transcript.Redact(err, annotator.APIKey))
 	}
 	defer response.Body.Close()
 	raw, err := io.ReadAll(response.Body)
 	if err != nil {
-		return StructuredExtraction{}, nil, nil, err
+		return ClaimAnnotation{}, nil, nil, err
 	}
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
-		return StructuredExtraction{}, raw, nil, fmt.Errorf("OpenAI extraction HTTP %d: %s", response.StatusCode, strings.TrimSpace(string(raw)))
+		return ClaimAnnotation{}, raw, nil, fmt.Errorf("OpenAI annotation HTTP %d: %s", response.StatusCode, strings.TrimSpace(string(raw)))
 	}
 	var envelope struct {
 		Choices []struct {
@@ -86,13 +92,13 @@ func (extractor OpenAIClaimExtractor) Extract(ctx context.Context, value Transcr
 		Usage json.RawMessage `json:"usage"`
 	}
 	if err := json.Unmarshal(raw, &envelope); err != nil {
-		return StructuredExtraction{}, raw, nil, fmt.Errorf("decode OpenAI extraction: %w", err)
+		return ClaimAnnotation{}, raw, nil, fmt.Errorf("decode OpenAI annotation: %w", err)
 	}
 	if len(envelope.Choices) != 1 || envelope.Choices[0].Message.Content == "" {
-		return StructuredExtraction{}, raw, envelope.Usage, fmt.Errorf("OpenAI extraction response contains no structured output")
+		return ClaimAnnotation{}, raw, envelope.Usage, fmt.Errorf("OpenAI annotation response contains no structured output")
 	}
 	if err := structured.Decode([]byte(envelope.Choices[0].Message.Content), &output); err != nil {
-		return StructuredExtraction{}, raw, envelope.Usage, err
+		return ClaimAnnotation{}, raw, envelope.Usage, err
 	}
 	return output, raw, envelope.Usage, nil
 }

@@ -47,6 +47,23 @@ def compare(
     }
 
 
+def evidence_covered_match_ids(connection: psycopg.Connection, run_id: int) -> list[int]:
+    """Test matches from run_id with evidence_count > 0. Comparing on the
+    full match set would dilute the signal with matches where evidence_v1
+    is mechanically identical to its Tier B base (evidence_count == 0)."""
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            select match_id from run_feature_rows
+            where run_id = %s and role = 'test'
+              and (payload->'evidence'->>'evidence_count')::int > 0
+            order by match_id
+            """,
+            (run_id,),
+        )
+        return [row[0] for row in cursor.fetchall()]
+
+
 def _load_run(connection: psycopg.Connection, run_id: int) -> dict[str, Any]:
     with connection.cursor() as cursor:
         cursor.execute(
@@ -123,12 +140,21 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--run-a", type=int, required=True)
     parser.add_argument("--run-b", type=int, required=True)
     parser.add_argument("--match-ids", help="comma-separated match ids to restrict to")
+    parser.add_argument(
+        "--evidence-covered-only",
+        action="store_true",
+        help="restrict to run-b's evidence-covered test matches (evidence_count > 0)",
+    )
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args(argv)
+    if args.match_ids and args.evidence_covered_only:
+        raise SystemExit("--match-ids and --evidence-covered-only are mutually exclusive")
     match_ids = [int(value) for value in args.match_ids.split(",")] if args.match_ids else None
 
     connection = db.connect()
     try:
+        if args.evidence_covered_only:
+            match_ids = evidence_covered_match_ids(connection, args.run_b)
         print(render_comparison(compare(connection, args.run_a, args.run_b, match_ids), args.format))
     finally:
         connection.close()

@@ -16,15 +16,24 @@ from pathlib import Path
 import psycopg
 
 from prediction import db, elo, input_manifest
+from prediction.evidence import encode_evidence, select_eligible_claims
+from prediction.evidence_model import EvidenceV1Family, evidence_v1_fold_payloads
 from prediction.feature_specs import require_compatible
 from prediction.folds import Fold, generate_rolling_origin
 from prediction.metrics import ScoredPrediction, compute_metrics
 from prediction.model_families import MODEL_FAMILIES, EloFamily, ModelFamily
 from prediction.point_in_time_features import history_v1_fold_payloads
 
+# Keyed by model_family, not representation_kind: logreg and evidence_v1
+# both use the "tabular" representation kind but persist different payload
+# shapes (evidence_v1's carries the extra evidence dict explain-prediction
+# needs), so representation_kind can't be the dispatch key.
 FOLD_PAYLOAD_BUILDERS = {
-    "rating": input_manifest.outcomes_elo_fold_payloads,
-    "tabular": history_v1_fold_payloads,
+    "elo": input_manifest.outcomes_elo_fold_payloads,
+    "glicko2": input_manifest.outcomes_elo_fold_payloads,
+    "bradley_terry": input_manifest.outcomes_elo_fold_payloads,
+    "logreg": history_v1_fold_payloads,
+    "tabpfn": history_v1_fold_payloads,
 }
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -119,6 +128,8 @@ def run_baseline(
     k_factor: float = elo.DEFAULT_K_FACTOR,
     seed: int = 0,
     feature_schema: str = "outcomes_elo_v1",
+    evidence_model: str = "gpt-4.1-mini",
+    evidence_prompt_version: str = "v1",
     repo_root: Path = DEFAULT_REPO_ROOT,
 ) -> int:
     git_sha, git_dirty = get_git_info(repo_root)
@@ -126,7 +137,9 @@ def run_baseline(
     feature_spec_id, schema = input_manifest.get_feature_spec(
         connection, schema_name, int(schema_version)
     )
-    family = _resolve_model_family(model_family, k_factor)
+    family = _resolve_model_family(
+        connection, model_family, k_factor, evidence_model, evidence_prompt_version
+    )
     require_compatible(schema, {family.representation_kind})
     hyperparams = family.hyperparams()
 
@@ -153,13 +166,8 @@ def run_baseline(
     try:
         folds = _load_folds(connection, protocol_id)
         matches_by_id = {match.match_id: match for match in db.list_completed_matches(connection)}
-        input_manifest.persist_inputs(
-            connection,
-            run_id,
-            folds,
-            matches_by_id,
-            FOLD_PAYLOAD_BUILDERS[family.representation_kind],
-        )
+        build_fold_payloads = _resolve_fold_payload_builder(model_family, family)
+        input_manifest.persist_inputs(connection, run_id, folds, matches_by_id, build_fold_payloads)
         scored, final_params = _fit_predict_and_record(
             connection, run_id, folds, matches_by_id, family
         )
@@ -189,16 +197,51 @@ def _load_folds(connection: psycopg.Connection, protocol_id: int) -> list[Fold]:
         ]
 
 
-def _resolve_model_family(model_family: str, k_factor: float) -> ModelFamily:
+def _resolve_model_family(
+    connection: psycopg.Connection,
+    model_family: str,
+    k_factor: float,
+    evidence_model: str,
+    evidence_prompt_version: str,
+) -> ModelFamily:
     """Elo's k_factor stays CLI-tunable, so it gets a fresh instance per
-    call rather than the registry's fixed default. Other families have no
-    run-to-run tunable hyperparameter yet, so the shared registry instance
+    call rather than the registry's fixed default. evidence_v1 needs a
+    connection to precompute its evidence features (evidence.py is the only
+    thing in this family that touches Go-owned claims data; the family
+    itself stays pure over the result, like every other one). Every other
+    family has no run-to-run tunable state, so the shared registry instance
     is used directly."""
     if model_family == "elo":
         return EloFamily(k_factor=k_factor)
+    if model_family == "evidence_v1":
+        return EvidenceV1Family(
+            _evidence_by_match_id(connection, evidence_model, evidence_prompt_version),
+            evidence_model,
+            evidence_prompt_version,
+        )
     if model_family not in MODEL_FAMILIES:
         raise ValueError(f"unknown model family {model_family!r}")
     return MODEL_FAMILIES[model_family]
+
+
+def _resolve_fold_payload_builder(model_family: str, family: ModelFamily):
+    if model_family == "evidence_v1":
+        def build(fold, matches):
+            return evidence_v1_fold_payloads(fold, matches, family.evidence_by_match_id)
+
+        return build
+    return FOLD_PAYLOAD_BUILDERS[model_family]
+
+
+def _evidence_by_match_id(
+    connection: psycopg.Connection, evidence_model: str, evidence_prompt_version: str
+) -> dict[int, dict]:
+    matches = db.list_completed_matches(connection)
+    evidence_by_match_id = {}
+    for match in matches:
+        claims = select_eligible_claims(connection, match, evidence_model, evidence_prompt_version)
+        evidence_by_match_id[match.match_id] = encode_evidence(claims, as_of=match.scheduled_at)
+    return evidence_by_match_id
 
 
 def _fit_predict_and_record(
@@ -259,10 +302,14 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("--protocol-name", required=True)
     parser.add_argument("--min-training-events", type=int, required=True)
-    parser.add_argument("--model-family", choices=sorted(MODEL_FAMILIES), default="elo")
+    parser.add_argument(
+        "--model-family", choices=sorted(set(MODEL_FAMILIES) | {"evidence_v1"}), default="elo"
+    )
     parser.add_argument("--k-factor", type=float, default=elo.DEFAULT_K_FACTOR)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--feature-schema", default="outcomes_elo_v1")
+    parser.add_argument("--evidence-model", default="gpt-4.1-mini")
+    parser.add_argument("--evidence-prompt-version", default="v1")
     args = parser.parse_args(argv)
 
     connection = db.connect()
@@ -277,6 +324,8 @@ def main(argv: list[str] | None = None) -> None:
             k_factor=args.k_factor,
             seed=args.seed,
             feature_schema=args.feature_schema,
+            evidence_model=args.evidence_model,
+            evidence_prompt_version=args.evidence_prompt_version,
         )
         print(f"experiment run {run_id} completed against protocol {args.protocol_name!r}")
     finally:

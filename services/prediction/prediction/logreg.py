@@ -41,17 +41,24 @@ def vocabulary_for(rows: list[FeatureRow]) -> dict[str, list[str]]:
     return {name: sorted(values) for name, values in seen.items()}
 
 
-def column_names_for(vocabulary: dict[str, list[str]]) -> list[str]:
-    columns = list(NUMERIC_FEATURES)
+def column_names_for(
+    vocabulary: dict[str, list[str]], numeric_features: list[str] = NUMERIC_FEATURES
+) -> list[str]:
+    """numeric_features defaults to Tier B's own set; evidence_model.py
+    passes an extended list so the same one-hot encoding logic doesn't get
+    re-derived for Tier C's additional evidence columns."""
+    columns = list(numeric_features)
     for name in CATEGORICAL_FEATURES:
         columns.extend(f"{name}={value}" for value in vocabulary[name])
     return columns
 
 
-def encode_features(features: dict, columns: list[str]) -> list[float]:
+def encode_features(
+    features: dict, columns: list[str], numeric_features: list[str] = NUMERIC_FEATURES
+) -> list[float]:
     vector = []
     for column in columns:
-        if column in NUMERIC_FEATURES:
+        if column in numeric_features:
             vector.append(float(features[column]))
         else:
             name, _, value = column.partition("=")

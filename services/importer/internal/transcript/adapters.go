@@ -93,7 +93,7 @@ func (provider OpenAITranscriber) Transcribe(ctx context.Context, artifact Audio
 	}
 	response, err := client.Do(request)
 	if err != nil {
-		return Transcript{}, nil, nil, fmt.Errorf("OpenAI transcription request failed: %s", redact(err, provider.APIKey))
+		return Transcript{}, nil, nil, fmt.Errorf("OpenAI transcription request failed: %s", Redact(err, provider.APIKey))
 	}
 	defer response.Body.Close()
 	raw, err := io.ReadAll(response.Body)
@@ -122,7 +122,10 @@ func (provider OpenAITranscriber) Transcribe(ctx context.Context, artifact Audio
 	return transcript, raw, nil, nil
 }
 
-func redact(err error, secret string) string {
+// Redact strips a secret (and its URL-escaped form) from an error message.
+// Exported so other OpenAI-calling packages (internal/annotate) don't
+// duplicate it.
+func Redact(err error, secret string) string {
 	message := strings.ReplaceAll(err.Error(), secret, "[REDACTED]")
 	return strings.ReplaceAll(message, url.QueryEscape(secret), "[REDACTED]")
 }

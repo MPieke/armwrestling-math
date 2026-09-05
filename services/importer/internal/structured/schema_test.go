@@ -13,6 +13,12 @@ type fixture struct {
 
 func (*fixture) StructuredOutput() {}
 
+type enumSliceFixture struct {
+	Tags []string `json:"tags" enum:"alpha,beta"`
+}
+
+func (*enumSliceFixture) StructuredOutput() {}
+
 func TestSchemaForAndDecode(t *testing.T) {
 	schema, err := SchemaFor(&fixture{})
 	if err != nil {
@@ -40,5 +46,19 @@ func TestSchemaForAndDecode(t *testing.T) {
 	}
 	if decoded.Name != "evidence" || decoded.Count == nil || *decoded.Count != 2 {
 		t.Fatalf("decoded = %#v", decoded)
+	}
+}
+
+func TestSchemaForPutsEnumOnArrayItemsNotTheArrayItself(t *testing.T) {
+	schema, err := SchemaFor(&enumSliceFixture{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	tags := schema.Properties["tags"]
+	if tags.Type != "array" || tags.Enum != nil {
+		t.Fatalf("tags schema = %#v, want array type with no enum on the array itself", tags)
+	}
+	if tags.Items == nil || len(tags.Items.Enum) != 2 || tags.Items.Enum[0] != "alpha" {
+		t.Fatalf("tags.items schema = %#v, want enum [alpha beta] on items", tags.Items)
 	}
 }

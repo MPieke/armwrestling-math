@@ -46,6 +46,13 @@ uv run python -m prediction.compare --run-a 1 --run-b 2 --match-ids 42,43
 
 uv run python -m prediction.evaluate_lockbox \
   --protocol-name lockbox_retrospective_v1 --model-family elo --dry-run
+
+# Requires cmd/annotate-claims (services/importer) to have run first.
+uv run python -m prediction.run_baseline \
+  --protocol-name rolling_origin_v1 --model-family evidence_v1 --feature-schema history_v1 \
+  --evidence-model gpt-4.1-mini --evidence-prompt-version v1
+uv run python -m prediction.compare --run-a <tier-b-run> --run-b <evidence-v1-run> --evidence-covered-only
+uv run python -m prediction.explain_prediction --run-id <evidence-v1-run> --match-id <evidence-covered-match-id>
 ```
 
 `DATABASE_URL` (not `PREDICTION_TEST_DATABASE_URL`) is required for

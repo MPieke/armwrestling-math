@@ -62,7 +62,16 @@ func schemaForType(valueType reflect.Type) (Schema, error) {
 				return Schema{}, err
 			}
 			if enum := field.Tag.Get("enum"); enum != "" {
-				property.Enum = strings.Split(enum, ",")
+				values := strings.Split(enum, ",")
+				if property.Type == "array" && property.Items != nil {
+					// enum constrains each element of the list, not the
+					// list itself -- OpenAI's structured-output schema
+					// requires the enum on the item schema for a []string
+					// field like claim_annotations.concepts.
+					property.Items.Enum = values
+				} else {
+					property.Enum = values
+				}
 			}
 			result.Properties[jsonName] = property
 			// OpenAI strict structured outputs require every property to be

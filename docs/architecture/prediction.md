@@ -237,6 +237,44 @@ fact), and reports how many times a protocol has already been consulted
 before and after. `--dry-run` runs every guard and shows what would be
 evaluated without inserting a run or spending a consultation.
 
+## Evidence Features V1 (MPI-28, dyad-only)
+
+`evidence.py` reads `claims`/`claim_annotations`/`claim_subjects`/`sources`
+directly rather than through a view: unlike `v_completed_matches`,
+eligibility is inherently parametrized per match (the target's
+`scheduled_at` and both athlete ids), so a flat view can't express it. Still
+read-only -- this module never writes to any Go-owned table, matching the
+ownership boundary above. `is_eligible` is the point-in-time leakage rule,
+kept pure and separate from the database fetch so it's directly unit
+testable: a null `published_at` is never eligible (the conservative default
+when a source's date is unknown), and a source published at or after the
+match is never eligible either. `encode_evidence` is one fixed encoding
+(`evidence_count`, `recent_injury_flag`, `technique_advantage_flag`), not a
+menu — iteration beyond this is a ledger hypothesis and a new run.
+
+`evidence_model.py`'s `EvidenceV1Family` stacks these three columns onto
+Tier B's point-in-time features (reusing `logreg.py`'s one-hot encoding
+helpers, now parametrized over which numeric columns to use) rather than
+being a standalone model. `evidence_by_match_id` is precomputed once by
+`run_baseline.py` (the only module with a connection, and the only thing in
+this family that touches Go-owned claims data) and passed in at
+construction, so `fit()`/`predict()` stay pure over already-fetched data
+like every other family. `run_baseline --model-family evidence_v1` records
+`evidence_model`/`evidence_prompt_version` in `hyperparams` specifically so
+`explain_prediction` can later reconstruct the same eligibility computation
+without re-deriving which annotation pass a run used.
+
+`explain_prediction` extends generically for `evidence_v1` runs:
+`evidence.describe_claim_eligibility` reuses the exact same candidate fetch
+and `is_eligible` rule `select_eligible_claims` does (so the two can never
+silently disagree) and partitions every dyad claim into eligible and
+`(excluded, reason)`, surfacing claim id/text, source, publication time,
+annotation, and the resulting encoded contribution. `compare.py`'s
+`evidence_covered_match_ids` restricts a comparison to run-b's
+`evidence_count > 0` test matches — comparing on the full set would dilute
+the signal with matches where evidence_v1 is mechanically identical to its
+Tier B base.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
@@ -278,6 +316,11 @@ point_in_time_features.py  Tier B's inner loop: build_training_table,
 logreg.py /      Tier B models over the same feature table; tabpfn_family
 tabpfn_family.py is optional ([tabpfn] extra) and self-excludes from
                  MODEL_FAMILIES when the import is unavailable
+
+evidence.py /    Tier C (MPI-28): point-in-time claim selection/encoding,
+evidence_model.py and the LogReg family that stacks it onto Tier B features.
+                 The only prediction modules that read Go-owned claims data
+                 (still read-only)
 
 folds.py         generate_rolling_origin (pure, over db.py's lists) and
                  seed_lockbox (writes -- which events go in a lockbox is a
@@ -343,3 +386,5 @@ leak into a dev protocol's training set either.
   temporal loop, LogReg/TabPFN, and feature-provenance explanation.
 - `docs/contracts/MPI-27-paired-comparison-lockbox-gate.md` — statistically
   honest comparison and the lockbox consultation gate.
+- `docs/contracts/MPI-28-evidence-features-v1.md` — dyad-only evidence
+  selection, encoding, and provenance inspection.
