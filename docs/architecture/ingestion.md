@@ -138,6 +138,16 @@ Other videos are independent.
 
 ## Operations
 
+Local development uses `docker-compose.yaml`'s `postgres` service (started by
+default). A prior instance (service `postgres-legacy`, port 5433) is kept
+alongside it, unmodified, holding dev-stage rows from before MPI-20's cutover
+to a fresh database. It is deprecated and excluded from the default
+`docker-compose up`; start it explicitly only to inspect old data:
+
+```sh
+docker compose --profile legacy up -d postgres-legacy
+```
+
 Apply all migrations in lexical order before running an importer command.
 The Go command reads configuration from its process environment. It does not
 load `.env`, select a database based on an environment name, or run database

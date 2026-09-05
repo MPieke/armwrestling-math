@@ -1,14 +1,29 @@
+x-postgres-common: &postgres-common
+  image: postgres:17-bookworm
+  environment:
+    POSTGRES_USER: admin
+    POSTGRES_PASSWORD: admin
+    POSTGRES_DB: armwrestling-math
+
 services:
   postgres:
-    image: postgres:17-bookworm
+    <<: *postgres-common
     volumes:
-      - db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: armwrestling-math
+      - db_fresh:/var/lib/postgresql/data
     ports:
       - "127.0.0.1:5432:5432"
-  
+
+  # Deprecated (MPI-20): superseded by the `postgres` service above. Retained
+  # unmodified so its data is not lost. Not started by `docker-compose up`;
+  # start explicitly with: docker compose --profile legacy up postgres-legacy
+  postgres-legacy:
+    <<: *postgres-common
+    profiles: ["legacy"]
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5433:5432"
+
 volumes:
+  db_fresh:
   db:
