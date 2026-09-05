@@ -103,6 +103,18 @@ func (provider OpenAITranscriber) Transcribe(ctx context.Context, artifact Audio
 	if response.StatusCode < 200 || response.StatusCode >= 300 {
 		return Transcript{}, raw, nil, fmt.Errorf("OpenAI transcription HTTP %d: %s", response.StatusCode, strings.TrimSpace(string(raw)))
 	}
+	transcript, err := decodeVerboseJSONTranscript(raw)
+	if err != nil {
+		return Transcript{}, raw, nil, fmt.Errorf("decode OpenAI transcript: %w", err)
+	}
+	return transcript, raw, nil, nil
+}
+
+// decodeVerboseJSONTranscript parses the verbose_json shape OpenAI's own
+// transcription API and whisper.cpp's server (deliberately compatible with
+// it) both return, so both TranscriptionProvider implementations share one
+// parser rather than each re-deriving the segment mapping.
+func decodeVerboseJSONTranscript(raw []byte) (Transcript, error) {
 	var decoded struct {
 		Text     string `json:"text"`
 		Language string `json:"language"`
@@ -113,13 +125,13 @@ func (provider OpenAITranscriber) Transcribe(ctx context.Context, artifact Audio
 		} `json:"segments"`
 	}
 	if err := json.Unmarshal(raw, &decoded); err != nil {
-		return Transcript{}, raw, nil, fmt.Errorf("decode OpenAI transcript: %w", err)
+		return Transcript{}, err
 	}
 	transcript := Transcript{SchemaVersion: TranscriptSchemaVersion, Language: decoded.Language, Text: decoded.Text}
 	for _, segment := range decoded.Segments {
 		transcript.Segments = append(transcript.Segments, Segment{StartSeconds: segment.Start, EndSeconds: segment.End, Text: strings.TrimSpace(segment.Text)})
 	}
-	return transcript, raw, nil, nil
+	return transcript, nil
 }
 
 // Redact strips a secret (and its URL-escaped form) from an error message.
