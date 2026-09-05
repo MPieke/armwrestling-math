@@ -80,6 +80,59 @@ from a rule such as "matches after date X" — a rule-based definition would
 silently grow as ingestion adds matches, breaking comparability between runs
 scored against "the same" protocol months apart.
 
+## services/prediction (MPI-22)
+
+The first component to write to the ledger. Python, sibling to
+`services/importer`, with its own `pyproject.toml`/`uv.lock`.
+
+```text
+db.py            reads events and v_completed_matches only -- never
+                 matches/match_competitors directly. This is the boundary:
+                 Go can change how outcomes are stored underneath without
+                 breaking this service, and "what counts as a usable
+                 completed match" has exactly one definition.
+
+elo.py           pure fit/predict, no database dependency
+
+folds.py         generate_rolling_origin (pure, over db.py's lists) and
+                 seed_lockbox (writes -- which events go in a lockbox is a
+                 deliberate human decision made at seeding time)
+
+metrics.py       pure: accuracy, log-loss, Brier score, Wilson interval
+
+run_baseline.py  composition root; the only module that opens a
+                 connection and commits
+```
+
+### v_completed_matches
+
+```sql
+create view v_completed_matches as
+select m.id as match_id, m.event_id, m.scheduled_at, m.arm,
+       mc_a.athlete_id as athlete_a_id, mc_b.athlete_id as athlete_b_id,
+       mc_a.result as result_a
+from matches m
+join match_competitors mc_a on mc_a.match_id = m.id
+join match_competitors mc_b on mc_b.match_id = m.id and mc_b.athlete_id > mc_a.athlete_id
+where m.status = 'completed';
+```
+
+One row per completed match, `athlete_a_id < athlete_b_id` (a strict
+ordering from the self-join condition, not source-data order), excludes
+`scheduled`/`dq`/`no_contest`.
+
+### The non-negotiable rule: refit per fold, never reused
+
+`run_baseline.py` calls `elo.fit` fresh for every fold, using only that
+fold's `train_match_ids`. Ratings from one fold are never carried into the
+next. This is the leakage guardrail the whole rolling-origin design exists
+to enforce: a rating fit once over the entire match history would let every
+athlete's ability be influenced by matches that happen after any given match
+being evaluated against it, silently invalidating every fold's result.
+`get_or_create_rolling_origin_protocol` additionally excludes any event
+already referenced by a lockbox protocol's folds, so a lockbox can never
+leak into a dev protocol's training set either.
+
 ## Related Contracts
 
 - `docs/contracts/MPI-19-match-outcome-and-event-schema.md` — outcome data
