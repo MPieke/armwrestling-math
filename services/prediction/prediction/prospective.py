@@ -46,14 +46,16 @@ def add_prospective_event(
                 (current_match_ids + added_match_ids, protocol_id),
             )
         event_slugs = list(spec.get("event_slugs", []))
+        event_ids = list(spec.get("event_ids", []))
         if event_slug not in event_slugs:
             event_slugs.append(event_slug)
+            event_ids.append(event[0])
             spec["event_slugs"] = event_slugs
+            spec["event_ids"] = event_ids
             cursor.execute(
                 "update eval_protocols set spec = %s where id = %s",
                 (json.dumps(spec), protocol_id),
             )
-    connection.commit()
     return added_match_ids
 
 
@@ -66,17 +68,13 @@ def main(argv: list[str] | None = None) -> None:
 
     connection = db.connect()
     try:
-        if args.dry_run:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "select count(*) from matches join events on events.id = matches.event_id where events.slug = %s",
-                    (args.event_slug,),
-                )
-                (match_count,) = cursor.fetchone()
-            print(f"validated event {args.event_slug!r}: {match_count} matches; no changes written")
-            return
         added_ids = add_prospective_event(connection, args.protocol_name, args.event_slug)
-        print(f"protocol {args.protocol_name!r}: added match ids {added_ids}")
+        if args.dry_run:
+            connection.rollback()
+            print(f"validated protocol update; would add match ids {added_ids}; no changes written")
+        else:
+            connection.commit()
+            print(f"protocol {args.protocol_name!r}: added match ids {added_ids}")
     finally:
         connection.close()
 

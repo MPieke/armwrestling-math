@@ -31,14 +31,13 @@ def main(argv: list[str] | None = None) -> None:
     connection = db.connect()
     try:
         event_ids = resolve_event_ids(connection, args.event_slugs)
+        protocol_id = seed_lockbox(connection, name=args.name, kind=args.kind, event_ids=event_ids)
         if args.dry_run:
-            print(f"validated events {args.event_slugs}; no changes written")
-            return
-        seed_lockbox(connection, name=args.name, kind=args.kind, event_ids=event_ids)
-        with connection.cursor() as cursor:
-            cursor.execute("select id from eval_protocols where name = %s", (args.name,))
-            (protocol_id,) = cursor.fetchone()
-        print(f"created protocol {protocol_id}: {args.name!r}")
+            connection.rollback()
+            print(f"validated protocol {args.name!r}; no changes written")
+        else:
+            connection.commit()
+            print(f"created protocol {protocol_id}: {args.name!r}")
     finally:
         connection.close()
 

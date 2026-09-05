@@ -65,10 +65,11 @@ def build_run_report(connection: psycopg.Connection, run_id: int) -> dict[str, A
                    case
                        when rp.athlete_id = v.athlete_a_id then v.result_a
                        when v.result_a = 'win' then 'loss'
-                       else 'win'
+                       when v.result_a = 'loss' then 'win'
+                       else null
                    end as outcome
             from run_predictions rp
-            join v_completed_matches v on v.match_id = rp.match_id
+            left join v_completed_matches v on v.match_id = rp.match_id
             where rp.run_id = %s
             order by rp.match_id, rp.athlete_id
             """,

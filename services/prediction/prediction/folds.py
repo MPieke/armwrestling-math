@@ -72,7 +72,7 @@ def generate_rolling_origin(
 
 def seed_lockbox(
     connection: psycopg.Connection, *, name: str, kind: str, event_ids: list[int]
-) -> None:
+) -> int:
     """Create a lockbox with completed pre-lockbox history as training data."""
     if not event_ids:
         raise ValueError("at least one lockbox event is required")
@@ -121,4 +121,4 @@ def seed_lockbox(
             """,
             (protocol_id, train_match_ids, test_match_ids),
         )
-    connection.commit()
+    return protocol_id
