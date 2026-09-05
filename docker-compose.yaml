@@ -24,6 +24,18 @@ services:
     ports:
       - "127.0.0.1:5433:5432"
 
+  # Self-hosted transcription (MPI-32): the portable, CPU-only path used by
+  # CI. Local dev should prefer the native whisper-server binary (Metal
+  # acceleration on Apple Silicon; this container cannot access it) -- start
+  # this one explicitly only to exercise the exact path CI runs:
+  # docker compose --profile whisper up -d whisper
+  whisper:
+    profiles: ["whisper"]
+    build:
+      context: docker/whisper
+    ports:
+      - "127.0.0.1:8080:8080"
+
 volumes:
   db_fresh:
   db:
