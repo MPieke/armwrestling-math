@@ -56,6 +56,12 @@ def get_or_create_rolling_origin_protocol(
     if row is not None:
         return row[0]
 
+    with connection.cursor() as cursor:
+        cursor.execute("select exists(select 1 from eval_protocols where kind like 'lockbox%%')")
+        (has_lockbox,) = cursor.fetchone()
+    if not has_lockbox:
+        raise ValueError("a lockbox protocol must be seeded before rolling-origin creation")
+
     excluded_event_ids = _lockbox_event_ids(connection)
     events = db.list_events(connection)
     matches = db.list_completed_matches(connection)
@@ -65,8 +71,11 @@ def get_or_create_rolling_origin_protocol(
 
     with connection.cursor() as cursor:
         cursor.execute(
-            "insert into eval_protocols (name, kind) values (%s, 'rolling_origin') returning id",
-            (name,),
+            """
+            insert into eval_protocols (name, kind, spec)
+            values (%s, 'rolling_origin', %s) returning id
+            """,
+            (name, json.dumps({"min_training_events": min_training_events})),
         )
         (protocol_id,) = cursor.fetchone()
         for fold in folds:
@@ -88,7 +97,7 @@ def _lockbox_event_ids(connection: psycopg.Connection) -> frozenset[int]:
             select distinct m.event_id
             from eval_folds f
             join eval_protocols p on p.id = f.protocol_id
-            join matches m on m.id = any(f.test_match_ids || f.train_match_ids)
+            join matches m on m.id = any(f.test_match_ids)
             where p.kind like 'lockbox%%'
             """
         )
