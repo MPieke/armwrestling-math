@@ -110,7 +110,9 @@ athletes <--- match_competitors ---> matches
    ^                                   ^
    |                                   |
 claim_subjects ---> claims ------------+
-                      |                 |
+                      |     |            |
+                      |     v            |
+                      | claim_annotations
                       v                 |
               source_extractions ------+
                       |
@@ -183,6 +185,42 @@ Sources, extractions, claims, and subject links for one video are atomic. A
 failure rolls back that video's evidence and records a failed ingestion run.
 Other videos are independent.
 
+### Claim Annotation (MPI-28)
+
+`claim_annotations` adds a structured interpretation layer on top of an
+already-persisted claim, one row per `(claim_id, model, prompt_version)`.
+`internal/annotate` follows MPI-16's structured-output pattern exactly (a Go
+type derives the OpenAI schema, the response decodes back into that type,
+semantic validation runs before persistence) but never creates or modifies a
+claim itself -- only annotates one that already exists. `cmd/annotate-claims`
+(`internal/annotateclaims`) lists every claim missing an annotation for a
+given `(model, prompt_version)`, calls the annotator, validates, and persists;
+one claim's failure doesn't stop the batch, mirroring
+`internal/youtubeingest`'s per-candidate error handling.
+
+`claim_type` reuses `transcript.Claim`'s existing extraction-time vocabulary
+(`form | tactic | injury | endurance | setup | opponent_comparison | other`)
+rather than inventing a second, overlapping one. `concepts` (a 20-item
+controlled vocabulary: `top_roll`, `hook`, `press`, `side_pressure`,
+`back_pressure`, `wrist_control`, `supination`, `grip_strength`,
+`arm_length`, `hand_size`, `frame_and_leverage`, `reserve_strength`,
+`explosive_strength`, `start_position`, `shoulder_engagement`,
+`elbow_discipline`, `injury_or_recovery_status`, `training_regimen`,
+`mental_focus`, `matchup_specific_history`) and `temporality`/`certainty`
+(the latter two reusing `scripts/evidence_dimension_models.py`'s dimensions
+from early discovery work) are this layer's own vocabulary. The model
+resolves `subject_athlete_name` as free text against the match's two
+competitor names rather than being asked to output a foreign key directly;
+`annotateclaims.resolveSubjectID` maps a name that doesn't exactly match
+either competitor (including the deliberate empty string for "general/both")
+to no subject, not an error.
+
+`internal/structured`'s schema derivation gained one capability for this:
+an `enum` tag on a `[]string` field now constrains each array *element*
+(`Items.Enum`), not the array itself -- OpenAI's structured-output schema
+has no way to express "one of these values" for a whole list, only for each
+item in it.
+
 ## Adding A Source Adapter
 
 1. Add a provider package below `services/importer/internal`.
@@ -244,6 +282,12 @@ psql "$DATABASE_URL" -c "
   left join match_videos mv on mv.match_id = m.id
   order by e.slug, mv.youtube_video_id;"
 ```
+
+`cmd/annotate-claims` (`./scripts/run-annotate-claims.sh --prompt-version v1`) uses
+the same required variables. It reads an optional `OPENAI_ANNOTATION_MODEL`,
+falling back to `OPENAI_EXTRACTION_MODEL` when absent, since annotation is a
+distinct prompt/schema from extraction but there's no reason to require a
+second model choice by default.
 
 Optional provider endpoint overrides are also supported:
 
