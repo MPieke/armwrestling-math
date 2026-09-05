@@ -87,3 +87,15 @@ def test_report_and_explanation_reconstruct_persisted_inputs_without_writing(con
     assert "athlete_a_won" not in explanation["test_inputs"][0]["payload"]
     assert len(explanation["predictions"]) == 2
     assert _ledger_counts(connection) == counts_before
+
+    with connection.cursor() as cursor:
+        cursor.execute("update matches set status = 'scheduled' where id = %s", (test_match_id,))
+    connection.commit()
+    report_without_outcome = build_run_report(connection, run_id)
+    affected_predictions = [
+        prediction
+        for prediction in report_without_outcome["predictions"]
+        if prediction["match_id"] == test_match_id
+    ]
+    assert len(affected_predictions) == 2
+    assert all(prediction["outcome"] is None for prediction in affected_predictions)
