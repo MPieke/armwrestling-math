@@ -5,6 +5,7 @@ import pytest
 
 from conftest import seed_completed_match
 from prediction.explain_prediction import build_prediction_explanation
+from prediction.folds import seed_lockbox
 from prediction.report import build_run_report
 from prediction.run_baseline import get_or_create_rolling_origin_protocol, run_baseline
 
@@ -20,16 +21,31 @@ def _completed_run(connection) -> tuple[int, int]:
             athlete_a=f"A{index}",
             athlete_b=f"B{index}",
         )
+    lockbox_event_id, _ = seed_completed_match(
+        connection,
+        event_slug="reserved-lockbox",
+        held_on=date(2027, 1, 1),
+        athlete_a="Lockbox A",
+        athlete_b="Lockbox B",
+    )
+    seed_lockbox(
+        connection,
+        name="lockbox_retrospective_test",
+        kind="lockbox_retrospective",
+        event_ids=[lockbox_event_id],
+    )
     protocol_id = get_or_create_rolling_origin_protocol(
         connection, "rolling_origin_test", min_training_events=2
     )
     run_id = run_baseline(connection, protocol_id, repo_root=REPO_ROOT)
     with connection.cursor() as cursor:
+        cursor.execute("update experiment_runs set git_dirty = false where id = %s", (run_id,))
         cursor.execute(
             "select match_id from run_feature_rows where run_id = %s and role = 'test' order by match_id limit 1",
             (run_id,),
         )
         (test_match_id,) = cursor.fetchone()
+    connection.commit()
     return run_id, test_match_id
 
 
@@ -59,6 +75,13 @@ def test_report_and_explanation_reconstruct_persisted_inputs_without_writing(con
     assert report["feature_schema"]["name"] == "outcomes_elo"
     assert report["input_manifest"]["data_summary"]["feature_rows"] == 7
     assert len(report["folds"]) == 2
+    assert report["run"]["promotable"] is True
+    assert report["protocol"]["spec"] == {"min_training_events": 2}
+    assert report["folds"][0]["test_event_dates"] == ["2026-03-01"]
+    assert report["folds"][0]["predicted_match_count"] == 1
+    assert len(report["predictions"]) == 4
+    assert {prediction["outcome"] for prediction in report["predictions"]} == {"win", "loss"}
+    assert report["model"]
     assert explanation["match_id"] == test_match_id
     assert explanation["test_inputs"]
     assert "athlete_a_won" not in explanation["test_inputs"][0]["payload"]
