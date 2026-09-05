@@ -101,6 +101,33 @@ def test_run_baseline_records_a_rating_for_every_athlete_seen_in_training(connec
         assert str(athlete_id) in params
 
 
+@pytest.mark.integration
+def test_run_baseline_rejects_a_schema_the_elo_model_cannot_consume(connection):
+    _seed_four_events(connection)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            insert into feature_specs (name, version, representation_kind, definition, definition_sha256)
+            values ('tabular_history', 1, 'tabular', '{}', repeat('f', 64))
+            """
+        )
+
+    with pytest.raises(ValueError, match="does not support tabular"):
+        run_baseline(
+            connection,
+            protocol_id,
+            feature_schema="tabular_history_v1",
+            repo_root=REPO_ROOT,
+        )
+
+    with connection.cursor() as cursor:
+        cursor.execute("select count(*) from experiment_runs")
+        assert cursor.fetchone()[0] == 0
+
+
 def test_is_promotable_rejects_a_dirty_working_tree():
     assert is_promotable(git_dirty=False) is True
     assert is_promotable(git_dirty=True) is False
