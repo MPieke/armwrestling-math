@@ -46,6 +46,12 @@ def _reset_schema(conn: psycopg.Connection) -> None:
             restart identity cascade
             """
         )
+        cursor.execute(
+            """
+            delete from feature_specs
+            where not (name = 'outcomes_elo' and version = 1)
+            """
+        )
     conn.commit()
 
 
