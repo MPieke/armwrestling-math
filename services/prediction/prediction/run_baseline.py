@@ -20,6 +20,12 @@ from prediction.feature_specs import require_compatible
 from prediction.folds import Fold, generate_rolling_origin
 from prediction.metrics import ScoredPrediction, compute_metrics
 from prediction.model_families import MODEL_FAMILIES, EloFamily, ModelFamily
+from prediction.point_in_time_features import history_v1_fold_payloads
+
+FOLD_PAYLOAD_BUILDERS = {
+    "rating": input_manifest.outcomes_elo_fold_payloads,
+    "tabular": history_v1_fold_payloads,
+}
 
 DEFAULT_REPO_ROOT = Path(__file__).resolve().parents[3]
 
@@ -120,8 +126,8 @@ def run_baseline(
     feature_spec_id, schema = input_manifest.get_feature_spec(
         connection, schema_name, int(schema_version)
     )
-    require_compatible(schema, {"rating"})
     family = _resolve_model_family(model_family, k_factor)
+    require_compatible(schema, {family.representation_kind})
     hyperparams = family.hyperparams()
 
     with connection.cursor() as cursor:
@@ -147,7 +153,13 @@ def run_baseline(
     try:
         folds = _load_folds(connection, protocol_id)
         matches_by_id = {match.match_id: match for match in db.list_completed_matches(connection)}
-        input_manifest.persist_inputs(connection, run_id, folds, matches_by_id)
+        input_manifest.persist_inputs(
+            connection,
+            run_id,
+            folds,
+            matches_by_id,
+            FOLD_PAYLOAD_BUILDERS[family.representation_kind],
+        )
         scored, final_params = _fit_predict_and_record(
             connection, run_id, folds, matches_by_id, family
         )

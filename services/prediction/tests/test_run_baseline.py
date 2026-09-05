@@ -213,3 +213,46 @@ def test_run_baseline_rejects_an_unknown_model_family_before_creating_a_run(conn
     with connection.cursor() as cursor:
         cursor.execute("select count(*) from experiment_runs")
         assert cursor.fetchone()[0] == 0
+
+
+@pytest.mark.integration
+def test_run_baseline_supports_logreg_over_the_tabular_history_schema(connection):
+    _seed_four_events(connection)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+
+    run_id = run_baseline(
+        connection,
+        protocol_id,
+        model_family="logreg",
+        feature_schema="history_v1",
+        repo_root=REPO_ROOT,
+    )
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "select status, fs.representation_kind from experiment_runs r "
+            "join feature_specs fs on fs.id = r.feature_spec_id where r.id = %s",
+            (run_id,),
+        )
+        status, representation_kind = cursor.fetchone()
+        cursor.execute(
+            "select payload from run_feature_rows where run_id = %s and role = 'train' limit 1",
+            (run_id,),
+        )
+        (train_payload,) = cursor.fetchone()
+    assert status == "completed"
+    assert representation_kind == "tabular"
+    assert "features" in train_payload and "label" in train_payload
+
+
+@pytest.mark.integration
+def test_run_baseline_rejects_logreg_against_the_rating_only_schema(connection):
+    _seed_four_events(connection)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+
+    with pytest.raises(ValueError, match="does not support rating"):
+        run_baseline(connection, protocol_id, model_family="logreg", repo_root=REPO_ROOT)

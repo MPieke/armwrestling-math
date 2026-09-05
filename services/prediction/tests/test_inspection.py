@@ -99,3 +99,70 @@ def test_report_and_explanation_reconstruct_persisted_inputs_without_writing(con
     ]
     assert len(affected_predictions) == 2
     assert all(prediction["outcome"] is None for prediction in affected_predictions)
+
+
+@pytest.mark.integration
+def test_explain_prediction_exposes_feature_provenance_cutoff_and_outcome(connection):
+    for index in range(4):
+        seed_completed_match(
+            connection,
+            event_slug=f"event-{index}",
+            held_on=date(2026, index + 1, 1),
+            athlete_a=f"A{index}",
+            athlete_b=f"B{index}",
+        )
+    lockbox_event_id, _ = seed_completed_match(
+        connection,
+        event_slug="reserved-lockbox",
+        held_on=date(2027, 1, 1),
+        athlete_a="Lockbox A",
+        athlete_b="Lockbox B",
+    )
+    seed_lockbox(
+        connection,
+        name="lockbox_retrospective_test",
+        kind="lockbox_retrospective",
+        event_ids=[lockbox_event_id],
+    )
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+    run_id = run_baseline(
+        connection, protocol_id, model_family="logreg", feature_schema="history_v1", repo_root=REPO_ROOT
+    )
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "select match_id, scheduled_at from run_feature_rows f join matches m on m.id = f.match_id "
+            "where f.run_id = %s and f.fold_index = 1 and f.role = 'test' order by match_id limit 1",
+            (run_id,),
+        )
+        test_match_id, test_match_scheduled_at = cursor.fetchone()
+
+    explanation = build_prediction_explanation(connection, run_id, test_match_id)
+
+    test_input = explanation["test_inputs"][0]
+    assert test_input["fold_cutoff"] is not None
+    assert test_input["fold_cutoff"] < test_match_scheduled_at.isoformat()
+    assert set(test_input["payload"]["features"]) >= {
+        "prior_rating_a",
+        "head_to_head_diff",
+        "recent_form_a",
+        "arm",
+        "weight_class",
+        "days_since_last_match_a",
+    }
+    # This fixture gives every event fresh athlete names, so whichever pair
+    # meets in this test match has no prior history at all -- every
+    # history-derived feature (not the current match's own arm/weight_class)
+    # is correctly reported as defaulted.
+    assert "head_to_head" in test_input["defaulted_features"]
+    assert "prior_rating_a" in test_input["defaulted_features"]
+    assert "arm" not in test_input["defaulted_features"]
+    assert all(p["outcome"] in ("win", "loss") for p in explanation["predictions"])
+
+    for source_match_ids in test_input["payload"]["provenance"].values():
+        for source_match_id in source_match_ids:
+            with connection.cursor() as cursor:
+                cursor.execute("select scheduled_at from matches where id = %s", (source_match_id,))
+                (source_scheduled_at,) = cursor.fetchone()
+            assert source_scheduled_at < test_match_scheduled_at

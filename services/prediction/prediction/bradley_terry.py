@@ -63,6 +63,8 @@ class BradleyTerryPredictor:
 
 
 class BradleyTerryFamily:
+    representation_kind = "rating"
+
     def hyperparams(self) -> dict:
         return {"l2_regularization": L2_REGULARIZATION}
 

@@ -10,6 +10,7 @@ def _match(athlete_a_id: int, athlete_b_id: int, result_a: str = "win") -> Compl
         event_id=0,
         scheduled_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
         arm="right",
+        weight_class="105 kg",
         athlete_a_id=athlete_a_id,
         athlete_b_id=athlete_b_id,
         result_a=result_a,
