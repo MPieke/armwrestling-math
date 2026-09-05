@@ -147,7 +147,7 @@ func integrationPool(t *testing.T, ctx context.Context) *pgxpool.Pool {
 
 func resetAndSeed(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {
 	t.Helper()
-	_, err := pool.Exec(ctx, `truncate claim_subjects, claims, source_extractions, sources, match_competitors, matches, events, athletes, ingestion_runs restart identity cascade`)
+	_, err := pool.Exec(ctx, `truncate claim_subjects, claims, source_extractions, sources, match_videos, match_competitors, matches, events, athletes, ingestion_runs restart identity cascade`)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -156,8 +156,8 @@ func resetAndSeed(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {
 		     b as (insert into athletes (canonical_name) values ('Ermes Gasparini') returning id),
 		     e as (insert into events (slug, promoter, name, held_on) values ('fixture-event', 'Fixture Promoter', 'Fixture Event', '2026-06-15') returning id),
 		     m as (
-		         insert into matches (natural_key, label, arm, scheduled_at, event_id, status)
-		         select 'fixture:right', 'Fixture', 'right', '2026-06-15T18:30:00Z', e.id, 'scheduled' from e
+		         insert into matches (natural_key, label, arm, weight_class, scheduled_at, event_id, status)
+		         select 'fixture:right', 'Fixture', 'right', '105 kg', '2026-06-15T18:30:00Z', e.id, 'scheduled' from e
 		         returning id
 		     )
 		insert into match_competitors (match_id, athlete_id)

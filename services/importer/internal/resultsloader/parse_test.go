@@ -9,7 +9,7 @@ import (
 const csvHeader = "event_slug,event_name,promoter,event_date,arm,weight_class,athlete_a,athlete_b,score_a,score_b,status,video_id,bout\n"
 
 func TestParseBuildsResultSubmission(t *testing.T) {
-	parsed, err := Parse(strings.NewReader(csvHeader +
+	parsed, err := Parse(strings.NewReader(csvHeader+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,Adam Wawrzynski,Nurdaulet Aidarkhan,3,2,completed,video-1,\n"), "fixture.csv")
 	if err != nil {
 		t.Fatalf("Parse() error = %v", err)
@@ -27,7 +27,7 @@ func TestParseBuildsResultSubmission(t *testing.T) {
 }
 
 func TestParseReportsAllMalformedRows(t *testing.T) {
-	_, err := Parse(strings.NewReader(csvHeader +
+	_, err := Parse(strings.NewReader(csvHeader+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,wrong,105 kg,A,B,three,2,completed,,\n"+
 		"evw-26,East vs West 26,Core Sports,2026-08-02,right,,C,D,,,cancelled,,\n"), "fixture.csv")
 	if err == nil {
@@ -40,8 +40,16 @@ func TestParseReportsAllMalformedRows(t *testing.T) {
 	}
 }
 
+func TestParseRejectsScoresOutsideCompletedMatches(t *testing.T) {
+	_, err := Parse(strings.NewReader(csvHeader+
+		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,A,B,3,,dq,,\n"), "fixture.csv")
+	if err == nil || !strings.Contains(err.Error(), "scores are allowed only for completed") {
+		t.Fatalf("Parse() error = %v, want score/status validation", err)
+	}
+}
+
 func TestParseRejectsUndisambiguatedSameDayRematches(t *testing.T) {
-	_, err := Parse(strings.NewReader(csvHeader +
+	_, err := Parse(strings.NewReader(csvHeader+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,A,B,3,2,completed,,\n"+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,B,A,3,1,completed,,\n"), "fixture.csv")
 	if err == nil || !strings.Contains(err.Error(), "rows 2, 3") || !strings.Contains(err.Error(), "bout") {
@@ -50,7 +58,7 @@ func TestParseRejectsUndisambiguatedSameDayRematches(t *testing.T) {
 }
 
 func TestParseUsesDistinctBoutMinutesForSameDayRematches(t *testing.T) {
-	parsed, err := Parse(strings.NewReader(csvHeader +
+	parsed, err := Parse(strings.NewReader(csvHeader+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,A,B,3,2,completed,,1\n"+
 		"evw-25,East vs West 25,Core Sports,2026-08-01,right,105 kg,B,A,3,1,completed,,2\n"), "fixture.csv")
 	if err != nil {

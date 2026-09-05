@@ -204,6 +204,9 @@ func validateRowStatus(arm, status string, competitors []ingest.CompetitorResult
 	if status != "completed" && status != "no_contest" && status != "dq" {
 		problems = append(problems, fmt.Sprintf("row %d: unrecognized status %q", rowNumber, status))
 	}
+	if status != "completed" && len(competitors) == 2 && (competitors[0].Score != nil || competitors[1].Score != nil) {
+		problems = append(problems, fmt.Sprintf("row %d: scores are allowed only for completed matches", rowNumber))
+	}
 	if status == "completed" && (len(competitors) != 2 || competitors[0].Score == nil || competitors[1].Score == nil || competitors[0].Result == "") {
 		problems = append(problems, fmt.Sprintf("row %d: completed match requires unequal numeric scores", rowNumber))
 	}

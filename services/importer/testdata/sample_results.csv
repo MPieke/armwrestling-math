@@ -1,0 +1,2 @@
+event_slug,event_name,promoter,event_date,arm,weight_class,athlete_a,athlete_b,score_a,score_b,status,video_id,bout
+sample-event,Sample Event,Sample Promoter,2026-09-05,right,105 kg,Sample Athlete A,Sample Athlete B,3,2,completed,sample-video-1,
