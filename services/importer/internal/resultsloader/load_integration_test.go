@@ -19,10 +19,10 @@ func TestSubmitAllPersistsAndReplaysEveryParsedRow(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Parse() error = %v", err)
 	}
-	if err := SubmitAll(ctx, pool, submissions); err != nil {
+	if _, err := SubmitAll(ctx, pool, submissions); err != nil {
 		t.Fatalf("SubmitAll() first run error = %v", err)
 	}
-	if err := SubmitAll(ctx, pool, submissions); err != nil {
+	if _, err := SubmitAll(ctx, pool, submissions); err != nil {
 		t.Fatalf("SubmitAll() replay error = %v", err)
 	}
 	for relation, want := range map[string]int{"events": 1, "matches": 1, "match_competitors": 2, "match_videos": 1} {
