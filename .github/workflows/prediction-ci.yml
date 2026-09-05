@@ -1,0 +1,129 @@
+name: Prediction CI
+
+on:
+  pull_request:
+    paths:
+      - db/**
+      - services/prediction/**
+      - .github/workflows/prediction-ci.yml
+  push:
+    branches:
+      - main
+    paths:
+      - db/**
+      - services/prediction/**
+      - .github/workflows/prediction-ci.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/prediction
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          working-directory: services/prediction
+
+      - name: Sync dependencies
+        run: uv sync --extra dev
+
+      - name: Lint
+        run: |
+          echo "Running ruff to detect style and static-correctness issues."
+          uv run ruff check .
+          echo "PASS: ruff found no issues."
+
+      - name: List discovered unit tests
+        run: |
+          echo "Discovering tests not marked integration (no database dependency)."
+          uv run pytest --collect-only -q -m "not integration"
+
+      - name: Run unit tests
+        run: |
+          echo "Running every discovered non-integration test with verbose output."
+          uv run pytest -v -m "not integration"
+          echo "PASS: all discovered unit tests passed."
+
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-bookworm
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: armwrestling_math_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U admin -d armwrestling_math_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    defaults:
+      run:
+        working-directory: services/prediction
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          working-directory: services/prediction
+
+      - name: Sync dependencies
+        run: uv sync --extra dev
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+
+      - name: Verify dedicated PostgreSQL service
+        env:
+          PGPASSWORD: admin
+        run: |
+          echo "Verifying CI is connected only to armwrestling_math_test."
+          psql -h 127.0.0.1 -U admin -d armwrestling_math_test \
+            -c "select current_database() as integration_database;"
+
+      - name: Apply every ordered migration
+        env:
+          PGPASSWORD: admin
+        run: |
+          echo "Applying every ordered db/migrations/*.sql file, including the prediction read view."
+          mapfile -t migrations < <(find ../../db/migrations -maxdepth 1 -type f -name '*.sql' | LC_ALL=C sort)
+          for migration in "${migrations[@]}"; do
+            echo "Applying ${migration}"
+            psql -h 127.0.0.1 -U admin -d armwrestling_math_test \
+              -v ON_ERROR_STOP=1 -f "${migration}"
+          done
+          echo "Created relations:"
+          psql -h 127.0.0.1 -U admin -d armwrestling_math_test -c "\\dt"
+          psql -h 127.0.0.1 -U admin -d armwrestling_math_test -c "\\dv"
+
+      - name: List discovered integration tests
+        env:
+          PREDICTION_TEST_DATABASE_URL: postgres://admin:admin@127.0.0.1:5432/armwrestling_math_test?sslmode=disable
+        run: |
+          echo "Discovering tests marked integration (require a real PostgreSQL database)."
+          uv run pytest --collect-only -q -m integration
+
+      - name: Run guarded integration tests
+        env:
+          PREDICTION_TEST_DATABASE_URL: postgres://admin:admin@127.0.0.1:5432/armwrestling_math_test?sslmode=disable
+        run: |
+          echo "Running every discovered integration test with verbose output."
+          echo "The suite proves fold-generation leakage boundaries, lockbox seeding, and baseline run orchestration against real PostgreSQL."
+          uv run pytest -v -m integration
+          echo "PASS: all prediction integration tests passed against PostgreSQL."
