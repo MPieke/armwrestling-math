@@ -21,7 +21,8 @@ athlete-style table exists.
 
 One evidence encoding, evaluated honestly, not a set of variants. Depends
 on MPI-23 (loaded matches), MPI-26 (a Tier B run to compare against), MPI-27
-(subset-restricted `compare`).
+(subset-restricted `compare`), and MPI-30 (versioned feature schemas and
+immutable evidence-input provenance).
 
 ### Prerequisite (operational, has API cost)
 
@@ -100,6 +101,17 @@ def encode_evidence(claims: list[AnnotatedClaim]) -> dict:
 Pure function of the eligible set. Iteration beyond this is a ledger
 hypothesis + a new run, not a v1 deliverable.
 
+### Evidence Basis Inspection
+
+MPI-26's `explain-prediction --run-id --match-id` extends for `evidence_v1`
+runs. In addition to the results-derived features, it must show every claim
+considered for the match: claim id/text, source/video, publication time,
+annotation, and encoded evidence feature contribution. It must separately
+list excluded claims with their exclusion reason, including unknown or
+too-late publication time. This is the operator proof that the evidence
+packet was both dyad-only and point-in-time eligible. The command is
+read-only and supports `--format json`.
+
 ### Evaluation
 
 `compare` (MPI-27) restricted to `match_ids` = matches with
@@ -125,12 +137,16 @@ to B.
 - `encode_evidence` is a pure function: fixed input list -> fixed output,
   verified on hand-built fixtures including the empty-list case (matches
   MPI-22's "no evidence" majority)
+- `explain-prediction` shows eligible claims, excluded claims and reasons,
+  and the resulting fixed evidence features for a fixture match
 
 ### Integration
 
 - a full evidence-v1 run against real (ingested) data produces a ledger
   entry; `compare` in subset mode reports the correct n (evidence-covered
   count) and a distinguishable/not verdict
+- `explain-prediction` for the same run exposes the source and time basis of
+  every evidence feature without performing a provider call
 
 ## 4. Commit-by-Commit Breakdown
 
@@ -143,7 +159,9 @@ to B.
 7. `feat(MPI-28): add evidence selection`
 8. `test(MPI-28): define evidence encoding v1` — red (Python)
 9. `feat(MPI-28): add evidence encoding v1 and subset evaluation`
-10. `docs(MPI-28): document the annotation layer, selection boundary, and
+10. `test(MPI-28): define evidence provenance inspection` — red (Python)
+11. `feat(MPI-28): extend explain-prediction with evidence provenance`
+12. `docs(MPI-28): document the annotation layer, selection boundary, and
     the dyad-only v1 scope narrowing`
 
 ## 5. Verification Plan
@@ -166,4 +184,6 @@ DATABASE_URL=... uv run python -m prediction.run_baseline \
   --protocol-name rolling_origin_v1 --model-family evidence_v1
 DATABASE_URL=... uv run python -m prediction.compare \
   --run-a <best-tier-b-run> --run-b <evidence-v1-run> --evidence-covered-only
+DATABASE_URL=... uv run python -m prediction.explain_prediction \
+  --run-id <evidence-v1-run> --match-id <evidence-covered-match-id>
 ```

@@ -9,7 +9,8 @@ status: proposed
 
 Tier D: give a large LLM the match context and let it predict directly —
 the "bitter lesson" hypothesis, tested rather than argued. Depends on
-MPI-25 (model interface), MPI-27 (`compare`/lockbox gate exist). Uses
+MPI-25 (model interface), MPI-27 (`compare`/lockbox gate exist), and MPI-30
+(the immutable prompt/input-provenance boundary). Uses
 MPI-28's selection layer for the evidence packet when merged; a
 results-only packet is a valid v1, so this does not block on MPI-28.
 
@@ -67,6 +68,24 @@ LLMPredictor.predict(match):
 Model id and prompt version go in `hyperparams` — `seed` does not control
 an LLM's output.
 
+### Prospective Forecast Command And Inspection
+
+`prediction/predict_match.py` adds `predict-match --protocol-name
+--match-id --model-family llm` for a scheduled, not-yet-completed match in a
+`lockbox_prospective` protocol whose materialized test membership contains
+that match (MPI-24). It refuses every other protocol kind, a completed target
+match, or a target outside the protocol with the same contamination
+explanation as the family guard. Its output identifies the target scheduled
+time and data cutoff, model id, prompt version, raw probability, calibrated
+probability or explicit `uncalibrated` status, and the created run id.
+`--dry-run` validates protocol, target, and packet construction without
+contacting the provider or writing a run.
+
+`report --run-id` and `explain-prediction --run-id --match-id` extend to
+show the same persisted prediction basis plus the stored rationale. The
+explanation must identify every results/evidence input included in the
+prompt and its time eligibility; it never recontacts the provider.
+
 ### Rationale Storage
 
 ```text
@@ -109,6 +128,9 @@ than silently fabricating a calibration from nothing.
 - Platt scaling: fit/predict correctness on synthetic (raw, outcome) pairs;
   the first-ever run (no prior data) uses raw probability and is flagged
   uncalibrated
+- `predict-match --dry-run` validates a prospective packet without a provider
+  call or ledger write; the real fake-client path persists a run id that
+  `report` and `explain-prediction` reproduce with its rationale
 
 ### Integration
 
@@ -127,7 +149,9 @@ than silently fabricating a calibration from nothing.
 7. `feat(MPI-29): add run_match_rationale schema and wiring`
 8. `test(MPI-29): define calibration` — red
 9. `feat(MPI-29): add calibration`
-10. `docs(MPI-29): document the prospective-only rule and calibration bootstrap`
+10. `test(MPI-29): define prospective predict-match and inspection` — red
+11. `feat(MPI-29): add predict-match and LLM explanation surface`
+12. `docs(MPI-29): document the prospective-only rule and calibration bootstrap`
 
 ## 5. Verification Plan
 
@@ -145,4 +169,7 @@ DATABASE_URL=... uv run python -m prediction.run_baseline \
 DATABASE_URL=... OPENAI_API_KEY=... uv run python -m prediction.run_baseline \
   --protocol-name lockbox_prospective_v1 --model-family llm
 DATABASE_URL=... uv run python -m prediction.report --run-id <llm-run>
+DATABASE_URL=... uv run python -m prediction.predict_match \
+  --protocol-name lockbox_prospective_v1 --match-id <scheduled-match-id> \
+  --model-family llm --dry-run
 ```

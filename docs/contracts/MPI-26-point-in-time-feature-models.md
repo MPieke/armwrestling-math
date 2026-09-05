@@ -11,6 +11,8 @@ Tier B of the model ladder: results-derived features (plus rating outputs,
 stacked) feeding LogReg and TabPFN. This is the first component with an
 **inner** temporal loop — building the training set itself requires walking
 forward in time, not just the outer rolling-origin split.
+Depends on MPI-30: `history_v1` and later feature definitions use the shared
+feature-schema registry, immutable feature rows, and explanation surface.
 
 ## 1. Current-State Architecture
 
@@ -48,6 +50,18 @@ built from strictly earlier matches.
 Predicting the actual test match reuses the state after the *last* training
 match — i.e., state as of the fold cutoff, the same quantity `elo.fit`'s
 final `ratings` represents.
+
+### Prediction Basis Inspection
+
+`prediction/explain_prediction.py` adds `explain-prediction --run-id
+--match-id` for feature-model runs. It must print a human-readable account
+and support `--format json`, showing the prediction and observed outcome,
+the target match's scheduled time, the fold cutoff, every encoded feature
+value, the historically eligible source records used to derive it, and any
+missing/defaulted values. It must make the point-in-time boundary auditable:
+no source record at or after the target match's scheduled time may appear.
+The command reads persisted run/protocol state and must not refit a model or
+write to the ledger.
 
 ### Features (v1)
 
@@ -110,11 +124,15 @@ change is a small, additive edit to `MPI-25`'s `ModelFamily` protocol.
   never selected; the most recent qualifying one is
 - LogReg coefficients round-trip with interpretable feature names in
   `run_models.params`
+- `explain-prediction` for a fixed fixture match shows its feature values,
+  source records, cutoff, and defaults; a post-match record is absent
 
 ### Integration
 
 - a full LogReg run against the real protocol produces a ledger entry
   comparable via `report`
+- `explain-prediction` reconstructs the stored LogReg prediction basis for
+  a real persisted run without writing or refitting
 
 ## 4. Commit-by-Commit Breakdown
 
@@ -130,7 +148,9 @@ change is a small, additive edit to `MPI-25`'s `ModelFamily` protocol.
 8. `test(MPI-26): define TabPFN over the same features` — red, behind an
    optional-import guard
 9. `feat(MPI-26): add TabPFN as an optional model family`
-10. `docs(MPI-26): document the feature builder and cold-start priors`
+10. `test(MPI-26): define explain-prediction feature provenance` — red
+11. `feat(MPI-26): add explain-prediction for point-in-time feature basis`
+12. `docs(MPI-26): document the feature builder and cold-start priors`
 
 ## 5. Verification Plan
 
@@ -146,6 +166,8 @@ DATABASE_URL=... uv run python -m prediction.run_baseline \
   --protocol-name rolling_origin_v1 --model-family logreg
 DATABASE_URL=... uv run python -m prediction.report --run-id <logreg-run>
 # confirm coefficients are present and named
+DATABASE_URL=... uv run python -m prediction.explain_prediction \
+  --run-id <logreg-run> --match-id <match-id>
 
 uv sync --extra tabpfn
 DATABASE_URL=... uv run python -m prediction.run_baseline \
