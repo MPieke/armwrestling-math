@@ -162,3 +162,54 @@ def test_run_baseline_rejects_a_schema_the_elo_model_cannot_consume(connection):
 def test_is_promotable_rejects_a_dirty_working_tree():
     assert is_promotable(git_dirty=False) is True
     assert is_promotable(git_dirty=True) is False
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "model_family,expected_hyperparam_keys",
+    [
+        ("elo", {"k_factor"}),
+        ("glicko2", set()),
+        ("bradley_terry", {"l2_regularization"}),
+    ],
+)
+def test_run_baseline_supports_every_registered_model_family(
+    connection, model_family, expected_hyperparam_keys
+):
+    """CLI/run_baseline wiring, not the family's own math (that's
+    test_model_families.py, test_glicko2.py, test_bradley_terry.py): proves
+    report can show any family's basis with no family-specific branching."""
+    _seed_four_events(connection)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+
+    run_id = run_baseline(connection, protocol_id, model_family=model_family, repo_root=REPO_ROOT)
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "select model_family, hyperparams, status from experiment_runs where id = %s",
+            (run_id,),
+        )
+        family, hyperparams, status = cursor.fetchone()
+        cursor.execute("select params from run_models where run_id = %s", (run_id,))
+        (params,) = cursor.fetchone()
+    assert status == "completed"
+    assert family == model_family
+    assert set(hyperparams) == expected_hyperparam_keys
+    assert params
+
+
+@pytest.mark.integration
+def test_run_baseline_rejects_an_unknown_model_family_before_creating_a_run(connection):
+    _seed_four_events(connection)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
+
+    with pytest.raises(ValueError, match="unknown model family"):
+        run_baseline(connection, protocol_id, model_family="neural_net", repo_root=REPO_ROOT)
+
+    with connection.cursor() as cursor:
+        cursor.execute("select count(*) from experiment_runs")
+        assert cursor.fetchone()[0] == 0

@@ -120,6 +120,38 @@ folds, not a stable estimate, and both the lockbox event choice and
 `min_training_events=1` should be revisited once more real events are
 collected.
 
+## Model Families (MPI-25)
+
+Tier A (results-only rating systems) sits behind one interface:
+
+```python
+class Predictor(Protocol):
+    def predict(self, match: CompletedMatch) -> float: ...
+    def params(self) -> dict: ...
+
+class ModelFamily(Protocol):
+    def fit(self, train_matches: list[CompletedMatch]) -> Predictor: ...
+
+MODEL_FAMILIES = {"elo": EloFamily(), "glicko2": Glicko2Family(), "bradley_terry": BradleyTerryFamily()}
+```
+
+`run_baseline.py` calls `MODEL_FAMILIES[model_family].fit(...)` instead of
+`elo.fit`/`elo.predict` directly; `--model-family` selects it on the CLI
+(default `elo`, unchanged behavior). `report --run-id` reads `run_models`
+generically — no family-specific branching — because every family's
+`params()` already returns its full fitted, inspectable state.
+
+`glicko2.py` hand-rolls Glickman's algorithm (dependency-free, white-box)
+rather than pulling a library. `glicko2_update` is one full rating period
+(the paper's steps 3-8) and is tested directly against the paper's own
+worked example; `Glicko2Family.fit` calls it once per match, sequentially,
+with a single-result list, matching how `elo.fit` already walks a fold.
+
+`bradley_terry.py` fits fresh per fold via `choix.opt_pairwise` with L2
+regularization. A batch MLE over one fold's `train_matches` is not the
+leakage a single global fit would be — everything in that set is already
+pre-cutoff by `folds.generate_rolling_origin`.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
@@ -151,7 +183,9 @@ db.py            reads events and v_completed_matches only -- never
                  breaking this service, and "what counts as a usable
                  completed match" has exactly one definition.
 
-elo.py           pure fit/predict, no database dependency
+elo.py / glicko2.py / pure fit/predict per family, no database dependency;
+bradley_terry.py    model_families.py holds the Predictor/ModelFamily
+                     interface and the MODEL_FAMILIES registry
 
 folds.py         generate_rolling_origin (pure, over db.py's lists) and
                  seed_lockbox (writes -- which events go in a lockbox is a
@@ -191,9 +225,10 @@ ordering from the self-join condition, not source-data order), excludes
 
 ### The non-negotiable rule: refit per fold, never reused
 
-`run_baseline.py` calls `elo.fit` fresh for every fold, using only that
-fold's `train_match_ids`. Ratings from one fold are never carried into the
-next. This is the leakage guardrail the whole rolling-origin design exists
+`run_baseline.py` calls `family.fit(...)` fresh for every fold, using only
+that fold's `train_match_ids`. State from one fold is never carried into the
+next, for any family. This is the leakage guardrail the whole rolling-origin
+design exists
 to enforce: a rating fit once over the entire match history would let every
 athlete's ability be influenced by matches that happen after any given match
 being evaluated against it, silently invalidating every fold's result.
@@ -210,3 +245,5 @@ leak into a dev protocol's training set either.
   component to write to it.
 - `docs/contracts/MPI-30-experiment-input-contracts-and-feature-schema-provenance.md`
   — versioned feature schemas and immutable run inputs.
+- `docs/contracts/MPI-25-pluggable-model-families.md` — Glicko-2 and
+  Bradley-Terry behind the same interface as Elo.
