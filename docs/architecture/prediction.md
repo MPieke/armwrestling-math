@@ -36,7 +36,8 @@ eval_protocols                    eval_folds
 | id               |<-------------| protocol_id           FK  |
 | name           U |              | fold_index                |
 | kind             |              | train_match_ids  bigint[] |
-| created_at       |              | test_match_ids   bigint[] |
+| spec       jsonb |              | test_match_ids   bigint[] |
+| created_at       |              |                           |
 +------------------+              +---------------------------+
                                      PK(protocol_id, fold_index)
 
@@ -85,6 +86,20 @@ from a rule such as "matches after date X" — a rule-based definition would
 silently grow as ingestion adds matches, breaking comparability between runs
 scored against "the same" protocol months apart.
 
+### Protocol lifecycle (MPI-24)
+
+A lockbox is seeded before any rolling-origin development protocol. Its one
+fold trains on completed matches from events strictly before the earliest
+selected lockbox event and tests on completed matches from the selected
+events. `eval_protocols.spec` records the selected event slugs and freeze
+date. Rolling-origin creation refuses to proceed until at least one lockbox
+exists and records `min_training_events` in its own spec.
+
+A `lockbox_prospective` protocol may grow only through the explicit
+`prediction.prospective` command. It appends all matches from one named event,
+including scheduled matches, while preserving idempotency. Protocol and fold
+membership remain inspectable through `prediction.report`.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
@@ -132,6 +147,9 @@ input_manifest.py persists fold-scoped model inputs before fitting and
 
 report.py /      read-only reconstruction of a completed run and one
 explain_prediction.py persisted test prediction, respectively
+
+seed_lockbox.py / operator commands for initial lockbox materialization and
+prospective.py    explicit prospective event growth
 ```
 
 ### v_completed_matches

@@ -32,6 +32,12 @@ uv run python -m prediction.run_baseline \
 
 uv run python -m prediction.report --run-id 1 --format json
 uv run python -m prediction.explain_prediction --run-id 1 --match-id 42 --format json
+
+uv run python -m prediction.seed_lockbox \
+  --name lockbox_retrospective_v1 --kind lockbox_retrospective \
+  --event-slug selected-event --dry-run
+uv run python -m prediction.prospective \
+  --protocol-name lockbox_prospective_v1 --event-slug future-event --dry-run
 ```
 
 `DATABASE_URL` (not `PREDICTION_TEST_DATABASE_URL`) is required for
