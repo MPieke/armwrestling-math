@@ -15,7 +15,7 @@ from pathlib import Path
 
 import psycopg
 
-from prediction import db, elo
+from prediction import db, elo, input_manifest
 from prediction.folds import Fold, generate_rolling_origin
 from prediction.metrics import ScoredPrediction, compute_metrics
 
@@ -101,19 +101,32 @@ def run_baseline(
     model_family: str = "elo",
     k_factor: float = elo.DEFAULT_K_FACTOR,
     seed: int = 0,
+    feature_schema: str = "outcomes_elo_v1",
     repo_root: Path = DEFAULT_REPO_ROOT,
 ) -> int:
     git_sha, git_dirty = get_git_info(repo_root)
+    schema_name, schema_version = feature_schema.rsplit("_v", maxsplit=1)
+    feature_spec_id = input_manifest.get_feature_spec_id(
+        connection, schema_name, int(schema_version)
+    )
     hyperparams = {"k_factor": k_factor}
 
     with connection.cursor() as cursor:
         cursor.execute(
             """
-            insert into experiment_runs (git_sha, git_dirty, protocol_id, model_family, hyperparams, seed, status)
-            values (%s, %s, %s, %s, %s, %s, 'running')
+            insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec_id, model_family, hyperparams, seed, status)
+            values (%s, %s, %s, %s, %s, %s, %s, 'running')
             returning id
             """,
-            (git_sha, git_dirty, protocol_id, model_family, json.dumps(hyperparams), seed),
+            (
+                git_sha,
+                git_dirty,
+                protocol_id,
+                feature_spec_id,
+                model_family,
+                json.dumps(hyperparams),
+                seed,
+            ),
         )
         (run_id,) = cursor.fetchone()
     connection.commit()
@@ -121,7 +134,10 @@ def run_baseline(
     try:
         folds = _load_folds(connection, protocol_id)
         matches_by_id = {match.match_id: match for match in db.list_completed_matches(connection)}
-        scored, final_ratings = _fit_predict_and_record(connection, run_id, folds, matches_by_id, k_factor)
+        input_manifest.persist_inputs(connection, run_id, folds, matches_by_id)
+        scored, final_ratings = _fit_predict_and_record(
+            connection, run_id, folds, matches_by_id, k_factor
+        )
         metrics = compute_metrics(scored)
         _complete_run(connection, run_id, metrics, final_ratings)
         connection.commit()
@@ -199,7 +215,10 @@ def _complete_run(
         )
         cursor.execute(
             "insert into run_models (run_id, params) values (%s, %s)",
-            (run_id, json.dumps({str(athlete_id): rating for athlete_id, rating in ratings.items()})),
+            (
+                run_id,
+                json.dumps({str(athlete_id): rating for athlete_id, rating in ratings.items()}),
+            ),
         )
 
 
@@ -212,11 +231,14 @@ def _fail_run(connection: psycopg.Connection, run_id: int, error_message: str) -
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="Run the Elo baseline against a rolling-origin protocol.")
+    parser = argparse.ArgumentParser(
+        description="Run the Elo baseline against a rolling-origin protocol."
+    )
     parser.add_argument("--protocol-name", required=True)
     parser.add_argument("--min-training-events", type=int, required=True)
     parser.add_argument("--k-factor", type=float, default=elo.DEFAULT_K_FACTOR)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--feature-schema", default="outcomes_elo_v1")
     args = parser.parse_args(argv)
 
     connection = db.connect()
@@ -224,7 +246,13 @@ def main(argv: list[str] | None = None) -> None:
         protocol_id = get_or_create_rolling_origin_protocol(
             connection, args.protocol_name, args.min_training_events
         )
-        run_id = run_baseline(connection, protocol_id, k_factor=args.k_factor, seed=args.seed)
+        run_id = run_baseline(
+            connection,
+            protocol_id,
+            k_factor=args.k_factor,
+            seed=args.seed,
+            feature_schema=args.feature_schema,
+        )
         print(f"experiment run {run_id} completed against protocol {args.protocol_name!r}")
     finally:
         connection.close()
