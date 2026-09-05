@@ -75,18 +75,20 @@ func TestExperimentRunsSupportIndependentRunsPerProtocolAndParentLineage(t *test
 
 	protocolID := seedProtocol(t, ctx, pool, "dev", "rolling_origin")
 
+	featureSpecID := seedFeatureSpec(t, ctx, pool)
+
 	var firstRunID int64
 	if err := pool.QueryRow(ctx, `
-		insert into experiment_runs (git_sha, git_dirty, protocol_id, model_family, seed, status)
-		values ('abc123', false, $1, 'elo', 1, 'completed') returning id`, protocolID).Scan(&firstRunID); err != nil {
+		insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec_id, model_family, seed, status)
+		values ('abc123', false, $1, $2, 'elo', 1, 'completed') returning id`, protocolID, featureSpecID).Scan(&firstRunID); err != nil {
 		t.Fatalf("insert first run: %v", err)
 	}
 
 	var secondRunID int64
 	if err := pool.QueryRow(ctx, `
-		insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec, model_family, hyperparams, seed, parent_run_id, hypothesis, status)
-		values ('def456', false, $1, '{"evidence_scope":"dyad"}', 'logistic_regression', '{"k":16}', 2, $2, 'evidence beats elo', 'completed')
-		returning id`, protocolID, firstRunID).Scan(&secondRunID); err != nil {
+		insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec_id, feature_spec, model_family, hyperparams, seed, parent_run_id, hypothesis, status)
+		values ('def456', false, $1, $2, '{"evidence_scope":"dyad"}', 'logistic_regression', '{"k":16}', 2, $3, 'evidence beats elo', 'completed')
+		returning id`, protocolID, featureSpecID, firstRunID).Scan(&secondRunID); err != nil {
 		t.Fatalf("insert second run: %v", err)
 	}
 
@@ -159,6 +161,18 @@ func TestDeletingExperimentRunCascadesPredictionsAndModelsOnly(t *testing.T) {
 	assertCount(t, ctx, pool, "eval_protocols", 1)
 }
 
+// seedFeatureSpec returns the id of the migration-seeded 'outcomes_elo'
+// feature spec. feature_specs is never truncated by resetIntegrationSchema
+// (nothing cascades into it), so this row always exists.
+func seedFeatureSpec(t *testing.T, ctx context.Context, pool *pgxpool.Pool) int64 {
+	t.Helper()
+	var featureSpecID int64
+	if err := pool.QueryRow(ctx, "select id from feature_specs where name = 'outcomes_elo' and version = 1").Scan(&featureSpecID); err != nil {
+		t.Fatalf("read seeded feature spec: %v", err)
+	}
+	return featureSpecID
+}
+
 func seedProtocol(t *testing.T, ctx context.Context, pool *pgxpool.Pool, name, kind string) int64 {
 	t.Helper()
 	var protocolID int64
@@ -174,9 +188,10 @@ func seedProtocol(t *testing.T, ctx context.Context, pool *pgxpool.Pool, name, k
 func seedCompletedRunAndFixtureIdentity(t *testing.T, ctx context.Context, pool *pgxpool.Pool) (runID, matchID, athleteID int64) {
 	t.Helper()
 	protocolID := seedProtocol(t, ctx, pool, "dev", "rolling_origin")
+	featureSpecID := seedFeatureSpec(t, ctx, pool)
 	if err := pool.QueryRow(ctx, `
-		insert into experiment_runs (git_sha, git_dirty, protocol_id, model_family, seed, status)
-		values ('abc123', false, $1, 'elo', 1, 'completed') returning id`, protocolID).Scan(&runID); err != nil {
+		insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec_id, model_family, seed, status)
+		values ('abc123', false, $1, $2, 'elo', 1, 'completed') returning id`, protocolID, featureSpecID).Scan(&runID); err != nil {
 		t.Fatalf("insert run: %v", err)
 	}
 	if err := pool.QueryRow(ctx, "select id from matches limit 1").Scan(&matchID); err != nil {

@@ -48,6 +48,7 @@ type EvalProtocol struct {
 	Name      string
 	Kind      string
 	CreatedAt pgtype.Timestamptz
+	Spec      []byte
 }
 
 type Event struct {
@@ -60,21 +61,32 @@ type Event struct {
 }
 
 type ExperimentRun struct {
-	ID           int64
-	GitSha       string
-	GitDirty     bool
-	ProtocolID   int64
-	FeatureSpec  []byte
-	ModelFamily  string
-	Hyperparams  []byte
-	Seed         int32
-	ParentRunID  pgtype.Int8
-	Hypothesis   pgtype.Text
-	Status       string
-	Metrics      []byte
-	ErrorMessage pgtype.Text
-	StartedAt    pgtype.Timestamptz
-	FinishedAt   pgtype.Timestamptz
+	ID            int64
+	GitSha        string
+	GitDirty      bool
+	ProtocolID    int64
+	FeatureSpec   []byte
+	ModelFamily   string
+	Hyperparams   []byte
+	Seed          int32
+	ParentRunID   pgtype.Int8
+	Hypothesis    pgtype.Text
+	Status        string
+	Metrics       []byte
+	ErrorMessage  pgtype.Text
+	StartedAt     pgtype.Timestamptz
+	FinishedAt    pgtype.Timestamptz
+	FeatureSpecID int64
+}
+
+type FeatureSpec struct {
+	ID                 int64
+	Name               string
+	Version            int32
+	RepresentationKind string
+	Definition         []byte
+	DefinitionSha256   string
+	CreatedAt          pgtype.Timestamptz
 }
 
 type IngestionRun struct {
@@ -109,6 +121,22 @@ type MatchCompetitor struct {
 type MatchVideo struct {
 	MatchID        int64
 	YoutubeVideoID string
+}
+
+type RunFeatureRow struct {
+	RunID         int64
+	FoldIndex     int32
+	MatchID       int64
+	Role          string
+	Payload       []byte
+	PayloadSha256 string
+}
+
+type RunInputManifest struct {
+	RunID          int64
+	CutoffPolicy   []byte
+	DataSummary    []byte
+	ManifestSha256 string
 }
 
 type RunModel struct {
