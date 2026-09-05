@@ -256,6 +256,18 @@ cd services/importer
 ./scripts/run-ingest-youtube.sh --help
 ```
 
+`./scripts/run-ingest-batch.sh <pairs-file> [parallelism=4] [max-videos=1]`
+runs `cmd/ingest-youtube` across many matches at once (`pairs-file`: one
+"`<match-natural-key> <video-id>`" per line, space-separated -- natural
+keys use `:` internally, never spaces). Each invocation is an independent
+process with its own database pool and temp directory, so running several
+concurrently is safe; `parallelism` bounds how many run at once to stay
+under provider rate limits. Pass `max-videos` above 1 to also search for
+additional videos about the same match beyond the known one (MPI-32) --
+`selectCandidates` always includes every explicit `--video-id` and fills
+any remaining slots via search, rather than treating an explicit ID as
+exclusive of it.
+
 CI, staging, and production should inject the variables through their native
 configuration and secret mechanisms. Every deployment supplies its own
 `DATABASE_URL`; environments use separate databases with the same ordered
