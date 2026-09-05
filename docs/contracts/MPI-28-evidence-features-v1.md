@@ -22,16 +22,17 @@ athlete-style table exists.
 One evidence encoding, evaluated honestly, not a set of variants. Depends
 on MPI-23 (loaded matches), MPI-26 (a Tier B run to compare against), MPI-27
 (subset-restricted `compare`), and MPI-30 (versioned feature schemas and
-immutable evidence-input provenance).
+immutable evidence-input provenance), and MPI-31 (the approved,
+match-centric evaluation evidence corpus).
 
 ### Prerequisite (operational, has API cost)
 
 The fresh database has zero claims — the MPI-19-22 audit's second
-by-design gap. Before this ticket produces anything: run `ingest-youtube`
-for the loaded matches, using `match_videos` (MPI-23) as known video IDs
-where available and the existing fixed-query search otherwise. Approve the
-OpenAI/`yt-dlp` cost for the batch before running it; record what was
-ingested in `docs/architecture/prediction.md`.
+by-design gap. MPI-31 owns the approved corpus batch: it runs
+`ingest-youtube` for selected loaded source matches, uses `match_videos`
+(MPI-23) as known video IDs where available and the existing fixed-query
+search otherwise, and records coverage and provider cost. This ticket does
+not begin annotation or feature evaluation until that corpus is available.
 
 ## 1. Current-State Architecture
 
@@ -167,10 +168,10 @@ to B.
 ## 5. Verification Plan
 
 ```sh
-# Operational prerequisite, cost-approved first:
-cd services/importer
-go run ./cmd/ingest-youtube --match-natural-key <key> [--video-id <id>]  # per loaded match
+# Operational prerequisite, completed and cost-approved by MPI-31:
+psql "$DATABASE_URL" -c "select count(*) as claims from claims;"
 
+cd services/importer
 gofmt -l . && go vet ./... && go test -v -count=1 ./...
 INGEST_TEST_DATABASE_URL='postgres://admin:admin@127.0.0.1:5432/armwrestling_math_test?sslmode=disable' \
   go test -v -count=1 -tags integration ./...
