@@ -152,6 +152,53 @@ regularization. A batch MLE over one fold's `train_matches` is not the
 leakage a single global fit would be — everything in that set is already
 pre-cutoff by `folds.generate_rolling_origin`.
 
+## Point-In-Time Feature Models (MPI-26)
+
+Tier B adds an **inner** temporal loop on top of the outer rolling-origin
+split: building the training set itself requires walking forward in time,
+not just splitting by fold. `point_in_time_features.build_training_table`
+threads a running state (per-athlete Elo rating via `elo.step`, head-to-head
+counts, a 5-match recent-form window, all-time win rate, last-match date)
+through a fold's `train_matches` exactly like `elo.fit` threads its ratings
+dict: a row's features come from state as of the *previous* match, and only
+then does that match update state. `features_for_test_match` applies the
+same state, built from every training match, to the one match being
+predicted — the tabular equivalent of `elo.fit`'s final ratings dict.
+
+The failure mode this guards against is easy to miss: computing e.g.
+"head-to-head record as of the fold cutoff" once for the whole training
+window and reusing it for every training row is still "before the cutoff,"
+just not before *that specific row* — a March example would see its own
+June rematch. `test_leakage_a_later_rematch_never_changes_an_earlier_rows_features`
+is the test that would catch a regression back into that shape.
+
+Feature values are left raw (numbers as numbers, `arm`/`weight_class` as
+strings) — encoding is a model's concern, not the builder's. `logreg.py`
+one-hot encodes categoricals against a vocabulary fixed from the fold's own
+training rows (an unseen category at test time becomes an all-zero
+indicator, never an error) and falls back to an explicit uninformative 0.5
+predictor for the degenerate single-outcome-class fold small real data
+produces early on. `tabpfn_family.py` reuses the same encoding behind an
+optional `[tabpfn]` extra (pulls in torch); `MODEL_FAMILIES` only registers
+`"tabpfn"` when the import succeeds.
+
+`prediction.explain_prediction` extends generically: every persisted
+`run_feature_rows` payload already carries its `features` and a
+`provenance` map (feature name -> the source match ids it was derived
+from); an empty list means "no source record, this is a documented
+default," which the CLI surfaces explicitly as `defaulted_features`. It
+also reconstructs the fold cutoff (the latest training match's
+`scheduled_at`) and each athlete's observed outcome, all read-only.
+
+Cold-start rating priors from external rankings (`athlete_rankings`,
+point-in-time `as_of`-gated selection, the additive
+`ModelFamily.fit(..., default_ratings=...)` hook the contract describes)
+were scoped out of this pass: no real ranking data exists for any loaded
+athlete yet, and nothing downstream depends on it. `default_ratings` is
+already a no-op-safe optional parameter throughout
+`point_in_time_features.py` and `logreg.py`, so wiring a real source in
+later is additive, not a redesign.
+
 ## Experiment Input Provenance (MPI-30)
 
 `feature_specs` names and versions each model-facing representation. Its
@@ -186,6 +233,13 @@ db.py            reads events and v_completed_matches only -- never
 elo.py / glicko2.py / pure fit/predict per family, no database dependency;
 bradley_terry.py    model_families.py holds the Predictor/ModelFamily
                      interface and the MODEL_FAMILIES registry
+
+point_in_time_features.py  Tier B's inner loop: build_training_table,
+                 features_for_test_match, history_v1_fold_payloads
+
+logreg.py /      Tier B models over the same feature table; tabpfn_family
+tabpfn_family.py is optional ([tabpfn] extra) and self-excludes from
+                 MODEL_FAMILIES when the import is unavailable
 
 folds.py         generate_rolling_origin (pure, over db.py's lists) and
                  seed_lockbox (writes -- which events go in a lockbox is a
@@ -247,3 +301,5 @@ leak into a dev protocol's training set either.
   — versioned feature schemas and immutable run inputs.
 - `docs/contracts/MPI-25-pluggable-model-families.md` — Glicko-2 and
   Bradley-Terry behind the same interface as Elo.
+- `docs/contracts/MPI-26-point-in-time-feature-models.md` — the inner
+  temporal loop, LogReg/TabPFN, and feature-provenance explanation.

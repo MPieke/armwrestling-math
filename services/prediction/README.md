@@ -29,7 +29,8 @@ PREDICTION_TEST_DATABASE_URL='postgres://admin:admin@127.0.0.1:5432/armwrestling
 uv run python -m prediction.run_baseline \
   --protocol-name rolling_origin_v1 --min-training-events 5 \
   --model-family elo --feature-schema outcomes_elo_v1
-# --model-family also accepts glicko2 and bradley_terry (prediction/model_families.py)
+# --model-family: elo, glicko2, bradley_terry (feature-schema outcomes_elo_v1, "rating")
+#                 logreg, tabpfn (feature-schema history_v1, "tabular"; tabpfn needs `uv sync --extra tabpfn`)
 
 uv run python -m prediction.report --run-id 1 --format json
 uv run python -m prediction.explain_prediction --run-id 1 --match-id 42 --format json
