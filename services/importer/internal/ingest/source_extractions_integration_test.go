@@ -3,10 +3,7 @@
 package ingest
 
 import (
-	"errors"
 	"testing"
-
-	"github.com/jackc/pgx/v5/pgconn"
 )
 
 func TestSourceExtractionSchema(t *testing.T) {
@@ -88,16 +85,9 @@ func TestSourceExtractionStatusConstraint(t *testing.T) {
 		t.Fatalf("seed source and match: %v", err)
 	}
 
-	_, err := pool.Exec(ctx, `
+	assertCheckConstraintViolation(t, ctx, pool, `
 		insert into source_extractions (source_id, match_id, provider, model, prompt_version, status, extracted_at)
 		select sources.id, matches.id, 'fixture-provider', 'test-model', 'v1', 'not-a-status', now()
 		from sources cross join matches
 	`)
-	if err == nil {
-		t.Fatal("invalid source_extractions status inserted successfully")
-	}
-	var databaseError *pgconn.PgError
-	if !errors.As(err, &databaseError) || databaseError.Code != "23514" {
-		t.Fatalf("invalid status error = %v, want PostgreSQL check-constraint violation", err)
-	}
 }
