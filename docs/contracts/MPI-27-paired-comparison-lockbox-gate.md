@@ -12,6 +12,8 @@ and `evaluate-lockbox` (the rare, gated, one-shot check). No migrations —
 every fact `evaluate-lockbox` needs to report "how many times has this
 lockbox been consulted" already exists as `experiment_runs` rows against
 that protocol; no new tracking table is needed.
+Depends on MPI-30 so comparisons can report whether runs differ by model
+family, feature schema, or both.
 
 ## 1. Current-State Architecture
 
@@ -47,6 +49,13 @@ eye is the mistake this ticket exists to prevent.
    corroborating, accuracy-specific view, not the primary criterion
 ```
 
+`compare` must print the exact evaluated subset: both run ids, shared
+protocol id/name, whether all predictions or an explicit `match_ids` subset
+was used, the resulting match ids/count, and each run's promotability. Its
+JSON output contains the same data and the paired statistics. This prevents
+a statistically valid-looking comparison from being manually interpreted as
+covering a different population than it actually did.
+
 Exact binomial McNemar rather than the chi-square approximation: sample
 sizes here are small enough (dozens of discordant pairs, not hundreds) that
 the continuity-corrected approximation is unreliable.
@@ -64,6 +73,11 @@ the continuity-corrected approximation is unreliable.
 3. run the ordinary run_baseline machinery against this protocol_id
 4. print the count again, now N+1
 ```
+
+`evaluate-lockbox` must print the protocol identity, its materialized
+train/test membership counts, and the consultation count before and after
+the run. It supports `--dry-run` to perform every guard and display what it
+would evaluate without inserting a run or consuming a lockbox consultation.
 
 ### Promotability
 
@@ -90,6 +104,8 @@ labels a `git_dirty=true` run "not a promotion candidate" in its output;
 - `evaluate-lockbox` refuses when the working tree is dirty (simulated via
   an uncommitted test file) without touching the ledger
 - `evaluate-lockbox`'s reported count increments by exactly one per call
+- `compare` reports the exact restricted match-id set/count and both runs'
+  promotability; `evaluate-lockbox --dry-run` performs no ledger write
 
 ## 4. Commit-by-Commit Breakdown
 
@@ -111,5 +127,7 @@ PREDICTION_TEST_DATABASE_URL='postgres://admin:admin@127.0.0.1:5432/armwrestling
 DATABASE_URL=... uv run python -m prediction.compare --run-a <elo-run> --run-b <glicko2-run>
 DATABASE_URL=... uv run python -m prediction.evaluate-lockbox \
   --protocol-name lockbox_retrospective_v1 --model-family elo
+DATABASE_URL=... uv run python -m prediction.evaluate-lockbox \
+  --protocol-name lockbox_retrospective_v1 --model-family elo --dry-run
 # confirm the printed look-count and that a dirty tree refuses before any query
 ```

@@ -51,12 +51,20 @@ func submitResult(ctx context.Context, queries *dbgen.Queries, submission Result
 	}
 	matchID, err := queries.UpsertResultMatch(ctx, dbgen.UpsertResultMatchParams{
 		NaturalKey: naturalKey, Label: textPointer(matchLabel(submission)), Arm: submission.Arm,
-		ScheduledAt: timeValue(&submission.ScheduledAt), EventID: eventID, Status: submission.Status,
+		WeightClass: submission.WeightClass, ScheduledAt: timeValue(&submission.ScheduledAt),
+		EventID: eventID, Status: submission.Status,
 	})
 	if err != nil {
 		return fmt.Errorf("upsert match %q: %w", naturalKey, err)
 	}
 	outcome.MatchID = matchID
+	for _, videoID := range submission.VideoIDs {
+		if err := queries.UpsertMatchVideo(ctx, dbgen.UpsertMatchVideoParams{
+			MatchID: matchID, YoutubeVideoID: videoID,
+		}); err != nil {
+			return fmt.Errorf("upsert match video %q: %w", videoID, err)
+		}
+	}
 
 	for _, competitor := range submission.Competitors {
 		athleteID, err := queries.UpsertAthlete(ctx, competitor.AthleteName)

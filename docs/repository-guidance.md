@@ -230,3 +230,19 @@ This is the writing-time version of the bar the
 `thermo-nuclear-code-quality-review` skill enforces on review — treat that
 skill's criteria as the detailed standard this section summarizes, not a
 separate one.
+
+## Multi-Contract Execution
+
+When the user explicitly approves a sequence of software-change contracts and
+authorizes implementation, treat the sequence as one active work turn.
+
+- Do not send a `final` response after an intermediate ticket, commit, test
+  pass, review, branch, or pull request.
+- Use `commentary` for concise progress and real verification results while
+  continuing directly to the next dependency-ready ticket.
+- Send a `final` response only after the final approved ticket has completed
+  its implementation, required thermo-nuclear review, and verification plan;
+  or when a genuine gate needs the user's decision, credentials, external
+  state change, or explicit paid-operation approval.
+- A `final` response ends active work. Never say that work will continue
+  autonomously after sending one.

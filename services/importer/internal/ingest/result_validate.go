@@ -32,6 +32,9 @@ func ValidateResult(submission ResultSubmission) error {
 	if !recognizedArms[submission.Arm] {
 		problems = append(problems, "unrecognized arm: "+submission.Arm)
 	}
+	if submission.WeightClass == "" {
+		problems = append(problems, "result submission requires a weight class")
+	}
 	if !recognizedStatuses[submission.Status] {
 		problems = append(problems, "unrecognized status: "+submission.Status)
 	}
@@ -42,6 +45,11 @@ func ValidateResult(submission ResultSubmission) error {
 		problems = append(problems, fmt.Sprintf("result submission requires exactly two competitors, got %d", len(submission.Competitors)))
 	}
 	problems = append(problems, validateCompetitors(submission)...)
+	for index, videoID := range submission.VideoIDs {
+		if strings.TrimSpace(videoID) == "" {
+			problems = append(problems, fmt.Sprintf("video %d requires a YouTube id", index))
+		}
+	}
 
 	if len(problems) == 0 {
 		return nil

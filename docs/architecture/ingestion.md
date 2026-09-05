@@ -146,6 +146,25 @@ Both submission types remain behind `internal/ingest` as the single
 transactional writer; the asymmetry is in what each is allowed to create, not
 in where the write happens.
 
+### Manual Result Loading
+
+`cmd/load-results` reads a hand-copied CSV, validates every row before opening
+a PostgreSQL connection, then submits rows in file order through
+`ingest.SubmitResult`. A malformed row therefore reaches no database work; a
+later persistence failure is reported for its row while later rows are still
+attempted.
+
+```text
+event_slug,event_name,promoter,event_date,arm,weight_class,athlete_a,
+athlete_b,score_a,score_b,status,video_id,bout
+```
+
+`video_id` and `bout` are optional. A known video becomes a
+`match_videos(match_id, youtube_video_id)` row for deterministic evidence
+ingestion. Repeated same-day matches with the same event, arm, and athlete
+pair require distinct positive `bout` values; their minute offsets make a
+genuine rematch distinct from a replay during natural-key resolution.
+
 `matches.natural_key` stays a plain, writer-agnostic `text unique` column.
 `ResultSubmission` mints its own keys deterministically:
 `<event-slug>:<athlete-a-slug>:<athlete-b-slug>:<arm>[:<sequence>]`, with
@@ -211,6 +230,19 @@ DATABASE_URL
 YOUTUBE_API_KEY
 OPENAI_API_KEY
 OPENAI_EXTRACTION_MODEL
+```
+
+The result loader needs only `DATABASE_URL` and does not load `.env` itself:
+
+```sh
+cd services/importer
+DATABASE_URL=... go run ./cmd/load-results --file testdata/sample_results.csv
+psql "$DATABASE_URL" -c "
+  select e.slug, m.weight_class, mv.youtube_video_id
+  from matches m
+  join events e on e.id = m.event_id
+  left join match_videos mv on mv.match_id = m.id
+  order by e.slug, mv.youtube_video_id;"
 ```
 
 Optional provider endpoint overrides are also supported:

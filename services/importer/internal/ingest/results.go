@@ -29,7 +29,9 @@ type ResultSubmission struct {
 	Event         EventInput              `json:"event"`
 	MatchLabel    string                  `json:"match_label,omitempty"`
 	Arm           string                  `json:"arm"`
+	WeightClass   string                  `json:"weight_class"`
 	ScheduledAt   time.Time               `json:"scheduled_at"`
 	Status        string                  `json:"status"`
+	VideoIDs      []string                `json:"video_ids,omitempty"`
 	Competitors   []CompetitorResultInput `json:"competitors"`
 }

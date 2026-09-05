@@ -9,7 +9,8 @@ status: proposed
 
 Makes the lockbox and rolling-origin protocols operational against real
 data, and produces the first number the prediction track exists to
-generate. Depends on MPI-23 (loaded matches to seed protocols from).
+generate. Depends on MPI-23 (loaded matches to seed protocols from) and
+MPI-30 (the shared feature-schema and immutable input-provenance boundary).
 
 `seed_lockbox` (MPI-22) writes `train_match_ids = '{}'` by design — that
 placeholder gets filled here, not fixed as a bug.
@@ -69,10 +70,13 @@ prediction/seed_lockbox.py       CLI: --name --kind --event-slug (repeatable)
                                   (changed) folds.seed_lockbox, records spec.
 
 prediction/prospective.py        add-prospective-event --protocol-name
-                                  --event-slug: appends that event's
-                                  completed matches to test_match_ids on
-                                  the existing single fold. Idempotent
-                                  (checks membership before appending).
+                                  --event-slug: appends every match in that
+                                  event, including scheduled ones, to
+                                  test_match_ids on the existing single
+                                  fold. Idempotent (checks membership before
+                                  appending). Completed members are scored
+                                  by evaluation; scheduled members are valid
+                                  targets for MPI-29's prospective forecast.
 
 prediction/report.py             report --run-id: git_sha/dirty,
                                   hyperparams, metrics, and a per-fold
@@ -84,6 +88,30 @@ prediction/report.py             report --run-id: git_sha/dirty,
                                   MPI-21 design deliberately avoided).
 ```
 
+### Shared Operator Visibility Requirements
+
+This ticket establishes `report --run-id` as the canonical inspection
+surface for every prediction run. It is an operator command, not merely a
+convenience formatter: a person must be able to use a persisted run id to
+reconstruct what was trained, evaluated, and predicted without reading logs
+or rerunning code.
+
+For every model family, `report` must print a human-readable summary and
+support `--format json` with the same facts: run id; git SHA and dirty state;
+model family; hyperparameters; seed; protocol name, kind, and materialized
+spec; each fold's train/test match ids and event dates; aggregate metrics;
+per-fold match counts; every recorded prediction with outcome; and fitted
+model parameters from `run_models`. It must label a dirty-tree run as not
+promotable. A missing value or unavailable fitted parameter must be shown as
+such, never silently omitted.
+
+Every command that writes canonical results, protocols, annotations, or an
+experiment run must offer a no-write validation path where practical and
+print the created/reused identifier on success. Commands that can incur API
+cost must require their existing explicit operational approval; `--dry-run`
+must not contact a paid provider. Later tickets extend this common report
+surface rather than creating competing ad-hoc inspection commands.
+
 ## 3. Test Plan Defined Before Implementation
 
 ### Integration (real PostgreSQL)
@@ -94,10 +122,14 @@ prediction/report.py             report --run-id: git_sha/dirty,
 - `get_or_create_rolling_origin_protocol` raises a named error when no
   lockbox protocol exists; succeeds and excludes lockbox events once one
   does (regression test for the existing exclusion behavior, now gated)
-- `add-prospective-event` appends only the given event's matches;
+- `add-prospective-event` appends every match, including scheduled matches,
+  from only the given event;
   running it twice does not duplicate ids in `test_match_ids`
 - `report` output (metrics, per-fold match counts) matches direct SQL for
   the same run
+- `report --format json` contains the run, protocol, fold membership,
+  predictions, metrics, and fitted parameters persisted for that run; a
+  dirty run is visibly marked not promotable
 
 ## 4. Commit-by-Commit Breakdown
 
@@ -105,7 +137,8 @@ prediction/report.py             report --run-id: git_sha/dirty,
 2. `test(MPI-24): define eval_protocols.spec and populated lockbox training` — red
 3. `feat(MPI-24): add spec column, populate lockbox training set`
 4. `test(MPI-24): define ordering guard, report, prospective growth` — red
-5. `feat(MPI-24): add ordering guard, report, add-prospective-event`
+5. `feat(MPI-24): add ordering guard, report, add-prospective-event` —
+   establishes the shared operator visibility requirements
 6. `docs(MPI-24): record the first Elo baseline and protocol definitions` —
    `docs/architecture/prediction.md`; this commit also runs the real
    baseline against the loaded dataset per the operator's chosen lockbox
@@ -125,4 +158,5 @@ DATABASE_URL=... uv run python -m prediction.seed_lockbox \
 DATABASE_URL=... uv run python -m prediction.run_baseline \
   --protocol-name rolling_origin_v1 --min-training-events <N>
 DATABASE_URL=... uv run python -m prediction.report --run-id <id>
+DATABASE_URL=... uv run python -m prediction.report --run-id <id> --format json
 ```
