@@ -4,7 +4,11 @@ from pathlib import Path
 import pytest
 
 from conftest import seed_completed_match
-from prediction.run_baseline import get_or_create_rolling_origin_protocol, is_promotable, run_baseline
+from prediction.run_baseline import (
+    get_or_create_rolling_origin_protocol,
+    is_promotable,
+    run_baseline,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
@@ -23,22 +27,43 @@ def _seed_four_events(connection):
 @pytest.mark.integration
 def test_run_baseline_creates_one_completed_run_with_correct_git_dirty(connection):
     _seed_four_events(connection)
-    protocol_id = get_or_create_rolling_origin_protocol(connection, "rolling_origin_test", min_training_events=2)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
 
     run_id = run_baseline(connection, protocol_id, repo_root=REPO_ROOT)
 
     with connection.cursor() as cursor:
-        cursor.execute("select status, git_sha, git_dirty from experiment_runs where id = %s", (run_id,))
-        status, git_sha, git_dirty = cursor.fetchone()
+        cursor.execute(
+            """
+            select r.status, r.git_sha, r.git_dirty, fs.name, fs.version,
+                   m.data_summary, count(f.*)
+            from experiment_runs r
+            join feature_specs fs on fs.id = r.feature_spec_id
+            join run_input_manifests m on m.run_id = r.id
+            left join run_feature_rows f on f.run_id = r.id
+            where r.id = %s
+            group by r.status, r.git_sha, r.git_dirty, fs.name, fs.version, m.data_summary
+            """,
+            (run_id,),
+        )
+        status, git_sha, git_dirty, feature_name, feature_version, data_summary, input_row_count = (
+            cursor.fetchone()
+        )
     assert status == "completed"
     assert len(git_sha) == 40
     assert isinstance(git_dirty, bool)
+    assert (feature_name, feature_version) == ("outcomes_elo", 1)
+    assert data_summary == {"feature_rows": 7, "roles": {"test": 2, "train": 5}}
+    assert input_row_count == 7
 
 
 @pytest.mark.integration
 def test_run_baseline_records_two_complementary_predictions_per_test_match(connection):
     _seed_four_events(connection)
-    protocol_id = get_or_create_rolling_origin_protocol(connection, "rolling_origin_test", min_training_events=2)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
 
     run_id = run_baseline(connection, protocol_id, repo_root=REPO_ROOT)
 
@@ -57,7 +82,9 @@ def test_run_baseline_records_two_complementary_predictions_per_test_match(conne
 @pytest.mark.integration
 def test_run_baseline_records_a_rating_for_every_athlete_seen_in_training(connection):
     _seed_four_events(connection)
-    protocol_id = get_or_create_rolling_origin_protocol(connection, "rolling_origin_test", min_training_events=2)
+    protocol_id = get_or_create_rolling_origin_protocol(
+        connection, "rolling_origin_test", min_training_events=2
+    )
 
     run_id = run_baseline(connection, protocol_id, repo_root=REPO_ROOT)
 
@@ -65,7 +92,9 @@ def test_run_baseline_records_a_rating_for_every_athlete_seen_in_training(connec
         cursor.execute("select params from run_models where run_id = %s", (run_id,))
         (params,) = cursor.fetchone()
         # Athletes from events 0 and 1 (the training data for the last fold).
-        cursor.execute("select id, canonical_name from athletes where canonical_name in ('A0','B0','A1','B1')")
+        cursor.execute(
+            "select id, canonical_name from athletes where canonical_name in ('A0','B0','A1','B1')"
+        )
         training_athletes = dict(cursor.fetchall())
 
     for athlete_id in training_athletes:

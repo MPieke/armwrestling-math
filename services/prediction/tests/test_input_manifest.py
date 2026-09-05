@@ -4,19 +4,16 @@ import pytest
 @pytest.mark.integration
 def test_completed_run_inputs_are_immutable(connection):
     with connection.cursor() as cursor:
-        cursor.execute(
-            """
-            insert into feature_specs (name, version, representation_kind, definition, definition_sha256)
-            values ('outcomes_elo', 1, 'rating', '{}', repeat('a', 64)) returning id
-            """
-        )
+        cursor.execute("select id from feature_specs where name = 'outcomes_elo' and version = 1")
         (feature_spec_id,) = cursor.fetchone()
-        cursor.execute("insert into eval_protocols (name, kind) values ('protocol', 'rolling_origin') returning id")
+        cursor.execute(
+            "insert into eval_protocols (name, kind) values ('protocol', 'rolling_origin') returning id"
+        )
         (protocol_id,) = cursor.fetchone()
         cursor.execute(
             """
             insert into experiment_runs (git_sha, git_dirty, protocol_id, feature_spec_id, model_family, hyperparams, seed, status)
-            values (repeat('a', 40), false, %s, %s, 'elo', '{}', 0, 'completed') returning id
+            values (repeat('a', 40), false, %s, %s, 'elo', '{}', 0, 'running') returning id
             """,
             (protocol_id, feature_spec_id),
         )
@@ -28,6 +25,10 @@ def test_completed_run_inputs_are_immutable(connection):
             """,
             (run_id,),
         )
+        cursor.execute("update experiment_runs set status = 'completed' where id = %s", (run_id,))
         with pytest.raises(Exception):
-            cursor.execute("update run_input_manifests set data_summary = '{\"changed\":true}' where run_id = %s", (run_id,))
+            cursor.execute(
+                "update run_input_manifests set data_summary = '{\"changed\":true}' where run_id = %s",
+                (run_id,),
+            )
     connection.rollback()

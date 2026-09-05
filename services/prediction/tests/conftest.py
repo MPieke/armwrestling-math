@@ -41,7 +41,7 @@ def _reset_schema(conn: psycopg.Connection) -> None:
         cursor.execute(
             """
             truncate claim_subjects, claims, source_extractions, sources,
-                     match_competitors, matches, events, athletes, ingestion_runs,
+                     match_videos, match_competitors, matches, events, athletes, ingestion_runs,
                      run_predictions, run_models, experiment_runs, eval_folds, eval_protocols
             restart identity cascade
             """
@@ -74,8 +74,8 @@ def seed_completed_match(
             athlete_ids.append(cursor.fetchone()[0])
         cursor.execute(
             """
-            insert into matches (natural_key, arm, scheduled_at, event_id, status)
-            values (%s, %s, %s, %s, 'completed') returning id
+            insert into matches (natural_key, weight_class, arm, scheduled_at, event_id, status)
+            values (%s, 'open', %s, %s, %s, 'completed') returning id
             """,
             (f"{event_slug}:{athlete_a}:{athlete_b}:{arm}", arm, held_on, event_id),
         )
