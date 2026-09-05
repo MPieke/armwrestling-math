@@ -9,6 +9,8 @@ from typing import Any
 import psycopg
 
 from prediction import db
+from prediction.db import CompletedMatch
+from prediction.evidence import describe_claim_eligibility, encode_evidence
 
 
 def build_prediction_explanation(
@@ -65,6 +67,56 @@ def build_prediction_explanation(
         "match_id": match_id,
         "test_inputs": test_inputs,
         "predictions": predictions,
+        "evidence_basis": _evidence_basis(connection, run_id, match_id),
+    }
+
+
+def _evidence_basis(connection: psycopg.Connection, run_id: int, match_id: int) -> dict[str, Any] | None:
+    """None for any non-evidence_v1 run, or a match not in
+    v_completed_matches (e.g. a scheduled prospective match) -- evidence
+    provenance only applies to a completed evidence_v1 prediction."""
+    with connection.cursor() as cursor:
+        cursor.execute("select model_family, hyperparams from experiment_runs where id = %s", (run_id,))
+        run_row = cursor.fetchone()
+        if run_row is None or run_row[0] != "evidence_v1":
+            return None
+        _, hyperparams = run_row
+        cursor.execute(
+            """
+            select match_id, event_id, scheduled_at, arm, weight_class,
+                   athlete_a_id, athlete_b_id, result_a
+            from v_completed_matches where match_id = %s
+            """,
+            (match_id,),
+        )
+        match_row = cursor.fetchone()
+        if match_row is None:
+            return None
+        match = CompletedMatch(*match_row)
+
+    eligible, excluded = describe_claim_eligibility(
+        connection, match, hyperparams["evidence_model"], hyperparams["evidence_prompt_version"]
+    )
+    return {
+        "evidence_model": hyperparams["evidence_model"],
+        "evidence_prompt_version": hyperparams["evidence_prompt_version"],
+        "encoded": encode_evidence(eligible, as_of=match.scheduled_at),
+        "eligible_claims": [_claim_dict(claim) for claim in eligible],
+        "excluded_claims": [{"reason": reason, **_claim_dict(claim)} for claim, reason in excluded],
+    }
+
+
+def _claim_dict(claim) -> dict[str, Any]:
+    return {
+        "claim_id": claim.claim_id,
+        "claim_text": claim.claim_text,
+        "published_at": claim.published_at,
+        "claim_type": claim.claim_type,
+        "concepts": claim.concepts,
+        "temporality": claim.temporality,
+        "certainty": claim.certainty,
+        "source_id": claim.source_id,
+        "source_title": claim.source_title,
     }
 
 
@@ -106,6 +158,16 @@ def render_explanation(explanation: dict[str, Any], output_format: str) -> str:
                     lines.append(f"    {name} = {features[name]}")
             if test_input["defaulted_features"]:
                 lines.append(f"  defaulted (no source record): {test_input['defaulted_features']}")
+        basis = explanation["evidence_basis"]
+        if basis:
+            lines.append(f"evidence basis ({basis['evidence_model']}, {basis['evidence_prompt_version']}):")
+            lines.append(f"  encoded: {basis['encoded']}")
+            lines.append("  eligible claims:")
+            for claim in basis["eligible_claims"]:
+                lines.append(f"    [{claim['claim_id']}] ({claim['claim_type']}) {claim['claim_text']!r} published={claim['published_at']}")
+            lines.append("  excluded claims:")
+            for claim in basis["excluded_claims"]:
+                lines.append(f"    [{claim['claim_id']}] reason={claim['reason']!r} {claim['claim_text']!r}")
         return "\n".join(lines)
     raise ValueError(f"unsupported format {output_format!r}")
 
