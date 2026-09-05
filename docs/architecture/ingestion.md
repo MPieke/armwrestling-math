@@ -3,9 +3,12 @@
 ## Purpose And Scope
 
 `services/importer` contains a provider-independent PostgreSQL evidence core
-and source-specific adapters. PostgreSQL owns registered matches, athletes,
-and competitor membership. Evidence adapters may read that context but cannot
-create or modify it.
+and source-specific adapters. Match, athlete, and competitor identity is
+created by result submissions (MPI-19) and read-only for evidence adapters:
+an evidence adapter may read an existing match's competitors but cannot
+create or modify match, athlete, or competitor-membership rows. See
+"Result And Evidence Ownership" under Data Model for why the two submission
+types are asymmetric.
 
 The static React application and historical Python evidence scripts remain
 separate. They do not read PostgreSQL.
@@ -100,6 +103,9 @@ subject belongs to the selected match or that a timestamp fits the video.
 ## Data Model
 
 ```text
+              events
+                ^
+                | event_id
 athletes <--- match_competitors ---> matches
    ^                                   ^
    |                                   |
@@ -111,8 +117,42 @@ claim_subjects ---> claims ------------+
                       v
                    sources
 
-ingestion_runs records each database submission attempt.
+ingestion_runs records each database submission attempt (evidence or result).
 ```
+
+`events` groups matches by promoter event (slug, promoter, name, held-on
+date). `matches.event_id` is `NOT NULL`, `matches.status` is one of
+`scheduled`, `completed`, `dq`, `no_contest`, and `match_competitors.score`/
+`.result` hold the outcome. These are populated only by `ingest.SubmitResult`
+(MPI-19); `ingest.Submit` (evidence) never touches them.
+
+### Result And Evidence Ownership
+
+`internal/ingest` holds two submission types with deliberately opposite trust
+directions:
+
+```text
+EvidenceSubmission   reads canonical identity, never creates it.
+                     Requires the match to already exist. Untrusted content
+                     (an LLM-extracted claim) can attach evidence to a match
+                     but can never fabricate one.
+
+ResultSubmission     OWNS canonical identity. Creates events, athletes,
+                     matches, and competitor outcomes in one transaction.
+                     Importing a result is how a match enters the system.
+```
+
+Both submission types remain behind `internal/ingest` as the single
+transactional writer; the asymmetry is in what each is allowed to create, not
+in where the write happens.
+
+`matches.natural_key` stays a plain, writer-agnostic `text unique` column.
+`ResultSubmission` mints its own keys deterministically:
+`<event-slug>:<athlete-a-slug>:<athlete-b-slug>:<arm>[:<sequence>]`, with
+athlete slugs sorted so competitor order in source data never changes the
+key, and a sequence suffix only when the same pair meets again on the same
+arm within the same event (a genuine rematch, disambiguated from a replay of
+the same submission by comparing `scheduled_at`).
 
 Each actual OpenAI extraction attempt produces a `source_extractions` row. Completed
 zero-claim results are durable. Failed attempts store their error and no
