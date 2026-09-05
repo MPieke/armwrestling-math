@@ -33,10 +33,10 @@ D  LLM direct predictor             prospective lockbox ONLY
 
 ```text
 MPI-23 loader ──> MPI-24 Elo baseline ──> MPI-25 families ──┬──> MPI-26 features ──┐
-                                                            │                      ├──> MPI-28 evidence v1
-                                                            └──> MPI-27 compare ───┤
-                                                                                   └──> MPI-29 LLM predictor
-MPI-23 ────────────────────────────────────────────────────────────────────────────────> MPI-28 (migration order)
+                                                            │                      ├──> MPI-28 evidence v1 ──> MPI-29 LLM predictor
+                                                            └──> MPI-27 compare ───┘
+MPI-23 ─────────────────────────────────────────────────────────────────────────> MPI-28 (migration order)
+                                                                                     MPI-28 ──> MPI-29 (migration order, see below)
 ```
 
 ## Gate Conditions
@@ -61,10 +61,14 @@ leakage test is green; `compare` supports subset mode; and the operational
 prerequisite has been done — evidence ingested for the loaded matches
 (`ingest-youtube`, using `match_videos` IDs), cost approved first.
 
-**MPI-25 + MPI-27 → MPI-29**: `compare` and the lockbox-evaluation gate
-exist; a `lockbox_prospective` protocol exists (MPI-24). MPI-28's selection
-layer is used for the evidence packet if merged; a results-only packet is a
-valid v1 otherwise.
+**MPI-25 + MPI-27 + MPI-28 (migration order) → MPI-29**: `compare` and the
+lockbox-evaluation gate exist; a `lockbox_prospective` protocol exists
+(MPI-24). MPI-28 is a logical soft-dependency (its selection layer is used
+for the evidence packet if merged, a results-only packet is a valid v1
+otherwise) but a **hard migration-order dependency**: MPI-29's contract
+resolved rationale storage to its own `run_match_rationale` table, placing
+it after MPI-28 in the shared migration sequence regardless of whether its
+evidence packet is wired in.
 
 ## Parallelism
 
@@ -72,12 +76,15 @@ Rule (unchanged): a ticket may start if it depends on nothing unmerged
 **and** touches neither `db/migrations` nor `internal/dbgen`.
 
 Migration-touching tickets, which therefore serialize among themselves in
-this order: **23 → 24 → 26 → 28** (and 29 only if it chooses a `details`
-column for rationale). Migration-free: **25, 27**.
+this order: **23 → 24 → 26 → 28 → 29**. MPI-29's contract resolved its
+rationale-storage question to a dedicated `run_match_rationale` table, so
+it is migration-touching after all — the earlier hedge in this document
+("only if it chooses a details column") is settled: yes, it needs one.
+Migration-free: **25, 27**.
 
-Concretely: **27 may run in parallel with 26** once 25 is merged. **29 may
-run in parallel with 28** once 25 and 27 are merged, provided 29 stays
-migration-free. Everything else is serial.
+Concretely: **27 may run in parallel with 26** once 25 is merged. That is
+the only parallel pair in this batch — MPI-29 no longer qualifies, since it
+now sits in the same migration sequence as 28.
 
 ## Human Decisions Embedded In The Batch
 
