@@ -41,7 +41,7 @@ func integrationPool(t *testing.T) (context.Context, *pgxpool.Pool) {
 
 func resetIntegrationSchema(t *testing.T, ctx context.Context, pool *pgxpool.Pool) {
 	t.Helper()
-	if _, err := pool.Exec(ctx, "truncate claim_subjects, claims, source_extractions, sources, match_competitors, matches, events, athletes, ingestion_runs restart identity cascade"); err != nil {
+	if _, err := pool.Exec(ctx, "truncate claim_subjects, claims, source_extractions, sources, match_competitors, matches, events, athletes, ingestion_runs, run_predictions, run_models, experiment_runs, eval_folds, eval_protocols restart identity cascade"); err != nil {
 		t.Fatalf("reset database: %v", err)
 	}
 	t.Log("reset dedicated integration schema to a known empty state")

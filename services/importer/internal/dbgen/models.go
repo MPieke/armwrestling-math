@@ -36,6 +36,20 @@ type ClaimSubject struct {
 	AthleteID int64
 }
 
+type EvalFold struct {
+	ProtocolID    int64
+	FoldIndex     int32
+	TrainMatchIds []int64
+	TestMatchIds  []int64
+}
+
+type EvalProtocol struct {
+	ID        int64
+	Name      string
+	Kind      string
+	CreatedAt pgtype.Timestamptz
+}
+
 type Event struct {
 	ID        int64
 	Slug      string
@@ -43,6 +57,24 @@ type Event struct {
 	Name      string
 	HeldOn    pgtype.Date
 	CreatedAt pgtype.Timestamptz
+}
+
+type ExperimentRun struct {
+	ID           int64
+	GitSha       string
+	GitDirty     bool
+	ProtocolID   int64
+	FeatureSpec  []byte
+	ModelFamily  string
+	Hyperparams  []byte
+	Seed         int32
+	ParentRunID  pgtype.Int8
+	Hypothesis   pgtype.Text
+	Status       string
+	Metrics      []byte
+	ErrorMessage pgtype.Text
+	StartedAt    pgtype.Timestamptz
+	FinishedAt   pgtype.Timestamptz
 }
 
 type IngestionRun struct {
@@ -71,6 +103,18 @@ type MatchCompetitor struct {
 	AthleteID int64
 	Score     pgtype.Int4
 	Result    pgtype.Text
+}
+
+type RunModel struct {
+	RunID  int64
+	Params []byte
+}
+
+type RunPrediction struct {
+	RunID     int64
+	MatchID   int64
+	AthleteID int64
+	PWin      float64
 }
 
 type Source struct {
