@@ -13,8 +13,9 @@ from the same database.
 services/importer (Go)          owns canonical writes: events, athletes,
                                  matches, outcomes, evidence
 
-experiment ledger (tier 2)      eval_protocols, eval_folds, experiment_runs,
-                                 run_predictions, run_models -- written
+experiment ledger (tier 2)      feature_specs, eval_protocols, eval_folds,
+                                 experiment_runs, run_input_manifests,
+                                 run_feature_rows, run_predictions, run_models -- written
                                  directly by whatever computes and evaluates
                                  a prediction approach, not through Go's
                                  sqlc-generated query layer
@@ -39,31 +40,35 @@ eval_protocols                    eval_folds
 +------------------+              +---------------------------+
                                      PK(protocol_id, fold_index)
 
-experiment_runs
-+---------------------+
-| id                  |
-| git_sha, git_dirty  |
-| protocol_id     FK  |----> eval_protocols
-| feature_spec  jsonb |
-| model_family        |
-| hyperparams   jsonb |
-| seed                |
-| parent_run_id   FK  |----> experiment_runs (self, nullable)
-| hypothesis          |
-| status, metrics     |
-+---------------------+
-        |                          |
-        v                          v
-run_predictions              run_models
-  (run_id, match_id,           (run_id, params jsonb)
-   athlete_id, p_win)
+feature_specs                         experiment_runs
++-----------------------+             +---------------------+
+| id                    |<------------| feature_spec_id  FK  |
+| name, version     U   |             | git_sha, git_dirty  |
+| representation_kind   |             | protocol_id      FK  |----> eval_protocols
+| definition jsonb      |             | model_family        |
+| definition_sha256     |             | hyperparams   jsonb |
++-----------------------+             | seed                |
+                                      | parent_run_id   FK  |----> experiment_runs (self, nullable)
+                                      | hypothesis          |
+                                      | status, metrics     |
+                                      +---------------------+
+                                               |          |
+                                               v          v
+                                  run_input_manifests  run_predictions
+                                  +-----------------+    (run_id, match_id,
+                                  | run_id PK/FK    |     athlete_id, p_win)
+                                  | cutoff_policy   |
+                                  | data_summary    |    run_models
+                                  | manifest_sha256 |    (run_id, params jsonb)
+                                  +-----------------+
+                                           |
+                                           v
+                                  run_feature_rows
+                                  (run_id, fold_index, match_id, role,
+                                   payload jsonb, payload_sha256)
 ```
 
-Three deliberate omissions, and why:
-
-- **No `datasets`/`feature_specs` table with content hashes.** A dataset's
-  shape varies per experiment, but its *code* is already pinned by
-  `experiment_runs.git_sha`; a separate hashing layer would duplicate that.
+Two deliberate omissions, and why:
 - **No stored model artifact.** The candidate model families (Elo,
   Bradley-Terry, logistic regression) are deterministic given `git_sha` +
   input data + `seed`; `run_models.params` keeps coefficients/importances
@@ -79,6 +84,25 @@ Three deliberate omissions, and why:
 from a rule such as "matches after date X" — a rule-based definition would
 silently grow as ingestion adds matches, breaking comparability between runs
 scored against "the same" protocol months apart.
+
+## Experiment Input Provenance (MPI-30)
+
+`feature_specs` names and versions each model-facing representation. Its
+canonical-JSON SHA-256 makes the definition inspectable independently of the
+model code. `experiment_runs.feature_spec_id` selects exactly one registered
+representation for a run.
+
+Before fitting, `run_baseline.py` copies each fold's train and test payloads
+from `v_completed_matches` into `run_feature_rows`. `run_input_manifests`
+records the cutoff policy, input summary, and manifest hash. PostgreSQL
+triggers reject inserts, updates, and deletes from either input table after a
+run becomes `completed`; a correction to canonical data therefore cannot
+silently change the basis of a historical result.
+
+`prediction.report` and `prediction.explain_prediction` are read-only
+operator commands. They reconstruct the persisted run, schema, folds,
+manifest, feature payloads, and recorded probabilities; they neither refit a
+model nor write ledger data.
 
 ## services/prediction (MPI-22)
 
@@ -102,6 +126,12 @@ metrics.py       pure: accuracy, log-loss, Brier score, Wilson interval
 
 run_baseline.py  composition root; the only module that opens a
                  connection and commits
+
+input_manifest.py persists fold-scoped model inputs before fitting and
+                 resolves the named feature schema
+
+report.py /      read-only reconstruction of a completed run and one
+explain_prediction.py persisted test prediction, respectively
 ```
 
 ### v_completed_matches
@@ -140,3 +170,5 @@ leak into a dev protocol's training set either.
 - `docs/contracts/MPI-21-experiment-ledger-schema.md` — this schema.
 - `docs/contracts/MPI-22-elo-baseline-rolling-origin-runner.md` — the first
   component to write to it.
+- `docs/contracts/MPI-30-experiment-input-contracts-and-feature-schema-provenance.md`
+  — versioned feature schemas and immutable run inputs.
