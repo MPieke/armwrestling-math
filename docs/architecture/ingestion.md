@@ -268,6 +268,46 @@ additional videos about the same match beyond the known one (MPI-32) --
 any remaining slots via search, rather than treating an explicit ID as
 exclusive of it.
 
+### Self-Hosted Transcription (MPI-33)
+
+`TRANSCRIPTION_PROVIDER=whisper_cpp` (default: `openai`) switches
+`cmd/ingest-youtube` to `transcript.WhisperCPPTranscriber` instead of the
+OpenAI Whisper API, pointed at `WHISPER_SERVER_BASE_URL` (default
+`http://127.0.0.1:8080`). One 48-video batch (MPI-28) cost $6.53, ~99% of it
+Whisper-1 API minutes on full-length match broadcasts; self-hosting removes
+essentially all of that going forward. whisper.cpp's `/inference` endpoint is
+deliberately OpenAI-response-compatible, so `WhisperCPPTranscriber` shares
+`decodeVerboseJSONTranscript` with `OpenAITranscriber` rather than
+duplicating segment parsing -- only the request side (no API key, no
+`model` field) differs.
+
+Two ways to run the server, same client code either way:
+
+```sh
+# Local dev: native binary, Metal-accelerated on Apple Silicon (Docker
+# Desktop cannot pass Metal through to a Linux container, so the image
+# below is meaningfully slower here). Requires `brew install whisper-cpp`.
+cd services/importer
+./scripts/run-whisper-server.sh   # downloads the model to ~/.cache/whisper.cpp on first run
+
+# The portable, CPU-only path CI will eventually use:
+docker compose --profile whisper up -d whisper
+```
+
+Real numbers on an M4 (native, Metal, `large-v3-turbo`): an 18m48s video
+transcribed in 87s self-hosted vs. 52s via the OpenAI API -- close, not an
+order of magnitude apart. The Docker CPU-only path is slower than this,
+not yet measured for real; local dev should use the native script.
+
+`run-whisper-server.sh` downloads its model to a temp file and renames it
+atomically only on success: a truncated model file loads without error but
+produces silently hallucinated, plausible-looking garbage in every
+language except the right one. This happened once during development (a
+background download was interrupted) and looked like a transcription
+*quality* problem before the real cause -- a ~120MB short file -- was
+found by comparing the downloaded size against the source's real
+`Content-Length`.
+
 CI, staging, and production should inject the variables through their native
 configuration and secret mechanisms. Every deployment supplies its own
 `DATABASE_URL`; environments use separate databases with the same ordered
@@ -306,6 +346,9 @@ Optional provider endpoint overrides are also supported:
 ```text
 YOUTUBE_API_BASE_URL
 OPENAI_API_BASE_URL
+TRANSCRIPTION_PROVIDER    openai (default) or whisper_cpp
+WHISPER_SERVER_BASE_URL   default http://127.0.0.1:8080, used only when
+                          TRANSCRIPTION_PROVIDER=whisper_cpp
 ```
 
 The default provider endpoints are used when the optional values are absent.
