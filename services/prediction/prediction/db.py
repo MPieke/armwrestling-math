@@ -31,6 +31,7 @@ class CompletedMatch:
     event_id: int
     scheduled_at: datetime
     arm: str
+    weight_class: str
     athlete_a_id: int
     athlete_b_id: int
     result_a: str
@@ -49,7 +50,8 @@ def list_completed_matches(connection: psycopg.Connection) -> list[CompletedMatc
     with connection.cursor() as cursor:
         cursor.execute(
             """
-            select match_id, event_id, scheduled_at, arm, athlete_a_id, athlete_b_id, result_a
+            select match_id, event_id, scheduled_at, arm, weight_class,
+                   athlete_a_id, athlete_b_id, result_a
             from v_completed_matches
             order by scheduled_at, match_id
             """
@@ -60,9 +62,10 @@ def list_completed_matches(connection: psycopg.Connection) -> list[CompletedMatc
                 event_id=row[1],
                 scheduled_at=row[2],
                 arm=row[3],
-                athlete_a_id=row[4],
-                athlete_b_id=row[5],
-                result_a=row[6],
+                weight_class=row[4],
+                athlete_a_id=row[5],
+                athlete_b_id=row[6],
+                result_a=row[7],
             )
             for row in cursor.fetchall()
         ]
