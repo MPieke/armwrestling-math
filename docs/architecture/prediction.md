@@ -120,6 +120,18 @@ folds, not a stable estimate, and both the lockbox event choice and
 `min_training_events=1` should be revisited once more real events are
 collected.
 
+### First lockbox consultation (2026-09-05)
+
+`lockbox_retrospective_v1` consulted once (`evaluate_lockbox.py`, `elo`,
+run 6, promotable): accuracy 0.60 (Wilson 95% CI [0.36, 0.80], n=15),
+log-loss 0.691, Brier 0.249 — notably lower than the rolling-origin dev
+accuracy of 0.828 above. The CI is wide enough at n=15 that this alone
+doesn't prove overfitting to the dev folds, but it's the exact kind of gap
+the lockbox exists to surface, and it's a real signal to keep in mind
+rather than something to re-run away: the lockbox is spent for this
+protocol/family combination until more retrospective events justify
+reseeding it.
+
 ## Model Families (MPI-25)
 
 Tier A (results-only rating systems) sits behind one interface:
