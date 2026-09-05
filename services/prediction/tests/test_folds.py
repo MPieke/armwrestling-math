@@ -24,9 +24,7 @@ def test_generates_one_fold_per_event_from_nth_onward_in_date_order(connection):
 
     assert [fold.fold_index for fold in folds] == [0, 1]
     matches_by_id = {m.match_id: m for m in matches}
-    tested_events_in_order = [
-        matches_by_id[fold.test_match_ids[0]].event_id for fold in folds
-    ]
+    tested_events_in_order = [matches_by_id[fold.test_match_ids[0]].event_id for fold in folds]
     assert tested_events_in_order == [events[2].id, events[3].id]
 
 
@@ -82,6 +80,13 @@ def test_events_already_in_a_lockbox_are_excluded_entirely(connection):
 
 @pytest.mark.integration
 def test_seed_lockbox_creates_one_fold_scoped_to_the_given_events(connection):
+    _, earlier_match_id = seed_completed_match(
+        connection,
+        event_slug="before-lockbox",
+        held_on=date(2025, 12, 1),
+        athlete_a="Earlier A",
+        athlete_b="Earlier B",
+    )
     event_ids = []
     for i in range(2):
         event_id, _ = seed_completed_match(
@@ -98,15 +103,20 @@ def test_seed_lockbox_creates_one_fold_scoped_to_the_given_events(connection):
     )
 
     seed_lockbox(
-        connection, name="lockbox_retrospective_v1", kind="lockbox_retrospective", event_ids=event_ids
+        connection,
+        name="lockbox_retrospective_v1",
+        kind="lockbox_retrospective",
+        event_ids=event_ids,
     )
 
     with connection.cursor() as cursor:
-        cursor.execute("select kind from eval_protocols where name = 'lockbox_retrospective_v1'")
-        (kind,) = cursor.fetchone()
+        cursor.execute(
+            "select kind, spec from eval_protocols where name = 'lockbox_retrospective_v1'"
+        )
+        kind, spec = cursor.fetchone()
         cursor.execute(
             """
-            select f.fold_index, f.test_match_ids
+            select f.fold_index, f.train_match_ids, f.test_match_ids
             from eval_folds f join eval_protocols p on p.id = f.protocol_id
             where p.name = 'lockbox_retrospective_v1'
             """
@@ -114,7 +124,9 @@ def test_seed_lockbox_creates_one_fold_scoped_to_the_given_events(connection):
         rows = cursor.fetchall()
 
     assert kind == "lockbox_retrospective"
+    assert spec["event_ids"] == event_ids
     assert len(rows) == 1
-    fold_index, test_match_ids = rows[0]
+    fold_index, train_match_ids, test_match_ids = rows[0]
     assert fold_index == 0
+    assert train_match_ids == [earlier_match_id]
     assert len(test_match_ids) == 2

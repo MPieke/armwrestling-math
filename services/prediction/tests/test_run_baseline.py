@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from conftest import seed_completed_match
+from prediction.folds import seed_lockbox
 from prediction.run_baseline import (
     get_or_create_rolling_origin_protocol,
     is_promotable,
@@ -21,6 +22,36 @@ def _seed_four_events(connection):
             held_on=date(2026, i + 1, 1),
             athlete_a=f"A{i}",
             athlete_b=f"B{i}",
+        )
+    lockbox_event_id, _ = seed_completed_match(
+        connection,
+        event_slug="reserved-lockbox",
+        held_on=date(2027, 1, 1),
+        athlete_a="Lockbox A",
+        athlete_b="Lockbox B",
+    )
+    seed_lockbox(
+        connection,
+        name="lockbox_retrospective_test",
+        kind="lockbox_retrospective",
+        event_ids=[lockbox_event_id],
+    )
+
+
+@pytest.mark.integration
+def test_rolling_origin_requires_a_lockbox_before_creation(connection):
+    for index in range(3):
+        seed_completed_match(
+            connection,
+            event_slug=f"unguarded-{index}",
+            held_on=date(2026, index + 1, 1),
+            athlete_a=f"A{index}",
+            athlete_b=f"B{index}",
+        )
+
+    with pytest.raises(ValueError, match="lockbox protocol must be seeded"):
+        get_or_create_rolling_origin_protocol(
+            connection, "rolling_origin_test", min_training_events=1
         )
 
 
