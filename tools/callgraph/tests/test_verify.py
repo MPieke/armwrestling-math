@@ -39,7 +39,7 @@ def external(caller, name, line):
 
 
 def make_graph(**overrides):
-    nodes = overrides.get("nodes") or (
+    nodes = overrides["nodes"] if "nodes" in overrides else (
         node("handler", 3, 3, "referenced"),
         node("handler2", 5, 5, "referenced"),
         node("main", 13, 16, "main"),
@@ -47,13 +47,13 @@ def make_graph(**overrides):
         node("serviceB", 9, 9),
         node("store", 11, 11),
     )
-    edges = overrides.get("edges") or (
+    edges = overrides["edges"] if "edges" in overrides else (
         edge("handler", "serviceA", 3),
         edge("handler2", "serviceB", 5),
         edge("serviceA", "store", 7),
         edge("serviceB", "store", 9),
     )
-    externals = overrides.get("externals") or (
+    externals = overrides["externals"] if "externals" in overrides else (
         external("main", "net/http.HandleFunc", 14),
         external("main", "net/http.HandleFunc", 15),
         external("store", "os.Open", 11),
