@@ -138,7 +138,7 @@ def analyze(graph, ignored_packages=(), min_entries=2, min_gateways=2):
     return Analysis(tuple(entry_ids), dead, suppressed, terminals, findings, usage)
 
 
-def _is_ignored(package, ignored_packages):
+def is_ignored(package, ignored_packages):
     return any(package == ig or package.startswith(ig + "/") for ig in ignored_packages)
 
 
@@ -146,7 +146,7 @@ def _split_externals(graph, alive, ignored_packages):
     kept = defaultdict(list)
     suppressed = Counter()
     for call in graph.externals:
-        if _is_ignored(call.external_package, ignored_packages):
+        if is_ignored(call.external_package, ignored_packages):
             suppressed[call.external_package] += 1
         elif call.caller_id in alive:
             kept[call.caller_id].append(call)
@@ -157,7 +157,7 @@ def _external_usage(graph, nodes, ignored_packages):
     callers = defaultdict(set)
     packages = {}
     for call in graph.externals:
-        if _is_ignored(call.external_package, ignored_packages):
+        if is_ignored(call.external_package, ignored_packages):
             continue
         callers[call.external_name].add(call.caller_id)
         packages[call.external_name] = call.external_package

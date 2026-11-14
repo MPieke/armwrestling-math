@@ -39,12 +39,26 @@ class PairingTest(unittest.TestCase):
 
         self.assertEqual(sorted(pairs(found)), [("a", "b"), ("a", "c"), ("b", "c")])
 
-    def test_a_caller_that_calls_the_other_is_not_paired_with_it(self):
+    def test_a_caller_that_also_calls_the_other_is_still_paired_with_it(self):
+        # a reaches t directly and through b: two independent routes, as with ingestCandidate
+        # calling Submit directly and through auditFailure.
         edges = [("e1", "a"), ("e2", "b"), ("a", "b"), ("a", "t"), ("b", "t")]
 
         _, found = build(edges, ["e1", "e2"], [("t", "os.Open")])
 
-        self.assertEqual(found, ())
+        self.assertEqual(pairs(found), [("a", "b")])
+
+    def test_functions_are_paired_only_within_one_segment(self):
+        # Annotate/Extract/Transcribe shape: Annotate and Extract are independent in the global
+        # segment, Extract and Transcribe in the nested one; Annotate and Transcribe never are.
+        edges = [
+            ("e1", "ic"), ("ic", "extract"), ("ic", "transcribe"),
+            ("extract", "t"), ("transcribe", "t"), ("e2", "annotate"), ("annotate", "t"),
+        ]
+
+        _, found = build(edges, ["e1", "e2"], [("t", "os.Open")])
+
+        self.assertEqual(sorted(pairs(found)), [("annotate", "extract"), ("extract", "transcribe")])
 
     def test_a_split_below_a_merge_point_pairs_the_functions_before_that_point(self):
         # ingestCandidate reaches submit directly and through auditFailure (the real shape).
