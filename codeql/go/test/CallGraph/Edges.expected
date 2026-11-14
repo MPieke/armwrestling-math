@@ -1,5 +1,5 @@
-| example.com/fixture.helper | example.com/fixture.leaf | main.go | 14 |
-| example.com/fixture.main | example.com/fixture.helper | main.go | 5 |
-| example.com/fixture.main | example.com/fixture.run | main.go | 4 |
-| example.com/fixture.run | example.com/fixture.helper | main.go | 9 |
-| example.com/fixture.run | example.com/fixture.leaf | main.go | 10 |
+| example.com/fixture.helper | example.com/fixture.leaf | main.go | 14 | static |
+| example.com/fixture.main | example.com/fixture.helper | main.go | 5 | static |
+| example.com/fixture.main | example.com/fixture.run | main.go | 4 | static |
+| example.com/fixture.run | example.com/fixture.helper | main.go | 9 | static |
+| example.com/fixture.run | example.com/fixture.leaf | main.go | 10 | static |

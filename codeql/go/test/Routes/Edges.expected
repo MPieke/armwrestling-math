@@ -1,0 +1,16 @@
+| example.com/routes.fetch | example.com/routes.viaCache | main.go | 36 | static |
+| example.com/routes.fetch | example.com/routes.viaDisk | main.go | 37 | static |
+| example.com/routes.gateway | example.com/routes.writeFile | main.go | 29 | static |
+| example.com/routes.handleA | example.com/routes.gateway | main.go | 25 | static |
+| example.com/routes.handleB | example.com/routes.gateway | main.go | 27 | static |
+| example.com/routes.handleC | example.com/routes.fetch | main.go | 33 | static |
+| example.com/routes.handleE | example.com/routes.serviceE | main.go | 46 | static |
+| example.com/routes.handleF | example.com/routes.serviceF | main.go | 48 | static |
+| example.com/routes.serviceE | example.com/routes.store | main.go | 50 | static |
+| example.com/routes.serviceF | example.com/routes.store | main.go | 52 | static |
+| example.com/routes.unusedHelper | example.com/routes.deadLeaf | main.go | 21 | static |
+| example.com/routes.useSaver | example.com/routes.diskSaver.Save | dispatch.go | 15 | dynamic |
+| example.com/routes.useSaver | example.com/routes.memSaver.Save | dispatch.go | 15 | dynamic |
+| example.com/routes.viaCache | example.com/routes.load | main.go | 40 | static |
+| example.com/routes.viaDisk | example.com/routes.load | main.go | 42 | static |
+| example.com/routes.withClosure | example.com/routes.leafClosure | dispatch.go | 18 | static |
