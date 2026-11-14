@@ -46,9 +46,8 @@ def run(edges, entries, **options):
 
 
 def gateway_summary(segment):
-    return sorted(
-        (gateway.function_id, gateway.entries) for gateway in segment.gateways
-    , key=lambda pair: (pair[0] is None, pair[0] or ""))
+    pairs = [(gateway.function_id, gateway.entries) for gateway in segment.gateways]
+    return sorted(pairs, key=lambda pair: (pair[0] is None, pair[0] or ""))
 
 
 class PathCountTest(unittest.TestCase):
