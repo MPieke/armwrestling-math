@@ -107,6 +107,20 @@ on the SCC-condensed DAG, not in QL.
    the real extraction, uploads artifacts, writes the run summary.
 7. `docs(callgraph): document usage and schema` - README for `tools/callgraph`.
 
+Additions made during implementation, each test-first where it changes
+behavior (the extra commits sit between 5 and 6 in history):
+
+- `--include-prefix` scope filter in `build.py`: the CodeQL `paths` config is
+  not honored by the Go extractor, so the repo's own fixture under
+  `codeql/go/test/` appeared in the database. The filter drops functions
+  outside the scope and any edge touching them, while still rejecting edges to
+  functions that never existed.
+- Package labels in the Mermaid diagram drop the leading directories all
+  packages share, because full import paths were unreadable.
+- `codeql/codeql-workspace.yml` so the test pack resolves the local query pack.
+- The database is created with the Go autobuild and `--source-root=.`: an
+  explicit `--command "go build ..."` is not traced on macOS.
+
 Each commit is reviewable alone: tests precede the code that satisfies them,
 and the workflow lands only after both test layers pass locally.
 
