@@ -22,6 +22,9 @@ permissions:
 
 env:
   CODEQL_VERSION: v2.27.4
+  # Advisory LLM judge. The model name is read from here; the API key is only
+  # exposed to the judge step itself.
+  LLM_JUDGE_MODEL: gpt-6-luna
   # Source scope of the published graph (repo-relative).
   GRAPH_SCOPE: services/importer
 
@@ -136,6 +139,24 @@ jobs:
 
       - name: Find terminals reached by independent routes
         run: python -m tools.callgraph.analyze --graph-dir callgraph-out
+
+      - name: Restore cached LLM judgements
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/llm-cache
+          key: llm-judge-v1-${{ github.sha }}
+          restore-keys: llm-judge-v1-
+
+      - name: Judge redundancy cards with an LLM (advisory; skipped without a key)
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python -m tools.callgraph.judge \
+            --graph-dir callgraph-out --source-root . \
+            --repo-url "${{ github.server_url }}/${{ github.repository }}" \
+            --cache-file "$RUNNER_TEMP/llm-cache/llm-cache.json"
 
       - name: Render clickable graph and run summary
         run: |
