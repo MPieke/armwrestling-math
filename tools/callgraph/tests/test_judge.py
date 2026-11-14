@@ -237,6 +237,7 @@ class CacheTest(JudgeTestCase):
         client, cache = FakeClient(good_answer()), judge.Cache(None)
         self.judge(client, cache)
         (self.root / FILE).write_text(SOURCE.replace("\th()\n\tt()\n}\n\nfunc b", "\th()\n\tt() // v2\n}\n\nfunc b", 1))
+        self.source = judge.Source(self.root)  # a fresh run re-reads the files
 
         self.judge(client, cache)
 
@@ -298,7 +299,9 @@ class FailureTest(JudgeTestCase):
         self.assertIn("RuntimeError", result["reason"])
 
     def test_one_failing_pair_does_not_stop_the_others(self):
-        second = dataclasses.replace(self.cards[0], second="p.h")
+        second = dataclasses.replace(
+            self.cards[0], second="p.h", reached_from=(("p.a", ("p.e1",)), ("p.h", ("p.e1",)))
+        )
         client = FakeClient(judge.LLMError("HTTP 500"), good_answer())
 
         results = judge.judge_cards(

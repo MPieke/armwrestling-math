@@ -51,7 +51,7 @@ class Report:
     notes: list = field(default_factory=list)
 
 
-class _Source:
+class Source:
     """Lazy, cached access to source files under a root."""
 
     def __init__(self, root):
@@ -83,7 +83,7 @@ def _short_name(qualified):
 
 
 def mechanical_checks(graph, source_root, analysis):
-    source = _Source(source_root)
+    source = Source(source_root)
     report = Report()
     nodes = {node.id: node for node in graph.nodes}
     _check_edges(graph, nodes, source, report)
@@ -233,7 +233,7 @@ def _dynamic_hops(graph, analysis, report):
 
 
 def dossier_markdown(graph, analysis, source_root, repo_url, top=5, context=2):
-    source = _Source(source_root)
+    source = Source(source_root)
     nodes = {node.id: node for node in graph.nodes}
     call_sites = {}
     for edge in graph.edges:

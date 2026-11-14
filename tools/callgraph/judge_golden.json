@@ -1,0 +1,20 @@
+[
+  {
+    "first": "github.com/mpieke/armwrestling-math/services/importer/internal/annotate.OpenAIAnnotator.Annotate",
+    "second": "github.com/mpieke/armwrestling-math/services/importer/internal/transcript.OpenAIClaimExtractor.Extract",
+    "expected": "duplicate",
+    "note": "Both marshal a chat-completions request, call the API, read the body, unmarshal the envelope, and structured.Decode the content (annotate/openai.go:25-104, transcript/openai.go:24-100). Read in full."
+  },
+  {
+    "first": "github.com/mpieke/armwrestling-math/services/importer/internal/ingest.Submit",
+    "second": "github.com/mpieke/armwrestling-math/services/importer/internal/matchup.Resolve",
+    "expected": "overlap",
+    "note": "Both call GetMatchByNaturalKey then ListMatchCompetitors for a match; their purpose and outputs differ (ingest/submit.go:16-30, matchup/matchup.go:13-24)."
+  },
+  {
+    "first": "github.com/mpieke/armwrestling-math/services/importer/internal/ingest.Submit",
+    "second": "github.com/mpieke/armwrestling-math/services/importer/internal/ingest.SubmitResult",
+    "expected": "intentional",
+    "note": "SubmitResult's doc comment (ingest/result_submit.go:20-23) says it creates event, athlete, match and outcomes while Submit requires an existing match; the shared lifecycle is already factored into runIngestion."
+  }
+]
