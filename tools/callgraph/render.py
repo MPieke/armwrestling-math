@@ -138,15 +138,16 @@ def _findings_section(graph, analysis, labels, repo_url, max_findings):
     findings = analysis.findings
     if not findings:
         return out + ["No redundant routes found.", ""]
+    shown = {}
     for rank, finding in enumerate(findings[:max_findings], start=1):
-        out += _finding(rank, finding, names)
+        out += _finding(rank, finding, names, shown)
     if len(findings) > max_findings:
         out += [f"_showing first {max_findings} of {len(findings)} flagged terminals; "
                 "findings.json has the full list_", ""]
     return out
 
 
-def _finding(rank, finding, names):
+def _finding(rank, finding, names, shown):
     node = names.nodes[finding.terminal_id]
     head = (
         f"#### {rank}. `{_table_text(node.name)}` in `{names.labels[node.package]}` - "
@@ -165,7 +166,13 @@ def _finding(rank, finding, names):
         if segment.parallel:
             out += _segment_block(segment, names, "Routes")
     for nested in finding.nested:
+        key = (nested.entry, nested.segment.start, nested.segment.end)
         label = f"Nested under `{names.display(nested.entry)}`"
+        if key in shown:
+            out += [f"**{label}**: same nested routes as #{shown[key]} "
+                    f"({names.display(nested.segment.end)}).", ""]
+            continue
+        shown[key] = rank
         out += _segment_block(nested.segment, names, label)
     return out
 
