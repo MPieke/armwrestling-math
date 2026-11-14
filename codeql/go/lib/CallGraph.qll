@@ -76,6 +76,19 @@ class GraphFunction extends FuncDecl {
   /** Holds for a package-level `init` function. */
   predicate isInit() { this.getName() = "init" and not this.getFunction() instanceof Method }
 
+  /**
+   * Holds if a package-level initializer (code outside any function, such as
+   * `var x = f()`) calls this function. Such calls run at program start and
+   * create no edge, so the callee must not look unreferenced.
+   */
+  predicate isCalledAtPackageInit() {
+    exists(DataFlow::CallNode call |
+      call.getACallee() = this and
+      isGraphFile(call.getLocation().getFile()) and
+      not exists(FuncDef enclosing | call.asExpr().getParent*() = enclosing)
+    )
+  }
+
   /** Holds if the name is exported (starts with an upper-case letter). */
   predicate isExported() { this.getName().regexpMatch("\\p{Lu}.*") }
 
@@ -108,7 +121,7 @@ class GraphFunction extends FuncDecl {
     if this.isMain()
     then result = "main"
     else
-      if this.isInit()
+      if this.isInit() or this.isCalledAtPackageInit()
       then result = "init"
       else
         if this.isReferencedAsValue()
