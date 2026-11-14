@@ -44,8 +44,10 @@ def package_mermaid(graph):
         if package_of[edge.caller_id] != package_of[edge.callee_id]
     )
     lines = ["flowchart LR"]
-    for package in sorted({node.package for node in graph.nodes}):
-        lines.append(f'  {_mermaid_id(package)}["{_mermaid_text(package)}"]')
+    packages = sorted({node.package for node in graph.nodes})
+    labels = _package_labels(packages)
+    for package in packages:
+        lines.append(f'  {_mermaid_id(package)}["{_mermaid_text(labels[package])}"]')
     for (source, target), count in sorted(counts.items()):
         lines.append(f"  {_mermaid_id(source)} -->|{count}| {_mermaid_id(target)}")
     return "\n".join(lines) + "\n"
@@ -102,6 +104,22 @@ def _fan_in_table(graph, repo_url):
         url = source_url(repo_url, node.sha, node.file, node.start_line, node.end_line)
         rows.append(f"| [{_table_text(node.name)}]({url}) | {_table_text(node.package)} | {called[node_id]} |")
     return rows + [""]
+
+
+def _package_labels(packages):
+    """Short labels: the import path minus the leading directories all packages share."""
+    split = {package: package.split("/") for package in packages}
+    shared = _shared_leading_segments([parts[:-1] for parts in split.values()])
+    return {package: "/".join(parts[shared:]) for package, parts in split.items()}
+
+
+def _shared_leading_segments(directory_lists):
+    shared = 0
+    for segments in zip(*directory_lists):
+        if len(set(segments)) != 1:
+            break
+        shared += 1
+    return shared
 
 
 def _dot(text):
