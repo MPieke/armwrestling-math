@@ -10,7 +10,7 @@ source, not only the tool output; judgements are marked as such.
 
 114 functions, 147 call sites, 15 packages, 12 entry points (3 `main`, 1 `init`,
 8 exported-uncalled), 0 dead-code candidates, 41 terminals, 5 flagged.
-430 external calls, of which the noise filter suppressed 273 (mostly `fmt` 128,
+430 external calls, of which the noise filter suppressed 277 (mostly `fmt` 128,
 `log/slog` 38, `strings` 36, `time` 27).
 
 ## Findings
