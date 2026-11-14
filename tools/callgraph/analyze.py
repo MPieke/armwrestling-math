@@ -56,6 +56,14 @@ class Segment:
 
 
 @dataclass(frozen=True)
+class NestedFinding:
+    """Independent routes below a merge point, seen from one entry on its own."""
+
+    entry: str
+    segment: Segment
+
+
+@dataclass(frozen=True)
 class TerminalReport:
     terminal_id: str
     entries: tuple
@@ -65,10 +73,12 @@ class TerminalReport:
     segments: tuple
     flagged: bool
     externals: tuple
+    nested: tuple = ()
 
     @property
     def score(self):
-        return max((s.k for s in self.segments if s.parallel), default=self.k)
+        ks = [s.k for s in self.segments if s.parallel] + [n.segment.k for n in self.nested]
+        return max(ks, default=self.k)
 
 
 @dataclass(frozen=True)
@@ -200,7 +210,10 @@ class _Context:
         for index, (start, end) in enumerate(zip(boundaries, boundaries[1:])):
             segments.append(self._segment(sub, start, end, index, bool(chokepoints)))
         k = segments[0].k if not chokepoints else self._segment(sub, None, target, 0, False).k
-        flagged = len(entries) >= self.min_entries and any(s.parallel for s in segments)
+        nested = self._nested(sub, target, entries) if len(entries) >= self.min_entries else ()
+        flagged = len(entries) >= self.min_entries and (
+            any(s.parallel for s in segments) or bool(nested)
+        )
         return TerminalReport(
             terminal_id=terminal_id,
             entries=entries,
@@ -210,7 +223,27 @@ class _Context:
             segments=tuple(segments),
             flagged=flagged,
             externals=externals,
+            nested=nested,
         )
+
+    def _nested(self, sub, target, entries):
+        """Parallel routes below merge points, found by analysing each entry on its own."""
+        findings, seen = [], set()
+        for entry in entries:
+            label = self.label_of[entry]
+            if label == target or label in seen:
+                continue
+            seen.add(label)
+            own = {label}
+            chokepoints = self._chokepoints(sub, target, own)
+            boundaries = [None, *chokepoints, target]
+            for index, (start, end) in enumerate(zip(boundaries, boundaries[1:])):
+                segment = self._segment(
+                    sub, start, end, index, bool(chokepoints), entry_labels=own, own_entry=True
+                )
+                if segment.parallel:
+                    findings.append(NestedFinding(entry, segment))
+        return tuple(findings)
 
     def _paths(self, sub, target):
         count = {}
@@ -221,36 +254,48 @@ class _Context:
                 count[node] = sum(count[succ] for succ in sub.successors(node))
         return sum(count[label] for label in self.entry_labels if label in count)
 
-    def _chokepoints(self, sub, target):
+    def _chokepoints(self, sub, target, entry_labels=None):
+        entry_labels = self.entry_labels if entry_labels is None else entry_labels
         rooted = nx.DiGraph(sub)
-        sources = sorted(label for label in self.entry_labels if label in sub and label != target)
+        sources = sorted(label for label in entry_labels if label in sub and label != target)
         rooted.add_edges_from((VIRTUAL_SOURCE, label) for label in sources)
         if not sources:
             return []
         dominators = nx.immediate_dominators(rooted, VIRTUAL_SOURCE)
         chain, node = [], dominators[target]
         while node != VIRTUAL_SOURCE:
-            if node not in self.entry_labels:
+            if node not in entry_labels:
                 chain.append(node)
             node = dominators[node]
         return chain[::-1]
 
-    def _segment(self, sub, start, end, index, has_chokepoints):
-        network, source, sink = self._network(sub, start, end)
+    def _segment(
+        self, sub, start, end, index, has_chokepoints, entry_labels=None, own_entry=False
+    ):
+        """``own_entry``: a single entry is analysed alone, so its first segment is not a funnel."""
+        entry_labels = self.entry_labels if entry_labels is None else entry_labels
+        network, source, sink = self._network(sub, start, end, entry_labels)
         if source is None:
             return Segment(start, end, 0, (), (), False)
         value, flow = nx.maximum_flow(network, source, sink)
         routes = _decompose(flow, source, sink)
         gateways = self._gateways(network, flow, sink)
-        parallel = value >= self.min_gateways and (index >= 1 or not has_chokepoints)
+        first_counts = own_entry or not has_chokepoints
+        parallel = value >= self.min_gateways and (index >= 1 or first_counts)
         return Segment(start, end, value, gateways, tuple(routes), parallel)
 
-    def _network(self, sub, start, end):
+    def _network(self, sub, start, end, entry_labels):
         """Node-split flow network for routes from ``start`` (None = entries) to ``end``."""
         inside = nx.ancestors(sub, end) | {end}
         if start is not None:
             inside &= nx.descendants(sub, start) | {start}
-        entries = sorted(label for label in self.entry_labels if label in inside and label != end)
+        else:
+            reachable = set()
+            for label in entry_labels:
+                if label in sub:
+                    reachable |= nx.descendants(sub, label) | {label}
+            inside &= reachable
+        entries = sorted(label for label in entry_labels if label in inside and label != end)
         if start is None and not entries:
             return None, None, None
         uncuttable = set(entries) | {end} | ({start} if start is not None else set())
@@ -372,6 +417,7 @@ def findings_to_json(analysis):
                 "chokepoints": list(r.chokepoints),
                 "externals": list(r.externals),
                 "segments": [segment(s) for s in r.segments],
+                "nested": [{"entry": n.entry, "segment": segment(n.segment)} for n in r.nested],
             }
             for r in analysis.findings
         ],

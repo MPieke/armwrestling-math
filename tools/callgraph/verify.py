@@ -287,6 +287,14 @@ def _finding_section(rank, finding, graph, nodes, call_sites, source, repo_url, 
             out += [f"**Route {number}**: {' > '.join(route)}", ""]
             for caller, callee in zip(route, route[1:]):
                 out += _hop(caller, callee, call_sites, source, repo_url, context)
+    for nested in finding.nested:
+        segment = nested.segment
+        label = f"{segment.start or nested.entry} -> {segment.end}"
+        out += [f"### Nested routes under {nested.entry} ({label}, K={segment.k})", ""]
+        for number, route in enumerate(segment.routes, start=1):
+            out += [f"**Route {number}**: {' > '.join(route)}", ""]
+            for caller, callee in zip(route, route[1:]):
+                out += _hop(caller, callee, call_sites, source, repo_url, context)
     return out
 
 
