@@ -388,6 +388,31 @@ class SummaryCardsTest(unittest.TestCase):
         self.assertIn("LLM calibration: 1 of 3", warned)
         self.assertIn("unreliable", warned)
 
+    def test_a_skipped_judge_says_why_once_at_the_top_of_the_section(self):
+        judgements = {"status": "skipped", "reason": "OPENAI_API_KEY is not set",
+                      "judgements": [], "calibration": None}
+
+        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"], judgements=judgements))
+
+        self.assertEqual(text.count("LLM judge skipped (OPENAI_API_KEY is not set)"), 1)
+
+    def test_a_judge_that_failed_everywhere_says_so_once_at_the_top(self):
+        judgements = {"status": "unavailable", "reason": "HTTP 404: model not found",
+                      "calibration": None, "judgements": [{
+                          "first": "a", "second": "b", "status": "unavailable",
+                          "reason": "HTTP 404: model not found"}]}
+
+        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"], judgements=judgements))
+
+        self.assertIn("LLM judge unavailable (HTTP 404: model not found)", text)
+
+    def test_a_working_judge_shows_no_status_line(self):
+        judgements = {"status": "ok", "reason": "", "judgements": [], "calibration": None}
+
+        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"], judgements=judgements))
+
+        self.assertNotIn("LLM judge", text)
+
     def test_no_judgements_means_no_llm_text(self):
         text = self.summary(self.INDEPENDENT, ["e1", "e2"])
 
