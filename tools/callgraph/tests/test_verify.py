@@ -147,6 +147,34 @@ class SoftChecksTest(VerifyTestCase):
         census = self.notes(report, "M5")
         self.assertEqual([(n.subject, "a.go:3" in n.message) for n in census], [("store", True)])
 
+    def test_a_same_named_call_on_another_receiver_is_explained_by_the_graph(self):
+        # db.Open() on line 3 is a different external function than os.Open, and the graph
+        # records it, so the census must not report it as a missed call.
+        source = SOURCE.replace(
+            "func handler() { serviceA() }", "func handler() { serviceA(); db.Open() }"
+        )
+        graph = make_graph(
+            externals=(
+                external("main", "net/http.HandleFunc", 14),
+                external("main", "net/http.HandleFunc", 15),
+                external("store", "os.Open", 11),
+                external("handler", "example.com/db.Conn.Open", 3),
+            )
+        )
+
+        report = self.check(graph, source)
+
+        self.assertEqual(self.notes(report, "M5"), [])
+
+    def test_a_same_named_call_with_no_graph_record_on_its_line_is_still_reported(self):
+        source = SOURCE.replace(
+            "func handler() { serviceA() }", "func handler() { serviceA(); db.Open() }"
+        )
+
+        report = self.check(make_graph(), source)
+
+        self.assertEqual([n.subject for n in self.notes(report, "M5")], ["os.Open"])
+
     def test_complete_graph_has_no_census_notes(self):
         report = self.check(make_graph())
 
