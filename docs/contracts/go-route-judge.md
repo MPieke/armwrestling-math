@@ -61,10 +61,15 @@ Sequence (judge, one card): select pair -> build prompt (source lines numbered, 
 "unsure" if no verifiable evidence -> store -> render.
 
 ## 3. Definitions
-- **Card key**: frozenset of function gateway ids (>= 2) plus scope (None = global, or the
-  entry id for a nested segment). Findings whose parallel segments share a key merge into one
-  card (terminals unioned, routes unioned). Gateways containing a direct call (None) are not
-  merged: they stay singleton cards keyed by (terminal, scope).
+- **Card = a pair of last-hop functions** (amended during implementation; the first draft
+  grouped by gateway set). For each parallel segment of a flagged finding (global or nested)
+  with end M, the last-hop callers are the second-to-last node of its routes; unioned over
+  segments per M. Every pair (a, b) of last-hop callers of M where neither reaches the other
+  is a candidate; pairs merge across M, so one pair can carry several targets. Reason: on the
+  importer the gateway sets for `Redact` ({Annotate, ingestCandidate}) and `Decode`
+  ({Annotate, Extract}) differ, so grouping by gateway set did not merge the shared
+  Annotate/Extract duplication; last-hop pairs do ({Annotate, Extract} reaches both). The
+  gateways, K, and chokepoints stay in the collapsed details.
 - **Evidence** (computed from the graph, all statements checkable): `shared_callees` and
   `shared_externals` = intersection of each gateway's direct repo callees / non-ignored
   external functions; `only_in_each` = the differences; `similarity` = Jaccard over the union
