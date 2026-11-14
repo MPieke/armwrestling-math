@@ -12,6 +12,7 @@
 | example.com/routes.leafClosure | leafClosure | example.com/routes | dispatch.go | 22 | 22 |  |
 | example.com/routes.load | load | example.com/routes | main.go | 44 | 44 |  |
 | example.com/routes.main | main | example.com/routes | main.go | 8 | 15 | main |
+| example.com/routes.makeTable | makeTable | example.com/routes | dispatch.go | 32 | 32 | init |
 | example.com/routes.memSaver.Save | Save | example.com/routes | dispatch.go | 13 | 13 |  |
 | example.com/routes.runRegistry | runRegistry | example.com/routes | dispatch.go | 28 | 28 | unreferenced |
 | example.com/routes.serviceE | serviceE | example.com/routes | main.go | 50 | 50 |  |

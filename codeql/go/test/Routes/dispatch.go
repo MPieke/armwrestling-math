@@ -26,3 +26,7 @@ var registry = map[string]func(){"x": viaMap}
 func viaMap() {}
 
 func runRegistry() { registry["x"]() }
+
+var initialized = makeTable()
+
+func makeTable() int { return 1 }
