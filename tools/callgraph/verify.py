@@ -176,19 +176,33 @@ def _call_hits(graph, source, name):
     return hits
 
 
-def _census(graph, analysis, source, report):
+def _recorded_call_sites(graph):
+    """Every (file, line) the graph records a call at, keyed by the callee's short name."""
     nodes = {node.id: node for node in graph.nodes}
+    recorded = {}
+    for edge in graph.edges:
+        recorded.setdefault(nodes[edge.callee_id].name, set()).add((edge.call_file, edge.call_line))
+    for call in graph.externals:
+        recorded.setdefault(_short_name(call.external_name), set()).add(
+            (call.call_file, call.call_line)
+        )
+    return recorded
+
+
+def _census(graph, analysis, source, report):
+    """Report call-like text near flagged terminals that the graph has no call recorded for.
+
+    A hit is explained by any recorded call with the same short name on that
+    line, so ``x.Close()`` is not reported just because another receiver's
+    ``Close`` is the function being checked.
+    """
+    nodes = {node.id: node for node in graph.nodes}
+    recorded = _recorded_call_sites(graph)
     for finding in analysis.findings:
-        terminal = nodes[finding.terminal_id]
-        explained = {(e.call_file, e.call_line) for e in graph.edges
-                     if e.callee_id == finding.terminal_id}
-        _report_unexplained(report, graph, source, terminal.name, explained, finding.terminal_id)
-        for external in finding.externals:
-            explained = {(c.call_file, c.call_line) for c in graph.externals
-                         if c.external_name == external}
-            _report_unexplained(
-                report, graph, source, _short_name(external), explained, external
-            )
+        names = {nodes[finding.terminal_id].name: finding.terminal_id}
+        names.update({_short_name(external): external for external in finding.externals})
+        for name, subject in sorted(names.items()):
+            _report_unexplained(report, graph, source, name, recorded.get(name, set()), subject)
 
 
 def _report_unexplained(report, graph, source, name, explained, subject):
