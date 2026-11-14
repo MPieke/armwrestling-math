@@ -52,8 +52,14 @@ class Graph:
     edges: tuple
 
 
-def build_graph(nodes_csv, edges_csv, sha, lang="go"):
-    """Validate raw query output and return a deterministic, stamped graph."""
+def build_graph(nodes_csv, edges_csv, sha, lang="go", include_prefixes=()):
+    """Validate raw query output and return a deterministic, stamped graph.
+
+    ``include_prefixes`` limits the graph to functions whose file is at or below
+    one of the given repo-relative paths. The whole input is validated first, so
+    an edge to a function that never existed is still an error; edges with an
+    endpoint outside the scope are then dropped.
+    """
     nodes = [
         Node(
             id=row["id"],
@@ -77,7 +83,7 @@ def build_graph(nodes_csv, edges_csv, sha, lang="go"):
         )
         for row in _read_rows(edges_csv, RAW_EDGE_COLUMNS)
     ]
-    return _validated_graph(nodes, edges)
+    return _restricted_to(_validated_graph(nodes, edges), include_prefixes)
 
 
 def load_graph(nodes_csv, edges_csv):
@@ -106,6 +112,22 @@ def load_graph(nodes_csv, edges_csv):
         for row in _read_rows(edges_csv, EDGE_COLUMNS)
     ]
     return _validated_graph(nodes, edges)
+
+
+def _restricted_to(graph, include_prefixes):
+    if not include_prefixes:
+        return graph
+    prefixes = [prefix.rstrip("/") for prefix in include_prefixes]
+    nodes = tuple(node for node in graph.nodes if _is_under(node.file, prefixes))
+    kept_ids = {node.id for node in nodes}
+    edges = tuple(
+        edge for edge in graph.edges if edge.caller_id in kept_ids and edge.callee_id in kept_ids
+    )
+    return Graph(nodes=nodes, edges=edges)
+
+
+def _is_under(file, prefixes):
+    return any(file == prefix or file.startswith(prefix + "/") for prefix in prefixes)
 
 
 def nodes_to_csv(graph):
@@ -188,10 +210,22 @@ def main(argv=None):
     parser.add_argument("--edges", required=True, type=Path, help="raw edges CSV from CodeQL")
     parser.add_argument("--sha", required=True, help="commit the graph was extracted from")
     parser.add_argument("--lang", default="go")
+    parser.add_argument(
+        "--include-prefix",
+        action="append",
+        default=[],
+        help="keep only functions under this repo-relative path (repeatable)",
+    )
     parser.add_argument("--out-dir", required=True, type=Path)
     args = parser.parse_args(argv)
 
-    graph = build_graph(args.nodes.read_text(), args.edges.read_text(), args.sha, args.lang)
+    graph = build_graph(
+        args.nodes.read_text(),
+        args.edges.read_text(),
+        args.sha,
+        args.lang,
+        include_prefixes=args.include_prefix,
+    )
     args.out_dir.mkdir(parents=True, exist_ok=True)
     (args.out_dir / "nodes.csv").write_text(nodes_to_csv(graph))
     (args.out_dir / "edges.csv").write_text(edges_to_csv(graph))
