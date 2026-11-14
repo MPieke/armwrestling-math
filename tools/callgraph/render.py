@@ -153,6 +153,7 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements):
         "normal; the question is whether the two functions are really one.",
         "",
     ]
+    out += _judge_status(judgements)
     out += _calibration_banner((judgements or {}).get("calibration"))
     if not found:
         return out + ["No redundant routes found.", ""]
@@ -161,6 +162,13 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements):
     if len(found) > max_cards:
         out += [f"_showing first {max_cards} of {len(found)} cards_", ""]
     return out
+
+
+def _judge_status(judgements):
+    status = (judgements or {}).get("status")
+    if status in ("skipped", "unavailable"):
+        return [f"LLM judge {status} ({_text(judgements.get('reason', ''))})", ""]
+    return []
 
 
 def _calibration_banner(calibration):
