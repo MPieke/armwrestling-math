@@ -131,5 +131,52 @@ class SummaryTest(unittest.TestCase):
         self.assertIn("function-level diagram omitted", summary)
 
 
+class SummaryDetailsTest(unittest.TestCase):
+    """Everything a reviewer needs should be readable on the run page, not only in artifacts."""
+
+    def summary(self, graph=None, **options):
+        return render.summary_markdown(graph or fixture_graph(), helpers.REPO_URL, **options)
+
+    def test_package_totals_count_functions_and_cross_package_call_sites(self):
+        section = self.summary(multi_package_graph()).split("Package totals")[1]
+
+        self.assertIn("| alpha | 1 | 2 | 0 |", section)
+        self.assertIn("| beta | 2 | 0 | 2 |", section)
+
+    def test_most_calls_out_ranks_busiest_caller_first_with_source_link(self):
+        section = self.summary().split("Most calls out")[1]
+        first_row = [line for line in section.splitlines() if line.startswith("| [")][0]
+
+        # main and run both make 2 call sites; ties break by name.
+        self.assertIn("[main]", first_row)
+        self.assertIn(f"blob/{helpers.SHA}/{helpers.FIXTURE_FILE}#L3-L6", first_row)
+
+    def test_never_called_lists_only_functions_without_callers(self):
+        section = self.summary().split("Never called")[1].split("###")[0].split("<details>")[0]
+        listed = re.findall(r"^\| \[(\w+)\]", section, flags=re.M)
+
+        self.assertEqual(listed, ["main"])
+
+    def test_every_call_site_is_listed_with_a_link_to_its_line(self):
+        summary = self.summary()
+
+        self.assertIn("All call sites (5)", summary)
+        for _caller, _callee, line in helpers.FIXTURE_CALLS:
+            self.assertIn(f"blob/{helpers.SHA}/{helpers.FIXTURE_FILE}#L{line})", summary)
+
+    def test_every_function_is_listed_in_a_collapsible_section(self):
+        summary = self.summary()
+
+        self.assertIn("<details><summary>All functions (4)</summary>", summary)
+        self.assertEqual(summary.count("<details>"), 2)
+        self.assertEqual(summary.count("</details>"), 2)
+
+    def test_long_listings_are_truncated_with_a_count(self):
+        summary = self.summary(max_listed_rows=2)
+
+        self.assertIn("showing first 2 of 5", summary)
+        self.assertIn("showing first 2 of 4", summary)
+
+
 if __name__ == "__main__":
     unittest.main()
