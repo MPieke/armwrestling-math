@@ -68,6 +68,44 @@ the CSVs, `callgraph.dot`, and `callgraph.svg` (open in a browser; clicking a
 node or edge opens the GitHub source at that commit). Listings are capped at
 2000 rows each to stay under GitHub's 1 MiB summary limit.
 
+## Route analysis
+
+`analyze.py` reads `nodes.csv`, `edges.csv` and `externals.csv` (language-agnostic)
+and finds functions reached by several *independent routes*.
+
+- **Entry**: `root_kind` main, init, referenced (used as a value, e.g. a handler),
+  or exported-uncalled. Functions called from package-level initializers are
+  `init`. `unreferenced` functions and code reachable only from them are dead.
+- **Terminal**: a function that calls a non-ignored external function
+  (`ignored_externals.txt` is an opt-out noise filter; suppressed counts are
+  printed).
+- **K**: the number of independent routes (no shared interior function) from the
+  entries to the terminal, found with max-flow on a node-split graph. Entries are
+  uncuttable; a direct call counts as a route.
+- **Gateways**: the minimum cut nearest the terminal, the last functions where the
+  routes are still separate, shown with how many entries each serves.
+- **Chokepoints and segments**: functions on every route; K is recomputed between
+  them, so a funnel followed by a diamond is shown as such. Each entry is also
+  analysed alone, which exposes splits below a merge point ("nested").
+- Cycles are collapsed first, so loops add no routes.
+
+`python3 -m tools.callgraph.analyze --graph-dir out` writes `findings.csv` and
+`findings.json`. Thresholds: `--min-entries`, `--min-gateways` (default 2).
+
+## Verifying the analysis against the source
+
+`python3 -m tools.callgraph.verify --graph-dir out --source-root . --repo-url ...`
+re-reads the source independently of CodeQL. Hard checks (exit 1): M1 every call
+line contains the callee, M2 every external call line contains the function, M3
+every node starts on its `func` declaration. Notes for a reviewer: M4 referenced
+entries are mentioned somewhere other than a call, M5 call-like text near flagged
+terminals that the graph does not explain, M6 dynamic-dispatch hops on flagged
+routes. `dossier.md` lays out every hop of the top findings with the code around
+it; results of the review done on `services/importer` are in
+`docs/contracts/go-route-analysis.md`.
+
+Install the one dependency with `pip install -r tools/callgraph/requirements.txt`.
+
 ## Scope and known gaps
 
 - Test files (`*_test.go`) are excluded. Generated code such as
@@ -77,6 +115,12 @@ node or edge opens the GitHub source at that commit). Listings are capped at
   no edge.
 - A call inside a function literal is attributed to the enclosing declared
   function.
+- A shared helper reached by two callers is flagged like a duplicate; whether the
+  gateways do the same job needs a human (or the next-step evidence signals).
+- Unused exported methods count as entries (`exported-uncalled`).
+- Routes through an interface with several implementers may exist only for some
+  runtime configurations (marked `[dynamic dispatch]` in the dossier).
+- Reflection and function values stored in maps or struct fields are not followed.
 
 ## Extending with custom CodeQL queries
 

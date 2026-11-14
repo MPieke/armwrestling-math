@@ -1,6 +1,6 @@
 ---
 linear_issue: TBD
-status: proposed
+status: implemented
 ---
 
 # Contract go-route-analysis: Redundant-Route Analysis With Self-Verification
@@ -205,3 +205,78 @@ K (and dead-candidate count) must not rise versus main.
 - Flag thresholds default entries>=2, K>=2.
 - networkx as a pinned CI dependency instead of hand-written flow/dominator code.
 - Findings capped at top 10 in the summary; full list in artifacts.
+
+## Additions made during implementation
+
+Each was found by the self-verification below and fixed test-first:
+
+- **Package-initializer callees are `init` roots.** `annotate.set` is called only
+  from package-level `var` initializers (`internal/annotate/validate.go:6-14`).
+  Calls outside any function create no edge, so it was classified `unreferenced`
+  and counted as dead. `GraphFunction.isCalledAtPackageInit` fixes this
+  (fixture: `makeTable` in `codeql/go/test/Routes/dispatch.go`).
+- **Nested routes.** Global K counts a merged group once, hiding a split below its
+  merge point (`youtubeingest.Run` to `matchup.Resolve` vs `ingest.Submit`).
+  Each entry of a flagged-candidate terminal is now also analysed alone
+  (`TerminalReport.nested`); a terminal is flagged if the global rule or a nested
+  split applies. Nested analysis only runs when the terminal has at least
+  `--min-entries` entries.
+- **Census noise.** The M5 census matched by short name and reported
+  `pool.Close()`/`row.Scan()` as missing for `Rows.Close`/`Rows.Scan` (28 false
+  alarms). A hit is now explained by any recorded call with the same short name on
+  that line (30 notes became 2).
+- Summary: a nested block shared by several terminals is shown once.
+- `init` functions get the id `<package>.init@<file>:<line>`, since a package may
+  declare several and `getQualifiedName` returns just `init`.
+
+## Verification results (services/importer at 3399476, CI run 43622965619)
+
+Tests: 126 tool tests and 6 CodeQL tests pass locally and in CI. The Routes
+fixture expectations were written from the planted structure before the queries
+existed; they include the documented blind spot (a call through a map value
+creates no edge, and the stored function is classified `referenced`).
+
+**Layer A, mechanical (all 3 hard checks pass, 0 failures):**
+M1 147/147 edge call lines contain the callee, M2 430/430 external call lines
+contain the external function, M3 114/114 node starts are `func` declarations of
+that name. Soft notes: 2 (M6, dynamic-dispatch hops on `Redact` and `Decode`).
+
+**Layer B, source review of the 5 flagged terminals** (`ListMatchCompetitors`,
+`CreateIngestionRun`, `runIngestion`, `Redact`, `Decode`), reading the source
+rather than the dossier:
+
+| Check | Result |
+| --- | --- |
+| Hop truth | 29 distinct hops across all routes. Every call line contains the callee (M1). I read the surrounding code for the `Annotate` (`annotate/openai.go:60-106`), `ingestCandidate` and `auditFailure` (`youtubeingest/run.go:100-211`) and `Transcribe` (`transcript/adapters.go:90-100`) hops; the rest rest on the call-line text and the caller grep below. |
+| Caller completeness | Independent `grep` of non-test call sites matched the graph exactly: `ListMatchCompetitors` 3/3, `runIngestion` 2/2, `Redact` 3/3, `Decode` 2/2. No missed callers. `CreateIngestionRun` has one caller (`runIngestion`), so its chokepoint is true. |
+| Entry truth | The 3 `main` entries are real. Of the 8 `exported-uncalled` entries, 4 are unused sqlc methods (0 callers outside `dbgen`), 2 are `flag.Value` callbacks, 2 are interface-marker methods. The 4 unused methods are mislabeled as entries (see limits). |
+| Dynamic edges | 3 dynamic hops. `Annotate` and `Extract` each have one non-test implementer, so the route is real. `TranscriptionProvider` has two (`OpenAITranscriber`, `WhisperCPPTranscriber`), so the `Transcribe` route to `Redact` exists only when the OpenAI provider is configured. |
+| K by hand | `ListMatchCompetitors`: gateways `annotateOne` and `Run`, K=2 (a cut at `Resolve`+`Submit` would be 3). `Redact`: gateways `Annotate` and `ingestCandidate`, K=2. Both match. |
+| Defects | 2, both fixed (package-init callees; nested routes) plus 1 verifier defect (census noise). |
+
+Exit criteria: M1-M3 100%; 29/29 reviewed hops confirmed; no mislabeled entry or
+terminal left unfixed or undocumented (see limits); every defect class has a
+regression test.
+
+**Findings, judged by reading the code (the tool cannot make this call):**
+
+- `ListMatchCompetitors` is queried from `annotateOne`, `matchup.Resolve` and
+  `ingest.Submit`: three layers run the same query. A real consolidation candidate.
+- `Redact` and `Decode` are shared helpers reached from two parallel OpenAI
+  clients (`OpenAIAnnotator.Annotate`, `OpenAIClaimExtractor.Extract`) that repeat
+  the marshal, request, read, unmarshal, decode pipeline. The helpers are fine;
+  the duplication is in the gateways. The same gateway pair appearing in two
+  findings is the strong signal.
+- `runIngestion` is documented as the shared lifecycle for `Submit` and
+  `SubmitResult`: designed reuse, flagged by the structural rule.
+- `ingestCandidate -> ingest.Submit` directly (success) and through
+  `auditFailure` (failure audit) are two intentional routes.
+
+Known limits found in review (also in the README): shared helpers with two callers
+are flagged like duplicates; unused exported methods count as entries; the
+`Transcribe` route depends on runtime configuration; reflection and function
+values stored in maps are not followed.
+
+Suggested next step: group findings whose gateway sets coincide (here
+`Annotate` and `Extract` for both `Redact` and `Decode`), and compare the
+routes' terminal arguments and step shapes to separate duplication from intent.
