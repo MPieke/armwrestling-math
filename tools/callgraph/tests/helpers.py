@@ -1,0 +1,61 @@
+"""Shared fixtures for call graph tests.
+
+The expected graph below describes ``codeql/go/test/CallGraph/main.go``. A test
+re-reads that source file so these line numbers cannot drift from reality.
+"""
+
+import csv
+import io
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+FIXTURE_FILE = "codeql/go/test/CallGraph/main.go"
+PACKAGE = "example.com/fixture"
+SHA = "0123456789abcdef0123456789abcdef01234567"
+REPO_URL = "https://github.com/MPieke/armwrestling-math"
+
+NODE_COLUMNS = ["id", "name", "package", "file", "start_line", "end_line"]
+EDGE_COLUMNS = ["caller_id", "callee_id", "call_file", "call_line"]
+
+# (name, start_line, end_line)
+FIXTURE_FUNCTIONS = [
+    ("main", 3, 6),
+    ("run", 8, 11),
+    ("helper", 13, 15),
+    ("leaf", 17, 17),
+]
+
+# (caller, callee, call_line)
+FIXTURE_CALLS = [
+    ("main", "run", 4),
+    ("main", "helper", 5),
+    ("run", "helper", 9),
+    ("run", "leaf", 10),
+    ("helper", "leaf", 14),
+]
+
+
+def node_id(name, package=PACKAGE):
+    return f"{package}.{name}"
+
+
+def raw_nodes_csv(rows=None):
+    rows = rows if rows is not None else [
+        [node_id(n), n, PACKAGE, FIXTURE_FILE, s, e] for n, s, e in FIXTURE_FUNCTIONS
+    ]
+    return _csv(NODE_COLUMNS, rows)
+
+
+def raw_edges_csv(rows=None):
+    rows = rows if rows is not None else [
+        [node_id(a), node_id(b), FIXTURE_FILE, line] for a, b, line in FIXTURE_CALLS
+    ]
+    return _csv(EDGE_COLUMNS, rows)
+
+
+def _csv(columns, rows):
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(columns)
+    writer.writerows(rows)
+    return buffer.getvalue()
