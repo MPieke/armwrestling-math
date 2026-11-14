@@ -265,6 +265,39 @@ class SummaryCardsTest(unittest.TestCase):
         self.assertIn("functions", diagram)
         self.assertLessEqual(len(set(re.findall(r"\bn\d+\[", diagram))), render.DIAGRAM_NODE_CAP)
 
+    def test_routes_sharing_an_entry_and_gateway_share_one_collapsed_node(self):
+        # Two targets reached through the same long chains must not repeat the chain node.
+        chain1 = [("e1", "c1"), ("c1", "c2"), ("c2", "c3"), ("c3", "a")]
+        chain2 = [("e2", "d1"), ("d1", "d2"), ("d2", "d3"), ("d3", "b")]
+        edges = chain1 + chain2 + [("a", "t1"), ("a", "t2"), ("b", "t1"), ("b", "t2")]
+        externals = (("t1", "os.Open"), ("t2", "os.Create"))
+
+        text = self.summary(edges, ["e1", "e2"], externals)
+        diagram = text.split("```mermaid")[1].split("```")[0]
+
+        self.assertEqual(diagram.count("... 3 functions"), 2)
+
+    def test_the_card_title_uses_short_names_without_the_package_path(self):
+        graph = helpers.make_graph(
+            self.INDEPENDENT, entries=["e1", "e2"], externals=[("t", "os.Open")],
+            packages={"a": "example.com/m/internal/one", "b": "example.com/m/internal/two"},
+        )
+        renamed = {"a": "example.com/m/internal/one.a", "b": "example.com/m/internal/two.b"}
+        nodes = tuple(
+            build.Node(**{**n.__dict__, "id": renamed.get(n.id, n.id)}) for n in graph.nodes
+        )
+        edges = tuple(
+            build.Edge(**{**e.__dict__,
+                          "caller_id": renamed.get(e.caller_id, e.caller_id),
+                          "callee_id": renamed.get(e.callee_id, e.callee_id)})
+            for e in graph.edges
+        )
+        graph = build.Graph(nodes, edges, graph.externals)
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+        self.assertIn("#### 1. `a` and `b`", text)
+
     def test_node_labels_with_quotes_are_escaped_in_the_diagram(self):
         graph = helpers.make_graph(self.INDEPENDENT, entries=["e1", "e2"], externals=[("t", "os.Open")])
         nodes = tuple(
