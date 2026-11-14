@@ -193,7 +193,7 @@ def _card(rank, card, names, verdict, judgements):
         f"#### {rank}. `{names.short(card.first)}` and `{names.short(card.second)}`",
         "",
         f"`{first}` and `{second}` each reach {targets} on separate routes "
-        "(the routes share no function on the way in).",
+        f"({cards.independence_phrase(card, lambda s: f'`{names.display(s)}`')}).",
         "",
         f"- `{first}` is reached from {entries_of(card.first)}; "
         f"`{second}` is reached from {entries_of(card.second)}.",

@@ -43,6 +43,8 @@ class Card:
     reached_from: tuple
     routes: tuple
     evidence: Evidence
+    starts: tuple = ()  # functions below which the routes diverge (nested segments)
+    from_entries: bool = True  # the routes diverge already at the entry points
 
 
 def build_cards(graph, analysis, ignored_packages=()):
@@ -51,12 +53,16 @@ def build_cards(graph, analysis, ignored_packages=()):
     calls.add_edges_from((e.caller_id, e.callee_id) for e in graph.edges)
     reach = _Reachability(calls)
 
-    pairs = defaultdict(lambda: {"targets": set(), "routes": set()})
-    for target, last_hops in _segment_last_hops(analysis, set(calls.nodes)):
+    pairs = defaultdict(lambda: {"targets": set(), "routes": set(), "starts": set(), "entries": False})
+    for target, start, last_hops in _segment_last_hops(analysis, set(calls.nodes)):
         for first, second in combinations(sorted({hop for hop, _ in last_hops}), 2):
             entry = pairs[(first, second)]
             entry["targets"].add(target)
             entry["routes"] |= {route for hop, route in last_hops if hop in (first, second)}
+            if start is None:
+                entry["entries"] = True
+            else:
+                entry["starts"].add(start)
 
     externals = _externals_by_caller(graph, ignored_packages)
     found = [
@@ -70,6 +76,8 @@ def build_cards(graph, analysis, ignored_packages=()):
             ),
             routes=tuple(sorted(data["routes"])),
             evidence=_evidence(calls, externals, first, second, data["targets"]),
+            starts=tuple(sorted(data["starts"])),
+            from_entries=data["entries"],
         )
         for (first, second), data in pairs.items()
     ]
@@ -79,23 +87,34 @@ def build_cards(graph, analysis, ignored_packages=()):
 
 
 def _segment_last_hops(analysis, node_ids):
-    """For each parallel segment, its meeting point and the (last-hop function, route) pairs.
+    """For each parallel segment: its meeting point, where it starts, and its last hops.
 
     Routes inside one segment share no interior function, so their last-hop
     functions are independent ways into the meeting point. Functions are paired
-    only within a segment, never across segments.
+    only within a segment, never across segments. The start is None when the
+    routes diverge at the entry points, else the function they diverge below.
     """
     for finding in analysis.findings:
-        segments = [s for s in finding.segments if s.parallel]
-        segments += [nested.segment for nested in finding.nested]
-        for segment in segments:
+        segments = [(s, s.start) for s in finding.segments if s.parallel]
+        segments += [(n.segment, n.segment.start or n.entry) for n in finding.nested]
+        for segment, start in segments:
             hops = [
                 (route[-2], route)
                 for route in segment.routes
                 if len(route) >= 2 and route[-1] in node_ids and route[-2] in node_ids
             ]
             if hops:
-                yield segment.end, hops
+                yield segment.end, start, hops
+
+
+def independence_phrase(card, display):
+    """Accurate wording for how independent the routes are, given where they diverge."""
+    below = " or ".join(display(start) for start in card.starts)
+    if card.from_entries and card.starts:
+        return f"the routes share no function on the way in, or below {below}"
+    if card.starts:
+        return f"below {below}, the routes share no function"
+    return "the routes share no function on the way in"
 
 
 class _Reachability:

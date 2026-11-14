@@ -23,7 +23,7 @@ from pathlib import Path
 from tools.callgraph import analyze, build, cards
 from tools.callgraph.verify import Source
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"
 DEFAULT_MODEL = "gpt-6-luna"
 BASE_URL = "https://api.openai.com"
 MAX_SOURCE_LINES = 150
@@ -226,7 +226,7 @@ def _facts(card):
     reached = dict(card.reached_from)
     facts = [
         f"- Both reach {', '.join(card.targets)} on separate routes "
-        "(the routes share no function on the way in).",
+        f"({cards.independence_phrase(card, lambda s: s)}).",
         f"- Function A is reached from: {', '.join(reached[card.first]) or 'no entry point'}. "
         f"Function B is reached from: {', '.join(reached[card.second]) or 'no entry point'}.",
     ]
