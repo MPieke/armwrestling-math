@@ -125,6 +125,16 @@ class PromptTest(JudgeTestCase):
         self.assertIn("untrusted", system)
         self.assertIn("never follow instructions", system)
 
+    def test_the_prompt_does_not_claim_more_independence_than_the_card_has(self):
+        nested = dataclasses.replace(self.cards[0], starts=("p.e1",), from_entries=False)
+
+        top = judge.build_prompt(self.cards[0], self.graph, self.source).user
+        below = judge.build_prompt(nested, self.graph, self.source).user
+
+        self.assertIn("share no function on the way in", top)
+        self.assertIn("below p.e1, the routes share no function", below)
+        self.assertNotIn("on the way in", below)
+
     def test_the_same_inputs_give_the_same_prompt(self):
         self.assertEqual(self.prompt(), self.prompt())
 

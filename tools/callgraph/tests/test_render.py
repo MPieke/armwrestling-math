@@ -193,6 +193,23 @@ class SummaryCardsTest(unittest.TestCase):
 
         self.assertIn("`p.a` and `p.b` each reach `p.t` on separate routes", text)
 
+    def test_a_global_card_says_the_routes_share_nothing_on_the_way_in(self):
+        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"]))
+
+        self.assertIn("the routes share no function on the way in", text)
+
+    def test_a_nested_card_says_where_the_routes_diverge_instead(self):
+        edges = [
+            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
+            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+        ]
+
+        text = self.section(self.summary(edges, ["e1", "e2"], externals=(("ri", "os.Open"),)))
+        nested_card = text.split("#### ")[1] if "`af`" in text.split("#### ")[1] else text.split("#### ")[2]
+
+        self.assertIn("below `p.ic`, the routes share no function", nested_card)
+        self.assertNotIn("on the way in", nested_card)
+
     def test_each_function_says_which_entry_points_reach_it(self):
         text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"]))
 

@@ -74,6 +74,20 @@ class PairingTest(unittest.TestCase):
         by_pair = {(c.first, c.second): c for c in found}
         self.assertEqual(by_pair[("af", "ic")].targets, ("submit",))
 
+    def test_a_card_says_where_its_routes_diverge(self):
+        edges = [
+            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
+            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+        ]
+
+        _, found = build(edges, ["e1", "e2"], [("ri", "os.Open")])
+
+        by_pair = {(c.first, c.second): c for c in found}
+        nested = by_pair[("af", "ic")]
+        self.assertEqual((nested.starts, nested.from_entries), (("ic",), False))
+        top = by_pair[("sr", "submit")]
+        self.assertEqual((top.starts, top.from_entries), ((), True))
+
     def test_terminals_that_are_not_flagged_produce_no_cards(self):
         _, found = build([("e", "a"), ("a", "t")], ["e"], [("t", "os.Open")])
 
