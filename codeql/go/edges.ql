@@ -11,4 +11,4 @@ from DataFlow::CallNode call, GraphFunction caller, GraphFunction callee
 where callEdge(call, caller, callee)
 select caller.getGraphId() as caller_id, callee.getGraphId() as callee_id,
   call.getLocation().getFile().getRelativePath() as call_file,
-  call.getLocation().getStartLine() as call_line
+  call.getLocation().getStartLine() as call_line, callResolution(call, callee) as resolution

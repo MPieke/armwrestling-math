@@ -10,4 +10,5 @@ import lib.CallGraph
 from GraphFunction function
 select function.getGraphId() as id, function.getName() as name,
   function.getPackagePath() as package, function.getRelativeFile() as file,
-  function.getFirstLine() as start_line, function.getLastLine() as end_line
+  function.getFirstLine() as start_line, function.getLastLine() as end_line,
+  function.getRootKind() as root_kind
