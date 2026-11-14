@@ -3,38 +3,7 @@ import random
 import unittest
 
 from tools.callgraph import analyze, build
-from tools.callgraph.tests import helpers
-
-
-def make_graph(edges, entries=(), dead=(), externals=(), packages=None, extra_nodes=()):
-    """Build a synthetic graph. Node ids are plain names; every node has its own file.
-
-    ``entries`` get root_kind "referenced", ``dead`` get "unreferenced", and
-    ``externals`` is a list of (caller, "pkg.Name") pairs.
-    """
-    names = []
-    for source, target in edges:
-        names += [source, target]
-    names += list(entries) + list(dead) + [caller for caller, _ in externals] + list(extra_nodes)
-    names = sorted(set(names))
-    packages = packages or {}
-    nodes = tuple(
-        build.Node(
-            id=name, lang="go", name=name, package=packages.get(name, "p"),
-            file=f"{name}.go", start_line=1, end_line=100,
-            root_kind="referenced" if name in entries else "unreferenced" if name in dead else "",
-            sha=helpers.SHA,
-        )
-        for name in names
-    )
-    edge_rows = tuple(
-        build.Edge(a, b, f"{a}.go", 5, "static", helpers.SHA) for a, b in edges
-    )
-    external_rows = tuple(
-        build.External(caller, name, name.rsplit(".", 1)[0], f"{caller}.go", 7, helpers.SHA)
-        for caller, name in externals
-    )
-    return build.Graph(nodes=nodes, edges=edge_rows, externals=external_rows)
+from tools.callgraph.tests.helpers import make_graph
 
 
 def run(edges, entries, **options):

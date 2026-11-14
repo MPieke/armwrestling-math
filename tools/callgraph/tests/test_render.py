@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from tools.callgraph import build, render
+from tools.callgraph import analyze, build, render
 from tools.callgraph.tests import helpers
 
 
@@ -119,16 +119,11 @@ class SummaryTest(unittest.TestCase):
         self.assertIn("helper", first_row)
         self.assertIn(f"{helpers.REPO_URL}/blob/{helpers.SHA}/{helpers.FIXTURE_FILE}#L13-L15", first_row)
 
-    def test_function_level_diagram_is_included_when_small(self):
-        summary = render.summary_markdown(fixture_graph(), helpers.REPO_URL, max_function_edges=10)
-
-        self.assertEqual(summary.count("```mermaid"), 2)
-
-    def test_function_level_diagram_is_skipped_with_a_note_when_too_large(self):
-        summary = render.summary_markdown(fixture_graph(), helpers.REPO_URL, max_function_edges=2)
+    def test_summary_has_only_the_package_diagram_not_a_function_level_one(self):
+        summary = render.summary_markdown(fixture_graph(), helpers.REPO_URL)
 
         self.assertEqual(summary.count("```mermaid"), 1)
-        self.assertIn("function-level diagram omitted", summary)
+        self.assertNotIn("### Functions", summary)
 
 
 class SummaryDetailsTest(unittest.TestCase):
@@ -176,6 +171,90 @@ class SummaryDetailsTest(unittest.TestCase):
 
         self.assertIn("showing first 2 of 5", summary)
         self.assertIn("showing first 2 of 4", summary)
+
+
+class SummaryFindingsTest(unittest.TestCase):
+    INDEPENDENT = [("e1", "s1"), ("s1", "t"), ("e2", "s2"), ("s2", "t")]
+    MERGE_THEN_SPLIT = [
+        ("e1", "run"), ("run", "resolve"), ("run", "submit"), ("resolve", "t"), ("submit", "t"),
+        ("e2", "annotate"), ("annotate", "t"),
+    ]
+
+    def summary(self, edges, entries, externals=(("t", "os.Open"),), analysis_options=None, **kw):
+        graph = helpers.make_graph(edges, entries=entries, externals=list(externals))
+        analysis = analyze.analyze(graph, **(analysis_options or {}))
+        return render.summary_markdown(graph, helpers.REPO_URL, analysis=analysis, **kw)
+
+    def test_a_flagged_terminal_is_listed_with_its_independent_route_count(self):
+        text = self.summary(self.INDEPENDENT, ["e1", "e2"]).split("### Redundant routes")[1]
+
+        self.assertIn("`t`", text)
+        self.assertIn("2 independent routes", text)
+        self.assertIn("2 entries", text)
+
+    def test_gateways_link_to_their_source_and_say_how_many_entries_they_serve(self):
+        text = self.summary(self.INDEPENDENT, ["e1", "e2"])
+
+        self.assertIn(f"[p.s1]({helpers.REPO_URL}/blob/{helpers.SHA}/s1.go#L1-L100)", text)
+        self.assertIn("serves 1 entry", text)
+
+    def test_each_route_is_listed_as_a_chain_of_function_names(self):
+        text = self.summary(self.INDEPENDENT, ["e1", "e2"])
+
+        self.assertIn("p.e1 > p.s1 > p.t", text)
+        self.assertIn("p.e2 > p.s2 > p.t", text)
+
+    def test_a_direct_call_gateway_is_described_as_a_direct_call(self):
+        text = self.summary([("e1", "t"), ("e2", "t")], ["e1", "e2"])
+
+        self.assertIn("direct call", text)
+
+    def test_nested_routes_are_shown_under_the_entry_that_has_them(self):
+        text = self.summary(self.MERGE_THEN_SPLIT, ["e1", "e2"])
+
+        self.assertIn("Nested under `p.e1`", text)
+        self.assertIn("p.resolve", text)
+        self.assertIn("p.submit", text)
+
+    def test_no_flagged_terminals_says_so(self):
+        text = self.summary([("e", "a"), ("a", "t")], ["e"])
+
+        self.assertIn("No redundant routes found", text)
+
+    def test_findings_are_capped_with_a_count(self):
+        edges = self.INDEPENDENT + [("e1", "u1"), ("u1", "u"), ("e2", "u2"), ("u2", "u")]
+        text = self.summary(
+            edges, ["e1", "e2"], externals=(("t", "os.Open"), ("u", "os.Open")), max_findings=1
+        )
+
+        self.assertIn("showing first 1 of 2", text)
+
+    def test_dead_candidates_and_suppressed_externals_are_reported(self):
+        edges = [("e", "a"), ("a", "t"), ("u", "d")]
+        graph = helpers.make_graph(
+            edges, entries=["e"], dead=["u"],
+            externals=[("t", "os.Open"), ("t", "fmt.Println"), ("t", "fmt.Sprintf")],
+        )
+        analysis = analyze.analyze(graph, ignored_packages=("fmt",))
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analysis)
+
+        self.assertIn("Dead-code candidates (2)", text)
+        self.assertIn("p.d", text)
+        self.assertIn("fmt (2)", text)
+
+    def test_most_used_external_functions_are_ranked_by_calling_packages(self):
+        graph = helpers.make_graph(
+            [("e", "a"), ("e", "b")], entries=["e"],
+            externals=[("a", "os.Open"), ("b", "os.Open"), ("b", "os.Remove")],
+            packages={"a": "p/one", "b": "p/two"},
+        )
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+        rows = [line for line in text.split("Most used external functions")[1].splitlines()
+                if line.startswith("| os.")]
+        self.assertTrue(rows[0].startswith("| os.Open | 2 |"))
 
 
 if __name__ == "__main__":
