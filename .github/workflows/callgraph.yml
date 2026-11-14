@@ -1,0 +1,138 @@
+name: Call Graph
+
+on:
+  pull_request:
+    paths:
+      - services/importer/**
+      - tools/callgraph/**
+      - codeql/**
+      - .github/workflows/callgraph.yml
+  push:
+    branches:
+      - main
+    paths:
+      - services/importer/**
+      - tools/callgraph/**
+      - codeql/**
+      - .github/workflows/callgraph.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CODEQL_VERSION: v2.27.4
+  # Source scope of the published graph (repo-relative).
+  GRAPH_SCOPE: services/importer
+
+jobs:
+  callgraph:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the commit being analysed
+        uses: actions/checkout@v6
+        with:
+          # On pull requests analyse the head commit, so every source link in the
+          # graph points at a commit that exists on the branch.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Go for the CodeQL autobuild
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: services/importer/go.mod
+
+      - name: List discovered call graph tool tests
+        run: |
+          python3 - <<'PY'
+          import unittest
+
+          def walk(suite):
+              for item in suite:
+                  if isinstance(item, unittest.TestSuite):
+                      yield from walk(item)
+                  else:
+                      yield item.id()
+
+          suite = unittest.TestLoader().discover("tools/callgraph/tests", top_level_dir=".")
+          names = sorted(walk(suite))
+          print(f"discovered {len(names)} tests")
+          print("\n".join(names))
+          assert names, "no call graph tool tests discovered"
+          PY
+
+      - name: Check build, trace, and render behavior (unit tests)
+        run: python3 -m unittest discover -v -s tools/callgraph/tests -t .
+
+      - name: Install CodeQL CLI ${{ env.CODEQL_VERSION }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP"
+          gh release download "$CODEQL_VERSION" -R github/codeql-cli-binaries \
+            -p codeql-linux64.zip -p codeql-linux64.zip.checksum.txt
+          expected=$(awk '{print $1}' codeql-linux64.zip.checksum.txt)
+          actual=$(sha256sum codeql-linux64.zip | awk '{print $1}')
+          test "$expected" = "$actual" || { echo "checksum mismatch: $expected vs $actual"; exit 1; }
+          unzip -q codeql-linux64.zip
+          echo "$RUNNER_TEMP/codeql" >> "$GITHUB_PATH"
+
+      - name: Install CodeQL query pack dependencies
+        working-directory: codeql
+        run: |
+          codeql --version
+          codeql pack install go
+          codeql pack install go/test
+
+      - name: Check call graph queries against the Go fixture (CodeQL tests)
+        working-directory: codeql
+        run: |
+          echo "discovered CodeQL tests:"
+          find go/test -name '*.qlref' | sort
+          codeql test run --show-extractor-output go/test
+
+      - name: Extract the Go database
+        run: |
+          codeql database create "$RUNNER_TEMP/callgraph-db" \
+            --language=go --source-root=.
+
+      - name: Run node and edge queries
+        working-directory: codeql
+        run: |
+          mkdir -p "$RUNNER_TEMP/raw"
+          for query in nodes edges; do
+            codeql query run --database="$RUNNER_TEMP/callgraph-db" \
+              --output="$RUNNER_TEMP/raw/$query.bqrs" "go/$query.ql"
+            codeql bqrs decode --format=csv \
+              --output="$RUNNER_TEMP/raw/$query.csv" "$RUNNER_TEMP/raw/$query.bqrs"
+          done
+          wc -l "$RUNNER_TEMP"/raw/*.csv
+
+      - name: Validate and stamp the graph for ${{ env.GRAPH_SCOPE }}
+        run: |
+          python3 -m tools.callgraph.build \
+            --nodes "$RUNNER_TEMP/raw/nodes.csv" \
+            --edges "$RUNNER_TEMP/raw/edges.csv" \
+            --sha "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --include-prefix "$GRAPH_SCOPE" \
+            --out-dir callgraph-out
+          nodes=$(($(wc -l < callgraph-out/nodes.csv) - 1))
+          edges=$(($(wc -l < callgraph-out/edges.csv) - 1))
+          echo "nodes=$nodes edges=$edges"
+          test "$nodes" -gt 0 || { echo "graph has no nodes"; exit 1; }
+          test "$edges" -gt 0 || { echo "graph has no edges"; exit 1; }
+
+      - name: Render clickable graph and run summary
+        run: |
+          sudo apt-get install -y --no-install-recommends graphviz > /dev/null
+          python3 -m tools.callgraph.render \
+            --graph-dir callgraph-out \
+            --repo-url "${{ github.server_url }}/${{ github.repository }}"
+          dot -Tsvg callgraph-out/callgraph.dot -o callgraph-out/callgraph.svg
+          cat callgraph-out/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload call graph artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: callgraph
+          path: callgraph-out/
+          if-no-files-found: error
