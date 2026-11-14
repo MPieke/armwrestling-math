@@ -1,5 +1,4 @@
-| id                         | name   | package             | file    | start_line | end_line |
-| example.com/fixture.helper | helper | example.com/fixture | main.go | 13         | 15       |
-| example.com/fixture.leaf   | leaf   | example.com/fixture | main.go | 17         | 17       |
-| example.com/fixture.main   | main   | example.com/fixture | main.go | 3          | 6        |
-| example.com/fixture.run    | run    | example.com/fixture | main.go | 8          | 11       |
+| example.com/fixture.helper | helper | example.com/fixture | main.go | 13 | 15 |
+| example.com/fixture.leaf | leaf | example.com/fixture | main.go | 17 | 17 |
+| example.com/fixture.main | main | example.com/fixture | main.go | 3 | 6 |
+| example.com/fixture.run | run | example.com/fixture | main.go | 8 | 11 |
