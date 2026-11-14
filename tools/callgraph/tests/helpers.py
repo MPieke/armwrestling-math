@@ -14,8 +14,9 @@ PACKAGE = "example.com/fixture"
 SHA = "0123456789abcdef0123456789abcdef01234567"
 REPO_URL = "https://github.com/MPieke/armwrestling-math"
 
-NODE_COLUMNS = ["id", "name", "package", "file", "start_line", "end_line"]
-EDGE_COLUMNS = ["caller_id", "callee_id", "call_file", "call_line"]
+NODE_COLUMNS = ["id", "name", "package", "file", "start_line", "end_line", "root_kind"]
+EDGE_COLUMNS = ["caller_id", "callee_id", "call_file", "call_line", "resolution"]
+EXTERNAL_COLUMNS = ["caller_id", "external_name", "external_package", "call_file", "call_line"]
 
 # (name, start_line, end_line)
 FIXTURE_FUNCTIONS = [
@@ -40,17 +41,28 @@ def node_id(name, package=PACKAGE):
 
 
 def raw_nodes_csv(rows=None):
+    """Rows may omit trailing columns; root_kind defaults to "" (not a root)."""
     rows = rows if rows is not None else [
         [node_id(n), n, PACKAGE, FIXTURE_FILE, s, e] for n, s, e in FIXTURE_FUNCTIONS
     ]
-    return _csv(NODE_COLUMNS, rows)
+    return _csv(NODE_COLUMNS, [_padded(row, len(NODE_COLUMNS), "") for row in rows])
 
 
 def raw_edges_csv(rows=None):
+    """Rows may omit trailing columns; resolution defaults to "static"."""
     rows = rows if rows is not None else [
         [node_id(a), node_id(b), FIXTURE_FILE, line] for a, b, line in FIXTURE_CALLS
     ]
-    return _csv(EDGE_COLUMNS, rows)
+    return _csv(EDGE_COLUMNS, [_padded(row, len(EDGE_COLUMNS), "static") for row in rows])
+
+
+def raw_externals_csv(rows=None):
+    rows = rows if rows is not None else []
+    return _csv(EXTERNAL_COLUMNS, rows)
+
+
+def _padded(row, width, default):
+    return list(row) + [default] * (width - len(row))
 
 
 def _csv(columns, rows):

@@ -65,12 +65,128 @@ class BuildGraphTest(unittest.TestCase):
 
         self.assertEqual(
             build.nodes_to_csv(graph).splitlines()[0],
-            "id,lang,name,package,file,start_line,end_line,sha",
+            "id,lang,name,package,file,start_line,end_line,root_kind,sha",
         )
         self.assertEqual(
             build.edges_to_csv(graph).splitlines()[0],
-            "caller_id,callee_id,call_file,call_line,sha",
+            "caller_id,callee_id,call_file,call_line,resolution,sha",
         )
+
+
+class RootKindAndResolutionTest(unittest.TestCase):
+    def node_row(self, name, root_kind):
+        return [helpers.node_id(name), name, helpers.PACKAGE, helpers.FIXTURE_FILE, 1, 9, root_kind]
+
+    def test_every_documented_root_kind_is_accepted_and_carried_through(self):
+        kinds = ["main", "init", "referenced", "exported-uncalled", "unreferenced", ""]
+        rows = [self.node_row(f"f{i}", kind) for i, kind in enumerate(kinds)]
+
+        graph = build.build_graph(
+            helpers.raw_nodes_csv(rows), helpers.raw_edges_csv([]), helpers.SHA
+        )
+
+        self.assertEqual([node.root_kind for node in graph.nodes], kinds)
+
+    def test_unknown_root_kind_is_rejected(self):
+        rows = [self.node_row("f", "handler")]
+
+        with self.assertRaises(build.GraphError) as context:
+            build.build_graph(helpers.raw_nodes_csv(rows), helpers.raw_edges_csv([]), helpers.SHA)
+
+        self.assertIn("root_kind", str(context.exception))
+
+    def test_resolution_is_carried_through_for_static_and_dynamic_calls(self):
+        rows = [
+            [helpers.node_id("main"), helpers.node_id("run"), helpers.FIXTURE_FILE, 4, "static"],
+            [helpers.node_id("main"), helpers.node_id("helper"), helpers.FIXTURE_FILE, 5, "dynamic"],
+        ]
+
+        graph = build.build_graph(
+            helpers.raw_nodes_csv(), helpers.raw_edges_csv(rows), helpers.SHA
+        )
+
+        self.assertEqual([edge.resolution for edge in graph.edges], ["dynamic", "static"])
+
+    def test_unknown_resolution_is_rejected(self):
+        rows = [[helpers.node_id("main"), helpers.node_id("run"), helpers.FIXTURE_FILE, 4, "magic"]]
+
+        with self.assertRaises(build.GraphError) as context:
+            build.build_graph(helpers.raw_nodes_csv(), helpers.raw_edges_csv(rows), helpers.SHA)
+
+        self.assertIn("resolution", str(context.exception))
+
+
+class ExternalCallsTest(unittest.TestCase):
+    ROW_IN_MAIN = [helpers.node_id("main"), "Exec", "github.com/jackc/pgx/v5", helpers.FIXTURE_FILE, 4]
+
+    def build_with(self, external_rows, **options):
+        return build.build_graph(
+            helpers.raw_nodes_csv(),
+            helpers.raw_edges_csv(),
+            helpers.SHA,
+            externals_csv=helpers.raw_externals_csv(external_rows),
+            **options,
+        )
+
+    def test_external_calls_are_stamped_and_sorted(self):
+        rows = [
+            [helpers.node_id("run"), "Exec", "github.com/jackc/pgx/v5", helpers.FIXTURE_FILE, 10],
+            self.ROW_IN_MAIN,
+        ]
+
+        graph = self.build_with(rows)
+
+        self.assertEqual([x.caller_id for x in graph.externals],
+                         [helpers.node_id("main"), helpers.node_id("run")])
+        self.assertTrue(all(x.sha == helpers.SHA for x in graph.externals))
+
+    def test_no_externals_file_means_no_externals(self):
+        graph = build.build_graph(helpers.raw_nodes_csv(), helpers.raw_edges_csv(), helpers.SHA)
+
+        self.assertEqual(graph.externals, ())
+
+    def test_duplicate_external_rows_collapse(self):
+        graph = self.build_with([self.ROW_IN_MAIN, self.ROW_IN_MAIN])
+
+        self.assertEqual(len(graph.externals), 1)
+
+    def test_external_call_from_unknown_function_is_rejected(self):
+        row = ["example.com/fixture.ghost", "Exec", "pgx", helpers.FIXTURE_FILE, 4]
+
+        with self.assertRaises(build.GraphError) as context:
+            self.build_with([row])
+
+        self.assertIn("unknown caller", str(context.exception))
+
+    def test_external_call_outside_its_callers_line_range_is_rejected(self):
+        row = [helpers.node_id("main"), "Exec", "pgx", helpers.FIXTURE_FILE, 9]  # main is 3-6
+
+        with self.assertRaises(build.GraphError) as context:
+            self.build_with([row])
+
+        self.assertIn("outside caller", str(context.exception))
+
+    def test_externals_of_functions_outside_the_scope_are_dropped(self):
+        graph = self.build_with([self.ROW_IN_MAIN], include_prefixes=["elsewhere"])
+
+        self.assertEqual(graph.externals, ())
+
+    def test_written_csv_has_the_documented_columns(self):
+        graph = self.build_with([self.ROW_IN_MAIN])
+
+        self.assertEqual(
+            build.externals_to_csv(graph).splitlines()[0],
+            "caller_id,external_name,external_package,call_file,call_line,sha",
+        )
+
+    def test_written_csvs_load_back_into_an_equal_graph(self):
+        graph = self.build_with([self.ROW_IN_MAIN])
+
+        reloaded = build.load_graph(
+            build.nodes_to_csv(graph), build.edges_to_csv(graph), build.externals_to_csv(graph)
+        )
+
+        self.assertEqual(reloaded, graph)
 
 
 class IncludePrefixTest(unittest.TestCase):
