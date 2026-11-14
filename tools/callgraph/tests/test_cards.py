@@ -144,11 +144,11 @@ class EvidenceTest(unittest.TestCase):
         self.assertEqual(evidence.similarity, 1.0)
         self.assertEqual(evidence.band, "very similar")
 
-    def test_disjoint_call_sets_are_different(self):
+    def test_disjoint_call_sets_have_little_overlap(self):
         _, evidence = self.evidence(["x1", "x2"], ["y1", "y2"])
 
         self.assertEqual(evidence.similarity, 0.0)
-        self.assertEqual(evidence.band, "different")
+        self.assertEqual(evidence.band, "little overlap")
 
     def test_partial_overlap_is_partly_similar(self):
         # shared {h1, h2}; union {h1, h2, x1, x2, y1} -> 2/5 = 0.4

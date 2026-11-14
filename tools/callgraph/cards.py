@@ -150,4 +150,4 @@ def _band(similarity):
         return "very similar"
     if similarity >= PARTLY_SIMILAR:
         return "partly similar"
-    return "different"
+    return "little overlap"
