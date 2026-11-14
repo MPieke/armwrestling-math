@@ -120,6 +120,20 @@ class _Names:
         rest = node.id[len(prefix):] if node.id.startswith(prefix) else node.id
         return f"{self.labels[node.package]}.{rest}"
 
+    def short(self, node_id):
+        """The name without its package path, unless that would be ambiguous."""
+        node = self.nodes.get(node_id)
+        if node is None:
+            return node_id
+        prefix = node.package + "."
+        rest = node.id[len(prefix):] if node.id.startswith(prefix) else node.id
+        clashes = sum(
+            1 for other in self.nodes.values()
+            if (other.id[len(other.package) + 1:] if other.id.startswith(other.package + ".")
+                else other.id) == rest
+        )
+        return rest if clashes == 1 else self.display(node_id)
+
     def link(self, node_id):
         node = self.nodes.get(node_id)
         if node is None:
@@ -168,7 +182,7 @@ def _card(rank, card, names, verdict, judgements):
         return ", ".join(f"`{names.display(e)}`" for e in reached[function_id]) or "no entry point"
 
     out = [
-        f"#### {rank}. `{first}` and `{second}`",
+        f"#### {rank}. `{names.short(card.first)}` and `{names.short(card.second)}`",
         "",
         f"`{first}` and `{second}` each reach {targets} on separate routes "
         "(the routes share no function on the way in).",
@@ -280,7 +294,7 @@ def _diagram_steps(route, number, names):
     interior = route[1:-2]
     if len(interior) > COLLAPSE_AFTER:
         head = [(route[0], names.display(route[0]))]
-        collapsed = [(("collapsed", number), f"... {len(interior)} functions")]
+        collapsed = [(("collapsed", route[0], route[-2]), f"... {len(interior)} functions")]
         tail = [(step, names.display(step)) for step in route[-2:]]
         return head + collapsed + tail
     return [(step, names.display(step)) for step in route]
