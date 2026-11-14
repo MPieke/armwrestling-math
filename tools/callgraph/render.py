@@ -5,10 +5,10 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from tools.callgraph import build
+from tools.callgraph import analyze, build
 
-DEFAULT_MAX_FUNCTION_EDGES = 300  # Mermaid's default cap is 500 edges.
 TOP_ROWS = 15
+DEFAULT_MAX_FINDINGS = 10
 DEFAULT_MAX_LISTED_ROWS = 2000  # keeps the summary far below GitHub's 1 MiB limit.
 
 
@@ -54,34 +54,27 @@ def package_mermaid(graph):
     return "\n".join(lines) + "\n"
 
 
-def function_mermaid(graph):
-    index = {node.id: f"n{position}" for position, node in enumerate(graph.nodes)}
-    counts = Counter((edge.caller_id, edge.callee_id) for edge in graph.edges)
-    lines = ["flowchart LR"]
-    for node in graph.nodes:
-        lines.append(f'  {index[node.id]}["{_mermaid_text(node.name)}"]')
-    for (caller, callee), count in sorted(counts.items()):
-        label = f"|{count}|" if count > 1 else ""
-        lines.append(f"  {index[caller]} -->{label} {index[callee]}")
-    return "\n".join(lines) + "\n"
-
-
 def summary_markdown(
     graph,
     repo_url,
-    max_function_edges=DEFAULT_MAX_FUNCTION_EDGES,
+    analysis=None,
+    max_findings=DEFAULT_MAX_FINDINGS,
     max_listed_rows=DEFAULT_MAX_LISTED_ROWS,
 ):
     packages = sorted({node.package for node in graph.nodes})
     labels = _package_labels(packages)
     sha = graph.nodes[0].sha if graph.nodes else "unknown"
-    pairs = {(edge.caller_id, edge.callee_id) for edge in graph.edges}
     parts = [
         "## Go call graph",
         "",
         f"**{len(graph.nodes)} functions, {len(graph.edges)} call sites, "
         f"{len(packages)} packages** at `{sha[:7]}`",
         "",
+    ]
+    if analysis is not None:
+        parts += _findings_section(graph, analysis, labels, repo_url, max_findings)
+        parts += _dead_section(graph, analysis, labels, repo_url, max_listed_rows)
+    parts += [
         "### Packages (cross-package call sites)",
         "",
         "```mermaid",
@@ -90,14 +83,8 @@ def summary_markdown(
         "",
     ]
     parts += _package_totals_table(graph, labels)
-    if len(pairs) <= max_function_edges:
-        parts += ["### Functions", "", "```mermaid", function_mermaid(graph).rstrip(), "```", ""]
-    else:
-        parts += [
-            f"_Note: function-level diagram omitted ({len(pairs)} caller/callee pairs exceeds "
-            f"{max_function_edges}); download the `callgraph.svg` artifact._",
-            "",
-        ]
+    if analysis is not None:
+        parts += _external_section(analysis)
     called = Counter(edge.callee_id for edge in graph.edges)
     calling = Counter(edge.caller_id for edge in graph.edges)
     parts += _ranked_table("Most called functions", called, graph, repo_url)
@@ -106,6 +93,113 @@ def summary_markdown(
     parts += _functions_listing(graph, labels, repo_url, max_listed_rows)
     parts += _call_sites_listing(graph, labels, repo_url, max_listed_rows)
     return "\n".join(parts) + "\n"
+
+
+class _Names:
+    """Readable function names ("internal/pkg.Type.Method") and source links."""
+
+    def __init__(self, graph, labels, repo_url):
+        self.nodes = {node.id: node for node in graph.nodes}
+        self.labels = labels
+        self.repo_url = repo_url
+
+    def display(self, node_id):
+        node = self.nodes.get(node_id)
+        if node is None:  # a collapsed cycle ("a+b") or similar label
+            return node_id
+        prefix = node.package + "."
+        rest = node.id[len(prefix):] if node.id.startswith(prefix) else node.id
+        return f"{self.labels[node.package]}.{rest}"
+
+    def link(self, node_id):
+        node = self.nodes.get(node_id)
+        if node is None:
+            return self.display(node_id)
+        url = source_url(self.repo_url, node.sha, node.file, node.start_line, node.end_line)
+        return f"[{_table_text(self.display(node_id))}]({url})"
+
+
+def _plural(count, singular, plural):
+    return f"{count} {singular if count == 1 else plural}"
+
+
+def _findings_section(graph, analysis, labels, repo_url, max_findings):
+    names = _Names(graph, labels, repo_url)
+    out = [
+        "### Redundant routes",
+        "",
+        "A terminal is a function that calls outside the code (database, network, files). "
+        "*Independent routes* share no function between an entry point and the terminal; "
+        "the gateways are the last functions where those routes are still separate, "
+        "so they are the merge candidates. Reuse of a shared helper is normal: judge "
+        "whether the gateways do the same job.",
+        "",
+    ]
+    findings = analysis.findings
+    if not findings:
+        return out + ["No redundant routes found.", ""]
+    for rank, finding in enumerate(findings[:max_findings], start=1):
+        out += _finding(rank, finding, names)
+    if len(findings) > max_findings:
+        out += [f"_showing first {max_findings} of {len(findings)} flagged terminals; "
+                "findings.json has the full list_", ""]
+    return out
+
+
+def _finding(rank, finding, names):
+    node = names.nodes[finding.terminal_id]
+    head = (
+        f"#### {rank}. `{_table_text(node.name)}` in `{names.labels[node.package]}` - "
+        f"{finding.score} independent routes"
+    )
+    chokepoints = ", ".join(names.link(c) for c in finding.chokepoints) or "none"
+    out = [
+        head,
+        "",
+        f"{names.link(finding.terminal_id)} - {_plural(len(finding.entries), 'entry', 'entries')}, "
+        f"{finding.paths} paths, chokepoints: {chokepoints}. "
+        f"Calls: {', '.join(f'`{e}`' for e in finding.externals)}.",
+        "",
+    ]
+    for segment in finding.segments:
+        if segment.parallel:
+            out += _segment_block(segment, names, "Routes")
+    for nested in finding.nested:
+        label = f"Nested under `{names.display(nested.entry)}`"
+        out += _segment_block(nested.segment, names, label)
+    return out
+
+
+def _segment_block(segment, names, title):
+    start = names.display(segment.start) if segment.start else "entries"
+    out = [f"**{title}** ({start} to {names.display(segment.end)}, {segment.k} independent):", ""]
+    for gateway in segment.gateways:
+        who = names.link(gateway.function_id) if gateway.function_id else "direct call"
+        out.append(f"- gateway {who} - serves {_plural(gateway.entries, 'entry', 'entries')}")
+    out.append("")
+    for number, route in enumerate(segment.routes, start=1):
+        chain = " > ".join(names.display(step) for step in route)
+        out.append(f"{number}. {chain}")
+    return out + [""]
+
+
+def _dead_section(graph, analysis, labels, repo_url, max_rows):
+    names = _Names(graph, labels, repo_url)
+    out = [f"### Dead-code candidates ({len(analysis.dead)})", ""]
+    if not analysis.dead:
+        return out + ["None: every function is reachable from an entry point.", ""]
+    out += [f"- {names.link(node_id)}" for node_id in analysis.dead[:max_rows]]
+    return out + _truncation_note(len(analysis.dead), max_rows) + [""]
+
+
+def _external_section(analysis):
+    out = ["### Most used external functions", "",
+           "| function | calling packages | calling functions |", "| --- | --- | --- |"]
+    for usage in analysis.external_usage[:TOP_ROWS]:
+        out.append(f"| {_table_text(usage.name)} | {usage.package_count} | {len(usage.callers)} |")
+    suppressed = ", ".join(f"{pkg} ({count})" for pkg, count in analysis.suppressed.items())
+    out += ["", f"Ignored external calls (noise filter): {suppressed or 'none'}.", ""]
+    return out
 
 
 def _package_totals_table(graph, labels):
@@ -241,15 +335,27 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Render call graph CSVs to DOT and Markdown.")
     parser.add_argument("--graph-dir", required=True, type=Path)
     parser.add_argument("--repo-url", required=True, help="e.g. https://github.com/owner/repo")
-    parser.add_argument("--max-function-edges", type=int, default=DEFAULT_MAX_FUNCTION_EDGES)
+    parser.add_argument("--ignore-file", type=Path, default=analyze.DEFAULT_IGNORE_FILE)
+    parser.add_argument("--min-entries", type=int, default=2)
+    parser.add_argument("--min-gateways", type=int, default=2)
+    parser.add_argument("--max-findings", type=int, default=DEFAULT_MAX_FINDINGS)
     args = parser.parse_args(argv)
 
+    externals = args.graph_dir / "externals.csv"
     graph = build.load_graph(
-        (args.graph_dir / "nodes.csv").read_text(), (args.graph_dir / "edges.csv").read_text()
+        (args.graph_dir / "nodes.csv").read_text(),
+        (args.graph_dir / "edges.csv").read_text(),
+        externals.read_text() if externals.exists() else None,
+    )
+    analysis = analyze.analyze(
+        graph,
+        ignored_packages=analyze.parse_ignore_file(args.ignore_file.read_text()),
+        min_entries=args.min_entries,
+        min_gateways=args.min_gateways,
     )
     (args.graph_dir / "callgraph.dot").write_text(to_dot(graph, args.repo_url))
     (args.graph_dir / "summary.md").write_text(
-        summary_markdown(graph, args.repo_url, args.max_function_edges)
+        summary_markdown(graph, args.repo_url, analysis=analysis, max_findings=args.max_findings)
     )
     print(f"wrote callgraph.dot and summary.md to {args.graph_dir}")
 
