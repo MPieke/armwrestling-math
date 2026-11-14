@@ -1,6 +1,6 @@
 ---
 linear_issue: TBD
-status: proposed
+status: implemented
 ---
 
 # Contract go-route-judge: Redundancy Cards, Path Diagrams, And An LLM Judge
@@ -174,3 +174,70 @@ the verdict downgraded; judge failure never fails the build; unresolved disagree
 - Golden labels are my reading of the code; the user may overrule them.
 - Source of the two functions goes to the OpenAI API: fine for this public repo; for the
   user's private messy codebase this needs a conscious decision first.
+
+## Additions and corrections made during implementation
+
+- Cards are pairs of last-hop callers within one parallel segment (amended above).
+  A caller that also calls the other is still paired (`ingestCandidate` reaches
+  `Submit` directly and through `auditFailure`); a first red test said otherwise and
+  was replaced after real data disproved it.
+- Cards record where their routes diverge (`starts`, `from_entries`) and the summary
+  and the LLM prompt say so. Found by reading the rendered summary: every card said
+  "the routes share no function on the way in", which is false for nested pairs.
+  The same sentence had been sent to the model as a reliable fact (prompt v1).
+  Prompt version is now v2.
+- Lowest similarity band renamed "little overlap" (a pair sharing two callees at 29%
+  read as contradictory under "different").
+- A skipped or wholly failed judge is shown once at the top of the section.
+- Collapsed diagram nodes are shared between routes with the same entry and gateway;
+  card titles use short names.
+
+## Verification results (services/importer, CI runs 43630167770 and 43630852802)
+
+Tests: 202 tool tests and 6 CodeQL tests pass locally (also with warnings as errors)
+and in CI. All judge tests use a fake transport; the real boundary was exercised by
+the CI runs below.
+
+**Real model call.** The API accepted `gpt-6-luna` with the `OPENAI_API_KEY` secret;
+6 of 6 cards were judged in both runs. I cannot say anything about the model beyond
+what these runs show.
+
+| | Run 1 (prompt v1) | Run 2 (prompt v2) |
+| --- | --- | --- |
+| Citations verified against the source | 51 of 51 | 49 of 49 |
+| Verdicts downgraded for missing evidence | 0 | 0 |
+| Calibration (3 reference cases) | 1 of 3 | 2 of 3 |
+| Verdict for all 6 cards | overlap, high | 5 overlap, 1 intentional, all high |
+
+The prompt changed between runs only to remove a false statement (independence
+wording), not to fit any answer; but the `Submit`/`SubmitResult` verdict changed from
+overlap to intentional, so one sample per version proves little. The model is not
+deterministic. Nothing else was tuned.
+
+**Evidence statements ("Both also call", "Only X calls").** 77 claims across the 6
+cards were checked against the function bodies by an independent text search: 72
+passed, 5 were flagged by the checker and checked by hand. Four were `Close` methods
+on different receivers that share the short name (`Transcribe` calls `file.Close()`
+and `writer.Close()`; `Extract` only `response.Body.Close()`; adapters.go:62,81,98 vs
+openai.go:72), one was a function's own declaration line. All 77 are true.
+
+**Diagrams.** 7 Mermaid blocks (6 cards, 1 package diagram): every referenced node is
+defined, quotes balance, node counts under the cap. I could not check how GitHub
+renders them.
+
+**The model's reasoning, read against the source.** All six answers described the
+code correctly where I could check it (differences between `Resolve` and `Submit`
+such as the exactly-two-competitors rule, `Transcribe` being multipart audio, the
+unused `logger` parameter of `auditFailure`). Disagreements with my labels:
+
+| Pair | My label | Run 1 | Run 2 | Comment |
+| --- | --- | --- | --- | --- |
+| Annotate / Extract | duplicate | overlap | overlap | The model's reading ("different jobs, duplicated request pipeline, extract a shared helper") matches the definition of `overlap` I gave it. My label is the doubtful one: the functions do different jobs. |
+| Submit / Resolve | overlap | overlap | overlap | agree |
+| Submit / SubmitResult | intentional | overlap | intentional | Run 1 verdict contradicted its own advice to keep them separate. |
+| auditFailure / ingestCandidate | (none) | overlap | overlap | Both runs advise "keep the success and failure paths distinct"; the label overstates. This pair is a caller and its callee, so "same job" is a poor question. |
+
+Limits: the single verdict label is the weak part; the reasoning and citations are
+reliable. Splitting "same job?" from "shared sub-step worth extracting?" would remove
+the confusion. The reference labels are one person's reading of the code and should be
+confirmed by the repo owner. Counts above are for one repository and 6 pairs.

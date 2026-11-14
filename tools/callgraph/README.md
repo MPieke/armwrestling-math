@@ -106,6 +106,32 @@ it; results of the review done on `services/importer` are in
 
 Install the one dependency with `pip install -r tools/callgraph/requirements.txt`.
 
+## Redundancy cards and the LLM judge
+
+The run summary groups findings into *cards*: a pair of functions that each reach
+the same code on separate routes of one segment, with a plain sentence, the entry
+points reaching each, the calls they share and do not share, a similarity band
+(heuristic: 0.6 very similar, 0.3 partly similar), a diagram of just those routes
+(gateways orange, targets green), and the routes in a collapsed block. The sentence
+states where the routes diverge: "on the way in" for pairs separate from the entry
+points, "below `X`" for pairs inside a nested split.
+
+`judge.py` asks an LLM (default `gpt-6-luna`, override with `LLM_JUDGE_MODEL`) whether
+each of the top pairs is a `duplicate`, an `overlap` (shared sub-step), `intentional`
+or `unrelated`. The verdict is advisory only:
+
+- every claim needs a citation (function, line, quote) that is checked against the
+  source; no verifiable citation downgrades the verdict to `unsure`;
+- failures (no `OPENAI_API_KEY`, API error, bad answer) are shown in the summary and
+  never fail the build; the step is skipped for pull requests from forks;
+- answers are cached by a hash of what the model saw (`actions/cache` in CI);
+- `judge_golden.json` holds human reference labels; the summary shows how many the
+  model agrees with and warns below two thirds.
+
+`python3 -m tools.callgraph.judge --graph-dir out --source-root . --repo-url ... --dry-run`
+writes `judge_inputs.md` (the exact prompts) without calling anything. The source of
+the compared functions is sent to the API; check that before using it on private code.
+
 ## Scope and known gaps
 
 - Test files (`*_test.go`) are excluded. Generated code such as
@@ -121,6 +147,9 @@ Install the one dependency with `pip install -r tools/callgraph/requirements.txt
 - Routes through an interface with several implementers may exist only for some
   runtime configurations (marked `[dynamic dispatch]` in the dossier).
 - Reflection and function values stored in maps or struct fields are not followed.
+- The LLM verdict label is coarse and sometimes contradicts the model's own advice;
+  read its reasoning and citations, not only the label. A caller and its callee can
+  appear as a pair (`ingestCandidate` and `auditFailure`).
 
 ## Extending with custom CodeQL queries
 
