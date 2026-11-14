@@ -59,11 +59,14 @@ python3 -m tools.callgraph.trace services/importer/cmd/annotate-claims/main.go:1
 
 ## In CI
 
-`.github/workflows/callgraph.yml` runs both test layers, extracts the graph,
-appends a Mermaid package diagram and a most-called table to the run summary, and
-uploads `callgraph` (CSVs, `callgraph.svg`, `callgraph.dot`, `summary.md`). Open
-`callgraph.svg` in a browser: clicking a node or edge opens the GitHub source at
-that commit.
+`.github/workflows/callgraph.yml` runs both test layers, extracts the graph, and
+writes everything reviewable to the run's Summary tab, so no download is needed:
+package and function Mermaid diagrams, package totals, most called, most calls
+out, never-called functions, and collapsible lists of every function and call
+site with links to the source line. The `callgraph` artifact additionally holds
+the CSVs, `callgraph.dot`, and `callgraph.svg` (open in a browser; clicking a
+node or edge opens the GitHub source at that commit). Listings are capped at
+2000 rows each to stay under GitHub's 1 MiB summary limit.
 
 ## Scope and known gaps
 

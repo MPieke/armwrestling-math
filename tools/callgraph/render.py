@@ -9,6 +9,7 @@ from tools.callgraph import build
 
 DEFAULT_MAX_FUNCTION_EDGES = 300  # Mermaid's default cap is 500 edges.
 TOP_ROWS = 15
+DEFAULT_MAX_LISTED_ROWS = 2000  # keeps the summary far below GitHub's 1 MiB limit.
 
 
 def source_url(repo_url, sha, file, start_line, end_line=None):
@@ -65,8 +66,14 @@ def function_mermaid(graph):
     return "\n".join(lines) + "\n"
 
 
-def summary_markdown(graph, repo_url, max_function_edges=DEFAULT_MAX_FUNCTION_EDGES):
-    packages = {node.package for node in graph.nodes}
+def summary_markdown(
+    graph,
+    repo_url,
+    max_function_edges=DEFAULT_MAX_FUNCTION_EDGES,
+    max_listed_rows=DEFAULT_MAX_LISTED_ROWS,
+):
+    packages = sorted({node.package for node in graph.nodes})
+    labels = _package_labels(packages)
     sha = graph.nodes[0].sha if graph.nodes else "unknown"
     pairs = {(edge.caller_id, edge.callee_id) for edge in graph.edges}
     parts = [
@@ -82,6 +89,7 @@ def summary_markdown(graph, repo_url, max_function_edges=DEFAULT_MAX_FUNCTION_ED
         "```",
         "",
     ]
+    parts += _package_totals_table(graph, labels)
     if len(pairs) <= max_function_edges:
         parts += ["### Functions", "", "```mermaid", function_mermaid(graph).rstrip(), "```", ""]
     else:
@@ -90,20 +98,111 @@ def summary_markdown(graph, repo_url, max_function_edges=DEFAULT_MAX_FUNCTION_ED
             f"{max_function_edges}); download the `callgraph.svg` artifact._",
             "",
         ]
-    parts += _fan_in_table(graph, repo_url)
+    called = Counter(edge.callee_id for edge in graph.edges)
+    calling = Counter(edge.caller_id for edge in graph.edges)
+    parts += _ranked_table("Most called functions", called, graph, repo_url)
+    parts += _ranked_table("Most calls out", calling, graph, repo_url)
+    parts += _never_called_table(graph, called, repo_url, max_listed_rows)
+    parts += _functions_listing(graph, labels, repo_url, max_listed_rows)
+    parts += _call_sites_listing(graph, labels, repo_url, max_listed_rows)
     return "\n".join(parts) + "\n"
 
 
-def _fan_in_table(graph, repo_url):
-    called = Counter(edge.callee_id for edge in graph.edges)
+def _package_totals_table(graph, labels):
+    package_of = {node.id: node.package for node in graph.nodes}
+    functions = Counter(node.package for node in graph.nodes)
+    calls_out = Counter()
+    calls_in = Counter()
+    for edge in graph.edges:
+        caller_package = package_of[edge.caller_id]
+        callee_package = package_of[edge.callee_id]
+        if caller_package != callee_package:
+            calls_out[caller_package] += 1
+            calls_in[callee_package] += 1
+    rows = [
+        "### Package totals",
+        "",
+        "| package | functions | calls out | calls in |",
+        "| --- | --- | --- | --- |",
+    ]
+    for package in sorted(functions):
+        rows.append(
+            f"| {_table_text(labels[package])} | {functions[package]} | "
+            f"{calls_out[package]} | {calls_in[package]} |"
+        )
+    return rows + [""]
+
+
+def _function_link(node, repo_url):
+    url = source_url(repo_url, node.sha, node.file, node.start_line, node.end_line)
+    return f"[{_table_text(node.name)}]({url})"
+
+
+def _ranked_table(title, counts, graph, repo_url):
     by_id = {node.id: node for node in graph.nodes}
-    ranked = sorted(called, key=lambda node_id: (-called[node_id], by_id[node_id].name))
-    rows = ["### Most called functions", "", "| function | package | call sites |", "| --- | --- | --- |"]
+    ranked = sorted(counts, key=lambda node_id: (-counts[node_id], by_id[node_id].name))
+    rows = [f"### {title}", "", "| function | package | call sites |", "| --- | --- | --- |"]
     for node_id in ranked[:TOP_ROWS]:
         node = by_id[node_id]
-        url = source_url(repo_url, node.sha, node.file, node.start_line, node.end_line)
-        rows.append(f"| [{_table_text(node.name)}]({url}) | {_table_text(node.package)} | {called[node_id]} |")
+        rows.append(
+            f"| {_function_link(node, repo_url)} | {_table_text(node.package)} | {counts[node_id]} |"
+        )
     return rows + [""]
+
+
+def _never_called_table(graph, called, repo_url, max_rows):
+    uncalled = [node for node in graph.nodes if node.id not in called]
+    rows = [
+        "### Never called (entry points or unused)",
+        "",
+        "| function | package |",
+        "| --- | --- |",
+    ]
+    for node in uncalled[:max_rows]:
+        rows.append(f"| {_function_link(node, repo_url)} | {_table_text(node.package)} |")
+    return rows + _truncation_note(len(uncalled), max_rows) + [""]
+
+
+def _functions_listing(graph, labels, repo_url, max_rows):
+    rows = [
+        f"<details><summary>All functions ({len(graph.nodes)})</summary>",
+        "",
+        "| function | package | lines |",
+        "| --- | --- | --- |",
+    ]
+    for node in graph.nodes[:max_rows]:
+        rows.append(
+            f"| {_function_link(node, repo_url)} | {_table_text(labels[node.package])} | "
+            f"{node.start_line}-{node.end_line} |"
+        )
+    return rows + _truncation_note(len(graph.nodes), max_rows) + ["", "</details>", ""]
+
+
+def _call_sites_listing(graph, labels, repo_url, max_rows):
+    by_id = {node.id: node for node in graph.nodes}
+
+    def qualified(node):
+        return _table_text(f"{labels[node.package]}.{node.name}")
+
+    rows = [
+        f"<details><summary>All call sites ({len(graph.edges)})</summary>",
+        "",
+        "| caller | callee | call site |",
+        "| --- | --- | --- |",
+    ]
+    for edge in graph.edges[:max_rows]:
+        url = source_url(repo_url, edge.sha, edge.call_file, edge.call_line)
+        rows.append(
+            f"| {qualified(by_id[edge.caller_id])} | {qualified(by_id[edge.callee_id])} | "
+            f"[{_table_text(edge.call_file)}:{edge.call_line}]({url}) |"
+        )
+    return rows + _truncation_note(len(graph.edges), max_rows) + ["", "</details>", ""]
+
+
+def _truncation_note(total, max_rows):
+    if total <= max_rows:
+        return []
+    return ["", f"_showing first {max_rows} of {total}; the artifact has the full list_"]
 
 
 def _package_labels(packages):
