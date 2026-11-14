@@ -226,7 +226,8 @@ class SummaryFindingsTest(unittest.TestCase):
             edges, ["e1", "e2"], externals=(("t1", "os.Open"), ("t2", "os.Create"))
         )
 
-        self.assertEqual(text.count("**Nested under `p.e1`**"), 1)
+        # A full block is followed by its route count; the cross-reference line is not.
+        self.assertEqual(text.count("**Nested under `p.e1`** ("), 1)
         self.assertIn("same nested routes as #1", text)
 
     def test_no_flagged_terminals_says_so(self):
