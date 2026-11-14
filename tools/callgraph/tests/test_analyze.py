@@ -299,6 +299,82 @@ class IndependentRoutesTest(unittest.TestCase):
             self.assertEqual(analyze.findings_to_json(run(shuffled, ["e3", "e2", "e1"])), baseline)
 
 
+class NestedRoutesTest(unittest.TestCase):
+    """K counts independent routes globally; a split under one entry's merge point must still show."""
+
+    MERGE_THEN_SPLIT = [
+        ("e1", "run"), ("run", "resolve"), ("run", "submit"), ("resolve", "t"), ("submit", "t"),
+        ("e2", "annotate"), ("annotate", "t"),
+    ]
+
+    def test_a_split_below_a_merge_point_is_reported_for_that_entry(self):
+        report = run(self.MERGE_THEN_SPLIT, ["e1", "e2"]).terminals["t"]
+
+        self.assertEqual(report.k, 2)  # global K is unchanged: gateways are annotate and run
+        self.assertEqual([n.entry for n in report.nested], ["e1"])
+        segment = report.nested[0].segment
+        self.assertEqual((segment.start, segment.end, segment.k), ("run", "t", 2))
+        self.assertEqual(gateway_summary(segment), [("resolve", 1), ("submit", 1)])
+
+    def test_entries_with_a_single_route_have_no_nested_findings(self):
+        edges = [("e1", "s1"), ("s1", "t"), ("e2", "s2"), ("s2", "t")]
+
+        report = run(edges, ["e1", "e2"]).terminals["t"]
+
+        self.assertEqual(report.nested, ())
+
+    def test_a_terminal_with_one_entry_has_no_nested_findings_at_the_default_threshold(self):
+        edges = [("e", "a"), ("e", "b"), ("a", "t"), ("b", "t")]
+
+        report = run(edges, ["e"]).terminals["t"]
+
+        self.assertEqual(report.nested, ())
+
+    def test_a_split_before_a_shared_chokepoint_flags_the_terminal_through_nesting(self):
+        # Globally everything funnels through c, so the global rule alone would not flag t.
+        edges = [("e1", "a"), ("e1", "b"), ("a", "c"), ("b", "c"), ("e2", "c"), ("c", "t")]
+
+        report = run(edges, ["e1", "e2"]).terminals["t"]
+
+        self.assertEqual(report.chokepoints, ("c",))
+        self.assertTrue(report.flagged)
+        self.assertEqual([n.entry for n in report.nested], ["e1"])
+        segment = report.nested[0].segment
+        self.assertEqual((segment.start, segment.end, segment.k), (None, "c", 2))
+
+    def test_nested_routes_count_towards_ranking(self):
+        edges = self.MERGE_THEN_SPLIT + [
+            ("e1", "o"), ("o", "u"), ("e2", "p"), ("p", "u"),
+        ]
+        graph = make_graph(
+            edges, entries=["e1", "e2"], externals=[("t", "os.Open"), ("u", "os.Open")]
+        )
+
+        findings = analyze.analyze(graph).findings
+
+        self.assertEqual([f.terminal_id for f in findings], ["t", "u"])
+        self.assertEqual(findings[0].score, 2)
+
+    def test_nested_routes_are_real_disjoint_paths_from_the_entry(self):
+        report = run(self.MERGE_THEN_SPLIT, ["e1", "e2"]).terminals["t"]
+
+        edge_set = set(self.MERGE_THEN_SPLIT)
+        segment = report.nested[0].segment
+        for route in segment.routes:
+            self.assertEqual((route[0], route[-1]), ("run", "t"))
+            for a, b in zip(route, route[1:]):
+                self.assertIn((a, b), edge_set)
+        self.assertEqual(len(segment.routes), 2)
+        self.assertFalse(set(segment.routes[0][1:-1]) & set(segment.routes[1][1:-1]))
+
+    def test_nested_findings_are_in_the_json_output(self):
+        document = json.loads(analyze.findings_to_json(run(self.MERGE_THEN_SPLIT, ["e1", "e2"])))
+
+        nested = document["findings"][0]["nested"]
+        self.assertEqual([n["entry"] for n in nested], ["e1"])
+        self.assertEqual(nested[0]["segment"]["k"], 2)
+
+
 class FindingsOutputTest(unittest.TestCase):
     def analysis(self):
         edges = [("e1", "s1"), ("s1", "t"), ("e2", "s2"), ("s2", "t")]

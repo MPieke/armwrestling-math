@@ -241,6 +241,25 @@ class DossierTest(VerifyTestCase):
 
         self.assertNotIn("handler -> serviceA", text)
 
+    def test_nested_routes_are_laid_out_under_their_entry(self):
+        source = SOURCE.replace(
+            "func handler() { serviceA() }", "func handler() { serviceA(); serviceB() }"
+        )
+        (self.root / FILE).write_text(source)
+        edges = (
+            edge("handler", "serviceA", 3),
+            edge("handler", "serviceB", 3),
+            edge("handler2", "serviceB", 5),
+            edge("serviceA", "store", 7),
+            edge("serviceB", "store", 9),
+        )
+        graph = make_graph(edges=edges)
+
+        text = verify.dossier_markdown(graph, analyze.analyze(graph), self.root, REPO_URL)
+
+        self.assertIn("Nested routes under handler", text)
+        self.assertIn("handler -> serviceB at a.go:3", text)
+
     def test_no_findings_says_so(self):
         graph = make_graph(edges=(edge("handler", "serviceA", 3),), externals=())
 
