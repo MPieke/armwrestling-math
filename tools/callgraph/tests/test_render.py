@@ -77,6 +77,32 @@ class MermaidTest(unittest.TestCase):
             self.assertRegex(identifier, r"^[A-Za-z0-9_]+$")
 
 
+class PackageLabelTest(unittest.TestCase):
+    def labels(self, mermaid):
+        return re.findall(r'\["([^"]*)"\]', mermaid)
+
+    def test_common_module_prefix_is_stripped_from_package_labels(self):
+        nodes = [
+            ["m.a", "A", "github.com/o/r/svc/cmd/tool", "a.go", 1, 2],
+            ["m.b", "B", "github.com/o/r/svc/internal/store", "b.go", 1, 2],
+        ]
+        graph = build.build_graph(helpers.raw_nodes_csv(nodes), helpers.raw_edges_csv([]), helpers.SHA)
+
+        self.assertEqual(self.labels(render.package_mermaid(graph)), ["cmd/tool", "internal/store"])
+
+    def test_single_package_keeps_its_last_path_segment(self):
+        self.assertEqual(self.labels(render.package_mermaid(fixture_graph())), ["fixture"])
+
+    def test_label_prefix_is_cut_on_path_boundaries_only(self):
+        nodes = [
+            ["m.a", "A", "x/storeA", "a.go", 1, 2],
+            ["m.b", "B", "x/storeB", "b.go", 1, 2],
+        ]
+        graph = build.build_graph(helpers.raw_nodes_csv(nodes), helpers.raw_edges_csv([]), helpers.SHA)
+
+        self.assertEqual(self.labels(render.package_mermaid(graph)), ["storeA", "storeB"])
+
+
 class SummaryTest(unittest.TestCase):
     def test_summary_reports_node_and_edge_counts(self):
         summary = render.summary_markdown(fixture_graph(), helpers.REPO_URL)
