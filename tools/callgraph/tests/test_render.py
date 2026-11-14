@@ -216,6 +216,19 @@ class SummaryFindingsTest(unittest.TestCase):
         self.assertIn("p.resolve", text)
         self.assertIn("p.submit", text)
 
+    def test_a_nested_block_shared_by_several_terminals_is_shown_once(self):
+        # Both t1 and t2 sit below x, so both inherit e1's split above x.
+        edges = [
+            ("e1", "a"), ("e1", "b"), ("a", "x"), ("b", "x"), ("e2", "x"),
+            ("x", "t1"), ("x", "t2"),
+        ]
+        text = self.summary(
+            edges, ["e1", "e2"], externals=(("t1", "os.Open"), ("t2", "os.Create"))
+        )
+
+        self.assertEqual(text.count("**Nested under `p.e1`**"), 1)
+        self.assertIn("same nested routes as #1", text)
+
     def test_no_flagged_terminals_says_so(self):
         text = self.summary([("e", "a"), ("a", "t")], ["e"])
 
