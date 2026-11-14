@@ -73,6 +73,62 @@ class BuildGraphTest(unittest.TestCase):
         )
 
 
+class IncludePrefixTest(unittest.TestCase):
+    """The database may contain code outside the scope being analysed."""
+
+    NODES = [
+        ["a.in1", "in1", "a", "services/importer/a.go", 1, 10],
+        ["a.in2", "in2", "a", "services/importer/b.go", 1, 10],
+        ["f.out", "out", "f", "codeql/go/test/main.go", 1, 10],
+    ]
+    EDGES = [
+        ["a.in1", "a.in2", "services/importer/a.go", 3],
+        ["f.out", "a.in1", "codeql/go/test/main.go", 4],
+        ["a.in2", "f.out", "services/importer/b.go", 5],
+    ]
+
+    def build_with(self, prefixes):
+        return build.build_graph(
+            helpers.raw_nodes_csv(self.NODES),
+            helpers.raw_edges_csv(self.EDGES),
+            helpers.SHA,
+            include_prefixes=prefixes,
+        )
+
+    def test_nodes_outside_every_prefix_are_dropped(self):
+        graph = self.build_with(["services/importer/"])
+
+        self.assertEqual([node.id for node in graph.nodes], ["a.in1", "a.in2"])
+
+    def test_edges_touching_a_dropped_node_are_dropped_in_either_direction(self):
+        graph = self.build_with(["services/importer/"])
+
+        self.assertEqual([(e.caller_id, e.callee_id) for e in graph.edges], [("a.in1", "a.in2")])
+
+    def test_no_prefix_keeps_everything(self):
+        graph = self.build_with([])
+
+        self.assertEqual(len(graph.nodes), 3)
+        self.assertEqual(len(graph.edges), 3)
+
+    def test_prefix_matches_whole_path_segments_only(self):
+        # "services/imp" must not select "services/importer/...".
+        graph = self.build_with(["services/imp"])
+
+        self.assertEqual(graph.nodes, ())
+
+    def test_edge_to_a_function_that_never_existed_is_still_rejected(self):
+        edges = self.EDGES + [["a.in1", "ghost", "services/importer/a.go", 4]]
+
+        with self.assertRaises(build.GraphError):
+            build.build_graph(
+                helpers.raw_nodes_csv(self.NODES),
+                helpers.raw_edges_csv(edges),
+                helpers.SHA,
+                include_prefixes=["services/importer/"],
+            )
+
+
 class BuildRejectsInvalidGraphsTest(unittest.TestCase):
     def assert_rejected(self, message_part, nodes_csv=None, edges_csv=None):
         with self.assertRaises(build.GraphError) as context:
