@@ -280,6 +280,38 @@ class MermaidTest(unittest.TestCase):
         self.assertIn("stroke-dasharray", after)
 
 
+class StepReferenceTest(unittest.TestCase):
+    LINES = [
+        "\tresponse, err := client.Do(request)",
+        "\tif err != nil {",
+        '\t\treturn x, fmt.Errorf("boom: %s", Redact(err))',
+        "\t}",
+        "\tdefer response.Body.Close()",
+    ]
+
+    def test_the_first_calls_in_the_range_are_listed_with_the_line_range(self):
+        ref = diagrams.step_reference(self.LINES, 1, 5)
+
+        self.assertEqual(ref, "client.Do, fmt.Errorf, Redact · L1-5")
+
+    def test_control_keywords_and_comments_are_not_call_names(self):
+        lines = ["\tif ready() { // closeAll(now)", "\t\tfor range items {}"]
+
+        self.assertEqual(diagrams.step_reference(lines, 1, 2), "ready · L1-2")
+
+    def test_a_step_without_calls_shows_the_start_of_its_first_line(self):
+        lines = ["var output ClaimAnnotation", "}"]
+
+        self.assertEqual(diagrams.step_reference(lines, 1, 2), "var output ClaimAnnotation · L1-2")
+
+    def test_a_single_line_range_and_missing_source_still_give_a_reference(self):
+        self.assertEqual(diagrams.step_reference(self.LINES, 1, 1), "client.Do · L1")
+        self.assertEqual(diagrams.step_reference(None, 74, 78), "L74-78")
+
+    def test_a_range_beyond_the_file_gives_just_the_range(self):
+        self.assertEqual(diagrams.step_reference(self.LINES, 40, 42), "L40-42")
+
+
 class CapTest(unittest.TestCase):
     def test_very_long_step_lists_are_cut_with_a_note(self):
         steps = [

@@ -484,6 +484,54 @@ class SummaryStoryTest(unittest.TestCase):
         self.assertIn("Fix: Share one request function.", card)
         self.assertIn("Stays in each function: build prompt", card)
 
+    def first_diagram(self, card):
+        return card.split("```mermaid")[1].split("```")[0]
+
+    def second_diagram(self, card):
+        return card.split("```mermaid")[2].split("```")[0]
+
+    def test_boxes_show_the_code_names_and_line_range_when_the_source_is_available(self):
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as root:
+            for name in ("a.go", "b.go"):
+                (Path(root) / name).write_text("\n".join(f"\tfoo{i}()" for i in range(1, 30)))
+            card = self.card(self.summary([judged()], source_root=root))
+
+        diagram = self.first_diagram(card)
+        self.assertIn("build request (1)<br/>foo6, foo7, foo8 · L6-10", diagram)  # function a
+        self.assertIn("build request (1)<br/>foo5, foo6, foo7 · L5-9", diagram)   # function b
+
+    def test_without_source_boxes_show_only_the_line_range(self):
+        diagram = self.first_diagram(self.card(self.summary([judged()])))
+
+        self.assertIn("build request (1)<br/>L6-10", diagram)
+
+    def test_red_marks_every_step_the_fix_moves_not_only_the_ones_the_model_noted(self):
+        diagram = self.first_diagram(self.card(self.summary([judged()])))
+
+        members = re.search(r"class ((?:n\d+,?)+) problem", diagram).group(1).split(",")
+        self.assertEqual(len(members), 4)  # build request and send, in both functions
+
+    def test_the_after_diagram_has_no_red_and_the_shared_node_is_orange_and_dashed(self):
+        diagram = self.second_diagram(self.card(self.summary([judged()])))
+
+        self.assertNotIn("problem", diagram)
+        self.assertEqual(len(re.findall(r"class (n\d+) same", diagram)), 1)
+        self.assertIn("class n", diagram)
+        self.assertRegex(diagram, r"class n\d+ new")
+
+    def test_a_colour_key_sits_under_both_diagrams(self):
+        card = self.card(self.summary([judged()]))
+
+        after_first = card.split("```mermaid")[1].split("```")[1]
+        after_second = card.split("```mermaid")[2].split("```")[1]
+        self.assertIn("orange = the same step in both functions", after_first)
+        self.assertIn("red outline = part of the problem", after_first)
+        self.assertIn("same colours as above", after_second)
+        self.assertIn("dashed = the new shared function", after_second)
+
     def test_the_maybe_intentional_reason_is_visible_not_in_a_dropdown(self):
         card = self.card(self.summary([judged()]))
 
