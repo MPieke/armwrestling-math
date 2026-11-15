@@ -7,7 +7,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from tools.callgraph import analyze, build, cards
+from tools.callgraph import analyze, build, cards, diagrams
 
 TOP_ROWS = 15
 DEFAULT_MAX_FINDINGS = 10
@@ -15,6 +15,12 @@ DIAGRAM_NODE_CAP = 24
 MAX_LISTED_CALLS = 6
 COLLAPSE_AFTER = 2  # interior functions kept on a route before it is shortened
 LLM_TEXT_LIMIT = 400
+ACTION_TEXT = {
+    "merge": "merge them",
+    "extract_shared": "extract the shared part",
+    "keep": "leave as is",
+}
+FOLDED_TITLE = "Looked at, probably fine"
 DEFAULT_MAX_LISTED_ROWS = 2000  # keeps the summary far below GitHub's 1 MiB limit.
 
 
@@ -157,11 +163,39 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements):
     out += _calibration_banner((judgements or {}).get("calibration"))
     if not found:
         return out + ["No redundant routes found.", ""]
-    for rank, card in enumerate(found[:max_cards], start=1):
-        out += _card(rank, card, names, verdicts.get((card.first, card.second)), judgements)
-    if len(found) > max_cards:
-        out += [f"_showing first {max_cards} of {len(found)} cards_", ""]
+    pairs = [(card, verdicts.get((card.first, card.second))) for card in found]
+    surface = sorted((cv for cv in pairs if not _is_folded(cv[1])), key=lambda cv: _priority(cv[1]))
+    folded = [cv for cv in pairs if _is_folded(cv[1])]
+    rank = 0
+    for card, verdict in surface[:max_cards]:
+        rank += 1
+        out += _card(rank, card, names, verdict)
+    if len(surface) > max_cards:
+        out += [f"_showing first {max_cards} of {len(surface)} cards_", ""]
+    if folded:
+        out += [f"<details><summary>{FOLDED_TITLE} ({len(folded)})</summary>", ""]
+        for card, verdict in folded:
+            rank += 1
+            out += _card(rank, card, names, verdict)
+        out += ["</details>", ""]
     return out
+
+
+def _is_judged(verdict):
+    return verdict is not None and verdict.get("status") == "ok"
+
+
+def _is_folded(verdict):
+    """Cards the model says to leave alone are folded away, unless it was unsure."""
+    return _is_judged(verdict) and verdict["action"] == "keep" and verdict["verdict"] != "unsure"
+
+
+def _priority(verdict):
+    if not _is_judged(verdict):
+        return 3
+    if verdict["verdict"] == "unsure":
+        return 2
+    return {"merge": 0, "extract_shared": 1}.get(verdict["action"], 2)
 
 
 def _judge_status(judgements):
@@ -181,28 +215,113 @@ def _calibration_banner(calibration):
     return [line, ""]
 
 
-def _card(rank, card, names, verdict, judgements):
-    first, second = names.display(card.first), names.display(card.second)
-    targets = ", ".join(f"`{names.display(t)}`" for t in card.targets)
-    reached = dict(card.reached_from)
+def _card(rank, card, names, verdict):
+    judged = _is_judged(verdict)
+    out = [_title(rank, card, names), ""]
+    out += [_problem(card, names, verdict if judged else None), ""]
+    if verdict is not None and not judged:
+        out += [f"LLM verdict: unavailable ({_text(verdict.get('reason', 'no reason given'))})", ""]
+    if judged:
+        action = ACTION_TEXT[verdict["action"]]
+        out += [f"**Advisory verdict: {action} ({_text(verdict['verdict'])}, "
+                f"{_text(verdict['confidence'])} confidence)**", ""]
+    picture, routes_on_surface = _picture(card, names, verdict if judged else None)
+    out += picture
+    if judged:
+        out += _fix(card, names, verdict)
+        out += _maybe_intentional(verdict)
+    out += _dropdowns(card, names, verdict if judged else None, routes_on_surface)
+    return out
 
-    def entries_of(function_id):
-        return ", ".join(f"`{names.display(e)}`" for e in reached[function_id]) or "no entry point"
 
-    out = [
-        f"#### {rank}. `{names.short(card.first)}` and `{names.short(card.second)}`",
-        "",
-        f"`{first}` and `{second}` each reach {targets} on separate routes "
-        f"({cards.independence_phrase(card, lambda s: f'`{names.display(s)}`')}).",
-        "",
-        f"- `{first}` is reached from {entries_of(card.first)}; "
-        f"`{second}` is reached from {entries_of(card.second)}.",
-    ]
-    out += _evidence_lines(card, names, first, second)
-    out += ["", "```mermaid", _card_diagram(card, names), "```", ""]
+def _title(rank, card, names):
+    if card.kind == "two_routes":
+        targets = ", ".join(f"`{names.short(t)}`" for t in card.targets)
+        return f"#### {rank}. `{names.short(card.owner)}` reaches {targets} two ways"
+    return f"#### {rank}. `{names.short(card.first)}` and `{names.short(card.second)}`"
+
+
+def _problem(card, names, verdict):
     if verdict is not None:
-        out += _verdict_lines(verdict)
-    out += _card_details(card, names)
+        return _text(verdict["headline"])
+    targets = ", ".join(f"`{names.display(t)}`" for t in card.targets)
+    if card.kind == "two_routes":
+        return (f"`{names.display(card.owner)}` reaches {targets} directly and also through "
+                f"`{names.display(card.helper)}`.")
+    first, second = names.display(card.first), names.display(card.second)
+    return (f"`{first}` and `{second}` each reach {targets} on separate routes "
+            f"({cards.independence_phrase(card, lambda s: f'`{names.display(s)}`')}).")
+
+
+def _picture(card, names, verdict):
+    """The card's main diagram and whether it is the route diagram (so the dropdown skips it)."""
+    if card.kind == "two_routes":
+        diagram = diagrams.two_routes(
+            names.short(card.owner), names.short(card.helper),
+            [names.short(t) for t in card.targets],
+        )
+        return ["```mermaid", diagrams.to_mermaid(diagram), "```", ""], False
+    steps_diagram = None
+    if verdict is not None:
+        steps_diagram = diagrams.before(
+            verdict["steps"], verdict["issues"],
+            {"A": names.short(card.first), "B": names.short(card.second)},
+        )
+    if steps_diagram is None:
+        return ["```mermaid", _card_diagram(card, names), "```", ""], True
+    out = ["```mermaid", diagrams.to_mermaid(steps_diagram), "```", ""]
+    out += [f"({number}) {_text(note)}" for number, note in steps_diagram.legend]
+    if steps_diagram.legend:
+        out.append("")
+    if steps_diagram.note:
+        out += [f"_{steps_diagram.note}_", ""]
+    return out, False
+
+
+def _fix(card, names, verdict):
+    fix = verdict["fix"]
+    if card.kind != "pair" or not fix["summary"]:
+        return []
+    out = [f"Fix: {_text(fix['summary'])}", ""]
+    before = diagrams.before(
+        verdict["steps"], verdict["issues"],
+        {"A": names.short(card.first), "B": names.short(card.second)},
+    )
+    after = diagrams.apply_fix(before, fix, verdict["steps"])
+    if after is not None:
+        out += ["```mermaid", diagrams.to_mermaid(after), "```", ""]
+    stays_a, stays_b = fix["stays_in_a"], fix["stays_in_b"]
+    if stays_a and stays_a == stays_b:
+        out += [f"Stays in each function: {_text(', '.join(stays_a))}", ""]
+    elif stays_a or stays_b:
+        parts = [
+            f"stays in `{names.short(fn)}`: {_text(', '.join(stay))}"
+            for fn, stay in ((card.first, stays_a), (card.second, stays_b)) if stay
+        ]
+        out += ["; ".join(parts).capitalize(), ""]
+    return out
+
+
+def _maybe_intentional(verdict):
+    maybe = verdict["maybe_intentional"]
+    if not maybe["reason"]:
+        return []
+    line = f"Maybe intentional because: {_text(maybe['reason'])}"
+    if maybe["would_matter_if"]:
+        line += f". It would matter if {_text(maybe['would_matter_if'])}"
+    return [line + ".", ""]
+
+
+def _dropdowns(card, names, verdict, routes_on_surface):
+    out = []
+    if card.kind == "pair":
+        first, second = names.display(card.first), names.display(card.second)
+        out += ["<details><summary>Evidence: calls both make and only one makes</summary>", ""]
+        out += _evidence_lines(card, names, first, second)
+        out += ["", "</details>", ""]
+    out += _routes_dropdown(card, names, routes_on_surface)
+    if verdict is not None:
+        out += _llm_details(card, names, verdict)
     return out
 
 
@@ -308,38 +427,67 @@ def _diagram_steps(route, number, names):
     return [(step, names.display(step)) for step in route]
 
 
-def _card_details(card, names):
-    out = ["<details><summary>Details: routes and sources</summary>", ""]
+def _routes_dropdown(card, names, routes_on_surface):
+    reached = dict(card.reached_from)
+
+    def entries_of(function_id):
+        return ", ".join(f"`{names.display(e)}`" for e in reached[function_id]) or "no entry point"
+
+    out = ["<details><summary>Routes and entry points</summary>", ""]
+    if card.kind == "pair":
+        out += [
+            f"`{names.display(card.first)}` is reached from {entries_of(card.first)}; "
+            f"`{names.display(card.second)}` is reached from {entries_of(card.second)}.",
+            "",
+        ]
+    if not routes_on_surface:
+        out += ["```mermaid", _card_diagram(card, names), "```", ""]
     for route in card.routes:
         out.append("- " + " > ".join(names.display(step) for step in route))
-    out += ["", "Sources: " + " | ".join(names.link(f) for f in (card.first, card.second)), "",
-            "</details>", ""]
+    functions = (card.first, card.second)
+    out += ["", "Sources: " + " | ".join(names.link(f) for f in functions), "", "</details>", ""]
     return out
 
 
-def _verdict_lines(verdict):
-    if verdict.get("status") != "ok":
-        reason = _text(verdict.get("reason", "no reason given"))
-        return [f"LLM verdict: unavailable ({reason})", ""]
-    head = (
-        f"**LLM verdict (advisory): {_text(verdict['verdict'])} "
-        f"({_text(verdict['confidence'])} confidence)** - {_text(verdict['summary'])}"
-    )
-    valid, invalid = verdict.get("citations_valid", 0), verdict.get("citations_invalid", 0)
-    out = [head, "", "<details><summary>LLM reasoning</summary>", ""]
-    if verdict.get("essential_differences"):
-        out.append("- Essential differences: " + "; ".join(_text(d) for d in verdict["essential_differences"]))
-    if verdict.get("accidental_differences"):
-        out.append("- Accidental differences: " + "; ".join(_text(d) for d in verdict["accidental_differences"]))
-    if verdict.get("counter_argument"):
-        out.append("- Strongest case for keeping them separate: " + _text(verdict["counter_argument"]))
-    if verdict.get("suggested_consolidation"):
-        out.append("- Suggested consolidation: " + _text(verdict["suggested_consolidation"]))
-    if verdict.get("risks"):
-        out.append("- Risks: " + "; ".join(_text(r) for r in verdict["risks"]))
-    out += [f"- {valid} of {valid + invalid} citations verified against the source.", "",
-            "</details>", ""]
-    return out
+def _llm_details(card, names, verdict):
+    out = ["<details><summary>LLM details</summary>", "", _text(verdict["explanation"]), ""]
+    for label, key in (("Essential differences", "essential_differences"),
+                       ("Accidental differences", "accidental_differences"), ("Risks", "risks")):
+        if verdict.get(key):
+            out.append(f"- {label}: " + "; ".join(_text(item) for item in verdict[key]))
+    valid, invalid = verdict["citations_valid"], verdict["citations_invalid"]
+    out.append(f"- {valid} of {valid + invalid} citations verified against the source.")
+    dropped = (verdict.get("steps_invalid", 0), verdict.get("issues_dropped", 0),
+               verdict.get("fix_unknown_steps", 0))
+    if any(dropped):
+        out.append(
+            f"- Dropped because they did not match the source: {dropped[0]} step ranges, "
+            f"{dropped[1]} annotations, {dropped[2]} fix step names."
+        )
+    if verdict["steps"] and card.kind == "pair":
+        out += ["", _steps_table(card, names, verdict["steps"])]
+    return out + ["", "</details>", ""]
+
+
+def _steps_table(card, names, steps):
+    first, second = names.nodes[card.first], names.nodes[card.second]
+
+    def cell(node, lines):
+        if lines is None:
+            return "-"
+        url = source_url(names.repo_url, node.sha, node.file, lines[0], lines[1])
+        return f"[L{lines[0]}-L{lines[1]}]({url})"
+
+    rows = [
+        f"| step | `{_table_text(names.short(card.first))}` | `{_table_text(names.short(card.second))}` | same |",
+        "| --- | --- | --- | --- |",
+    ]
+    for step in steps:
+        rows.append(
+            f"| {_table_text(_text(step['name']))} | {cell(first, step['a'])} | "
+            f"{cell(second, step['b'])} | {'yes' if step['same'] else 'no'} |"
+        )
+    return "\n".join(rows)
 
 
 def _text(value):
