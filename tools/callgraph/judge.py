@@ -23,14 +23,18 @@ from pathlib import Path
 from tools.callgraph import analyze, build, cards
 from tools.callgraph.verify import Source
 
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v3"
 DEFAULT_MODEL = "gpt-6-luna"
 BASE_URL = "https://api.openai.com"
 MAX_SOURCE_LINES = 150
-MAX_COMPLETION_TOKENS = 2000
+MAX_COMPLETION_TOKENS = 4000
 DEFAULT_MAX_PAIRS = 6
 VERDICTS = ("duplicate", "overlap", "intentional", "unrelated", "unsure")
+ROUTE_VERDICTS = ("deliberate", "accidental", "unsure")
+ACTIONS = ("merge", "extract_shared", "keep")
 CONFIDENCES = ("low", "medium", "high")
+MAX_ISSUES = 5
+MAX_NOTE = 140
 GOLDEN_FILE = Path(__file__).with_name("judge_golden.json")
 
 SYSTEM_PROMPT = (
@@ -41,50 +45,79 @@ SYSTEM_PROMPT = (
     "number. If the evidence is not enough, answer 'unsure'."
 )
 
-QUESTION = (
-    "Do these two functions do the same job (duplicate), share a sub-step that could be "
-    "extracted (overlap), do different jobs that merely look alike or were separated on "
-    "purpose (intentional), or have nothing to do with each other (unrelated)? "
-    "State which differences are essential and which are accidental, and give the "
-    "strongest argument that keeping them separate is intended."
+QUESTION_PAIR = (
+    "Compare the two functions and fill every field. verdict: duplicate = they do the same "
+    "job; overlap = different jobs that share a step which could be extracted; intentional = "
+    "different jobs separated on purpose; unrelated. headline: one plain sentence that names "
+    "both functions and states the problem (or says there is none). action: merge, "
+    "extract_shared (move a shared part into one new function) or keep (leave as is). steps: "
+    "the ordered steps each function performs, each with a short name, inclusive line ranges "
+    "taken from the numbered lines (0 and 0 when that function lacks the step) and same = true "
+    "only when both do essentially the same thing. issues: up to 5 short notes, each naming one "
+    "of your steps, for places that look like a problem. fix: summary, a name for the new shared "
+    "function, which of your step names move into it, which stay in each function. "
+    "maybe_intentional: the strongest concrete reason the separation may be deliberate and what "
+    "would make it matter. explanation: 2-4 sentences."
+)
+
+QUESTION_ROUTES = (
+    "One function reaches the same code in two ways: directly and through the other function. "
+    "Decide whether the two routes are deliberate (for example success versus failure handling) "
+    "or accidental. headline: one plain sentence naming both functions and what the two routes "
+    "are. action: merge (collapse into one route) or keep. Leave steps and issues empty and the "
+    "fix names empty unless you recommend a change. maybe_intentional: the strongest concrete "
+    "reason the two routes may be deliberate and what would make it matter. explanation: 2-4 "
+    "sentences."
 )
 
 _TEXT = {"type": "string"}
 _TEXTS = {"type": "array", "items": _TEXT}
-SCHEMA = {
-    "type": "object",
-    "additionalProperties": False,
-    "required": [
-        "verdict", "confidence", "same_responsibility", "summary", "essential_differences",
-        "accidental_differences", "counter_argument", "evidence", "suggested_consolidation",
-        "risks",
-    ],
-    "properties": {
-        "verdict": {"type": "string", "enum": list(VERDICTS)},
-        "confidence": {"type": "string", "enum": list(CONFIDENCES)},
-        "same_responsibility": _TEXT,
-        "summary": _TEXT,
-        "essential_differences": _TEXTS,
-        "accidental_differences": _TEXTS,
-        "counter_argument": _TEXT,
-        "evidence": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["function", "line", "quote", "why"],
-                "properties": {
-                    "function": {"type": "string", "enum": ["A", "B"]},
-                    "line": {"type": "integer"},
-                    "quote": _TEXT,
-                    "why": _TEXT,
-                },
-            },
-        },
-        "suggested_consolidation": _TEXT,
-        "risks": _TEXTS,
-    },
-}
+_INT = {"type": "integer"}
+
+
+def _object(**properties):
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": list(properties),
+        "properties": properties,
+    }
+
+
+_STEP = _object(
+    name=_TEXT, a_start=_INT, a_end=_INT, b_start=_INT, b_end=_INT, same={"type": "boolean"}
+)
+_ISSUE = _object(step=_TEXT, function={"type": "string", "enum": ["A", "B", "both"]}, note=_TEXT)
+_FIX = _object(
+    summary=_TEXT, shared_name=_TEXT, moved_steps=_TEXTS, stays_in_a=_TEXTS, stays_in_b=_TEXTS
+)
+_MAYBE = _object(reason=_TEXT, would_matter_if=_TEXT)
+_CITATION = _object(
+    function={"type": "string", "enum": ["A", "B"]}, line=_INT, quote=_TEXT, why=_TEXT
+)
+
+
+def schema_for(kind):
+    """The strict answer schema for a card kind ("pair" or "two_routes")."""
+    verdicts = VERDICTS if kind == "pair" else ROUTE_VERDICTS
+    return _object(
+        verdict={"type": "string", "enum": list(verdicts)},
+        confidence={"type": "string", "enum": list(CONFIDENCES)},
+        headline=_TEXT,
+        action={"type": "string", "enum": list(ACTIONS)},
+        explanation=_TEXT,
+        steps={"type": "array", "items": _STEP},
+        issues={"type": "array", "items": _ISSUE},
+        fix=_FIX,
+        maybe_intentional=_MAYBE,
+        essential_differences=_TEXTS,
+        accidental_differences=_TEXTS,
+        risks=_TEXTS,
+        evidence={"type": "array", "items": _CITATION},
+    )
+
+
+SCHEMA = schema_for("pair")
 
 
 class LLMError(Exception):
@@ -189,15 +222,41 @@ class Prompt:
     system: str
     user: str
     functions: dict
+    kind: str = "pair"
+    names: dict = None
+
+
+def _name(node, other):
+    """The function's name without its package path; the package is added only on a clash."""
+    prefix = node.package + "."
+    rest = node.id[len(prefix):] if node.id.startswith(prefix) else node.id
+    other_prefix = other.package + "."
+    other_rest = other.id[len(other_prefix):] if other.id.startswith(other_prefix) else other.id
+    return f"{node.package.rsplit('/', 1)[-1]}.{rest}" if rest == other_rest else rest
 
 
 def build_prompt(card, graph, source):
     nodes = {node.id: node for node in graph.nodes}
-    views = {"A": _view(nodes[card.first], source), "B": _view(nodes[card.second], source)}
-    parts = ["You are comparing two Go functions from the same codebase.", ""]
+    kind = getattr(card, "kind", "pair")
+    a_id, b_id = (card.owner, card.helper) if kind == "two_routes" else (card.first, card.second)
+    views = {"A": _view(nodes[a_id], source), "B": _view(nodes[b_id], source)}
+    names = {
+        "A": _name(nodes[a_id], nodes[b_id]),
+        "B": _name(nodes[b_id], nodes[a_id]),
+    }
+    parts = [
+        "You are comparing two Go functions from the same codebase.",
+        f"Refer to the functions only by name: `{names['A']}` (A) and `{names['B']}` (B); "
+        "never write A or B in your sentences. The letters A and B are only for the "
+        "`function` fields.",
+        "",
+    ]
     for label, view in views.items():
         node = view.node
-        parts += [f"Function {label}: {node.id} ({node.file}:{node.start_line}-{node.end_line})", ""]
+        parts += [
+            f"Function {label} (`{names[label]}`): {node.id} ({node.file}:{node.start_line}-{node.end_line})",
+            "",
+        ]
         parts += [f"L{number}: {text}" for number, text in view.lines.items()]
         if view.shown_end < node.end_line:
             parts.append(f"[truncated: {node.end_line - view.shown_end} more lines not shown]")
@@ -205,9 +264,9 @@ def build_prompt(card, graph, source):
             parts.append("(source unavailable)")
         parts.append("")
     parts += ["Structural facts computed from the code (reliable):"]
-    parts += _facts(card)
-    parts += ["", QUESTION]
-    return Prompt(SYSTEM_PROMPT, "\n".join(parts), views)
+    parts += _facts(card, names)
+    parts += ["", QUESTION_ROUTES if kind == "two_routes" else QUESTION_PAIR]
+    return Prompt(SYSTEM_PROMPT, "\n".join(parts), views, kind, names)
 
 
 def _view(node, source):
@@ -221,14 +280,24 @@ def _view(node, source):
     return FunctionView(node, shown, shown_end)
 
 
-def _facts(card):
-    evidence = card.evidence
+def _facts(card, names):
     reached = dict(card.reached_from)
+
+    def entries(function_id):
+        return ", ".join(reached[function_id]) or "no entry point"
+
+    if getattr(card, "kind", "pair") == "two_routes":
+        return [
+            f"- `{names['A']}` calls `{names['B']}` (directly or through other functions), and "
+            f"both reach {', '.join(card.targets)}: one function reaching the same code in two ways.",
+            f"- `{names['A']}` is reached from: {entries(card.owner)}.",
+        ]
+    evidence = card.evidence
     facts = [
         f"- Both reach {', '.join(card.targets)} on separate routes "
         f"({cards.independence_phrase(card, lambda s: s)}).",
-        f"- Function A is reached from: {', '.join(reached[card.first]) or 'no entry point'}. "
-        f"Function B is reached from: {', '.join(reached[card.second]) or 'no entry point'}.",
+        f"- `{names['A']}` is reached from: {entries(card.first)}. "
+        f"`{names['B']}` is reached from: {entries(card.second)}.",
     ]
     shared = list(evidence.shared_callees) + list(evidence.shared_externals)
     facts.append(
@@ -236,9 +305,9 @@ def _facts(card):
         else "- They share no calls apart from the targets."
     )
     if evidence.only_first:
-        facts.append(f"- Only A calls: {', '.join(evidence.only_first)}.")
+        facts.append(f"- Only `{names['A']}` calls: {', '.join(evidence.only_first)}.")
     if evidence.only_second:
-        facts.append(f"- Only B calls: {', '.join(evidence.only_second)}.")
+        facts.append(f"- Only `{names['B']}` calls: {', '.join(evidence.only_second)}.")
     facts.append(
         f"- Call overlap: {evidence.band} ({round(evidence.similarity * 100)}% of their calls in common)."
     )
@@ -246,31 +315,45 @@ def _facts(card):
 
 
 def parse_answer(content, prompt):
-    """Validate the model's JSON, verify its citations, and return the judgement fields."""
+    """Validate the model's JSON, verify what can be verified, and return the judgement fields."""
     try:
         answer = json.loads(content)
     except ValueError:
         raise JudgementError("answer is not valid JSON") from None
     if not isinstance(answer, dict):
         raise JudgementError("answer is not a JSON object")
-    for name in SCHEMA["required"]:
+    schema = schema_for(prompt.kind)
+    for name in schema["required"]:
         if name not in answer:
             raise JudgementError(f"missing field: {name}")
-    if answer["verdict"] not in VERDICTS:
-        raise JudgementError(f"invalid verdict: {answer['verdict']!r}")
-    if answer["confidence"] not in CONFIDENCES:
-        raise JudgementError(f"invalid confidence: {answer['confidence']!r}")
+    for field, allowed in (
+        ("verdict", schema["properties"]["verdict"]["enum"]),
+        ("confidence", CONFIDENCES),
+        ("action", ACTIONS),
+    ):
+        if answer[field] not in allowed:
+            raise JudgementError(f"invalid {field}: {answer[field]!r}")
     evidence = [_checked_citation(item, prompt) for item in _list(answer["evidence"], "evidence")]
     valid = sum(1 for item in evidence if item["verified"])
+    steps, steps_invalid = _checked_steps(_list(answer["steps"], "steps"), prompt)
+    issues, issues_dropped = _checked_issues(_list(answer["issues"], "issues"), steps)
+    fix, fix_unknown = _checked_fix(answer["fix"], steps)
+    maybe = _fields(answer["maybe_intentional"], ("reason", "would_matter_if"), "maybe_intentional")
     result = {
         "verdict": answer["verdict"],
         "confidence": answer["confidence"],
-        "same_responsibility": str(answer["same_responsibility"]),
-        "summary": str(answer["summary"]),
+        "headline": str(answer["headline"]),
+        "action": answer["action"],
+        "explanation": str(answer["explanation"]),
+        "steps": steps,
+        "steps_invalid": steps_invalid,
+        "issues": issues,
+        "issues_dropped": issues_dropped,
+        "fix": fix,
+        "fix_unknown_steps": fix_unknown,
+        "maybe_intentional": maybe,
         "essential_differences": [str(x) for x in _list(answer["essential_differences"], "essential_differences")],
         "accidental_differences": [str(x) for x in _list(answer["accidental_differences"], "accidental_differences")],
-        "counter_argument": str(answer["counter_argument"]),
-        "suggested_consolidation": str(answer["suggested_consolidation"]),
         "risks": [str(x) for x in _list(answer["risks"], "risks")],
         "evidence": evidence,
         "citations_valid": valid,
@@ -280,8 +363,95 @@ def parse_answer(content, prompt):
     if result["verdict"] != "unsure" and valid == 0:
         result["verdict"] = "unsure"
         result["downgraded"] = True
-        result["summary"] += " (downgraded: no verifiable evidence)"
+        result["headline"] += " (downgraded: no verifiable evidence)"
     return result
+
+
+def _fields(value, names, label):
+    if not isinstance(value, dict) or any(name not in value for name in names):
+        raise JudgementError(f"malformed {label}")
+    return {name: str(value[name]) for name in names}
+
+
+def _checked_steps(raw_steps, prompt):
+    """Keep steps whose line ranges lie inside their function and do not overlap."""
+    steps, taken, seen, invalid = [], {"A": [], "B": []}, set(), 0
+    for item in raw_steps:
+        try:
+            name = " ".join(str(item["name"]).split())
+            ranges = {
+                "A": (int(item["a_start"]), int(item["a_end"])),
+                "B": (int(item["b_start"]), int(item["b_end"])),
+            }
+            claims_same = bool(item["same"])
+        except (KeyError, TypeError, ValueError):
+            raise JudgementError("malformed step") from None
+        if not name or name in seen:
+            invalid += 1
+            continue
+        sides = {}
+        for label, (start, end) in ranges.items():
+            if (start, end) == (0, 0):
+                sides[label] = None
+            elif _range_ok(prompt.functions[label], start, end, taken[label]):
+                sides[label] = [start, end]
+                taken[label].append((start, end))
+            else:
+                sides[label] = None
+                invalid += 1
+        if sides["A"] is None and sides["B"] is None:
+            continue
+        seen.add(name)
+        steps.append({
+            "name": name, "a": sides["A"], "b": sides["B"],
+            "same": claims_same and sides["A"] is not None and sides["B"] is not None,
+        })
+    return steps, invalid
+
+
+def _range_ok(view, start, end, taken):
+    inside = (
+        view.node.start_line <= start <= end <= view.shown_end
+        and start in view.lines
+        and end in view.lines
+    )
+    return inside and all(end < other_start or start > other_end for other_start, other_end in taken)
+
+
+def _checked_issues(raw_issues, steps):
+    """Keep issue notes that sit on a step (and a side) that exists; cap and shorten them."""
+    by_name = {step["name"]: step for step in steps}
+    kept, dropped = [], 0
+    for item in raw_issues:
+        try:
+            name = " ".join(str(item["step"]).split())
+            side, note = item["function"], " ".join(str(item["note"]).split())
+        except (KeyError, TypeError):
+            raise JudgementError("malformed issue") from None
+        step = by_name.get(name)
+        present = step is not None and {
+            "A": step["a"] is not None, "B": step["b"] is not None,
+            "both": step["a"] is not None or step["b"] is not None,
+        }.get(side, False)
+        if not present or len(kept) >= MAX_ISSUES:
+            dropped += 1
+            continue
+        kept.append({"step": name, "function": side, "note": note[:MAX_NOTE]})
+    return kept, dropped
+
+
+def _checked_fix(raw_fix, steps):
+    """The proposed fix, with step names that are not in the step list removed."""
+    fields = _fields(raw_fix, ("summary", "shared_name"), "fix")
+    known = {step["name"] for step in steps}
+    unknown = 0
+    for field in ("moved_steps", "stays_in_a", "stays_in_b"):
+        if not isinstance(raw_fix.get(field), list):
+            raise JudgementError("malformed fix")
+        names = [" ".join(str(x).split()) for x in raw_fix[field]]
+        fields[field] = [n for n in names if n in known]
+        unknown += len(names) - len(fields[field])
+    return fields, unknown
 
 
 def _list(value, name):
@@ -350,14 +520,17 @@ def cache_key(model, prompt):
 
 def judge_pair(card, graph, source, client, cache, model):
     """One judgement for one card. Never raises."""
-    base = {"first": card.first, "second": card.second, "targets": list(card.targets)}
+    base = {"first": card.first, "second": card.second, "targets": list(card.targets),
+            "kind": card.kind}
     try:
         prompt = build_prompt(card, graph, source)
         key = cache_key(model, prompt)
         cached = cache.get(key)
         if cached is not None:
             return {**base, **cached, "cached": True}
-        fields = parse_answer(client.complete(prompt.system, prompt.user, SCHEMA), prompt)
+        fields = parse_answer(
+            client.complete(prompt.system, prompt.user, schema_for(card.kind)), prompt
+        )
     except (LLMError, JudgementError) as error:
         return {**base, "status": "unavailable", "reason": str(error)}
     except Exception as error:  # advisory step: contain anything unexpected
@@ -373,7 +546,7 @@ def judge_cards(found, graph, source, client, cache, model, max_pairs=DEFAULT_MA
 
 def calibrate(golden, found, graph, source, client, cache, model):
     """Compare the model with the human reference labels. None if nothing could be judged."""
-    by_pair = {(card.first, card.second): card for card in found}
+    by_pair = {(card.first, card.second): card for card in found if card.kind == "pair"}
     cases = []
     for reference in golden:
         card = by_pair.get((reference["first"], reference["second"]))
