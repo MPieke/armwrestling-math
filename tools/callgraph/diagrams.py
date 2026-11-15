@@ -51,6 +51,7 @@ class Diagram:
     edges: tuple
     legend: tuple = ()
     note: str = ""
+    direction: str = "LR"  # step chains run "TB": a pipeline reads better in two columns
 
 
 def before(steps, issues, names):
@@ -80,7 +81,7 @@ def before(steps, issues, names):
             edges.append(Edge(f"a{index}", f"b{index}", "dotted", "same"))
     legend = tuple((number, note) for number, _, _, note in accepted)
     note = f"showing the first {MAX_STEPS} steps of each function" if truncated else ""
-    return Diagram(tuple(nodes), tuple(edges), legend, note)
+    return Diagram(tuple(nodes), tuple(edges), legend, note, "TB")
 
 
 def _accepted_issues(steps, issues):
@@ -126,7 +127,7 @@ def apply_fix(diagram, fix, steps):
             previous, count = node_id, count + 1
     if used_shared:
         nodes.append(shared)
-    return Diagram(tuple(nodes), tuple(dict.fromkeys(edges)), (), "")
+    return Diagram(tuple(nodes), tuple(dict.fromkeys(edges)), (), "", "TB")
 
 
 def two_routes(owner, helper, targets):
@@ -141,7 +142,7 @@ def two_routes(owner, helper, targets):
 
 def to_mermaid(diagram):
     ids = {node.id: f"n{position}" for position, node in enumerate(diagram.nodes)}
-    lines = ["flowchart LR"]
+    lines = [f"flowchart {diagram.direction}"]
     lines += [f'  {ids[node.id]}["{_escape(node.label)}"]' for node in diagram.nodes]
     for edge in diagram.edges:
         source, target = ids[edge.source], ids[edge.target]
