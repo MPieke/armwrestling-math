@@ -58,17 +58,36 @@ def good_answer(**overrides):
     answer = {
         "verdict": "duplicate",
         "confidence": "high",
-        "same_responsibility": "Both call h then t.",
-        "summary": "Same steps twice.",
+        "headline": "a and b repeat the same two calls.",
+        "action": "extract_shared",
+        "explanation": "Same steps twice.",
+        "steps": [
+            {"name": "call h", "a_start": 4, "a_end": 4, "b_start": 9, "b_end": 9, "same": True},
+            {"name": "call t", "a_start": 5, "a_end": 5, "b_start": 10, "b_end": 10, "same": True},
+        ],
+        "issues": [{"step": "call h", "function": "both", "note": "repeated in both"}],
+        "fix": {
+            "summary": "Share one function.", "shared_name": "callBoth",
+            "moved_steps": ["call h", "call t"], "stays_in_a": [], "stays_in_b": [],
+        },
+        "maybe_intentional": {"reason": "different callers", "would_matter_if": "they diverge"},
         "essential_differences": [],
         "accidental_differences": ["names"],
-        "counter_argument": "They may belong to different features.",
-        "evidence": [{"function": "A", "line": 4, "quote": "h()", "why": "calls h"}],
-        "suggested_consolidation": "Share one function.",
         "risks": [],
+        "evidence": [{"function": "A", "line": 4, "quote": "h()", "why": "calls h"}],
     }
     answer.update(overrides)
     return json.dumps(answer)
+
+
+def two_routes_answer(**overrides):
+    base = json.loads(good_answer(
+        verdict="deliberate", action="keep", steps=[], issues=[],
+        headline="a reaches b directly and through h.",
+        fix={"summary": "", "shared_name": "", "moved_steps": [], "stays_in_a": [], "stays_in_b": []},
+    ))
+    base.update(overrides)
+    return json.dumps(base)
 
 
 class FakeClient:
@@ -156,6 +175,223 @@ class PromptTest(JudgeTestCase):
         self.assertNotIn("L160:", prompt.user)
 
 
+class PromptV3Test(JudgeTestCase):
+    def test_the_prompt_gives_real_names_and_forbids_a_and_b_in_prose(self):
+        user = judge.build_prompt(self.cards[0], self.graph, self.source).user
+
+        self.assertIn("Refer to the functions only by name: `a` (A) and `b` (B)", user)
+        self.assertIn("never write A or B in your sentences", user)
+
+    def test_a_two_routes_card_asks_whether_the_routes_are_deliberate_not_whether_they_duplicate(self):
+        card = dataclasses.replace(self.cards[0], kind="two_routes", owner="p.a", helper="p.b")
+
+        user = judge.build_prompt(card, self.graph, self.source).user
+
+        self.assertIn("deliberate", user)
+        self.assertIn("accidental", user)
+        self.assertIn("`a` calls `b`", user)
+        self.assertNotIn("same job (duplicate)", user)
+
+    def test_the_owner_of_a_two_routes_card_is_function_a(self):
+        card = dataclasses.replace(
+            self.cards[0], first="p.a", second="p.b", kind="two_routes", owner="p.b", helper="p.a"
+        )
+
+        prompt = judge.build_prompt(card, self.graph, self.source)
+
+        self.assertEqual(prompt.functions["A"].node.id, "p.b")
+        self.assertEqual(prompt.functions["B"].node.id, "p.a")
+
+
+class SchemaTest(unittest.TestCase):
+    def strict(self, schema, path="schema"):
+        if schema.get("type") == "object":
+            self.assertFalse(schema["additionalProperties"], path)
+            self.assertEqual(sorted(schema["required"]), sorted(schema["properties"]), path)
+            for name, child in schema["properties"].items():
+                self.strict(child, f"{path}.{name}")
+        if schema.get("type") == "array":
+            self.strict(schema["items"], f"{path}[]")
+
+    def test_every_object_in_both_schemas_requires_all_of_its_fields(self):
+        for kind in ("pair", "two_routes"):
+            self.strict(judge.schema_for(kind), kind)
+
+    def test_each_kind_has_its_own_verdicts_and_both_share_the_action(self):
+        pair, routes = judge.schema_for("pair"), judge.schema_for("two_routes")
+
+        self.assertEqual(pair["properties"]["verdict"]["enum"], list(judge.VERDICTS))
+        self.assertEqual(routes["properties"]["verdict"]["enum"], ["deliberate", "accidental", "unsure"])
+        self.assertEqual(pair["properties"]["action"]["enum"], ["merge", "extract_shared", "keep"])
+        self.assertEqual(routes["properties"]["action"], pair["properties"]["action"])
+
+    def test_the_default_schema_is_the_pair_schema(self):
+        self.assertEqual(judge.SCHEMA, judge.schema_for("pair"))
+
+    def test_the_client_is_given_the_schema_of_the_cards_kind(self):
+        # Exercised through judge_pair below; here only that the kinds differ.
+        self.assertNotEqual(judge.schema_for("pair"), judge.schema_for("two_routes"))
+
+
+class StepsTest(JudgeTestCase):
+    def steps(self, *steps):
+        return [dict(zip(("name", "a_start", "a_end", "b_start", "b_end", "same"), step)) for step in steps]
+
+    def result(self, steps):
+        return self.judge(FakeClient(good_answer(steps=steps, issues=[], fix={
+            "summary": "", "shared_name": "", "moved_steps": [], "stays_in_a": [], "stays_in_b": [],
+        })))
+
+    def test_steps_inside_their_functions_are_kept_in_order(self):
+        result = self.result(self.steps(("call h", 4, 4, 9, 9, True), ("call t", 5, 5, 10, 10, True)))
+
+        self.assertEqual([s["name"] for s in result["steps"]], ["call h", "call t"])
+        self.assertEqual(result["steps_invalid"], 0)
+
+    def test_a_range_outside_its_function_drops_that_side_only(self):
+        result = self.result(self.steps(("call h", 1, 2, 9, 9, True)))
+
+        step = result["steps"][0]
+        self.assertIsNone(step["a"])
+        self.assertEqual(step["b"], [9, 9])
+        self.assertFalse(step["same"])  # same needs both sides
+        self.assertEqual(result["steps_invalid"], 1)
+
+    def test_a_step_with_no_valid_side_is_dropped(self):
+        result = self.result(self.steps(("nothing", 1, 2, 30, 31, False)))
+
+        self.assertEqual(result["steps"], [])
+        self.assertEqual(result["steps_invalid"], 2)
+
+    def test_zero_means_the_function_has_no_such_step_and_is_not_an_error(self):
+        result = self.result(self.steps(("only in b", 0, 0, 9, 9, False)))
+
+        step = result["steps"][0]
+        self.assertIsNone(step["a"])
+        self.assertEqual(result["steps_invalid"], 0)
+
+    def test_overlapping_ranges_in_one_function_are_dropped(self):
+        result = self.result(self.steps(("call h", 4, 5, 9, 9, False), ("call t", 5, 5, 10, 10, False)))
+
+        second = result["steps"][1]
+        self.assertIsNone(second["a"])  # line 5 already belongs to the first step
+        self.assertEqual(second["b"], [10, 10])
+
+    def test_a_reversed_range_is_invalid(self):
+        result = self.result(self.steps(("call h", 5, 4, 9, 9, True)))
+
+        self.assertIsNone(result["steps"][0]["a"])
+
+    def test_duplicate_step_names_keep_only_the_first(self):
+        result = self.result(self.steps(("call h", 4, 4, 9, 9, True), ("call h", 5, 5, 10, 10, True)))
+
+        self.assertEqual([s["name"] for s in result["steps"]], ["call h"])
+
+
+class IssuesAndFixTest(JudgeTestCase):
+    def answer(self, issues=None, fix=None):
+        base = json.loads(good_answer())
+        if issues is not None:
+            base["issues"] = issues
+        if fix is not None:
+            base["fix"] = {**base["fix"], **fix}
+        return json.dumps(base)
+
+    def test_an_issue_on_an_existing_step_is_kept_with_a_number(self):
+        issues = [{"step": "call h", "function": "A", "note": "dup"}]
+
+        result = self.judge(FakeClient(self.answer(issues)))
+
+        self.assertEqual(result["issues"], [{"step": "call h", "function": "A", "note": "dup"}])
+
+    def test_an_issue_on_an_unknown_step_is_dropped_and_counted(self):
+        issues = [{"step": "no such step", "function": "A", "note": "x"}]
+
+        result = self.judge(FakeClient(self.answer(issues)))
+
+        self.assertEqual((result["issues"], result["issues_dropped"]), ([], 1))
+
+    def test_an_issue_on_a_side_without_that_step_is_dropped(self):
+        steps = [{"name": "only in b", "a_start": 0, "a_end": 0, "b_start": 9, "b_end": 9, "same": False}]
+        base = json.loads(self.answer([{"step": "only in b", "function": "A", "note": "x"}]))
+        base["steps"] = steps
+
+        result = self.judge(FakeClient(json.dumps(base)))
+
+        self.assertEqual((result["issues"], result["issues_dropped"]), ([], 1))
+
+    def test_at_most_five_issues_are_kept_and_long_notes_are_cut(self):
+        issues = [{"step": "call h", "function": "both", "note": "x" * 300} for _ in range(8)]
+
+        result = self.judge(FakeClient(self.answer(issues)))
+
+        self.assertEqual(len(result["issues"]), 5)
+        self.assertLessEqual(len(result["issues"][0]["note"]), 140)
+        self.assertEqual(result["issues_dropped"], 3)
+
+    def test_fix_steps_that_do_not_exist_are_filtered_out(self):
+        fix = {"moved_steps": ["call h", "invented"], "stays_in_a": ["nope"], "stays_in_b": []}
+
+        result = self.judge(FakeClient(self.answer(fix=fix)))
+
+        self.assertEqual(result["fix"]["moved_steps"], ["call h"])
+        self.assertEqual(result["fix"]["stays_in_a"], [])
+        self.assertEqual(result["fix"]["shared_name"], "callBoth")
+
+    def test_the_action_must_be_one_of_the_known_values(self):
+        result = self.judge(FakeClient(good_answer(action="rewrite")))
+
+        self.assertEqual(result["status"], "unavailable")
+        self.assertIn("action", result["reason"])
+
+    def test_the_maybe_intentional_reason_is_carried_through(self):
+        result = self.judge(FakeClient(good_answer()))
+
+        self.assertEqual(result["maybe_intentional"]["reason"], "different callers")
+        self.assertEqual(result["headline"], "a and b repeat the same two calls.")
+        self.assertEqual(result["action"], "extract_shared")
+
+
+class TwoRoutesTest(JudgeTestCase):
+    def card(self):
+        return dataclasses.replace(self.cards[0], kind="two_routes", owner="p.a", helper="p.b")
+
+    def test_a_two_routes_card_uses_its_own_schema_and_verdicts(self):
+        client = FakeClient(two_routes_answer())
+
+        result = self.judge(client, card=self.card())
+
+        self.assertEqual(client.calls[0][2], judge.schema_for("two_routes"))
+        self.assertEqual((result["status"], result["verdict"], result["action"]), ("ok", "deliberate", "keep"))
+
+    def test_a_pair_verdict_is_rejected_for_a_two_routes_card(self):
+        result = self.judge(FakeClient(two_routes_answer(verdict="duplicate")), card=self.card())
+
+        self.assertEqual(result["status"], "unavailable")
+
+    def test_a_two_routes_card_needs_no_steps(self):
+        result = self.judge(FakeClient(two_routes_answer()), card=self.card())
+
+        self.assertEqual(result["steps"], [])
+
+    def test_a_pair_card_is_given_the_pair_schema(self):
+        client = FakeClient(good_answer())
+
+        self.judge(client)
+
+        self.assertEqual(client.calls[0][2], judge.schema_for("pair"))
+
+    def test_calibration_only_looks_at_pair_cards(self):
+        golden = [{"first": "p.a", "second": "p.b", "expected": "duplicate", "note": "x"}]
+
+        result = judge.calibrate(
+            golden, [self.card()], self.graph, self.source, FakeClient(two_routes_answer()),
+            judge.Cache(None), "m",
+        )
+
+        self.assertIsNone(result)
+
+
 class ParsingTest(JudgeTestCase):
     def test_a_valid_answer_becomes_an_ok_result(self):
         result = self.judge(FakeClient(good_answer()))
@@ -172,12 +408,12 @@ class ParsingTest(JudgeTestCase):
 
     def test_a_missing_field_is_rejected(self):
         answer = json.loads(good_answer())
-        del answer["counter_argument"]
+        del answer["headline"]
 
         result = self.judge(FakeClient(json.dumps(answer)))
 
         self.assertEqual(result["status"], "unavailable")
-        self.assertIn("counter_argument", result["reason"])
+        self.assertIn("headline", result["reason"])
 
     def test_text_that_is_not_json_is_rejected(self):
         result = self.judge(FakeClient("I think they are duplicates."))
