@@ -338,6 +338,14 @@ class IssuesAndFixTest(JudgeTestCase):
         self.assertEqual(result["fix"]["stays_in_a"], [])
         self.assertEqual(result["fix"]["shared_name"], "callBoth")
 
+    def test_only_unknown_moved_steps_are_counted_as_dropped_fix_names(self):
+        fix = {"moved_steps": ["call h", "invented"], "stays_in_a": ["free text", "more text"],
+               "stays_in_b": ["even more"]}
+
+        result = self.judge(FakeClient(self.answer(fix=fix)))
+
+        self.assertEqual(result["fix_unknown_steps"], 1)
+
     def test_the_action_must_be_one_of_the_known_values(self):
         result = self.judge(FakeClient(good_answer(action="rewrite")))
 

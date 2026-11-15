@@ -491,6 +491,60 @@ class SummaryStoryTest(unittest.TestCase):
         self.assertIn("Maybe intentional because: they serve different commands", visible)
         self.assertIn("It would matter if the commands diverge", visible)
 
+    def test_the_maybe_intentional_line_does_not_repeat_the_words_or_punctuation_the_model_used(self):
+        verdict = judged(maybe_intentional={
+            "reason": "They serve different workflows.",
+            "would_matter_if": "It would matter if the helper coupled their prompts.",
+        })
+
+        card = self.card(self.summary([verdict]))
+
+        self.assertIn(
+            "Maybe intentional because: They serve different workflows. "
+            "It would matter if the helper coupled their prompts.", card,
+        )
+        self.assertNotIn("..", card.split("<details>")[0])
+        self.assertNotIn("if It would", card)
+
+    def test_a_would_matter_if_without_the_prefix_gets_one(self):
+        verdict = judged(maybe_intentional={"reason": "different commands", "would_matter_if": "they diverge"})
+
+        card = self.card(self.summary([verdict]))
+
+        self.assertIn("Maybe intentional because: different commands. It would matter if they diverge.", card)
+
+    def test_what_stays_is_every_step_that_is_not_moved_whatever_the_model_listed(self):
+        fix = {"summary": "Share it.", "shared_name": "shared", "moved_steps": ["build request", "send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        card = self.card(self.summary([judged(fix=fix)]))
+
+        self.assertIn("Stays in each function: build prompt, decode", card)
+
+    def test_when_the_two_functions_keep_different_steps_each_is_listed_separately(self):
+        steps = STEPS + [{"name": "validate", "a": [19, 20], "b": None, "same": False}]
+        fix = {"summary": "Share it.", "shared_name": "shared", "moved_steps": ["build request", "send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        card = self.card(self.summary([judged(steps=steps, fix=fix, issues=[])]))
+
+        self.assertIn(
+            "Stays in `a`: build prompt, decode, validate; stays in `b`: build prompt, decode", card
+        )
+
+    def test_step_names_keep_their_capitals_in_the_stays_line(self):
+        steps = [
+            {"name": "build OpenAI request", "a": [3, 5], "b": [3, 4], "same": True},
+            {"name": "send", "a": [6, 8], "b": [5, 7], "same": True},
+            {"name": "decode OpenAI reply", "a": [9, 10], "b": None, "same": False},
+        ]
+        fix = {"summary": "Share it.", "shared_name": "shared", "moved_steps": ["send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        card = self.card(self.summary([judged(steps=steps, fix=fix, issues=[])]))
+
+        self.assertIn("Stays in `a`: build OpenAI request, decode OpenAI reply", card)
+
     def test_calls_and_overlap_are_behind_a_dropdown_not_on_the_surface(self):
         edges = self.INDEPENDENT + [("a", "h"), ("b", "h")]
         card = self.card(self.summary([judged()], edges=edges))
