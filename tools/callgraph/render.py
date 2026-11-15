@@ -74,6 +74,7 @@ def summary_markdown(
     max_listed_rows=DEFAULT_MAX_LISTED_ROWS,
     judgements=None,
     ignored_packages=(),
+    source_root=None,
 ):
     packages = sorted({node.package for node in graph.nodes})
     labels = _package_labels(packages)
@@ -87,7 +88,7 @@ def summary_markdown(
     ]
     if analysis is not None:
         found = cards.build_cards(graph, analysis, ignored_packages)
-        parts += _cards_section(graph, found, labels, repo_url, max_findings, judgements)
+        parts += _cards_section(graph, found, labels, repo_url, max_findings, judgements, source_root)
         parts += _dead_section(graph, analysis, labels, repo_url, max_listed_rows)
     parts += [
         "### Packages (cross-package call sites)",
@@ -140,6 +141,8 @@ class _Names:
         )
         return rest if clashes == 1 else self.display(node_id)
 
+    files = None  # set by the cards section when a source root is known
+
     def link(self, node_id):
         node = self.nodes.get(node_id)
         if node is None:
@@ -148,8 +151,25 @@ class _Names:
         return f"[{_table_text(self.display(node_id))}]({url})"
 
 
-def _cards_section(graph, found, labels, repo_url, max_cards, judgements):
+class _Files:
+    """Source files under a root, read once; None for a file that cannot be read."""
+
+    def __init__(self, root):
+        self.root = Path(root)
+        self._cache = {}
+
+    def lines(self, file):
+        if file not in self._cache:
+            try:
+                self._cache[file] = (self.root / file).read_text(errors="replace").splitlines()
+            except OSError:
+                self._cache[file] = None
+        return self._cache[file]
+
+
+def _cards_section(graph, found, labels, repo_url, max_cards, judgements, source_root=None):
     names = _Names(graph, labels, repo_url)
+    names.files = _Files(source_root) if source_root else None
     verdicts = {(j["first"], j["second"]): j for j in (judgements or {}).get("judgements", [])}
     out = [
         "### Redundant routes",
@@ -261,15 +281,10 @@ def _picture(card, names, verdict):
             [names.short(t) for t in card.targets],
         )
         return ["```mermaid", diagrams.to_mermaid(diagram), "```", ""], False
-    steps_diagram = None
-    if verdict is not None:
-        steps_diagram = diagrams.before(
-            verdict["steps"], verdict["issues"],
-            {"A": names.short(card.first), "B": names.short(card.second)},
-        )
+    steps_diagram = _before_diagram(card, names, verdict) if verdict is not None else None
     if steps_diagram is None:
         return ["```mermaid", _card_diagram(card, names), "```", ""], True
-    out = ["```mermaid", diagrams.to_mermaid(steps_diagram), "```", ""]
+    out = ["```mermaid", diagrams.to_mermaid(steps_diagram), "```", "", FIRST_KEY, ""]
     out += [f"({number}) {_text(note)}" for number, note in steps_diagram.legend]
     if steps_diagram.legend:
         out.append("")
@@ -278,18 +293,51 @@ def _picture(card, names, verdict):
     return out, False
 
 
+FIRST_KEY = (
+    "Key: orange = the same step in both functions · grey = differs · "
+    "red outline = part of the problem · numbers = the model's notes"
+)
+SECOND_KEY = (
+    "Key: same colours as above · dashed = the new shared function · "
+    "nothing is red because the duplication is gone"
+)
+
+
+def _names_pair(card, names):
+    return {"A": names.short(card.first), "B": names.short(card.second)}
+
+
+def _step_refs(card, names, steps):
+    """(side, step name) -> the code behind the step, read from the source when available."""
+    refs = {}
+    for side, function in (("A", card.first), ("B", card.second)):
+        node = names.nodes[function]
+        lines = names.files.lines(node.file) if names.files else None
+        for step in steps:
+            span = step["a" if side == "A" else "b"]
+            if span is not None:
+                refs[(side, step["name"])] = diagrams.step_reference(lines, span[0], span[1])
+    return refs
+
+
+def _before_diagram(card, names, verdict):
+    return diagrams.before(
+        verdict["steps"], verdict["issues"], _names_pair(card, names),
+        moved=verdict["fix"]["moved_steps"], refs=_step_refs(card, names, verdict["steps"]),
+    )
+
+
 def _fix(card, names, verdict):
     fix = verdict["fix"]
     if card.kind != "pair" or not fix["summary"]:
         return []
     out = [f"Fix: {_text(fix['summary'])}", ""]
-    before = diagrams.before(
-        verdict["steps"], verdict["issues"],
-        {"A": names.short(card.first), "B": names.short(card.second)},
+    before = _before_diagram(card, names, verdict)
+    after = diagrams.apply_fix(
+        before, fix, verdict["steps"], refs=_step_refs(card, names, verdict["steps"])
     )
-    after = diagrams.apply_fix(before, fix, verdict["steps"])
     if after is not None:
-        out += ["```mermaid", diagrams.to_mermaid(after), "```", ""]
+        out += ["```mermaid", diagrams.to_mermaid(after), "```", "", SECOND_KEY, ""]
     moved = set(fix["moved_steps"])
     stays_a = [s["name"] for s in verdict["steps"] if s["a"] is not None and s["name"] not in moved]
     stays_b = [s["name"] for s in verdict["steps"] if s["b"] is not None and s["name"] not in moved]
@@ -686,6 +734,8 @@ def main(argv=None):
     parser.add_argument("--min-gateways", type=int, default=2)
     parser.add_argument("--max-findings", type=int, default=DEFAULT_MAX_FINDINGS)
     parser.add_argument("--judgements", type=Path, help="judgements.json from judge.py")
+    parser.add_argument("--source-root", type=Path, default=Path("."),
+                        help="repository root, used to show the code behind each step")
     args = parser.parse_args(argv)
 
     externals = args.graph_dir / "externals.csv"
@@ -707,6 +757,7 @@ def main(argv=None):
         summary_markdown(
             graph, args.repo_url, analysis=analysis, max_findings=args.max_findings,
             judgements=load_judgements(judgements_path), ignored_packages=ignored,
+            source_root=args.source_root,
         )
     )
     print(f"wrote callgraph.dot and summary.md to {args.graph_dir}")

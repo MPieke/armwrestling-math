@@ -13,9 +13,16 @@ source, and this module turns what survived into a small model that
   helper.
 """
 
+import re
 from dataclasses import dataclass
 
 MAX_STEPS = 12  # steps drawn per function before the chain is cut
+MAX_REFERENCE_CALLS = 3  # call names shown in a box
+REFERENCE_FALLBACK_CHARS = 40  # first-line characters shown when a step has no calls
+
+_CALL = re.compile(r"(?<![\w.])([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*\(")
+_NOT_CALLS = {"if", "for", "switch", "select", "func", "return", "go", "defer", "range",
+              "make", "new", "len", "cap", "append", "panic", "string", "int", "int64", "byte"}
 
 _STYLES = {
     "function": "fill:#dbeafe,stroke:#1d4ed8,color:#000",
@@ -93,6 +100,26 @@ def before(steps, issues, names, moved=(), refs=None):
     legend = tuple((number, note) for number, _, _, note in accepted)
     note = f"showing the first {MAX_STEPS} steps of each function" if truncated else ""
     return Diagram(tuple(nodes), tuple(edges), legend, note, "TB")
+
+
+def step_reference(lines, start, end):
+    """The code behind a step: up to three call names in its lines, then the line range.
+
+    ``lines`` is the whole file (1-based ranges); None or a range outside it gives just
+    the range. A step without calls shows the start of its first line instead.
+    """
+    span = f"L{start}-{end}" if end != start else f"L{start}"
+    inside = (lines or [])[start - 1:end] if start >= 1 else []
+    names = []
+    for text in inside:
+        for match in _CALL.finditer(text.split("//")[0]):
+            name = match.group(1)
+            if name.split(".")[0] not in _NOT_CALLS and name not in names:
+                names.append(name)
+    if names:
+        return f"{', '.join(names[:MAX_REFERENCE_CALLS])} · {span}"
+    first = next((t.strip() for t in inside if t.strip()), "")
+    return f"{first[:REFERENCE_FALLBACK_CHARS]} · {span}" if first else span
 
 
 def _accepted_issues(steps, issues):
@@ -197,4 +224,7 @@ def _escape(text):
     return text.replace('"', "#quot;").replace("<", "#lt;").replace(">", "#gt;")
 
 
-__all__ = ["Diagram", "Edge", "MAX_STEPS", "Node", "apply_fix", "before", "to_mermaid", "two_routes"]
+__all__ = [
+    "Diagram", "Edge", "MAX_STEPS", "Node", "apply_fix", "before", "step_reference",
+    "to_mermaid", "two_routes",
+]

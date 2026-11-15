@@ -162,7 +162,7 @@ jobs:
         run: |
           sudo apt-get install -y --no-install-recommends graphviz > /dev/null
           python -m tools.callgraph.render \
-            --graph-dir callgraph-out \
+            --graph-dir callgraph-out --source-root . \
             --repo-url "${{ github.server_url }}/${{ github.repository }}"
           dot -Tsvg callgraph-out/callgraph.dot -o callgraph-out/callgraph.svg
           cat callgraph-out/summary.md >> "$GITHUB_STEP_SUMMARY"
