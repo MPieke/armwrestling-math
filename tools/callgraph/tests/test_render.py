@@ -513,6 +513,13 @@ class SummaryStoryTest(unittest.TestCase):
 
         self.assertIn("Maybe intentional because: different commands. It would matter if they diverge.", card)
 
+    def test_a_leading_common_word_after_it_would_matter_if_is_lower_cased_but_names_are_not(self):
+        common = judged(maybe_intentional={"reason": "r", "would_matter_if": "The commands diverge."})
+        name = judged(maybe_intentional={"reason": "r", "would_matter_if": "OpenAI changes the schema."})
+
+        self.assertIn("It would matter if the commands diverge.", self.card(self.summary([common])))
+        self.assertIn("It would matter if OpenAI changes the schema.", self.card(self.summary([name])))
+
     def test_what_stays_is_every_step_that_is_not_moved_whatever_the_model_listed(self):
         fix = {"summary": "Share it.", "shared_name": "shared", "moved_steps": ["build request", "send"],
                "stays_in_a": [], "stays_in_b": []}
