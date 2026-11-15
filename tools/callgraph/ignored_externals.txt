@@ -1,0 +1,23 @@
+# Packages whose calls are noise for route analysis (pure computation, logging,
+# formatting). A package here also covers its subpackages. The analysis reports
+# how many external calls were suppressed per package, so nothing is hidden.
+# This list is opt-out: forgetting to add a package only adds noise.
+fmt
+errors
+strings
+strconv
+sort
+slices
+maps
+math
+unicode
+bytes
+bufio
+context
+time
+log
+sync
+reflect
+flag
+regexp
+path

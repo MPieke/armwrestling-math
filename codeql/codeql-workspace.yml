@@ -1,0 +1,3 @@
+provide:
+  - "go/qlpack.yml"
+  - "go/test/qlpack.yml"
