@@ -441,7 +441,11 @@ def _checked_issues(raw_issues, steps):
 
 
 def _checked_fix(raw_fix, steps):
-    """The proposed fix, with step names that are not in the step list removed."""
+    """The proposed fix, with step names that are not in the step list removed.
+
+    Only unknown ``moved_steps`` are counted as dropped: the model tends to write
+    free text in ``stays_in_*``, and what stays is derived from the steps instead.
+    """
     fields = _fields(raw_fix, ("summary", "shared_name"), "fix")
     known = {step["name"] for step in steps}
     unknown = 0
@@ -450,7 +454,8 @@ def _checked_fix(raw_fix, steps):
             raise JudgementError("malformed fix")
         names = [" ".join(str(x).split()) for x in raw_fix[field]]
         fields[field] = [n for n in names if n in known]
-        unknown += len(names) - len(fields[field])
+        if field == "moved_steps":
+            unknown = len(names) - len(fields[field])
     return fields, unknown
 
 

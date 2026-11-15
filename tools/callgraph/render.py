@@ -290,26 +290,41 @@ def _fix(card, names, verdict):
     after = diagrams.apply_fix(before, fix, verdict["steps"])
     if after is not None:
         out += ["```mermaid", diagrams.to_mermaid(after), "```", ""]
-    stays_a, stays_b = fix["stays_in_a"], fix["stays_in_b"]
+    moved = set(fix["moved_steps"])
+    stays_a = [s["name"] for s in verdict["steps"] if s["a"] is not None and s["name"] not in moved]
+    stays_b = [s["name"] for s in verdict["steps"] if s["b"] is not None and s["name"] not in moved]
     if stays_a and stays_a == stays_b:
         out += [f"Stays in each function: {_text(', '.join(stays_a))}", ""]
     elif stays_a or stays_b:
-        parts = [
-            f"stays in `{names.short(fn)}`: {_text(', '.join(stay))}"
-            for fn, stay in ((card.first, stays_a), (card.second, stays_b)) if stay
+        entries = [
+            (names.short(function), stay)
+            for function, stay in ((card.first, stays_a), (card.second, stays_b))
+            if stay
         ]
-        out += ["; ".join(parts).capitalize(), ""]
+        parts = [
+            f"{'Stays' if index == 0 else 'stays'} in `{function}`: {_text(', '.join(stay))}"
+            for index, (function, stay) in enumerate(entries)
+        ]
+        out += ["; ".join(parts), ""]
     return out
 
 
 def _maybe_intentional(verdict):
     maybe = verdict["maybe_intentional"]
-    if not maybe["reason"]:
+    reason = _sentence(maybe["reason"])
+    if not reason:
         return []
-    line = f"Maybe intentional because: {_text(maybe['reason'])}"
-    if maybe["would_matter_if"]:
-        line += f". It would matter if {_text(maybe['would_matter_if'])}"
-    return [line + ".", ""]
+    line = f"Maybe intentional because: {reason}."
+    matter = _sentence(re.sub(r"^(it would matter )?if\s+", "", maybe["would_matter_if"].strip(),
+                              flags=re.IGNORECASE))
+    if matter:
+        line += f" It would matter if {matter}."
+    return [line, ""]
+
+
+def _sentence(text):
+    """Model text as one inert phrase without its own trailing full stop."""
+    return _text(text.strip()).rstrip(".")
 
 
 def _dropdowns(card, names, verdict, routes_on_surface):
