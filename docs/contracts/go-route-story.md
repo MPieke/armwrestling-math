@@ -209,3 +209,26 @@ Requested after reading the first real run:
   box a link to its GitHub lines (`click`) is only tried in a temporary experiment on
   the run summary; it is adopted only if the user confirms it renders and works.
   The step table with line links stays in the LLM details either way.
+
+### Amendment 1: results (services/importer, CI run 43710162200)
+
+Tests: 293 tool tests pass locally and in CI (the judgements came from the cache, so
+this run made no new model calls).
+
+Read on the real first card (`Annotate` / `Extract`):
+- Red outline on 14 nodes = the 7 steps in the fix's `moved_steps` in both functions
+  ("request-body construction" through "parse response envelope"), not only the 3 the
+  model annotated; the numbered notes are unchanged.
+- After-diagram colours match the first: staying steps keep orange ("schema setup",
+  "validate and decode", "return result") or grey ("task prompt"); the one new node is
+  orange and dashed; no red. A colour key sits under both diagrams.
+- Boxes show code taken from the source lines, for example "marshal request:
+  `json.Marshal` L60-63", "send request: `client.Do, fmt.Errorf, transcript.Redact`
+  L74-78" (annotate/openai.go:74-78), and "task prompt: `fmt.Sprintf` L30" on the
+  Extract side (a one-line prompt). A step without calls shows the start of its first
+  line ("requestBody := struct {").
+
+Open: whether Mermaid `click` links work in the run summary. A temporary step in the
+workflow ("TEMPORARY experiment") appends two small diagrams to the summary for the
+author to check; it is removed once answered, and click-through is adopted only if it
+works. Not verified by me: how the new two-line boxes render in GitHub.

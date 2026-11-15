@@ -114,10 +114,14 @@ The run summary shows one card per redundancy. A card reads top to bottom:
    deterministic sentence when there is no judgement).
 2. **Advisory verdict**: one line, for example "extract the shared part (overlap,
    high confidence)".
-3. **Diagram 1**: each function's steps as a chain, matched steps linked and coloured,
-   with the model's numbered issue markers and a legend below. Drawn by code.
+3. **Diagram 1**: each function's steps as a chain, matched steps linked and coloured
+   (orange = the same step in both functions, grey = differs), a red outline on every
+   step the fix would move (plus any the model noted), the model's numbered notes with
+   a legend, and a colour key. Each box also shows the calls in that step's source
+   lines and the line range. Drawn by code.
 4. **Fix** and **diagram 2**: the proposed change, and the same diagram after it, with
-   the moved steps of both functions merged into one new dashed node. Derived by code.
+   the moved steps of both functions merged into one new dashed orange node, with the
+   same colours and nothing red. Derived by code.
 5. **Maybe intentional because**: the strongest reason the code may be deliberate and
    what would make it matter.
 6. Dropdowns: evidence (calls both make, overlap), routes and entry points, and the
