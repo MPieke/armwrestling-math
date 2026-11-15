@@ -88,6 +88,42 @@ class PairingTest(unittest.TestCase):
         top = by_pair[("sr", "submit")]
         self.assertEqual((top.starts, top.from_entries), ((), True))
 
+    def test_two_independent_functions_are_a_pair_card(self):
+        edges = [("e1", "a"), ("a", "t"), ("e2", "b"), ("b", "t")]
+
+        _, found = build(edges, ["e1", "e2"], [("t", "os.Open")])
+
+        self.assertEqual((found[0].kind, found[0].owner, found[0].helper), ("pair", None, None))
+
+    def test_a_function_that_calls_the_other_is_a_two_routes_card_owned_by_the_caller(self):
+        edges = [("e1", "a"), ("e2", "b"), ("a", "b"), ("a", "t"), ("b", "t")]
+
+        _, found = build(edges, ["e1", "e2"], [("t", "os.Open")])
+
+        self.assertEqual(len(found), 1)
+        self.assertEqual((found[0].kind, found[0].owner, found[0].helper), ("two_routes", "a", "b"))
+
+    def test_the_ingest_candidate_shape_is_a_two_routes_card(self):
+        edges = [
+            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
+            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+        ]
+
+        _, found = build(edges, ["e1", "e2"], [("ri", "os.Open")])
+
+        by_pair = {(c.first, c.second): c for c in found}
+        card = by_pair[("af", "ic")]
+        self.assertEqual((card.kind, card.owner, card.helper), ("two_routes", "ic", "af"))
+        self.assertEqual(by_pair[("sr", "submit")].kind, "pair")
+
+    def test_reaching_the_other_through_an_intermediate_function_counts(self):
+        edges = [("e1", "a"), ("e2", "b"), ("a", "x"), ("x", "b"), ("a", "t"), ("b", "t")]
+
+        _, found = build(edges, ["e1", "e2"], [("t", "os.Open")])
+
+        card = [c for c in found if (c.first, c.second) == ("a", "b")][0]
+        self.assertEqual((card.kind, card.owner, card.helper), ("two_routes", "a", "b"))
+
     def test_terminals_that_are_not_flagged_produce_no_cards(self):
         _, found = build([("e", "a"), ("a", "t")], ["e"], [("t", "os.Open")])
 
