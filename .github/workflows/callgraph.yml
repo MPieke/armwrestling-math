@@ -167,6 +167,33 @@ jobs:
           dot -Tsvg callgraph-out/callgraph.dot -o callgraph-out/callgraph.svg
           cat callgraph-out/summary.md >> "$GITHUB_STEP_SUMMARY"
 
+      - name: "TEMPORARY experiment: do Mermaid click links work in the run summary?"
+        run: |
+          sha="${{ github.event.pull_request.head.sha || github.sha }}"
+          url="${{ github.server_url }}/${{ github.repository }}/blob/$sha/services/importer/internal/annotate/openai.go#L74-L78"
+          {
+            echo "### Experiment: clickable Mermaid boxes (temporary)"
+            echo
+            echo "Diagram 1: box A has a click link to GitHub, box B has none."
+            echo
+            echo '```mermaid'
+            echo "flowchart TB"
+            echo '  a["A: click me<br/>client.Do · L74-78"]'
+            echo '  b["B: no link"]'
+            echo "  a --> b"
+            echo "  click a href \"$url\" _blank"
+            echo '```'
+            echo
+            echo "Diagram 2: the same boxes without any click directive."
+            echo
+            echo '```mermaid'
+            echo "flowchart TB"
+            echo '  c["C: no click directive<br/>client.Do · L74-78"]'
+            echo '  d["D"]'
+            echo "  c --> d"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Check the graph against the source (call lines, declarations, external calls)
         id: verify
         continue-on-error: true

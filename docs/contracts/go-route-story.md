@@ -188,3 +188,24 @@ top-to-bottom two-column layout with dotted "same" links is readable at 11 steps
 I attempted a local render with the Mermaid CLI; the environment denied running it
 (it downloads and runs a headless browser), so I checked the diagram source by
 reading it and the structure by tests instead. Please look at the Summary tab.
+
+## Amendment 1: colours, code names, and what red means (after review of PR #19)
+
+Requested after reading the first real run:
+- **Red outline = part of the problem**, derived by code: every step the fix moves
+  into the shared function, plus any step the model left a note on. It no longer
+  depends on which steps the model happened to annotate (it annotated 3 of the 7
+  duplicated steps on the first card, because each note covers several steps).
+  The numbered notes stay as the model's specific comments.
+- **Before and after use the same colours.** Steps that stay keep their original
+  colour (orange = the same step in both functions, grey = differs); the new shared
+  node is orange with a dashed border (the merged duplicates); nothing is red after
+  the fix. A colour key sits under both diagrams.
+- **Code names in the boxes.** Each box shows the step name and, on a second line, the
+  calls found in that step's source lines (up to 3) and the line range, for example
+  `client.Do · L74-78`. Derived from the source at render time, not by the model
+  (so cached judgements stay valid); without source access only the line range shows.
+- **Click-through.** Hover tooltips are not available in GitHub's Mermaid. Making a
+  box a link to its GitHub lines (`click`) is only tried in a temporary experiment on
+  the run summary; it is adopted only if the user confirms it renders and works.
+  The step table with line links stays in the LLM details either way.
