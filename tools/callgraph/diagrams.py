@@ -13,7 +13,7 @@ source, and this module turns what survived into a small model that
   helper.
 """
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 
 MAX_STEPS = 12  # steps drawn per function before the chain is cut
 
@@ -57,7 +57,7 @@ def before(steps, issues, names):
     """Step chains for both functions, or None when there is too little to draw."""
     if len(steps) < 2:
         return None
-    numbered = _numbered_issues(steps, issues)
+    accepted = _accepted_issues(steps, issues)
     nodes = [Node("hA", names["A"], "function"), Node("hB", names["B"], "function")]
     edges, chains, truncated = [], {"A": ["hA"], "B": ["hB"]}, False
     for index, step in enumerate(steps):
@@ -67,7 +67,10 @@ def before(steps, issues, names):
             if len(chains[side]) > MAX_STEPS:
                 truncated = True
                 continue
-            marks = tuple(n for n, (name, which) in numbered if name == step["name"] and which in (side, "both"))
+            marks = tuple(
+                number for number, name, which, _ in accepted
+                if name == step["name"] and which in (side, "both")
+            )
             label = step["name"] + (f" ({', '.join(map(str, marks))})" if marks else "")
             node_id = f"{key}{index}"
             nodes.append(Node(node_id, label, "same" if step["same"] else "differs", marks))
@@ -75,30 +78,24 @@ def before(steps, issues, names):
             chains[side].append(node_id)
         if step["same"] and f"a{index}" in {n.id for n in nodes} and f"b{index}" in {n.id for n in nodes}:
             edges.append(Edge(f"a{index}", f"b{index}", "dotted", "same"))
-    legend = tuple((number, issue_note) for number, issue_note in _legend(steps, issues))
+    legend = tuple((number, note) for number, _, _, note in accepted)
     note = f"showing the first {MAX_STEPS} steps of each function" if truncated else ""
     return Diagram(tuple(nodes), tuple(edges), legend, note)
 
 
-def _numbered_issues(steps, issues):
-    """[(number, (step name, "A"|"B"|"both"))] for issues that sit on a real step and side."""
+def _accepted_issues(steps, issues):
+    """[(number, step name, "A"|"B"|"both", note)] for issues on a real step and side."""
     by_name = {step["name"]: step for step in steps}
-    numbered = []
+    accepted = []
     for issue in issues:
         step = by_name.get(issue["step"])
         if step is None:
             continue
-        present = {"A": step["a"] is not None, "B": step["b"] is not None}
         side = issue["function"]
-        if side == "both" and (present["A"] or present["B"]) or present.get(side):
-            numbered.append((len(numbered) + 1, (issue["step"], side)))
-    return numbered
-
-
-def _legend(steps, issues):
-    kept = _numbered_issues(steps, issues)
-    notes = [issue["note"] for issue in issues if issue["step"] in {s["name"] for s in steps}]
-    return [(number, notes[number - 1]) for number, _ in kept]
+        present = {"A": step["a"] is not None, "B": step["b"] is not None}
+        if present["A"] or present["B"] if side == "both" else present.get(side):
+            accepted.append((len(accepted) + 1, issue["step"], side, issue["note"]))
+    return accepted
 
 
 def apply_fix(diagram, fix, steps):
@@ -172,4 +169,4 @@ def _escape(text):
     return text.replace('"', "#quot;").replace("<", "#lt;").replace(">", "#gt;")
 
 
-__all__ = ["Diagram", "Edge", "MAX_STEPS", "Node", "apply_fix", "before", "replace", "to_mermaid", "two_routes"]
+__all__ = ["Diagram", "Edge", "MAX_STEPS", "Node", "apply_fix", "before", "to_mermaid", "two_routes"]
