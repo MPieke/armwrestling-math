@@ -318,8 +318,17 @@ def _maybe_intentional(verdict):
     matter = _sentence(re.sub(r"^(it would matter )?if\s+", "", maybe["would_matter_if"].strip(),
                               flags=re.IGNORECASE))
     if matter:
-        line += f" It would matter if {matter}."
+        line += f" It would matter if {_after_if(matter)}."
     return [line, ""]
+
+
+_COMMON_FIRST_WORDS = {"The", "A", "An", "Their", "Both", "Each", "It", "They", "This", "These", "Those"}
+
+
+def _after_if(text):
+    """A condition that continues "It would matter if ...": a leading common word is lower-cased."""
+    first, _, rest = text.partition(" ")
+    return f"{first.lower()} {rest}".rstrip() if first in _COMMON_FIRST_WORDS else text
 
 
 def _sentence(text):
