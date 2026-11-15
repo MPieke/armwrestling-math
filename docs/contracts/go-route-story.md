@@ -1,6 +1,6 @@
 ---
 linear_issue: TBD
-status: proposed
+status: implemented
 ---
 
 # Contract go-route-story: Cards That Explain Themselves
@@ -132,3 +132,59 @@ render locally; judge failure and no-key paths still produce a readable card.
 - Answer key and calibration banner untouched this round.
 - Max 5 issue markers per diagram; surface cap 10 cards as before.
 - No new CI step; the model call count stays the same (one per pair).
+
+## Corrections and additions made during implementation
+
+- Legend numbers and notes could drift apart when an issue was skipped for an absent
+  side; one accepted-issues list now drives both (found by re-reading `diagrams.py`
+  before committing it; its first version had been swept into the preceding red
+  commit by `git add`).
+- "Stays in each function" is derived from the steps that are not moved. The model
+  wrote free text in `stays_in_*`, which the validation dropped (7 names on the first
+  real card), so the line came out empty. Only unknown `moved_steps` are now counted
+  as dropped fix names.
+- The old per-function stays line used `.capitalize()`, which would have lowercased
+  step names such as "OpenAI"; replaced.
+- The maybe-intentional line doubled punctuation and the words "It would matter if";
+  it is now normalised, and a leading common word is lower-cased (names are not).
+- Step diagrams run top to bottom (`flowchart TB`): an 11-step chain left to right is
+  about 11 boxes wide and GitHub shrinks it. The two-route diagram stays left to right.
+  **Not verified visually** (see below).
+
+## Verification results (services/importer, CI runs 43708314201 and 43708849880)
+
+Tests: 276 tool tests and 6 CodeQL tests pass locally and in CI. The first run made
+fresh `gpt-6-luna` calls with prompt v3 (6 of 6 judged); the second reused the cache.
+
+**What the model returned (6 cards).** Steps kept 11 / 7 / 6 / 9 / 5 / 0 (38) with 0
+invalid ranges; issue annotations 3 / 1 / 2 / 0 / 0 / 0 (6 kept, 0 dropped); citations
+verified 46 of 46; no verdict downgraded. Calibration unchanged at 2 of 3 (answer key
+untouched this round, as agreed).
+
+**Read against the source (card 1, `Annotate` / `Extract`).** All 11 step boundaries
+match their names at the first line of each range (for example "marshal request" starts
+at `json.Marshal`, "send request" at `client.Do`, "parse response envelope" at
+`var envelope struct`; openai.go in `annotate` L26-103 and `transcript` L25-98). The
+3 issue notes are true of the code. The after-diagram agrees with the fix: 7 moved
+steps become one shared node, 4 stay. Headline, diagram and fix use the same
+function names; no "A" or "B" appears in prose.
+
+**Folded and two-route cards.** Two cards were folded as "leave as is":
+`Submit` / `SubmitResult` (intentional) and `ingestCandidate` / `auditFailure`
+(deliberate). The latter is the two-routes card type ("`ingestCandidate` reaches
+`Submit` two ways", direct and through `auditFailure`), which reads correctly against
+`youtubeingest/run.go:132-152, 205-211`.
+
+**Observations, not tuned.**
+- `annotateOne` / `Resolve` is on the surface as "extract the shared part (overlap,
+  medium)", but the model's own fix is conditional ("if this projection is expected
+  to be reused") and the shared step is collecting canonical names, a few lines (true:
+  run.go:56-65 and matchup.go). The action is weaker than its placement suggests.
+- Three of four surface cards are overlaps where the model itself lists reasons they
+  may be deliberate; the reader has to weigh those.
+
+**Not verified.** How GitHub renders the Mermaid diagrams, in particular whether the
+top-to-bottom two-column layout with dotted "same" links is readable at 11 steps.
+I attempted a local render with the Mermaid CLI; the environment denied running it
+(it downloads and runs a headless browser), so I checked the diagram source by
+reading it and the structure by tests instead. Please look at the Summary tab.

@@ -108,20 +108,37 @@ Install the one dependency with `pip install -r tools/callgraph/requirements.txt
 
 ## Redundancy cards and the LLM judge
 
-The run summary groups findings into *cards*: a pair of functions that each reach
-the same code on separate routes of one segment, with a plain sentence, the entry
-points reaching each, the calls they share and do not share, a similarity band
-(heuristic: 0.6 very similar, 0.3 partly similar), a diagram of just those routes
-(gateways orange, targets green), and the routes in a collapsed block. The sentence
-states where the routes diverge: "on the way in" for pairs separate from the entry
-points, "below `X`" for pairs inside a nested split.
+The run summary shows one card per redundancy. A card reads top to bottom:
 
-`judge.py` asks an LLM (default `gpt-6-luna`, override with `LLM_JUDGE_MODEL`) whether
-each of the top pairs is a `duplicate`, an `overlap` (shared sub-step), `intentional`
-or `unrelated`. The verdict is advisory only:
+1. **Problem**: one sentence naming both functions (the model's headline; a
+   deterministic sentence when there is no judgement).
+2. **Advisory verdict**: one line, for example "extract the shared part (overlap,
+   high confidence)".
+3. **Diagram 1**: each function's steps as a chain, matched steps linked and coloured,
+   with the model's numbered issue markers and a legend below. Drawn by code.
+4. **Fix** and **diagram 2**: the proposed change, and the same diagram after it, with
+   the moved steps of both functions merged into one new dashed node. Derived by code.
+5. **Maybe intentional because**: the strongest reason the code may be deliberate and
+   what would make it matter.
+6. Dropdowns: evidence (calls both make, overlap), routes and entry points, and the
+   model's details (explanation, differences, risks, citations, the step table with
+   source links).
 
-- every claim needs a citation (function, line, quote) that is checked against the
-  source; no verifiable citation downgrades the verdict to `unsure`;
+Cards the model says to leave as is fold into "Looked at, probably fine". A function
+that reaches the same code two ways (`ingestCandidate` calls `Submit` directly and
+through `auditFailure`) gets its own card type and a different question: deliberate
+or accidental. Pairs are `cards.py` (last-hop callers within one parallel segment).
+
+`judge.py` asks an LLM (default `gpt-6-luna`, override with `LLM_JUDGE_MODEL`). The
+model supplies data, never drawings: `headline`, `action` (merge / extract_shared /
+keep), `verdict`, ordered `steps` with line ranges, `issues` on those steps, a `fix`
+with the step names that move, and `maybe_intentional`. Code checks all of it:
+
+- step ranges must lie inside the function and may not overlap; issue notes must sit
+  on a step and side that exist; fix step names must exist; what does not hold is
+  dropped and counted (shown under "LLM details");
+- every claim needs a citation (function, line, quote) checked against the source; no
+  verifiable citation downgrades the verdict to `unsure`;
 - failures (no `OPENAI_API_KEY`, API error, bad answer) are shown in the summary and
   never fail the build; the step is skipped for pull requests from forks;
 - answers are cached by a hash of what the model saw (`actions/cache` in CI);
