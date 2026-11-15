@@ -178,7 +178,16 @@ class MermaidTest(unittest.TestCase):
         used = set(re.findall(r"\b(n\d+)\b(?=\s*(?:-->|-\.|\.-))|(?<=-->\s)(n\d+)|(?<=\.-\s)(n\d+)", text))
         refs = {x for group in used for x in group if x}
         self.assertTrue(refs <= defined)
-        self.assertTrue(text.startswith("flowchart LR"))
+        self.assertTrue(text.startswith("flowchart TB"))
+
+    def test_step_diagrams_run_top_to_bottom_and_the_small_route_diagram_left_to_right(self):
+        before = diagrams.before(STEPS, [], NAMES)
+        fix = {"summary": "", "shared_name": "s", "moved_steps": ["send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        self.assertTrue(self.text(before).startswith("flowchart TB"))
+        self.assertTrue(self.text(diagrams.apply_fix(before, fix, STEPS)).startswith("flowchart TB"))
+        self.assertTrue(self.text(diagrams.two_routes("a", "b", ["t"])).startswith("flowchart LR"))
 
     def test_dotted_same_links_use_mermaid_dotted_syntax_with_a_label(self):
         text = self.text(diagrams.before(STEPS, [], NAMES))
