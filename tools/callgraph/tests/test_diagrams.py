@@ -81,6 +81,18 @@ class IssueMarkerTest(unittest.TestCase):
         self.assertIn("build request (1)", labels(diagram))
         self.assertIn("decode (2)", labels(diagram))
 
+    def test_a_skipped_issue_does_not_shift_the_numbers_of_later_notes(self):
+        steps = STEPS + [{"name": "validate", "a": [19, 20], "b": None, "same": False}]
+        issues = [
+            {"step": "validate", "function": "B", "note": "skipped: B has no such step"},
+            {"step": "decode", "function": "A", "note": "kept"},
+        ]
+
+        diagram = diagrams.before(steps, issues, NAMES)
+
+        self.assertEqual(diagram.legend, ((1, "kept"),))
+        self.assertIn("decode (1)", labels(diagram))
+
     def test_an_issue_on_an_unknown_step_is_ignored(self):
         issues = [{"step": "nope", "function": "both", "note": "x"}]
 
