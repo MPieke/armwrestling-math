@@ -5,7 +5,9 @@ meeting point (a flagged terminal, or the end of a parallel segment) on separate
 routes of the same segment. One function may also call the other, as in
 ``ingestCandidate`` calling ``Submit`` directly and through ``auditFailure``. One
 pair can carry several meeting points, so two functions that repeat the same
-pipeline show up once.
+pipeline show up once. When one function reaches the other the card is of kind
+``two_routes`` (one function reaching the same code in two ways), not a pair of
+independent implementations.
 
 Evidence is computed from the graph only, so every statement is checkable:
 which functions both call directly, which only one calls, and how similar the
@@ -45,6 +47,9 @@ class Card:
     evidence: Evidence
     starts: tuple = ()  # functions below which the routes diverge (nested segments)
     from_entries: bool = True  # the routes diverge already at the entry points
+    kind: str = "pair"  # "pair", or "two_routes" when one function reaches the other
+    owner: object = None  # two_routes: the function that reaches the other
+    helper: object = None  # two_routes: the function that is reached
 
 
 def build_cards(graph, analysis, ignored_packages=()):
@@ -65,6 +70,14 @@ def build_cards(graph, analysis, ignored_packages=()):
                 entry["starts"].add(start)
 
     externals = _externals_by_caller(graph, ignored_packages)
+
+    def relation(first, second):
+        if reach.reaches(first, second):
+            return "two_routes", first, second
+        if reach.reaches(second, first):
+            return "two_routes", second, first
+        return "pair", None, None
+
     found = [
         Card(
             first=first,
@@ -78,6 +91,7 @@ def build_cards(graph, analysis, ignored_packages=()):
             evidence=_evidence(calls, externals, first, second, data["targets"]),
             starts=tuple(sorted(data["starts"])),
             from_entries=data["entries"],
+            **dict(zip(("kind", "owner", "helper"), relation(first, second))),
         )
         for (first, second), data in pairs.items()
     ]
