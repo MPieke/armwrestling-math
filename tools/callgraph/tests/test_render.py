@@ -200,15 +200,17 @@ class SummaryCardsTest(unittest.TestCase):
 
     def test_a_nested_card_says_where_the_routes_diverge_instead(self):
         edges = [
-            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
-            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+            ("e1", "run"), ("run", "x"), ("run", "y"), ("x", "t"), ("y", "t"),
+            ("e2", "z"), ("z", "t"),
         ]
 
-        text = self.section(self.summary(edges, ["e1", "e2"], externals=(("ri", "os.Open"),)))
-        nested_card = text.split("#### ")[1] if "`af`" in text.split("#### ")[1] else text.split("#### ")[2]
+        text = self.section(self.summary(edges, ["e1", "e2"]))
+        card = [c for c in text.split("#### ") if c.startswith("1.") or "`x` and `y`" in c.splitlines()[0]]
+        nested = [c for c in text.split("#### ")[1:] if c.splitlines()[0].endswith("`x` and `y`")][0]
 
-        self.assertIn("below `p.ic`, the routes share no function", nested_card)
-        self.assertNotIn("on the way in", nested_card)
+        self.assertIn("below `p.run`, the routes share no function", nested)
+        self.assertNotIn("on the way in", nested)
+        self.assertTrue(card)
 
     def test_each_function_says_which_entry_points_reach_it(self):
         text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"]))
@@ -332,10 +334,10 @@ class SummaryCardsTest(unittest.TestCase):
 
         self.assertNotIn('"p.a"b"', text)
 
-    def test_routes_and_independence_details_are_collapsed_under_the_card(self):
+    def test_routes_and_entry_points_are_collapsed_under_the_card(self):
         text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"]))
 
-        self.assertIn("<details><summary>Details", text)
+        self.assertIn("<details><summary>Routes and entry points</summary>", text)
         self.assertIn("p.e1 > p.a > p.t", text)
         self.assertIn("p.e2 > p.b > p.t", text)
 
@@ -351,41 +353,6 @@ class SummaryCardsTest(unittest.TestCase):
         text = self.summary([("e", "a"), ("a", "t")], ["e"])
 
         self.assertIn("No redundant routes found", text)
-
-    def test_an_llm_verdict_is_shown_as_advisory_with_its_reasoning(self):
-        judgements = {
-            "calibration": None,
-            "judgements": [{
-                "first": "a", "second": "b", "status": "ok", "verdict": "duplicate",
-                "confidence": "high", "summary": "Same pipeline twice.",
-                "essential_differences": ["different prompt"], "accidental_differences": [],
-                "counter_argument": "They serve different features.",
-                "suggested_consolidation": "Share one client.", "risks": [],
-                "evidence": [], "citations_valid": 2, "citations_invalid": 0,
-            }],
-        }
-
-        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"], judgements=judgements))
-
-        self.assertIn("LLM verdict (advisory): duplicate (high confidence)", text)
-        self.assertIn("Same pipeline twice.", text)
-        self.assertIn("They serve different features.", text)
-        self.assertIn("2 of 2 citations verified", text)
-
-    def test_llm_text_is_escaped_so_it_cannot_inject_markup(self):
-        judgements = {"calibration": None, "judgements": [{
-            "first": "a", "second": "b", "status": "ok", "verdict": "unsure",
-            "confidence": "low", "summary": "<script>alert(1)</script> [x](http://evil)",
-            "essential_differences": [], "accidental_differences": [], "counter_argument": "",
-            "suggested_consolidation": "", "risks": [], "evidence": [],
-            "citations_valid": 0, "citations_invalid": 0,
-        }]}
-
-        text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"], judgements=judgements))
-
-        self.assertNotIn("<script>", text)
-        self.assertIn("&lt;script&gt;", text)
-        self.assertNotIn("[x](http://evil)", text)
 
     def test_an_unavailable_judge_shows_the_reason(self):
         judgements = {"calibration": None, "judgements": [{
@@ -434,6 +401,223 @@ class SummaryCardsTest(unittest.TestCase):
         text = self.summary(self.INDEPENDENT, ["e1", "e2"])
 
         self.assertNotIn("LLM", text)
+
+
+STEPS = [
+    {"name": "build prompt", "a": [3, 5], "b": [3, 4], "same": False},
+    {"name": "build request", "a": [6, 10], "b": [5, 9], "same": True},
+    {"name": "send", "a": [11, 15], "b": [10, 14], "same": True},
+    {"name": "decode", "a": [16, 18], "b": [15, 17], "same": False},
+]
+
+
+def judged(first="a", second="b", **overrides):
+    verdict = {
+        "first": first, "second": second, "status": "ok", "kind": "pair",
+        "verdict": "duplicate", "confidence": "high", "action": "extract_shared",
+        "headline": "a and b each build, send and decode their own request.",
+        "explanation": "They repeat the same pipeline.",
+        "steps": STEPS,
+        "issues": [{"step": "build request", "function": "both", "note": "repeated in both"}],
+        "fix": {"summary": "Share one request function.", "shared_name": "chatCompletion",
+                "moved_steps": ["build request", "send"], "stays_in_a": ["build prompt"],
+                "stays_in_b": ["build prompt"]},
+        "maybe_intentional": {"reason": "they serve different commands",
+                              "would_matter_if": "the commands diverge"},
+        "essential_differences": ["different prompts"], "accidental_differences": ["names"],
+        "risks": ["error messages differ"], "evidence": [],
+        "citations_valid": 3, "citations_invalid": 1, "steps_invalid": 0,
+        "issues_dropped": 0, "fix_unknown_steps": 0,
+    }
+    verdict.update(overrides)
+    return verdict
+
+
+class SummaryStoryTest(unittest.TestCase):
+    INDEPENDENT = [("e1", "a"), ("a", "t"), ("e2", "b"), ("b", "t")]
+
+    def summary(self, verdicts, edges=None, entries=("e1", "e2"), externals=(("t", "os.Open"),),
+                calibration=None, **kw):
+        graph = helpers.make_graph(edges or self.INDEPENDENT, entries=list(entries),
+                                   externals=list(externals))
+        analysis = analyze.analyze(graph)
+        judgements = {"status": "ok", "reason": "", "judgements": verdicts, "calibration": calibration}
+        return render.summary_markdown(graph, helpers.REPO_URL, analysis=analysis,
+                                       judgements=judgements, **kw)
+
+    def section(self, text):
+        return text.split("### Redundant routes")[1].split("### Dead-code")[0]
+
+    def card(self, text, number=1):
+        return self.section(text).split("#### ")[number]
+
+    def test_the_problem_comes_first_then_the_picture_then_the_fix(self):
+        card = self.card(self.summary([judged()]))
+
+        problem = card.index("a and b each build, send and decode")
+        picture = card.index("```mermaid")
+        fix = card.index("Fix:")
+        after = card.index("```mermaid", picture + 10)
+        maybe = card.index("Maybe intentional because:")
+        details = card.index("<details>")
+        self.assertTrue(problem < picture < fix < after < maybe < details)
+
+    def test_the_advisory_verdict_is_one_line_with_the_recommended_action(self):
+        card = self.card(self.summary([judged()]))
+
+        self.assertIn("Advisory verdict: extract the shared part (duplicate, high confidence)", card)
+
+    def test_the_first_diagram_shows_each_functions_steps_with_the_issue_marker_and_legend(self):
+        card = self.card(self.summary([judged()]))
+        diagram = card.split("```mermaid")[1].split("```")[0]
+
+        self.assertIn("build request (1)", diagram)
+        self.assertIn("-. same .-", diagram)
+        self.assertIn("(1) repeated in both", card.split("```mermaid")[1].split("```")[1])
+
+    def test_the_second_diagram_shows_the_shared_function_and_the_fix_text(self):
+        card = self.card(self.summary([judged()]))
+        after = card.split("```mermaid")[2].split("```")[0]
+
+        self.assertIn("chatCompletion", after)
+        self.assertIn("classDef shared", after)
+        self.assertIn("Fix: Share one request function.", card)
+        self.assertIn("Stays in each function: build prompt", card)
+
+    def test_the_maybe_intentional_reason_is_visible_not_in_a_dropdown(self):
+        card = self.card(self.summary([judged()]))
+
+        visible = card.split("<details>")[0]
+        self.assertIn("Maybe intentional because: they serve different commands", visible)
+        self.assertIn("It would matter if the commands diverge", visible)
+
+    def test_calls_and_overlap_are_behind_a_dropdown_not_on_the_surface(self):
+        edges = self.INDEPENDENT + [("a", "h"), ("b", "h")]
+        card = self.card(self.summary([judged()], edges=edges))
+
+        visible = card.split("<details>")[0]
+        self.assertNotIn("Call overlap", visible)
+        self.assertNotIn("Both also call", visible)
+        evidence = card.split("<summary>Evidence")[1]
+        self.assertIn("Both also call: `p.h`", evidence)
+        self.assertIn("Call overlap", evidence)
+
+    def test_the_route_diagram_moves_into_the_routes_dropdown(self):
+        card = self.card(self.summary([judged()]))
+
+        routes = card.split("<summary>Routes and entry points</summary>")[1]
+        self.assertIn("```mermaid", routes)
+        self.assertEqual(card.count("```mermaid"), 3)  # steps, after, routes
+
+    def test_llm_details_list_the_explanation_differences_steps_and_checks(self):
+        card = self.card(self.summary([judged()]))
+
+        details = card.split("<summary>LLM details</summary>")[1]
+        self.assertIn("They repeat the same pipeline.", details)
+        self.assertIn("different prompts", details)
+        self.assertIn("error messages differ", details)
+        self.assertIn("3 of 4 citations verified", details)
+        self.assertIn(f"{helpers.REPO_URL}/blob/{helpers.SHA}/a.go#L6-L10", details)
+
+    def test_cards_the_model_says_to_keep_are_folded_and_the_rest_stay_on_the_surface(self):
+        edges = self.INDEPENDENT + [("e3", "c"), ("c", "u"), ("e4", "d"), ("d", "u")]
+        verdicts = [judged("a", "b", action="keep", verdict="intentional"), judged("c", "d")]
+
+        text = self.section(self.summary(verdicts, edges=edges, entries=("e1", "e2", "e3", "e4"),
+                                         externals=(("t", "os.Open"), ("u", "os.Create"))))
+
+        folded = text.split("<summary>Looked at, probably fine (1)</summary>")
+        self.assertEqual(len(folded), 2)
+        self.assertIn("`c` and `d`", folded[0])
+        self.assertNotIn("`a` and `b`", folded[0])
+        self.assertIn("`a` and `b`", folded[1])
+
+    def test_a_keep_card_with_an_unsure_verdict_stays_on_the_surface(self):
+        text = self.section(self.summary([judged(action="keep", verdict="unsure")]))
+
+        self.assertNotIn("Looked at, probably fine", text)
+
+    def test_cards_are_ordered_merge_then_extract_then_unsure_then_unjudged(self):
+        edges = self.INDEPENDENT + [
+            ("e3", "c"), ("c", "u"), ("e4", "d"), ("d", "u"),
+            ("e5", "f"), ("f", "w"), ("e6", "g"), ("g", "w"),
+        ]
+        verdicts = [judged("a", "b", action="extract_shared"), judged("c", "d", action="merge")]
+
+        text = self.section(self.summary(
+            verdicts, edges=edges, entries=("e1", "e2", "e3", "e4", "e5", "e6"),
+            externals=(("t", "os.Open"), ("u", "os.Create"), ("w", "os.Remove")),
+        ))
+
+        titles = [c.splitlines()[0] for c in text.split("#### ")[1:]]
+        self.assertEqual([t.split(". ", 1)[1] for t in titles], ["`c` and `d`", "`a` and `b`", "`f` and `g`"])
+
+    def test_a_judged_card_without_enough_steps_falls_back_to_the_route_diagram(self):
+        card = self.card(self.summary([judged(steps=[], issues=[], fix={
+            "summary": "", "shared_name": "", "moved_steps": [], "stays_in_a": [], "stays_in_b": []})]))
+
+        self.assertIn("a and b each build, send and decode", card)
+        diagram = card.split("```mermaid")[1].split("```")[0]
+        self.assertIn("p.e1", diagram)  # the route diagram, not a step diagram
+        self.assertNotIn("Fix:", card)
+
+    def test_a_two_routes_card_says_one_function_reaches_it_two_ways_and_draws_both(self):
+        edges = [
+            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
+            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+        ]
+        graph = helpers.make_graph(edges, entries=["e1", "e2"], externals=[("ri", "os.Open")])
+        analysis = analyze.analyze(graph)
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analysis)
+        card = [c for c in text.split("#### ") if "two ways" in c.splitlines()[0]][0]
+
+        self.assertIn("`ic` reaches `submit` two ways", card.splitlines()[0])
+        diagram = card.split("```mermaid")[1].split("```")[0]
+        self.assertIn("directly", diagram)
+        self.assertIn('"af"', diagram)
+
+    def test_a_deliberate_two_routes_card_is_folded_away(self):
+        edges = [
+            ("e1", "run"), ("run", "ic"), ("ic", "submit"), ("ic", "af"), ("af", "submit"),
+            ("e2", "sr"), ("sr", "ri"), ("submit", "ri"),
+        ]
+        verdict = judged("af", "ic", kind="two_routes", verdict="deliberate", action="keep",
+                         steps=[], issues=[], headline="ic reaches submit on success and via af on failure.")
+        graph = helpers.make_graph(edges, entries=["e1", "e2"], externals=[("ri", "os.Open")])
+        judgements = {"status": "ok", "judgements": [verdict], "calibration": None}
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph),
+                                       judgements=judgements)
+
+        folded = text.split("<summary>Looked at, probably fine (1)</summary>")[1]
+        self.assertIn("two ways", folded)
+        self.assertIn("ic reaches submit on success and via af on failure.", folded)
+
+    def test_llm_text_is_escaped_everywhere_it_is_shown(self):
+        verdict = judged(
+            headline="<script>alert(1)</script> [x](http://evil)",
+            issues=[{"step": "build request", "function": "both", "note": "<b>bold</b> \"q\""}],
+            maybe_intentional={"reason": "<i>x</i>", "would_matter_if": "[l](u)"},
+            fix={"summary": "<u>fix</u>", "shared_name": "n\"q", "moved_steps": ["build request"],
+                 "stays_in_a": [], "stays_in_b": []},
+        )
+
+        card = self.card(self.summary([verdict]))
+
+        for raw in ("<script>", "<b>", "<i>", "<u>", "[x](http://evil)", "[l](u)"):
+            self.assertNotIn(raw, card)
+        self.assertIn("&lt;script&gt;", card)
+        self.assertNotIn('"n"q"', card)
+
+    def test_an_unavailable_card_still_shows_its_deterministic_content(self):
+        verdict = {"first": "a", "second": "b", "status": "unavailable", "reason": "HTTP 500"}
+
+        card = self.card(self.summary([verdict]))
+
+        self.assertIn("LLM verdict: unavailable (HTTP 500)", card)
+        self.assertIn("`p.a` and `p.b` each reach `p.t` on separate routes", card)
+        self.assertIn("```mermaid", card)
 
 
 class SummaryExtrasTest(unittest.TestCase):
