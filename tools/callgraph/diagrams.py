@@ -23,8 +23,8 @@ _STYLES = {
     "differs": "fill:#e5e7eb,stroke:#6b7280,color:#000",
     "helper": "fill:#e5e7eb,stroke:#6b7280,color:#000",
     "target": "fill:#c7f9cc,stroke:#15803d,color:#000",
-    "shared": "fill:#c7f9cc,stroke:#15803d,color:#000,stroke-dasharray: 5 5",
-    "issue": "stroke:#b91c1c,stroke-width:3px",
+    "problem": "stroke:#b91c1c,stroke-width:3px",
+    "new": "stroke-dasharray: 5 5",
 }
 
 
@@ -34,7 +34,9 @@ class Node:
     label: str
     role: str
     issues: tuple = ()
-    dashed: bool = False
+    dashed: bool = False  # a node that does not exist yet (the shared function after the fix)
+    problem: bool = False  # part of the duplicated problem (moved by the fix, or noted by the model)
+    detail: str = ""  # second line of the box: the code behind the step
 
 
 @dataclass(frozen=True)
@@ -54,8 +56,13 @@ class Diagram:
     direction: str = "LR"  # step chains run "TB": a pipeline reads better in two columns
 
 
-def before(steps, issues, names):
-    """Step chains for both functions, or None when there is too little to draw."""
+def before(steps, issues, names, moved=(), refs=None):
+    """Step chains for both functions, or None when there is too little to draw.
+
+    ``moved`` are the step names the fix would move into a shared function; they and
+    any step the model left a note on are marked as part of the problem. ``refs`` maps
+    (side, step name) to the code detail shown on a second line of the box.
+    """
     if len(steps) < 2:
         return None
     accepted = _accepted_issues(steps, issues)
@@ -74,7 +81,11 @@ def before(steps, issues, names):
             )
             label = step["name"] + (f" ({', '.join(map(str, marks))})" if marks else "")
             node_id = f"{key}{index}"
-            nodes.append(Node(node_id, label, "same" if step["same"] else "differs", marks))
+            nodes.append(Node(
+                node_id, label, "same" if step["same"] else "differs", marks,
+                problem=bool(marks) or step["name"] in moved,
+                detail=(refs or {}).get((side, step["name"]), ""),
+            ))
             edges.append(Edge(chains[side][-1], node_id))
             chains[side].append(node_id)
         if step["same"] and f"a{index}" in {n.id for n in nodes} and f"b{index}" in {n.id for n in nodes}:
@@ -99,13 +110,17 @@ def _accepted_issues(steps, issues):
     return accepted
 
 
-def apply_fix(diagram, fix, steps):
-    """The diagram after the fix: moved steps of both functions merge into one shared node."""
+def apply_fix(diagram, fix, steps, refs=None):
+    """The diagram after the fix: moved steps of both functions merge into one shared node.
+
+    Steps that stay keep their colour; the shared node takes the colour of the
+    duplicates it merges and is dashed because it is new. Nothing is marked as a problem.
+    """
     known = {step["name"] for step in steps}
     moved = [name for name in fix["moved_steps"] if name in known]
     if diagram is None or not moved:
         return None
-    shared = Node("shared", fix["shared_name"] or "shared function", "shared", dashed=True)
+    shared = Node("shared", fix["shared_name"] or "shared function", "same", dashed=True)
     names = {n.id: n.label for n in diagram.nodes if n.role == "function"}
     nodes = [Node("hA", names["hA"], "function"), Node("hB", names["hB"], "function")]
     edges, used_shared = [], False
@@ -122,7 +137,10 @@ def apply_fix(diagram, fix, steps):
             if count >= MAX_STEPS:
                 break
             node_id = f"{key}{index}"
-            nodes.append(Node(node_id, step["name"], "differs"))
+            nodes.append(Node(
+                node_id, step["name"], "same" if step["same"] else "differs",
+                detail=(refs or {}).get((side, step["name"]), ""),
+            ))
             edges.append(Edge(previous, node_id))
             previous, count = node_id, count + 1
     if used_shared:
@@ -143,7 +161,7 @@ def two_routes(owner, helper, targets):
 def to_mermaid(diagram):
     ids = {node.id: f"n{position}" for position, node in enumerate(diagram.nodes)}
     lines = [f"flowchart {diagram.direction}"]
-    lines += [f'  {ids[node.id]}["{_escape(node.label)}"]' for node in diagram.nodes]
+    lines += [f'  {ids[node.id]}["{_box_text(node)}"]' for node in diagram.nodes]
     for edge in diagram.edges:
         source, target = ids[edge.source], ids[edge.target]
         if edge.style == "dotted":
@@ -153,17 +171,26 @@ def to_mermaid(diagram):
         else:
             lines.append(f"  {source} --> {target}")
     roles = {node.role for node in diagram.nodes}
-    if any(node.issues for node in diagram.nodes):
-        roles.add("issue")
+    if any(node.problem for node in diagram.nodes):
+        roles.add("problem")
+    if any(node.dashed for node in diagram.nodes):
+        roles.add("new")
     lines += [f"  classDef {role} {_STYLES[role]}" for role in _STYLES if role in roles]
     for role in _STYLES:
-        if role == "issue":
-            members = [ids[n.id] for n in diagram.nodes if n.issues]
+        if role == "problem":
+            members = [ids[n.id] for n in diagram.nodes if n.problem]
+        elif role == "new":
+            members = [ids[n.id] for n in diagram.nodes if n.dashed]
         else:
             members = [ids[n.id] for n in diagram.nodes if n.role == role]
         if members:
             lines.append(f"  class {','.join(members)} {role}")
     return "\n".join(lines)
+
+
+def _box_text(node):
+    text = _escape(node.label)
+    return f"{text}<br/>{_escape(node.detail)}" if node.detail else text
 
 
 def _escape(text):

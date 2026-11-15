@@ -480,7 +480,7 @@ class SummaryStoryTest(unittest.TestCase):
         after = card.split("```mermaid")[2].split("```")[0]
 
         self.assertIn("chatCompletion", after)
-        self.assertIn("classDef shared", after)
+        self.assertIn("classDef new", after)
         self.assertIn("Fix: Share one request function.", card)
         self.assertIn("Stays in each function: build prompt", card)
 
