@@ -228,7 +228,9 @@ Read on the real first card (`Annotate` / `Extract`):
   Extract side (a one-line prompt). A step without calls shows the start of its first
   line ("requestBody := struct {").
 
-Open: whether Mermaid `click` links work in the run summary. A temporary step in the
-workflow ("TEMPORARY experiment") appends two small diagrams to the summary for the
-author to check; it is removed once answered, and click-through is adopted only if it
-works. Not verified by me: how the new two-line boxes render in GitHub.
+Click-through: tested and rejected. A temporary step appended two small diagrams to the
+run summary, one with a Mermaid `click` link; the author reported nothing is clickable
+in GitHub's summary view. The step is removed and boxes are not made links. The code
+names and line range in each box, and the step table with line links in the LLM details,
+are the way to reach the source. Not verified by me: how the new two-line boxes render
+in GitHub.
