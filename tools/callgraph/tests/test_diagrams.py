@@ -101,6 +101,67 @@ class IssueMarkerTest(unittest.TestCase):
         self.assertEqual(diagram.legend, ())
 
 
+class ProblemMarkingTest(unittest.TestCase):
+    def test_every_step_the_fix_moves_is_part_of_the_problem_on_both_sides(self):
+        diagram = diagrams.before(STEPS, [], NAMES, moved=["build request", "send"])
+
+        problem = sorted(n.label for n in diagram.nodes if n.problem)
+        self.assertEqual(problem, ["build request", "build request", "send", "send"])
+
+    def test_a_step_with_a_model_note_is_part_of_the_problem_even_if_not_moved(self):
+        issues = [{"step": "decode", "function": "A", "note": "x"}]
+
+        diagram = diagrams.before(STEPS, issues, NAMES, moved=["send"])
+
+        self.assertEqual(sorted(n.label for n in diagram.nodes if n.problem),
+                         ["decode (1)", "send", "send"])
+
+    def test_nothing_is_marked_when_nothing_moves_and_nothing_is_noted(self):
+        diagram = diagrams.before(STEPS, [], NAMES)
+
+        self.assertFalse([n for n in diagram.nodes if n.problem])
+
+    def test_the_after_diagram_has_no_problem_marks_and_keeps_each_steps_colour(self):
+        before = diagrams.before(STEPS, [], NAMES, moved=["send"])
+        fix = {"summary": "", "shared_name": "s", "moved_steps": ["send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        after = diagrams.apply_fix(before, fix, STEPS)
+
+        self.assertFalse([n for n in after.nodes if n.problem])
+        roles = {n.label: n.role for n in after.nodes}
+        self.assertEqual(roles["build request"], "same")   # stays, and was orange before
+        self.assertEqual(roles["build prompt"], "differs")  # stays, and was grey before
+
+
+class CodeDetailTest(unittest.TestCase):
+    REFS = {("A", "build request"): "json.Marshal, http.NewRequest · L6-L10",
+            ("B", "build request"): "json.Marshal, http.NewRequest · L5-L9"}
+
+    def test_each_box_carries_the_code_detail_for_its_own_side(self):
+        diagram = diagrams.before(STEPS, [], NAMES, refs=self.REFS)
+
+        details = {n.id: n.detail for n in diagram.nodes if n.detail}
+        self.assertEqual(sorted(details.values()), sorted(self.REFS.values()))
+
+    def test_the_detail_is_printed_on_a_second_line_of_the_box_and_escaped(self):
+        refs = {("A", "build request"): 'say "hi" <b>'}
+
+        text = diagrams.to_mermaid(diagrams.before(STEPS, [], NAMES, refs=refs))
+
+        self.assertIn('build request<br/>say #quot;hi#quot; #lt;b#gt;', text)
+
+    def test_steps_that_stay_keep_their_detail_in_the_after_diagram(self):
+        refs = {("A", "decode"): "json.Unmarshal · L16-L18"}
+        before = diagrams.before(STEPS, [], NAMES, refs=refs)
+        fix = {"summary": "", "shared_name": "s", "moved_steps": ["send"],
+               "stays_in_a": [], "stays_in_b": []}
+
+        after = diagrams.apply_fix(before, fix, STEPS, refs=refs)
+
+        self.assertIn("json.Unmarshal · L16-L18", [n.detail for n in after.nodes])
+
+
 class AfterFixTest(unittest.TestCase):
     FIX = {"summary": "share it", "shared_name": "chatCompletion",
            "moved_steps": ["build request", "send"], "stays_in_a": [], "stays_in_b": []}
@@ -116,9 +177,9 @@ class AfterFixTest(unittest.TestCase):
         after = self.after()
 
         self.assertEqual(len(after.nodes), 7)  # 2 headers, 2 prompts, 2 decodes, 1 shared
-        shared = [n for n in after.nodes if n.role == "shared"]
+        shared = [n for n in after.nodes if n.dashed]
         self.assertEqual([n.label for n in shared], ["chatCompletion"])
-        self.assertTrue(shared[0].dashed)
+        self.assertEqual(shared[0].role, "same")  # the merged duplicates keep their colour
         self.assertNotIn("send", labels(after))
 
     def test_each_function_flows_through_the_shared_node_between_its_own_steps(self):
@@ -141,7 +202,7 @@ class AfterFixTest(unittest.TestCase):
 
         after = self.after(fix)
 
-        shared = [n for n in after.nodes if n.role == "shared"][0]
+        shared = [n for n in after.nodes if n.dashed][0]
         self.assertFalse([e for e in after.edges if e.source == shared.id])
 
     def test_unknown_moved_steps_are_ignored_and_nothing_to_move_gives_no_diagram(self):
@@ -212,10 +273,10 @@ class MermaidTest(unittest.TestCase):
         text = self.text(before)
         after = self.text(diagrams.apply_fix(before, fix, STEPS))
 
-        for role in ("same", "differs", "function", "issue"):
+        for role in ("same", "differs", "function", "problem"):
             self.assertIn(f"classDef {role} ", text)
-        self.assertRegex(text, r"class n\d+(,n\d+)* issue")
-        self.assertIn("classDef shared ", after)
+        self.assertRegex(text, r"class n\d+(,n\d+)* problem")
+        self.assertIn("classDef new ", after)
         self.assertIn("stroke-dasharray", after)
 
 
