@@ -160,6 +160,68 @@ with the step names that move, and `maybe_intentional`. Code checks all of it:
 writes `judge_inputs.md` (the exact prompts) without calling anything. The source of
 the compared functions is sent to the API; check that before using it on private code.
 
+## Fixing findings with a coding agent
+
+CI finds the cards and never proposes fixes. Fixing is a conversation, so it happens on the
+developer's machine with a coding agent (Claude Code, Cursor, ...). The tools in this section
+give the agent deterministic facts, pictures, test skeletons and a re-check, so it does not rely
+on memory for them. No tool calls an LLM; the model's suggestion from CI is shown as advisory.
+
+| Command (MCP tool) | What it does | Who runs it |
+| --- | --- | --- |
+| `findings` | list cards with a confidence level | agent, automatic |
+| `card REF` | callers, tests by name, test gaps, differences inside the steps called the same | agent, automatic |
+| `plan init REF` (`plan_init`) | draft `.callgraph/plan.json`, every difference left undecided | agent, automatic |
+| `plan lint` | check the plan against the code | agent, automatic |
+| `plan diagram` | before and after pictures from the plan | agent, automatic |
+| `plan tests` | skipped Go test skeletons pinning today's text, stubs for planned tests | agent, automatic |
+| `check` | re-run CodeQL on the working tree and compare with the baseline | agent, automatic |
+| `plan approve` (`plan_approve`) | **checkpoint 1**: the developer agrees to the plan | **developer** |
+| `plan review` (`plan_review`) | **checkpoint 2**: the developer reviewed the finished work | **developer** |
+
+The developer can run any of them too: `python -m tools.callgraph.cli --graph-dir DIR card 1`.
+
+**Set up**
+
+```sh
+gh run download RUN_ID -n callgraph -D .callgraph/baseline          # the CI artifact is the baseline
+pip install -r tools/callgraph/requirements.txt -r tools/callgraph/requirements-mcp.txt
+claude mcp add callgraph -- python -m tools.callgraph.mcp_server \
+  --graph-dir .callgraph/baseline --source-root . --scope services/importer
+```
+
+Copy `claude-settings.example.json` into `.claude/settings.json`. It allows the eight automatic
+tools and makes the harness ask before `plan_approve` and `plan_review`. That is the only thing
+that enforces the checkpoints: the tools record a decision, they cannot know a human made it.
+
+**The conversation**
+
+1. The agent calls `findings` and `card N` and reads the code.
+2. It writes the plan (`plan init`, then edits `.callgraph/plan.json`), runs `plan lint` and
+   `plan diagram`, and shows the developer the pictures, what moves, what stays, which tests.
+3. The developer steers in words ("keep the public interface", "use the existing helper"); the
+   agent updates the plan and lints again. Only when the developer agrees: `plan approve`.
+4. The agent implements, fills in `plan tests` skeletons, runs the repository's tests and `check`.
+5. The developer reviews the diff and the evidence; `plan review`. Then push: CI re-analyses
+   everything from the code alone and needs no record of any of this.
+
+**The plan** (`.callgraph/plan.json`, local, git-ignored): the card, the steps with line ranges,
+which steps move into a shared function and its name, a decision for every difference inside a
+moved step (`parameter` with a name, `unified`, or `stays`), planned files, `will_not_touch`,
+constraints, tests, uncertainties. `plan lint` fails on: a bad or overlapping step range, a moved
+step missing from one function, an undecided difference, a planned file under `will_not_touch`.
+Constraints written in words are listed but not machine-checked. Approval stores a digest, so any
+later edit to the plan revokes it.
+
+**What `check` tells you**: whether the card is gone, whether new cards appeared, whether changed
+files stayed inside the plan and out of `will_not_touch`, whether the planned tests exist. It
+needs `codeql` on the machine (about 20 s on the importer); without it, push and let CI check.
+
+**What none of this proves**: that behaviour is preserved. Tests are matched by name, the level is
+call overlap only (high >= 0.6, medium >= 0.3, low below; not calibrated), and tests that need
+external services may be skipped locally. `check` says so every time. CI does not fail on
+findings.
+
 ## Scope and known gaps
 
 - Test files (`*_test.go`) are excluded. Generated code such as

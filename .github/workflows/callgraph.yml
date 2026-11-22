@@ -56,6 +56,11 @@ jobs:
           python -m pip install -r tools/callgraph/requirements.txt
           python -m pip list | grep -i networkx
 
+      - name: Install the MCP SDK (only the MCP wrapper tests need it)
+        run: |
+          python -m pip install -r tools/callgraph/requirements-mcp.txt
+          python -m pip list | grep -i "^mcp "
+
       - name: List discovered call graph tool tests
         run: |
           python - <<'PY'
@@ -187,6 +192,26 @@ jobs:
             echo "Review notes and per-hop source excerpts: \`dossier.md\` in the artifact."
           } >> "$GITHUB_STEP_SUMMARY"
           exit $status
+
+      - name: Smoke-test the agent tools on this graph (findings, card, plan, check)
+        run: |
+          cli() { python -m tools.callgraph.cli --graph-dir callgraph-out --source-root . "$@"; }
+          cli findings
+          ref=$(cli findings --json | python -c "
+          import json, sys
+          cards = [c for c in json.load(sys.stdin)['cards'] if c['kind'] == 'pair']
+          print(cards[0]['ref'] if cards else '')")
+          if [ -z "$ref" ]; then echo "no pair cards, nothing more to smoke-test"; exit 0; fi
+          cli card "$ref" --json > "$RUNNER_TEMP/card.json"
+          cli plan --plan "$RUNNER_TEMP/plan.json" init "$ref"
+          code=0
+          cli check --plan "$RUNNER_TEMP/plan.json" --scope "$GRAPH_SCOPE" \
+            --database "$RUNNER_TEMP/callgraph-db" --work-dir "$RUNNER_TEMP/check" \
+            > "$RUNNER_TEMP/check.txt" || code=$?
+          cat "$RUNNER_TEMP/check.txt"
+          # nothing was fixed in this run, so check must still report the card (exit 1)
+          test "$code" -eq 1
+          grep -q E_CARD_REMAINS "$RUNNER_TEMP/check.txt"
 
       - name: Upload call graph artifacts
         if: always()

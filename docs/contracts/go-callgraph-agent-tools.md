@@ -1,6 +1,6 @@
 ---
 linear_issue: TBD
-status: proposed
+status: implemented
 ---
 
 # Contract go-callgraph-agent-tools: fix findings locally with a coding agent
@@ -111,3 +111,45 @@ dev           agent                      tools                        codebase
 Gate off. Local analysis needs CodeQL (macOS autobuild only). Card numbers can shift as code
 changes, so the CLI also accepts a function pair. Tests needing external services may be skipped
 locally and `check` lists what was not verified.
+
+## Corrections and deviations made during implementation
+- **Level lives on `cards.Evidence`**, not in `findings.json` (that file is per terminal; cards
+  are rebuilt each run). Shown only on pair cards.
+- **No session snapshot.** `check` compares with the baseline graph directory the session was
+  started with (the CI artifact), so there is no `snapshot.json`.
+- **The judge's step validators are not reused.** They silently drop bad steps and are tied to
+  its prompt objects; the plan needs each problem reported, so `plan.py` has its own range checks.
+- **`plan review` is the second checkpoint** and is refused unless the plan is approved and the
+  last `check` passed for exactly that plan; results are stored next to the plan.
+- **CLI numbering** uses `render.ranked_cards`, extracted so the summary and the CLI share it.
+- **Test skeletons skip first.** Real Go showed skipping only inside subtests let the parent test
+  report PASS; each test now skips before running any case.
+- **CodeQL needs the work directory to exist**; the recording runner could not show it, a real
+  run did. Tests added for each of these.
+
+## Verification results
+Tests: 470 pass (2 skipped without the MCP SDK; the stdio handshake runs when it is installed).
+Real data, importer artifact from CI run 45018907296, compared with hand checks:
+- `findings`: the same 6 cards as the Summary, levels high (Annotate/Extract, 100%), medium
+  (Extract/Transcribe, 44%), low (3), and none for the two-routes card; folded cards last.
+- `card 1`: callers, tests (`RedactsAPIKeyOnTransportFailure` gap) and differences equal the
+  Summary's safety block.
+- `plan init 1` then `plan lint`: 9 undecided differences are errors, plus a warning that no test
+  covers `RedactsAPIKeyOnTransportFailure`; after deciding each, 0 errors; a step range of
+  1-99999 is rejected with `E_RANGE`; approval holds until the plan is edited, then reads
+  "changed since approval".
+- `plan diagram`: both pictures drawn from the plan; identical to the Summary's for the same
+  steps (unit test).
+- `plan tests`: the generated Go files vet and compile in a scratch copy of the importer and
+  report SKIP, never PASS.
+- `check` with real CodeQL on the unfixed importer: 21 s, 6 -> 6 cards, `E_CARD_REMAINS`,
+  planned test reported missing, changed files listed.
+- MCP: a stdio client listed all ten tools (gated ones not read-only) and called `findings`,
+  `plan_lint` and `plan_status` against the real artifact.
+- The CI smoke step, extracted from the workflow and run as written locally against a real
+  database, passes.
+
+## Known limits
+Blast radius is direct callers only. The level is a call-overlap heuristic. Constraints in words
+are not checked. `check` lists everything changed since the baseline commit, including untracked
+files such as the artifact folder. The MCP SDK is pinned at 2.3.0 (2.x renamed `FastMCP`).
