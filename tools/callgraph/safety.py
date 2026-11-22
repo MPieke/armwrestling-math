@@ -49,6 +49,7 @@ class Gaps:
     only_second: tuple
     none_first: bool
     none_second: bool
+    comparable: bool = True  # False when the two sets share no behaviour name
 
 
 @dataclass(frozen=True)
@@ -123,12 +124,16 @@ def test_gaps(first_tests, second_tests, first_subject, second_subject):
 
     A name like ``TestOpenAIAnnotatorRedactsAPIKey`` is reduced to ``RedactsAPIKey`` by
     removing ``Test`` and the subject, so parallel names compare equal. This is a
-    heuristic: different naming hides a gap or invents one.
+    heuristic: different naming hides a gap or invents one. When the two sets share no
+    behaviour at all, their names are not parallel (the functions probably do different
+    jobs), so no gap is inferred and ``comparable`` is False.
     """
     if not first_tests or not second_tests:
         return Gaps((), (), not first_tests, not second_tests)
     first = {_behaviour(t.name, first_subject) for t in first_tests}
     second = {_behaviour(t.name, second_subject) for t in second_tests}
+    if not first & second:
+        return Gaps((), (), False, False, comparable=False)
     return Gaps(tuple(sorted(first - second)), tuple(sorted(second - first)), False, False)
 
 

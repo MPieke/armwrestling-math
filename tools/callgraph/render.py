@@ -437,11 +437,14 @@ def _tests_text(card, names, tests, gaps):
         have = counts[card.second if gaps.none_first else card.first]
         return f"none found for {missing} by name; add tests before changing it ({other} has {have})."
     text = f"{first} has {plural(counts[card.first])}, {second} has {plural(counts[card.second])}."
+    if not gaps.comparable:
+        return (text + " The test names are not parallel, so gaps cannot be told by name; "
+                "check that the shared steps are covered.")
     for missing, behaviours in ((second, gaps.only_first), (first, gaps.only_second)):
         if behaviours:
             text += f" {missing} has no counterpart by name for: {', '.join(_code(b) for b in behaviours)}."
     if gaps.only_first or gaps.only_second:
-        return text + " Consider adding them before changing."
+        return text + " Consider adding tests for these before changing."
     return text + " The names match; check they cover the differences in the safety details."
 
 
