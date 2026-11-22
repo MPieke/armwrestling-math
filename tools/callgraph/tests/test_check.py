@@ -16,8 +16,9 @@ AFTER_EDGES = [("e1", "Annotate"), ("Annotate", "chat"), ("e2", "Extract"), ("Ex
 EXTERNALS = [("t", "os.Open")]
 
 
-def make_session(edges, entries=("e1", "e2"), source_root=None, externals=EXTERNALS):
-    graph = helpers.make_graph(edges, entries=list(entries), externals=list(externals))
+def make_session(edges, entries=("e1", "e2"), source_root=None, externals=EXTERNALS, extra_nodes=()):
+    graph = helpers.make_graph(edges, entries=list(entries), externals=list(externals),
+                               extra_nodes=list(extra_nodes))
     return cli.build_session(graph, analyze.analyze(graph), None, source_root)
 
 
@@ -173,6 +174,11 @@ class ChangedFilesTest(unittest.TestCase):
 
 
 class CompareTest(unittest.TestCase):
+    # both functions call h1, json.Marshal and io.ReadAll directly and reach t on separate routes
+    SHARING = BEFORE_EDGES + [("Annotate", "h1"), ("Extract", "h1")]
+    SHARED_EXTERNALS = [("Annotate", "json.Marshal"), ("Extract", "json.Marshal"),
+                        ("Annotate", "io.ReadAll"), ("Extract", "io.ReadAll")]
+
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
@@ -199,16 +205,66 @@ class CompareTest(unittest.TestCase):
         self.assertFalse(report.ok)
         self.assertIn("E_CARD_REMAINS", self.codes(report, "error"))
 
-    def test_a_new_card_is_an_error_naming_the_pair(self):
+    def test_a_new_card_between_functions_that_already_existed_is_an_error_naming_the_pair(self):
         edges = AFTER_EDGES + [("e3", "c"), ("c", "u"), ("e4", "d"), ("d", "u")]
         fresh = make_session(edges, entries=("e1", "e2", "e3", "e4"),
                              externals=EXTERNALS + [("u", "os.Create")])
+        self.baseline = make_session(BEFORE_EDGES, extra_nodes=("c", "d"))
 
         report = self.compare(fresh=fresh)
 
         problem = next(p for p in report.problems if p.code == "E_NEW_CARD")
         self.assertIn("c~d", problem.message)
         self.assertFalse(report.ok)
+
+    def test_a_new_card_that_involves_a_new_function_is_a_warning_because_old_duplication_may_have_moved(self):
+        edges = AFTER_EDGES + [("e3", "c"), ("c", "u"), ("e4", "d"), ("d", "u")]
+        fresh = make_session(edges, entries=("e1", "e2", "e3", "e4"),
+                             externals=EXTERNALS + [("u", "os.Create")])
+
+        report = self.compare(fresh=fresh)  # c and d did not exist in the baseline
+
+        warning = next(p for p in report.problems if p.code == "W_NEW_CARD_NEW_FUNCTION")
+        self.assertIn("c~d", warning.message)
+        self.assertIn("moved", warning.message)
+        self.assertNotIn("E_NEW_CARD", self.codes(report))
+        self.assertTrue(report.ok, report.problems)
+
+    def test_a_card_that_remains_but_shares_fewer_direct_calls_is_a_warning_with_the_numbers(self):
+        self.baseline = make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS)
+        fresh = make_session(self.SHARING, externals=EXTERNALS)  # json.Marshal and io.ReadAll moved out
+
+        report = self.compare(fresh=fresh)
+
+        warning = next(p for p in report.problems if p.code == "W_CARD_REMAINS")
+        self.assertIn("3 to 1", warning.message)
+        self.assertNotIn("E_CARD_REMAINS", self.codes(report))
+        self.assertTrue(report.ok, report.problems)
+
+    def test_a_card_that_remains_with_as_many_shared_direct_calls_is_still_an_error(self):
+        self.baseline = make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS)
+
+        report = self.compare(fresh=make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS))
+
+        self.assertIn("E_CARD_REMAINS", self.codes(report, "error"))
+
+    def test_a_card_that_remains_with_more_shared_direct_calls_is_an_error(self):
+        self.baseline = make_session(self.SHARING, externals=EXTERNALS)
+
+        report = self.compare(fresh=make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS))
+
+        self.assertIn("E_CARD_REMAINS", self.codes(report, "error"))
+
+    def test_the_report_carries_the_pair_before_and_after_so_progress_is_visible(self):
+        self.baseline = make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS)
+        fresh = make_session(self.SHARING, externals=EXTERNALS)
+
+        pair = self.compare(fresh=fresh).data["pair"]
+
+        self.assertEqual((pair["before"]["shared_calls"], pair["after"]["shared_calls"]), (3, 1))
+
+    def test_when_the_card_is_gone_the_pair_after_is_none(self):
+        self.assertIsNone(self.compare().data["pair"]["after"])
 
     def test_a_card_that_already_existed_in_the_baseline_is_not_new(self):
         edges = BEFORE_EDGES + [("e3", "c"), ("c", "u"), ("e4", "d"), ("d", "u")]
