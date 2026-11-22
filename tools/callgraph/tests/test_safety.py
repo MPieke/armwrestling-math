@@ -219,6 +219,13 @@ class StepDifferenceTest(unittest.TestCase):
 
         self.assertEqual([d.kind for d in found], ["other"])
 
+    def test_a_difference_made_only_of_punctuation_is_not_reported(self):
+        # B's range happens to include the closing brace of the function; A's does not.
+        a = ["\treturn output, nil"]
+        b = ["\treturn output, nil", "}"]
+
+        self.assertEqual(self.diff(a, b, self.steps([1, 1], [1, 2])), [])
+
     def test_each_difference_names_the_steps_it_appears_in(self):
         a = ["\tx := annotator.A", "\ty := annotator.B"]
         b = ["\tx := extractor.A", "\ty := extractor.B"]
