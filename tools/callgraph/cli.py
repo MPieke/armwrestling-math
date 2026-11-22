@@ -75,6 +75,11 @@ def build_session(graph, analysis, judgements, source_root=None, ignored=()):
     return Session(graph, analysis, entries, source_root, names)
 
 
+def session_for(graph, source_root=None, ignored=()):
+    """A session for a freshly built graph (no model judgements)."""
+    return build_session(graph, analyze.analyze(graph, ignored_packages=ignored), None, source_root, ignored)
+
+
 def find_entry(session, ref):
     if ref.isdigit() and 1 <= int(ref) <= len(session.entries):
         return session.entries[int(ref) - 1]
@@ -264,11 +269,20 @@ def main(argv=None, out=None, err=None):
     diagram_parser.add_argument("--json", action="store_true")
     plan_commands.add_parser("tests", help="print skipped Go test skeletons for the plan")
     plan_commands.add_parser("approve", help="record that the developer approved the plan (gated)")
-    plan_commands.add_parser("status", help="is the plan approved and unchanged since?")
+    plan_commands.add_parser("review", help="record that the developer reviewed the finished work (gated)")
+    plan_commands.add_parser("status", help="is the plan approved, and was the work reviewed?")
+    check_parser = commands.add_parser("check", help="re-run the analysis locally and compare with the baseline")
+    check_parser.add_argument("--plan", type=Path, default=None, help="default .callgraph/plan.json")
+    check_parser.add_argument("--scope", default="", help="repo path the graph covers, e.g. services/importer")
+    check_parser.add_argument("--database", type=Path, help="reuse an existing CodeQL database")
+    check_parser.add_argument("--work-dir", type=Path, help="default: next to the plan, in check/")
+    check_parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     try:
         if args.command == "plan":
             return _plan_command(args, out, err)
+        if args.command == "check":
+            return _check_command(args, out, err)
         found = load_session(args.graph_dir, args.source_root, args.ignore_file, args.judgements)
         if args.command == "findings":
             document = findings_document(found)
@@ -290,7 +304,13 @@ def _plan_command(args, out, err):
     approval_path = plan.approval_path_for(plan_path)
     try:
         if args.plan_command == "status":
-            out.write(plan.approval_status(plan_path, approval_path) + "\n")
+            out.write(f"approval: {plan.approval_status(plan_path, approval_path)}\n"
+                      f"review: {plan.review_status(plan_path, plan.review_path_for(plan_path))}\n")
+            return 0
+        if args.plan_command == "review":
+            review = plan.review_approve(plan_path, approval_path, plan.check_path_for(plan_path),
+                                         plan.review_path_for(plan_path))
+            out.write(f"reviewed work for {review['card']}, digest {review['plan_digest'][:12]}\n")
             return 0
         found = load_session(args.graph_dir, args.source_root, args.ignore_file, args.judgements)
         if args.plan_command == "init":
@@ -326,6 +346,38 @@ def _plan_command(args, out, err):
     else:
         out.write(plan_lint_text(result))
     return 0 if result.ok else 1
+
+
+def _check_command(args, out, err):
+    from datetime import datetime, timezone
+
+    from tools.callgraph import check, plan  # both import this module, so import them late
+
+    plan_path = args.plan or plan.DEFAULT_PLAN
+    try:
+        baseline = load_session(args.graph_dir, args.source_root, args.ignore_file, args.judgements)
+        document = plan.load_plan(plan_path)
+        ignored = analyze.parse_ignore_file(Path(args.ignore_file).read_text())
+        report = check.run(
+            document, baseline, args.source_root, args.work_dir or plan_path.parent / "check",
+            scope=args.scope, database=args.database, ignored=ignored,
+        )
+    except (CliError, plan.PlanError, check.CheckError, build.GraphError) as error:
+        print(f"error: {error}", file=err)
+        return 2
+    result = {
+        "ok": report.ok,
+        "card": document["card"],
+        "plan_digest": plan.digest(document),
+        "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "problems": [{"level": p.level, "code": p.code, "message": p.message} for p in report.problems],
+        "data": report.data,
+    }
+    saved = plan.check_path_for(plan_path)
+    saved.parent.mkdir(parents=True, exist_ok=True)
+    saved.write_text(json.dumps(result, indent=2) + "\n")
+    out.write(json.dumps(result, indent=2) + "\n" if args.json else check.report_text(report))
+    return 0 if report.ok else 1
 
 
 def _diagram_text(drawn):

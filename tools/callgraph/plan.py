@@ -53,6 +53,22 @@ def approval_path_for(plan_path):
     return plan_path.with_name(plan_path.stem + ".approval.json")
 
 
+def check_path_for(plan_path):
+    plan_path = Path(plan_path)
+    return plan_path.with_name(plan_path.stem + ".check.json")
+
+
+def review_path_for(plan_path):
+    plan_path = Path(plan_path)
+    return plan_path.with_name(plan_path.stem + ".review.json")
+
+
+def path_under(path, entry):
+    """True when ``path`` is ``entry`` or lies below it (``entry`` may be a directory)."""
+    path, entry = posixpath.normpath(path), posixpath.normpath(entry)
+    return path == entry or path.startswith(entry.rstrip("/") + "/")
+
+
 def load_plan(path):
     path = Path(path)
     try:
@@ -292,6 +308,37 @@ def approve(plan_path, approval_path, session):
     return approval
 
 
+def review_approve(plan_path, approval_path, check_path, review_path):
+    """Checkpoint 2: record that the finished work was reviewed. Needs an approved plan and a
+    passing ``check`` made for exactly this plan."""
+    document = load_plan(plan_path)
+    if approval_status(plan_path, approval_path) != "approved":
+        raise PlanError("the plan was not approved (or changed since): run plan approve first")
+    try:
+        result = json.loads(Path(check_path).read_text())
+    except (OSError, ValueError) as error:
+        raise PlanError("there is no check result; run check first") from error
+    if result.get("plan_digest") != digest(document):
+        raise PlanError("the last check was made for a different plan; run check again")
+    if not result.get("ok"):
+        raise PlanError("the last check did not pass; fix the errors and run check again")
+    review = {
+        "card": document["card"],
+        "plan_digest": digest(document),
+        "reviewed_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+    Path(review_path).write_text(json.dumps(review, indent=2) + "\n")
+    return review
+
+
+def review_status(plan_path, review_path):
+    try:
+        review = json.loads(Path(review_path).read_text())
+    except (OSError, ValueError):
+        return "not reviewed"
+    return "reviewed" if review.get("plan_digest") == digest(load_plan(plan_path)) else "changed since review"
+
+
 def approval_status(plan_path, approval_path):
     try:
         approval = json.loads(Path(approval_path).read_text())
@@ -449,7 +496,7 @@ def _touch_problems(document, session):
     for planned in document["planned_files"]:
         path = posixpath.normpath(planned)
         for entry in forbidden:
-            if path == entry or path.startswith(entry.rstrip("/") + "/"):
+            if path_under(path, entry):
                 problems.append(Problem(
                     "error", "E_WILL_NOT_TOUCH", f"planned file {planned} is under will_not_touch entry {entry}"))
     return problems

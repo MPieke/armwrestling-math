@@ -81,6 +81,19 @@ class ProduceGraphTest(unittest.TestCase):
         self.assertIn(f"--source-root={self.source}", create)
         self.assertIn("--overwrite", create)
 
+    def test_the_work_directory_exists_when_codeql_creates_the_database_inside_it(self):
+        seen = []
+
+        class Watching(FakeRunner):
+            def __call__(inner, argv, cwd=None):
+                if list(argv)[:3] == ["codeql", "database", "create"]:
+                    seen.append(Path(argv[3]).parent.is_dir())
+                return super().__call__(argv, cwd)
+
+        self.produce(Watching(), scope="codeql/go/test")
+
+        self.assertEqual(seen, [True])
+
     def test_queries_run_from_the_codeql_directory_against_the_new_database(self):
         runner = FakeRunner()
 
