@@ -260,6 +260,8 @@ def main(argv=None, out=None, err=None):
     init_parser.add_argument("--force", action="store_true", help="overwrite an existing plan")
     lint_parser = plan_commands.add_parser("lint", help="check the plan against the code")
     lint_parser.add_argument("--json", action="store_true")
+    diagram_parser = plan_commands.add_parser("diagram", help="draw the steps before and after the move")
+    diagram_parser.add_argument("--json", action="store_true")
     plan_commands.add_parser("approve", help="record that the developer approved the plan (gated)")
     plan_commands.add_parser("status", help="is the plan approved and unchanged since?")
     args = parser.parse_args(argv)
@@ -303,6 +305,10 @@ def _plan_command(args, out, err):
                       f"({found.names.short(entry.card.first)} and {found.names.short(entry.card.second)}), "
                       f"digest {approval['plan_digest'][:12]}\n")
             return 0
+        if args.plan_command == "diagram":
+            drawn = plan.diagrams(plan.load_plan(plan_path), found)
+            out.write(json.dumps(drawn, indent=2) + "\n" if args.json else _diagram_text(drawn))
+            return 0
         result = plan.lint(plan.load_plan(plan_path), found)
     except (CliError, plan.PlanError, build.GraphError) as error:
         print(f"error: {error}", file=err)
@@ -316,6 +322,13 @@ def _plan_command(args, out, err):
     else:
         out.write(plan_lint_text(result))
     return 0 if result.ok else 1
+
+
+def _diagram_text(drawn):
+    lines = ["Before:", "```mermaid", drawn["before"], "```", ""]
+    if drawn["after"]:
+        lines += ["After:", "```mermaid", drawn["after"], "```", ""]
+    return "\n".join(lines)
 
 
 def plan_lint_text(result):

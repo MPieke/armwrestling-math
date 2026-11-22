@@ -18,7 +18,8 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from tools.callgraph import cli, safety
+from tools.callgraph import cli, render, safety
+from tools.callgraph import diagrams as drawing
 
 DEFAULT_PLAN = Path(".callgraph/plan.json")
 HANDLERS = ("parameter", "unified", "stays")
@@ -131,6 +132,34 @@ def lint(document, session):
             + "; ".join(document["constraints"]),
         ))
     return LintResult(tuple(problems), tuple(differences))
+
+
+_STRUCTURAL = ("E_SCHEMA", "E_CARD", "E_DUP_STEP", "E_RANGE")
+
+
+def diagrams(document, session):
+    """Mermaid source for the plan: the two functions' steps before, and after the move.
+
+    Built by the same code as the run summary's pictures. Problems that make the steps
+    meaningless (schema, card, ranges, duplicate names) block drawing; undecided
+    differences do not.
+    """
+    blocking = [p for p in lint(document, session).problems if p.code in _STRUCTURAL]
+    if blocking:
+        raise PlanError("fix these before drawing: " + "; ".join(f"{p.code}: {p.message}" for p in blocking))
+    card = _pair_entry(session, document["card"]).card
+    steps = document["steps"]
+    refs = render._step_refs(card, session.names, steps)
+    before = drawing.before(steps, [], render._names_pair(card, session.names),
+                             moved=document["moved_steps"], refs=refs)
+    if before is None:
+        raise PlanError("a diagram needs at least two steps")
+    fix = {"moved_steps": document["moved_steps"], "shared_name": document["shared_name"]}
+    after = drawing.apply_fix(before, fix, steps, refs=refs)
+    return {
+        "before": drawing.to_mermaid(before),
+        "after": drawing.to_mermaid(after) if after is not None else None,
+    }
 
 
 def approve(plan_path, approval_path, session):
