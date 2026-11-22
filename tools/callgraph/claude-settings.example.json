@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__callgraph__findings",
+      "mcp__callgraph__card",
+      "mcp__callgraph__plan_init",
+      "mcp__callgraph__plan_lint",
+      "mcp__callgraph__plan_diagram",
+      "mcp__callgraph__plan_tests",
+      "mcp__callgraph__plan_status",
+      "mcp__callgraph__check"
+    ],
+    "ask": [
+      "mcp__callgraph__plan_approve",
+      "mcp__callgraph__plan_review"
+    ]
+  }
+}

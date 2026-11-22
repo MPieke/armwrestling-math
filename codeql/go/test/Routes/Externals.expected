@@ -1,0 +1,9 @@
+| example.com/routes.load | os.ReadFile | os | main.go | 44 |
+| example.com/routes.main | net/http.HandleFunc | net/http | main.go | 9 |
+| example.com/routes.main | net/http.HandleFunc | net/http | main.go | 10 |
+| example.com/routes.main | net/http.HandleFunc | net/http | main.go | 11 |
+| example.com/routes.main | net/http.HandleFunc | net/http | main.go | 12 |
+| example.com/routes.main | net/http.HandleFunc | net/http | main.go | 13 |
+| example.com/routes.main | net/http.ListenAndServe | net/http | main.go | 14 |
+| example.com/routes.store | os.Open | os | main.go | 54 |
+| example.com/routes.writeFile | os.WriteFile | os | main.go | 31 |

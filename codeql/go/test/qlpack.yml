@@ -1,0 +1,6 @@
+name: armwrestling/callgraph-go-tests
+version: 0.1.0
+dependencies:
+  armwrestling/callgraph-go: "*"
+extractor: go
+tests: .

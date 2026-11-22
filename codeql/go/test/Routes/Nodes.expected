@@ -1,0 +1,27 @@
+| example.com/routes.Exported | Exported | example.com/routes | main.go | 19 | 19 | exported-uncalled |
+| example.com/routes.deadLeaf | deadLeaf | example.com/routes | main.go | 23 | 23 |  |
+| example.com/routes.diskSaver.Save | Save | example.com/routes | dispatch.go | 9 | 9 |  |
+| example.com/routes.fetch | fetch | example.com/routes | main.go | 35 | 38 |  |
+| example.com/routes.gateway | gateway | example.com/routes | main.go | 29 | 29 |  |
+| example.com/routes.handleA | handleA | example.com/routes | main.go | 25 | 25 | referenced |
+| example.com/routes.handleB | handleB | example.com/routes | main.go | 27 | 27 | referenced |
+| example.com/routes.handleC | handleC | example.com/routes | main.go | 33 | 33 | referenced |
+| example.com/routes.handleE | handleE | example.com/routes | main.go | 46 | 46 | referenced |
+| example.com/routes.handleF | handleF | example.com/routes | main.go | 48 | 48 | referenced |
+| example.com/routes.init@main.go:17 | init | example.com/routes | main.go | 17 | 17 | init |
+| example.com/routes.leafClosure | leafClosure | example.com/routes | dispatch.go | 22 | 22 |  |
+| example.com/routes.load | load | example.com/routes | main.go | 44 | 44 |  |
+| example.com/routes.main | main | example.com/routes | main.go | 8 | 15 | main |
+| example.com/routes.makeTable | makeTable | example.com/routes | dispatch.go | 32 | 32 | init |
+| example.com/routes.memSaver.Save | Save | example.com/routes | dispatch.go | 13 | 13 |  |
+| example.com/routes.runRegistry | runRegistry | example.com/routes | dispatch.go | 28 | 28 | unreferenced |
+| example.com/routes.serviceE | serviceE | example.com/routes | main.go | 50 | 50 |  |
+| example.com/routes.serviceF | serviceF | example.com/routes | main.go | 52 | 52 |  |
+| example.com/routes.store | store | example.com/routes | main.go | 54 | 54 |  |
+| example.com/routes.unusedHelper | unusedHelper | example.com/routes | main.go | 21 | 21 | unreferenced |
+| example.com/routes.useSaver | useSaver | example.com/routes | dispatch.go | 15 | 15 | unreferenced |
+| example.com/routes.viaCache | viaCache | example.com/routes | main.go | 40 | 40 |  |
+| example.com/routes.viaDisk | viaDisk | example.com/routes | main.go | 42 | 42 |  |
+| example.com/routes.viaMap | viaMap | example.com/routes | dispatch.go | 26 | 26 | referenced |
+| example.com/routes.withClosure | withClosure | example.com/routes | dispatch.go | 17 | 20 | unreferenced |
+| example.com/routes.writeFile | writeFile | example.com/routes | main.go | 31 | 31 |  |
