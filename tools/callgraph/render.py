@@ -249,6 +249,8 @@ def _calibration_banner(calibration):
 def _card(rank, card, names, verdict):
     judged = _is_judged(verdict)
     out = [_title(rank, card, names), ""]
+    if card.kind == "pair":
+        out += [f"Level: **{card.evidence.level}** (call overlap; display only, nothing fails on it)", ""]
     out += [_problem(card, names, verdict if judged else None), ""]
     if verdict is not None and not judged:
         out += [f"LLM verdict: unavailable ({_text(verdict.get('reason', 'no reason given'))})", ""]

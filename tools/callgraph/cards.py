@@ -25,6 +25,7 @@ from tools.callgraph import analyze
 
 VERY_SIMILAR = 0.6  # Jaccard similarity of the two call sets; heuristic bands.
 PARTLY_SIMILAR = 0.3
+_LEVELS = {"very similar": "high", "partly similar": "medium", "little overlap": "low"}
 
 
 @dataclass(frozen=True)
@@ -35,6 +36,11 @@ class Evidence:
     only_second: tuple
     similarity: float
     band: str
+
+    @property
+    def level(self):
+        """Display-only confidence that the pair is duplicated: high, medium or low."""
+        return _LEVELS[self.band]
 
 
 @dataclass(frozen=True)
