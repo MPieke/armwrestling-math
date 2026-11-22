@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.callgraph import analyze, build, cli, plan
+from tools.callgraph import analyze, build, cli, plan, render
 from tools.callgraph.tests import helpers
 from tools.callgraph.tests.test_render import SOURCE_ANNOTATE, SOURCE_EXTRACT, STEPS, judged
 
@@ -271,6 +271,62 @@ class LintTest(Fixture):
         self.assertIn("E_CARD", self.codes(plan.lint(bad, self.session()), "error"))
 
 
+class DiagramTest(Fixture):
+    def test_before_and_after_are_mermaid_flowcharts_from_the_plan_steps(self):
+        found = self.session()
+
+        drawn = plan.diagrams(good_plan(), found)
+
+        self.assertTrue(drawn["before"].startswith("flowchart TB"))
+        self.assertIn("build request", drawn["before"])
+        self.assertTrue(drawn["after"].startswith("flowchart TB"))
+
+    def test_after_replaces_the_moved_steps_with_one_new_shared_node(self):
+        drawn = plan.diagrams(good_plan(), self.session())
+
+        self.assertIn("chatCompletion", drawn["after"])
+        self.assertNotIn("build request", drawn["after"])
+        self.assertIn("build prompt", drawn["after"])  # a step that stays
+
+    def test_the_drawing_equals_what_the_run_summary_draws_for_the_same_steps(self):
+        found = self.session()
+        verdict = judged("Annotate", "Extract", issues=[])
+        judgements = {"status": "ok", "judgements": [verdict], "calibration": None}
+        summary = render.summary_markdown(
+            found.graph, helpers.REPO_URL, analysis=found.analysis, judgements=judgements,
+            source_root=str(self.root),
+        )
+
+        drawn = plan.diagrams(good_plan(), found)
+
+        self.assertIn(drawn["before"], summary)
+        self.assertIn(drawn["after"], summary)
+
+    def test_a_structurally_broken_plan_cannot_be_drawn(self):
+        bad = good_plan()
+        bad["steps"][1]["a"] = [6, 500]
+
+        with self.assertRaises(plan.PlanError) as caught:
+            plan.diagrams(bad, self.session())
+
+        self.assertIn("E_RANGE", str(caught.exception))
+
+    def test_unhandled_differences_do_not_stop_the_drawing(self):
+        draft = plan.template(self.session(), "1")
+
+        self.assertIn("flowchart", plan.diagrams(draft, self.session())["before"])
+
+    def test_fewer_than_two_steps_cannot_be_drawn(self):
+        short = good_plan()
+        short["steps"] = short["steps"][:1]
+        short["moved_steps"] = []
+
+        with self.assertRaises(plan.PlanError) as caught:
+            plan.diagrams(short, self.session())
+
+        self.assertIn("two steps", str(caught.exception))
+
+
 class ApprovalTest(Fixture):
     def paths(self):
         return self.root / "plan.json", self.root / "approval.json"
@@ -359,6 +415,27 @@ class PlanCommandTest(Fixture):
 
         self.assertEqual((bad[0], good[0]), (1, 0))
         self.assertIn("E_NO_MOVED", bad[1])
+
+    def test_diagram_prints_both_pictures_in_mermaid_fences(self):
+        (self.root / "none.txt").write_text("")
+        target = self.root / "plan.json"
+        plan.save_plan(target, good_plan())
+
+        code, out, _ = self.run_main(*self.common(), "plan", "--plan", str(target), "diagram")
+
+        self.assertEqual(code, 0)
+        self.assertEqual(out.count("```mermaid"), 2)
+        self.assertIn("chatCompletion", out)
+
+    def test_diagram_json_has_before_and_after(self):
+        (self.root / "none.txt").write_text("")
+        target = self.root / "plan.json"
+        plan.save_plan(target, good_plan())
+
+        code, out, _ = self.run_main(*self.common(), "plan", "--plan", str(target), "diagram", "--json")
+
+        self.assertEqual(code, 0)
+        self.assertEqual(set(json.loads(out)), {"before", "after"})
 
     def test_approve_then_status_reports_approved(self):
         (self.root / "none.txt").write_text("")
