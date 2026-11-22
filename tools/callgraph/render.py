@@ -194,9 +194,7 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements, source
     out += _calibration_banner((judgements or {}).get("calibration"))
     if not found:
         return out + ["No redundant routes found.", ""]
-    pairs = [(card, verdicts.get((card.first, card.second))) for card in found]
-    surface = sorted((cv for cv in pairs if not _is_folded(cv[1])), key=lambda cv: _priority(cv[1]))
-    folded = [cv for cv in pairs if _is_folded(cv[1])]
+    surface, folded = ranked_cards(found, verdicts)
     rank = 0
     for card, verdict in surface[:max_cards]:
         rank += 1
@@ -210,6 +208,17 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements, source
             out += _card(rank, card, names, verdict)
         out += ["</details>", ""]
     return out
+
+
+def ranked_cards(found, verdicts):
+    """(surface, folded): lists of (card, verdict) in the order the run summary shows them.
+
+    ``verdicts`` maps (first, second) to the model's judgement. Cards the model says to leave
+    alone are folded; the rest are ordered by how strongly the model recommends a change.
+    """
+    pairs = [(card, verdicts.get((card.first, card.second))) for card in found]
+    surface = sorted((cv for cv in pairs if not _is_folded(cv[1])), key=lambda cv: _priority(cv[1]))
+    return surface, [cv for cv in pairs if _is_folded(cv[1])]
 
 
 def _is_judged(verdict):

@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.callgraph import analyze, cli
+from tools.callgraph import analyze, build, cli
 from tools.callgraph.tests import helpers
 from tools.callgraph.tests.test_render import SOURCE_ANNOTATE, SOURCE_EXTRACT, judged
 
@@ -167,16 +167,57 @@ class CardFactsTest(unittest.TestCase):
     def test_the_card_text_shows_level_callers_and_tests(self):
         text = cli.card_text(self.document())
 
-        self.assertIn("Level: high", text)
+        # the two functions call nothing but the shared target, so their overlap is 0%
+        self.assertIn("Level: low (call overlap 0%", text)
         self.assertIn("Annotate is called from e1", text)
         self.assertIn("no counterpart by name for: Redacts", text)
+
+
+class ReadableNamesTest(unittest.TestCase):
+    PKG = "example.com/svc/pkg"
+
+    def document(self):
+        a, b = f"{self.PKG}.OpenAIAnnotator.Annotate", f"{self.PKG}.OpenAIExtractor.Extract"
+        send = f"{self.PKG}.Send"
+        edges = [("e1", a), (a, send), ("e2", b), (b, send)]
+        graph = helpers.make_graph(edges, entries=["e1", "e2"], externals=[(send, "os.Open")],
+                                   packages={a: self.PKG, b: self.PKG, send: self.PKG})
+        found = cli.build_session(graph, analyze.analyze(graph), None, None)
+        return cli.card_document(found, "1")
+
+    def test_the_text_uses_short_names_without_the_package_path(self):
+        text = cli.card_text(self.document())
+
+        self.assertIn("OpenAIAnnotator.Annotate and OpenAIExtractor.Extract", text)
+        self.assertIn("Reach: Send", text)
+        self.assertNotIn("example.com/svc/pkg", text)
+
+    def test_the_json_keeps_full_ids_and_adds_a_short_name_for_each_function_and_caller(self):
+        document = self.document()
+
+        self.assertTrue(document["functions"][0]["id"].startswith(self.PKG))
+        self.assertEqual(document["functions"][0]["short"], "OpenAIAnnotator.Annotate")
+        caller = document["blast_radius"][document["functions"][0]["id"]]["callers"][0]
+        self.assertEqual((caller["id"], caller["name"]), ("e1", "e1"))
+
+    def test_the_findings_text_also_uses_short_names(self):
+        a, b = f"{self.PKG}.A", f"{self.PKG}.B"
+        edges = [("e1", a), (a, "t"), ("e2", b), (b, "t")]
+        graph = helpers.make_graph(edges, entries=["e1", "e2"], externals=[("t", "os.Open")],
+                                   packages={a: self.PKG, b: self.PKG})
+        found = cli.build_session(graph, analyze.analyze(graph), None, None)
+
+        text = cli.findings_text(cli.findings_document(found))
+
+        self.assertIn("1. [low] A and B", text)
 
 
 class MainTest(unittest.TestCase):
     def graph_dir(self, directory):
         base = Path(directory)
-        (base / "nodes.csv").write_text(helpers.raw_nodes_csv())
-        (base / "edges.csv").write_text(helpers.raw_edges_csv())
+        graph = build.build_graph(helpers.raw_nodes_csv(), helpers.raw_edges_csv(), helpers.SHA)
+        (base / "nodes.csv").write_text(build.nodes_to_csv(graph))
+        (base / "edges.csv").write_text(build.edges_to_csv(graph))
         return base
 
     def run_main(self, *argv):
