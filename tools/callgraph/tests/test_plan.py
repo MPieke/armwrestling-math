@@ -327,6 +327,76 @@ class DiagramTest(Fixture):
         self.assertIn("two steps", str(caught.exception))
 
 
+class SkeletonTest(Fixture):
+    def skeleton(self, document=None, source=True):
+        return plan.go_test_skeleton(document or good_plan(), self.session(source=source))
+
+    def test_each_function_gets_a_test_file_section_in_its_own_package(self):
+        text = self.skeleton()
+
+        self.assertIn("// file: Annotate_characterization_test.go", text)
+        self.assertIn("// file: Extract_characterization_test.go", text)
+        self.assertEqual(text.count("package p\n"), 2)
+
+    def test_a_string_difference_is_pinned_with_each_functions_own_text_and_line(self):
+        text = self.skeleton()
+
+        annotate = text.split("func TestPinnedText_Extract")[0]
+        extract = text.split("func TestPinnedText_Extract")[1]
+        self.assertIn('want: "annotation label"', annotate)
+        self.assertIn("line: 8", annotate)
+        self.assertIn('want: "extraction label"', extract)
+        self.assertIn("line: 7", extract)
+        self.assertNotIn('"extraction label"', annotate)
+
+    def test_a_row_says_how_the_plan_handles_the_difference(self):
+        text = self.skeleton()
+
+        self.assertIn("parameter label", text)
+
+    def test_every_generated_case_is_skipped_until_the_agent_fills_it_in(self):
+        text = self.skeleton()
+
+        self.assertIn("t.Skip(", text)
+        self.assertNotIn("t.Fatal", text)
+
+    def test_differences_the_compiler_checks_are_listed_in_a_comment_not_pinned(self):
+        text = self.skeleton()
+
+        self.assertIn("// not pinned (the compiler checks these", text)
+        self.assertIn("//   annotator -> extractor", text)
+
+    def test_a_planned_test_becomes_a_skipped_stub_unless_it_already_exists(self):
+        document = good_plan()
+        document["tests"] = ["TestExtractRedacts", "TestAnnotateRedacts"]
+
+        text = self.skeleton(document)
+
+        self.assertIn("func TestExtractRedacts(t *testing.T) {", text)
+        self.assertNotIn("func TestAnnotateRedacts(t *testing.T) {", text)
+
+    def test_the_output_is_the_same_every_time(self):
+        self.assertEqual(self.skeleton(), self.skeleton())
+
+    def test_without_source_there_is_nothing_to_pin_so_it_is_an_error(self):
+        with self.assertRaises(plan.PlanError) as caught:
+            self.skeleton(source=False)
+
+        self.assertIn("source", str(caught.exception))
+
+    def test_a_structurally_broken_plan_cannot_produce_a_skeleton(self):
+        bad = good_plan()
+        bad["steps"][1]["a"] = [6, 500]
+
+        with self.assertRaises(plan.PlanError):
+            self.skeleton(bad)
+
+    def test_a_difference_the_plan_has_not_decided_is_marked_undecided(self):
+        draft = plan.template(self.session(), "1")
+
+        self.assertIn("undecided", plan.go_test_skeleton(draft, self.session()))
+
+
 class ApprovalTest(Fixture):
     def paths(self):
         return self.root / "plan.json", self.root / "approval.json"
@@ -436,6 +506,16 @@ class PlanCommandTest(Fixture):
 
         self.assertEqual(code, 0)
         self.assertEqual(set(json.loads(out)), {"before", "after"})
+
+    def test_tests_prints_the_skeleton(self):
+        (self.root / "none.txt").write_text("")
+        target = self.root / "plan.json"
+        plan.save_plan(target, good_plan())
+
+        code, out, _ = self.run_main(*self.common(), "plan", "--plan", str(target), "tests")
+
+        self.assertEqual(code, 0)
+        self.assertIn("func TestPinnedText_Annotate", out)
 
     def test_approve_then_status_reports_approved(self):
         (self.root / "none.txt").write_text("")
