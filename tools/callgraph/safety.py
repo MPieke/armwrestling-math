@@ -182,7 +182,7 @@ def _token_pairs(a_tokens, b_tokens):
         else:
             a_text = " ".join(t for t in a_part if t != "\n")
             b_text = " ".join(t for t in b_part if t != "\n")
-            if a_text or b_text:
+            if re.search(r"\w", a_text + b_text):  # skip pure punctuation such as a stray "}"
                 yield a_text, b_text
 
 
