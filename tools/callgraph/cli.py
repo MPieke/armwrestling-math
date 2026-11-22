@@ -252,8 +252,20 @@ def main(argv=None, out=None, err=None):
     card_parser.add_argument("ref", help="card number or first~second")
     for sub in (findings_parser, card_parser):
         sub.add_argument("--json", action="store_true", help="print JSON instead of text")
+    plan_parser = commands.add_parser("plan", help="the fix plan for one card (see plan.py)")
+    plan_parser.add_argument("--plan", type=Path, default=None, help="default .callgraph/plan.json")
+    plan_commands = plan_parser.add_subparsers(dest="plan_command", required=True)
+    init_parser = plan_commands.add_parser("init", help="write a draft plan for a card")
+    init_parser.add_argument("ref")
+    init_parser.add_argument("--force", action="store_true", help="overwrite an existing plan")
+    lint_parser = plan_commands.add_parser("lint", help="check the plan against the code")
+    lint_parser.add_argument("--json", action="store_true")
+    plan_commands.add_parser("approve", help="record that the developer approved the plan (gated)")
+    plan_commands.add_parser("status", help="is the plan approved and unchanged since?")
     args = parser.parse_args(argv)
     try:
+        if args.command == "plan":
+            return _plan_command(args, out, err)
         found = load_session(args.graph_dir, args.source_root, args.ignore_file, args.judgements)
         if args.command == "findings":
             document = findings_document(found)
@@ -266,6 +278,52 @@ def main(argv=None, out=None, err=None):
         return 2
     out.write(json.dumps(document, indent=2) + "\n" if args.json else text)
     return 0
+
+
+def _plan_command(args, out, err):
+    from tools.callgraph import plan  # plan.py imports this module, so import it late
+
+    plan_path = args.plan or plan.DEFAULT_PLAN
+    approval_path = plan.approval_path_for(plan_path)
+    try:
+        if args.plan_command == "status":
+            out.write(plan.approval_status(plan_path, approval_path) + "\n")
+            return 0
+        found = load_session(args.graph_dir, args.source_root, args.ignore_file, args.judgements)
+        if args.plan_command == "init":
+            if plan_path.exists() and not args.force:
+                raise CliError(f"{plan_path} already exists; use --force to replace it")
+            plan.save_plan(plan_path, plan.template(found, args.ref))
+            out.write(f"wrote {plan_path}; fill in every difference, then run: plan lint\n")
+            return 0
+        if args.plan_command == "approve":
+            approval = plan.approve(plan_path, approval_path, found)
+            entry = find_entry(found, approval["card"])
+            out.write(f"approved plan for card {entry.number} "
+                      f"({found.names.short(entry.card.first)} and {found.names.short(entry.card.second)}), "
+                      f"digest {approval['plan_digest'][:12]}\n")
+            return 0
+        result = plan.lint(plan.load_plan(plan_path), found)
+    except (CliError, plan.PlanError, build.GraphError) as error:
+        print(f"error: {error}", file=err)
+        return 2
+    if args.json:
+        out.write(json.dumps({
+            "ok": result.ok,
+            "problems": [{"level": p.level, "code": p.code, "message": p.message} for p in result.problems],
+            "differences": list(result.differences),
+        }, indent=2) + "\n")
+    else:
+        out.write(plan_lint_text(result))
+    return 0 if result.ok else 1
+
+
+def plan_lint_text(result):
+    errors = sum(p.level == "error" for p in result.problems)
+    warnings = sum(p.level == "warning" for p in result.problems)
+    lines = [f"plan {'ok' if result.ok else 'has errors'} ({errors} errors, {warnings} warnings)"]
+    lines += [f"{p.level} {p.code}: {p.message}" for p in result.problems]
+    return "\n".join(lines) + "\n"
 
 
 if __name__ == "__main__":

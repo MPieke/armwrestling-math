@@ -13,3 +13,4 @@ app/playwright-report/
 app/*.tsbuildinfo
 app/vite.config.js
 app/vite.config.d.ts
+.callgraph/

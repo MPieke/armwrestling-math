@@ -320,6 +320,7 @@ class PlanCommandTest(Fixture):
         base.mkdir()
         (base / "nodes.csv").write_text(build.nodes_to_csv(graph))
         (base / "edges.csv").write_text(build.edges_to_csv(graph))
+        (base / "externals.csv").write_text(build.externals_to_csv(graph))
         (base / "judgements.json").write_text(json.dumps(
             {"status": "ok", "judgements": [judged("Annotate", "Extract")], "calibration": None}))
         return base

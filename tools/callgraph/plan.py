@@ -1,0 +1,328 @@
+"""A fix plan for one redundancy card: the agreement between the developer and the coding agent.
+
+The agent writes ``.callgraph/plan.json``; the developer steers it in conversation. This module
+holds only deterministic checks: the plan must be well formed, its step ranges must lie inside
+the real functions, and every difference inside a step it moves into a shared function must be
+accounted for (a parameter, a unified value, or "stays"). It cannot say whether the plan is a
+good idea, and it cannot prove a refactor preserves behaviour.
+
+``approve`` records a digest of the plan. Whether a human really approved is enforced by how the
+command is permitted in the agent's harness, not by this file.
+"""
+
+import copy
+import hashlib
+import json
+import posixpath
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from pathlib import Path
+
+from tools.callgraph import cli, safety
+
+DEFAULT_PLAN = Path(".callgraph/plan.json")
+HANDLERS = ("parameter", "unified", "stays")
+_LIST_OF_TEXT = ("moved_steps", "planned_files", "will_not_touch", "constraints", "tests", "uncertainties")
+_TEXT = ("card", "summary", "shared_name")
+
+
+class PlanError(Exception):
+    """A problem with the plan file or an approval request; printed without a traceback."""
+
+
+@dataclass(frozen=True)
+class Problem:
+    level: str  # "error", "warning" or "note"
+    code: str
+    message: str
+
+
+@dataclass(frozen=True)
+class LintResult:
+    problems: tuple
+    differences: tuple = ()
+
+    @property
+    def ok(self):
+        return not any(p.level == "error" for p in self.problems)
+
+
+def approval_path_for(plan_path):
+    plan_path = Path(plan_path)
+    return plan_path.with_name(plan_path.stem + ".approval.json")
+
+
+def load_plan(path):
+    path = Path(path)
+    try:
+        text = path.read_text()
+    except OSError as error:
+        raise PlanError(f"no plan at {path}; create one with: plan init CARD") from error
+    try:
+        document = json.loads(text)
+    except ValueError as error:
+        raise PlanError(f"{path} is not valid JSON ({error})") from error
+    if not isinstance(document, dict):
+        raise PlanError(f"{path} must contain a JSON object")
+    return document
+
+
+def save_plan(path, document):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(document, indent=2) + "\n")
+
+
+def digest(document):
+    canonical = json.dumps(document, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode()).hexdigest()
+
+
+def template(session, ref):
+    """A starting plan: the model's steps and fix when there is a judgement, else empty."""
+    entry = _pair_entry(session, ref)
+    card = entry.card
+    draft = {
+        "card": entry.ref,
+        "summary": "",
+        "shared_name": "",
+        "steps": [],
+        "moved_steps": [],
+        "differences": [],
+        "planned_files": sorted({session.names.nodes[f].file for f in (card.first, card.second)}),
+        "will_not_touch": [],
+        "constraints": [],
+        "tests": [],
+        "uncertainties": [],
+    }
+    verdict = entry.verdict
+    if verdict is not None and verdict.get("status") == "ok":
+        draft["steps"] = copy.deepcopy(verdict["steps"])
+        draft["moved_steps"] = list(verdict["fix"]["moved_steps"])
+        draft["shared_name"] = verdict["fix"]["shared_name"]
+        draft["summary"] = verdict["fix"]["summary"]
+        found = _moved_differences(session, card, draft["steps"], draft["moved_steps"])
+        draft["differences"] = [{"a": d.a, "b": d.b, "handled_by": None} for d in found or []]
+    return draft
+
+
+def lint(document, session):
+    problems = _schema_problems(document)
+    if problems:
+        return LintResult(tuple(problems))
+    try:
+        entry = _pair_entry(session, document["card"])
+    except cli.CliError as error:
+        return LintResult((Problem("error", "E_CARD", str(error)),))
+    card = entry.card
+    problems += _step_problems(document, session, card)
+    problems += _moved_problems(document)
+    differences, found = [], None
+    if not problems:
+        found = _moved_differences(session, card, document["steps"], document["moved_steps"])
+        diff_problems, differences = _difference_problems(document, found)
+        problems += diff_problems
+    problems += _touch_problems(document, session)
+    problems += _test_problems(document, session, entry)
+    if document["constraints"]:
+        problems.append(Problem(
+            "note", "N_CONSTRAINTS",
+            "constraints are not machine-checked, only will_not_touch is: "
+            + "; ".join(document["constraints"]),
+        ))
+    return LintResult(tuple(problems), tuple(differences))
+
+
+def approve(plan_path, approval_path, session):
+    document = load_plan(plan_path)
+    result = lint(document, session)
+    if not result.ok:
+        errors = "; ".join(f"{p.code}: {p.message}" for p in result.problems if p.level == "error")
+        raise PlanError(f"cannot approve a plan with errors: {errors}")
+    approval = {
+        "card": document["card"],
+        "plan_digest": digest(document),
+        "approved_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+    approval_path = Path(approval_path)
+    approval_path.parent.mkdir(parents=True, exist_ok=True)
+    approval_path.write_text(json.dumps(approval, indent=2) + "\n")
+    return approval
+
+
+def approval_status(plan_path, approval_path):
+    try:
+        approval = json.loads(Path(approval_path).read_text())
+    except (OSError, ValueError):
+        return "not approved"
+    return "approved" if approval.get("plan_digest") == digest(load_plan(plan_path)) else "changed since approval"
+
+
+def _pair_entry(session, ref):
+    entry = cli.find_entry(session, ref)
+    if entry.card.kind != "pair":
+        raise cli.CliError(f"card {ref!r} is a two-routes card; plans support pair cards")
+    return entry
+
+
+def _schema_problems(document):
+    problems = []
+
+    def bad(message):
+        problems.append(Problem("error", "E_SCHEMA", message))
+
+    for field in _TEXT:
+        if not isinstance(document.get(field), str):
+            bad(f"{field} must be text")
+    for field in _LIST_OF_TEXT:
+        value = document.get(field)
+        if not isinstance(value, list) or not all(isinstance(x, str) for x in value):
+            bad(f"{field} must be a list of text")
+    steps = document.get("steps")
+    if not isinstance(steps, list):
+        bad("steps must be a list")
+    else:
+        for index, step in enumerate(steps):
+            if not isinstance(step, dict) or not isinstance(step.get("name"), str) or not step["name"].strip():
+                bad(f"steps[{index}] needs a name")
+                continue
+            for side in ("a", "b"):
+                if not _range_shape(step.get(side)):
+                    bad(f"steps[{index}].{side} must be null or [start, end] line numbers")
+            if not isinstance(step.get("same"), bool):
+                bad(f"steps[{index}].same must be true or false")
+    differences = document.get("differences")
+    if not isinstance(differences, list):
+        bad("differences must be a list")
+    else:
+        for index, item in enumerate(differences):
+            if not isinstance(item, dict) or not isinstance(item.get("a"), str) or not isinstance(item.get("b"), str):
+                bad(f"differences[{index}] needs text a and b")
+    return problems
+
+
+def _range_shape(value):
+    return value is None or (
+        isinstance(value, list) and len(value) == 2 and all(isinstance(x, int) and not isinstance(x, bool) for x in value)
+    )
+
+
+def _step_problems(document, session, card):
+    problems, seen = [], set()
+    taken = {"a": [], "b": []}
+    nodes = {"a": session.names.nodes[card.first], "b": session.names.nodes[card.second]}
+    for step in document["steps"]:
+        if step["name"] in seen:
+            problems.append(Problem("error", "E_DUP_STEP", f"step name {step['name']!r} is used twice"))
+        seen.add(step["name"])
+        for side in ("a", "b"):
+            span = step[side]
+            if span is None:
+                continue
+            start, end = span
+            node = nodes[side]
+            if not (node.start_line <= start <= end <= node.end_line):
+                problems.append(Problem(
+                    "error", "E_RANGE",
+                    f"step {step['name']!r} lines {start}-{end} are not inside "
+                    f"{node.name} (lines {node.start_line}-{node.end_line})",
+                ))
+            elif any(not (end < s or start > e) for s, e in taken[side]):
+                problems.append(Problem(
+                    "error", "E_RANGE", f"step {step['name']!r} lines {start}-{end} overlap another step"))
+            else:
+                taken[side].append((start, end))
+    return problems
+
+
+def _moved_problems(document):
+    problems = []
+    by_name = {step["name"]: step for step in document["steps"]}
+    if not document["moved_steps"]:
+        problems.append(Problem("error", "E_NO_MOVED", "the plan moves no steps into a shared function"))
+    for name in document["moved_steps"]:
+        step = by_name.get(name)
+        if step is None:
+            problems.append(Problem("error", "E_MOVED_UNKNOWN", f"moved step {name!r} is not in steps"))
+        elif step["a"] is None or step["b"] is None:
+            problems.append(Problem(
+                "error", "E_MOVED_ONE_SIDED", f"moved step {name!r} exists in only one of the two functions"))
+    return problems
+
+
+def _moved_differences(session, card, steps, moved):
+    """Differences inside the moved steps (treated as the same), or None without source."""
+    files = session.names.files
+    if files is None:
+        return None
+    nodes = [session.names.nodes[card.first], session.names.nodes[card.second]]
+    lines = [files.lines(node.file) for node in nodes]
+    if any(line is None for line in lines):
+        return None
+    chosen = [
+        {**step, "same": True} for step in steps
+        if step["name"] in moved and step.get("a") is not None and step.get("b") is not None
+    ]
+    return safety.step_differences(lines[0], lines[1], chosen)
+
+
+def _difference_problems(document, found):
+    if found is None:
+        return [Problem("warning", "W_NO_SOURCE",
+                        "no source access, so the differences inside the moved steps were not checked")], []
+    problems, listed = [], {}
+    for item in document["differences"]:
+        listed.setdefault((item["a"], item["b"]), item)
+    shown = []
+    for difference in found:
+        item = listed.pop((difference.a, difference.b), None)
+        handled = item.get("handled_by") if item else None
+        label = f"{difference.a or '(nothing)'} -> {difference.b or '(nothing)'}"
+        if handled is None:
+            problems.append(Problem(
+                "error", "E_DIFF_UNHANDLED",
+                f"difference {label} ({difference.kind}, {difference.count} places) is not accounted for: "
+                "say how the shared function handles it (parameter, unified or stays)",
+            ))
+        elif handled not in HANDLERS:
+            problems.append(Problem(
+                "error", "E_DIFF_HANDLER", f"difference {label}: handled_by must be one of {', '.join(HANDLERS)}"))
+        elif handled == "parameter" and not str(item.get("parameter") or "").strip():
+            problems.append(Problem("error", "E_DIFF_HANDLER", f"difference {label}: name the parameter"))
+        shown.append({"kind": difference.kind, "a": difference.a, "b": difference.b,
+                      "count": difference.count, "handled_by": handled})
+    for a, b in listed:
+        problems.append(Problem(
+            "warning", "W_DIFF_STALE", f"the plan lists a difference {a} -> {b} that is not in the moved steps"))
+    return problems, shown
+
+
+def _touch_problems(document, session):
+    nodes = session.names.nodes
+    forbidden = [
+        posixpath.normpath(nodes[entry].file if entry in nodes else entry)
+        for entry in document["will_not_touch"]
+    ]
+    problems = []
+    for planned in document["planned_files"]:
+        path = posixpath.normpath(planned)
+        for entry in forbidden:
+            if path == entry or path.startswith(entry.rstrip("/") + "/"):
+                problems.append(Problem(
+                    "error", "E_WILL_NOT_TOUCH", f"planned file {planned} is under will_not_touch entry {entry}"))
+    return problems
+
+
+def _test_problems(document, session, entry):
+    if session.names.files is None or document["tests"]:
+        return []
+    facts = cli.card_document(session, str(entry.number))
+    gaps = facts["test_gaps"]
+    if gaps is None:
+        return []
+    if gaps["none_first"] or gaps["none_second"]:
+        return [Problem("warning", "W_TESTS", "a function has no tests found by name and the plan adds none")]
+    missing = gaps["only_first"] + gaps["only_second"]
+    if missing:
+        return [Problem("warning", "W_TESTS", f"no counterpart by name for: {', '.join(missing)}; the plan adds no tests")]
+    return []
