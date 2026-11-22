@@ -349,6 +349,12 @@ class SkeletonTest(Fixture):
         self.assertIn("line: 7", extract)
         self.assertNotIn('"extraction label"', annotate)
 
+    def test_the_test_function_itself_skips_first_so_it_never_reports_a_false_pass(self):
+        text = self.skeleton()
+
+        self.assertIn("func TestPinnedText_Annotate(t *testing.T) {\n\tt.Skip(", text)
+        self.assertIn("func TestPinnedText_Extract(t *testing.T) {\n\tt.Skip(", text)
+
     def test_a_row_says_how_the_plan_handles_the_difference(self):
         text = self.skeleton()
 

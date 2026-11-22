@@ -262,6 +262,7 @@ def main(argv=None, out=None, err=None):
     lint_parser.add_argument("--json", action="store_true")
     diagram_parser = plan_commands.add_parser("diagram", help="draw the steps before and after the move")
     diagram_parser.add_argument("--json", action="store_true")
+    plan_commands.add_parser("tests", help="print skipped Go test skeletons for the plan")
     plan_commands.add_parser("approve", help="record that the developer approved the plan (gated)")
     plan_commands.add_parser("status", help="is the plan approved and unchanged since?")
     args = parser.parse_args(argv)
@@ -304,6 +305,9 @@ def _plan_command(args, out, err):
             out.write(f"approved plan for card {entry.number} "
                       f"({found.names.short(entry.card.first)} and {found.names.short(entry.card.second)}), "
                       f"digest {approval['plan_digest'][:12]}\n")
+            return 0
+        if args.plan_command == "tests":
+            out.write(plan.go_test_skeleton(plan.load_plan(plan_path), found))
             return 0
         if args.plan_command == "diagram":
             drawn = plan.diagrams(plan.load_plan(plan_path), found)
