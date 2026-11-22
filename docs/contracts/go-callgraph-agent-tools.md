@@ -124,6 +124,13 @@ locally and `check` lists what was not verified.
 - **CLI numbering** uses `render.ranked_cards`, extracted so the summary and the CLI share it.
 - **Test skeletons skip first.** Real Go showed skipping only inside subtests let the parent test
   report PASS; each test now skips before running any case.
+- **"Card gone" is not the success test for an extracted helper.** Found by applying the
+  Annotate/Extract fix to the real importer: afterwards both functions still reach the new helper
+  (and `Decode`) by separate routes, so the card remains by construction and a new card
+  (`Transcribe` against the helper) appeared. `check` now compares the pair's shared direct calls
+  before and after (error if not lower, warning with numbers if lower) and treats a new card that
+  involves a new function as a warning. The contract's earlier verification line "check shows card
+  1 gone, no new cards" was wrong and is replaced below.
 - **CodeQL needs the work directory to exist**; the recording runner could not show it, a real
   run did. Tests added for each of these.
 
@@ -153,3 +160,25 @@ Real data, importer artifact from CI run 45018907296, compared with hand checks:
 Blast radius is direct callers only. The level is a call-overlap heuristic. Constraints in words
 are not checked. `check` lists everything changed since the baseline commit, including untracked
 files such as the artifact folder. The MCP SDK is pinned at 2.3.0 (2.x renamed `FastMCP`).
+
+## End-to-end run on the real importer (isolated clone, not committed)
+Baseline graph built at the same commit (114 functions, 147 calls). `plan init 1`, every one of the
+9 differences decided (4 text parameters, 1 receiver and 1 qualifier unified, 3 types and variables
+stay), `plan lint` clean, `plan approve`. The characterization test for the extractor's API-key
+redaction was added first and passed on the unrefactored code. The fix moves the request/response
+pipeline into `transcript.StructuredCompletion.Complete`; `go build`, `go vet` and `go test ./...`
+for the whole importer module pass (-134/+26 lines in the two functions plus the new file).
+Editing the plan after approval revoked the approval, as designed.
+
+`check` on the refactored tree (real CodeQL, about 16 s): **ok, with warnings**. The card is still
+reported but the pair's shared direct calls fell from 15 to 1 (what is left: schema setup, the
+prompt formatting, the helper call and `Decode`, which the plan kept local on purpose); cards stay
+6 -> 6; a new card `Transcribe`~`Complete` is flagged as involving a new function (the old
+`Extract`~`Transcribe` card moved with the code); the only file outside the plan was
+`app/public/match_dossier.json`, which running the repository's tests rewrites. `plan review` was
+then accepted. The first version of `check` called this a failure, which is what led to the rule
+change above.
+
+What this does not show: that the refactor is behaviour-preserving beyond the repository's own
+tests, or that moving decoding into a generic helper (which would shrink the remaining overlap) is
+worth it.

@@ -263,6 +263,16 @@ class CompareTest(unittest.TestCase):
 
         self.assertEqual((pair["before"]["shared_calls"], pair["after"]["shared_calls"]), (3, 1))
 
+    def test_the_text_report_shows_how_many_direct_calls_the_pair_still_shares(self):
+        self.baseline = make_session(self.SHARING, externals=EXTERNALS + self.SHARED_EXTERNALS)
+
+        text = check.report_text(self.compare(fresh=make_session(self.SHARING, externals=EXTERNALS)))
+
+        self.assertIn("shared direct calls 3 -> 1", text)
+
+    def test_the_text_report_says_gone_when_the_card_is_gone(self):
+        self.assertIn("shared direct calls 0 -> gone", check.report_text(self.compare()))
+
     def test_when_the_card_is_gone_the_pair_after_is_none(self):
         self.assertIsNone(self.compare().data["pair"]["after"])
 

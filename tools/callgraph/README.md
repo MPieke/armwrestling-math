@@ -213,9 +213,16 @@ step missing from one function, an undecided difference, a planned file under `w
 Constraints written in words are listed but not machine-checked. Approval stores a digest, so any
 later edit to the plan revokes it.
 
-**What `check` tells you**: whether the card is gone, whether new cards appeared, whether changed
-files stayed inside the plan and out of `will_not_touch`, whether the planned tests exist. It
-needs `codeql` on the machine (about 20 s on the importer); without it, push and let CI check.
+**What `check` tells you**: whether the card is gone, how many direct calls the pair still shares
+(before -> after), whether new cards appeared, whether changed files stayed inside the plan and
+out of `will_not_touch`, whether the planned tests exist. It needs `codeql` on the machine (about
+20 s on the importer); without it, push and let CI check.
+
+For a fix that extracts a shared helper the card normally **stays**: both functions now reach the
+helper by separate routes, which is what the analysis looks for. So a remaining card is an error
+only if the pair's shared direct calls did not go down; if they did it is a warning with the
+numbers. A new card that involves a function created by the change is also a warning (an old
+duplicate may have moved with the code); a new card between two existing functions is an error.
 
 **What none of this proves**: that behaviour is preserved. Tests are matched by name, the level is
 call overlap only (high >= 0.6, medium >= 0.3, low below; not calibrated), and tests that need

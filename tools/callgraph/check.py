@@ -110,11 +110,12 @@ def compare(document, baseline, fresh, changed, base_known=True):
     after = {e.ref: e for e in fresh.entries}
     problems = []
     gone = ref not in after
+    pair = _pair_progress(before.get(ref), after.get(ref), fresh)
     if ref not in before:
         problems.append(Problem("warning", "W_NOT_IN_BASELINE",
                                 f"card {ref} is not among the baseline cards, so there is nothing to compare"))
     elif not gone:
-        problems.append(Problem("error", "E_CARD_REMAINS", f"card {ref} is still reported after the change"))
+        problems.append(_remains_problem(ref, pair, fresh))
     missing = [f for f in ref.split("~") if f not in fresh.names.nodes]
     if missing:
         problems.append(Problem(
@@ -123,8 +124,7 @@ def compare(document, baseline, fresh, changed, base_known=True):
             "that counts as a fix only if merging them was the plan",
         ))
     for new_ref in sorted(set(after) - set(before)):
-        level = after[new_ref].card.evidence.level if after[new_ref].card.kind == "pair" else "two routes"
-        problems.append(Problem("error", "E_NEW_CARD", f"the change introduces a new card {new_ref} ({level})"))
+        problems.append(_new_card_problem(new_ref, after[new_ref], baseline))
     problems += _change_problems(document, baseline, fresh, changed)
     problems += _test_problems(document, fresh)
     if not base_known:
@@ -141,8 +141,63 @@ def compare(document, baseline, fresh, changed, base_known=True):
     data = {
         "card": ref, "card_gone": gone, "new_cards": sorted(set(after) - set(before)),
         "changed_files": list(changed), "baseline_total": len(before), "fresh_total": len(after),
+        "pair": pair,
     }
     return Report(tuple(problems), data)
+
+
+def _shared_calls(entry):
+    """Calls both functions of the pair make directly (repo functions and external ones)."""
+    evidence = entry.card.evidence
+    return list(evidence.shared_callees) + list(evidence.shared_externals)
+
+
+def _pair_progress(before, after, session):
+    def describe(entry):
+        if entry is None or entry.card.kind != "pair":
+            return None
+        shared = _shared_calls(entry)
+        return {
+            "shared_calls": len(shared),
+            "shared": [session.names.short(c) for c in shared],
+            "similarity": round(entry.card.evidence.similarity, 2),
+            "targets": [session.names.short(t) for t in entry.card.targets],
+        }
+
+    return {"before": describe(before), "after": describe(after)}
+
+
+def _remains_problem(ref, pair, fresh):
+    before, after = pair["before"], pair["after"]
+    if before is None or after is None:  # not a pair card: nothing finer to compare
+        return Problem("error", "E_CARD_REMAINS", f"card {ref} is still reported after the change")
+    if after["shared_calls"] < before["shared_calls"]:
+        left = ", ".join(after["shared"]) or "none"
+        return Problem(
+            "warning", "W_CARD_REMAINS",
+            f"card {ref} is still reported, but the two functions' shared direct calls fell from "
+            f"{before['shared_calls']} to {after['shared_calls']} (still shared: {left}); "
+            f"they now reach {', '.join(after['targets'])} by separate routes",
+        )
+    return Problem(
+        "error", "E_CARD_REMAINS",
+        f"card {ref} is still reported and the two functions still share {after['shared_calls']} direct "
+        f"calls (before: {before['shared_calls']})",
+    )
+
+
+def _new_card_problem(ref, entry, baseline):
+    card = entry.card
+    functions = (card.first, card.second) if card.kind == "pair" else (card.owner, card.helper)
+    new = [f for f in functions if f not in baseline.names.nodes]
+    level = card.evidence.level if card.kind == "pair" else "two routes"
+    if new:
+        return Problem(
+            "warning", "W_NEW_CARD_NEW_FUNCTION",
+            f"new card {ref} ({level}) involves new function(s) {', '.join(new)}; an existing duplicate "
+            "may have moved with the code, so compare it with the baseline cards",
+        )
+    return Problem("error", "E_NEW_CARD", f"the change introduces a new card {ref} ({level})")
 
 
 def _change_problems(document, baseline, fresh, changed):
@@ -187,6 +242,10 @@ def report_text(report):
     lines = [f"{head}; card gone: {'yes' if report.data['card_gone'] else 'no'}, "
              f"cards {report.data['baseline_total']} -> {report.data['fresh_total']}, "
              f"{warnings} warnings"]
+    pair = report.data["pair"]
+    if pair["before"] is not None:
+        after = pair["after"]["shared_calls"] if pair["after"] is not None else "gone"
+        lines.append(f"the pair's shared direct calls {pair['before']['shared_calls']} -> {after}")
     lines += [f"{p.level} {p.code}: {p.message}" for p in report.problems]
     return "\n".join(lines) + "\n"
 
