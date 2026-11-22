@@ -1,6 +1,6 @@
 ---
 linear_issue: TBD
-status: proposed
+status: implemented
 ---
 
 # Contract go-route-safety: Safer To Act On
@@ -110,3 +110,49 @@ explained; no card claims a signature or test-coverage fact the code cannot know
 - "Package totals" stays but inside a collapsed section; only the diagram is deleted.
 - Redundant routes is the only section open by default.
 - Test search is limited to the graph's scope directory (here services/importer).
+
+## Corrections made during implementation
+
+- **Test gaps only when test names are parallel.** Reading all four surface cards on
+  `services/importer` showed `Extract` vs `Transcribe` reported "`Transcribe` has no
+  counterpart by name for `ParsesStructuredResponse`", which is meaningless: the two do
+  different jobs and their tests are named for different behaviours. A gap is now inferred
+  only when the two test sets share at least one behaviour name; otherwise the card says the
+  names are not parallel and gaps cannot be told by name.
+- Punctuation-only differences inside "same" steps (a stray `}` from a one-line range
+  mismatch) are not reported.
+- My red-commit edit of the render tests had deleted the `SummaryDetailsTest` header and its
+  helper; restored. The details-count and diagram-count assertions were updated for the new
+  structure, and the safety fixture now uses identical source lines apart from the receiver
+  and one string.
+
+## Verification results (services/importer, judgements from CI run 43717779819)
+
+Tests: 335 tool tests pass. The first red run of this work also exposed that my scratch
+virtualenv had lost its interpreter link; it was recreated from `requirements.txt`.
+
+**Safety output on the real first card (`Annotate` / `Extract`), against what I found by hand:**
+- Callers: `Annotate` <- `annotateOne` (annotateclaims/run.go:67) and `Extract` <- `extract`
+  (youtubeingest/run.go:196), both through an interface. Matches.
+- Tests by name: `Annotate` 2 (`ParsesStructuredResponse`, `RedactsAPIKeyOnTransportFailure`),
+  `Extract` 1 (`ParsesStructuredResponse`); gap `RedactsAPIKeyOnTransportFailure`. I re-read
+  `transcript/openai_test.go`: its tests are the transcriber, the audio source and the
+  extractor parse test, with no redaction or transport-failure test. The gap is real.
+- Differences inside the steps called the same: five error/schema strings
+  (`"claim_annotation"` -> `"youtube_claims"` and four "annotation" -> "extraction" labels),
+  result type `ClaimAnnotation` -> `StructuredExtraction` (10 places), input field
+  `ClaimText` -> `Text`, receiver `annotator` -> `extractor` (5 places), parameter
+  `claim` -> `value`. Matches my manual diff of the same line ranges.
+- Other cards: `Submit` / `Resolve` shows "none found for `Resolve` by name" (true: no test
+  file mentions `Resolve(`); `annotateOne` / `Resolve` shows none for either (true by name).
+  Folded cards and un-judged cards have no block.
+
+**Structure:** the rendered summary has 31 `<details>` blocks, all closed, one open (Redundant
+routes), no `###` headings, 134 KB.
+
+**Known limits.** Blast radius is direct callers only and says nothing about signatures.
+Test lookup is by name or mention in `*_test.go` under the graph's scope, so integration
+tests that exercise a function indirectly are not found and a test found may not cover the
+behaviour that matters. The "Other" differences can include harmless package qualifiers
+(`transcript.Redact` vs `Redact`). Not verified by me: how GitHub renders the collapsed
+sections.

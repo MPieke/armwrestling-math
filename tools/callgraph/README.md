@@ -108,7 +108,9 @@ Install the one dependency with `pip install -r tools/callgraph/requirements.txt
 
 ## Redundancy cards and the LLM judge
 
-The run summary shows one card per redundancy. A card reads top to bottom:
+Every section of the run summary is a collapsible block with a one-line description;
+only Redundant routes is open by default. It shows one card per redundancy. A card reads
+top to bottom:
 
 1. **Problem**: one sentence naming both functions (the model's headline; a
    deterministic sentence when there is no judgement).
@@ -124,9 +126,14 @@ The run summary shows one card per redundancy. A card reads top to bottom:
    same colours and nothing red. Derived by code.
 5. **Maybe intentional because**: the strongest reason the code may be deliberate and
    what would make it matter.
-6. Dropdowns: evidence (calls both make, overlap), routes and entry points, and the
-   model's details (explanation, differences, risks, citations, the step table with
-   source links).
+6. **Before you change this** (cards with a fix): two lines computed by code from the graph
+   and the source, not by the model. Blast radius: who calls each function and whether
+   through an interface. Tests: how many tests mention each function and which test one
+   has that the other lacks, judged by test name (only when the names are parallel).
+7. Dropdowns: safety check details (what differs inside the steps called the same, which a
+   shared function must take as parameters; callers; tests found, all linked), evidence
+   (calls both make, overlap), routes and entry points, and the model's details
+   (explanation, differences, risks, citations, the step table with source links).
 
 Cards the model says to leave as is fold into "Looked at, probably fine". A function
 that reaches the same code two ways (`ingestCandidate` calls `Submit` directly and
