@@ -207,6 +207,24 @@ class EvidenceTest(unittest.TestCase):
         self.assertAlmostEqual(evidence.similarity, 0.4)
         self.assertEqual(evidence.band, "partly similar")
 
+    def test_the_level_follows_the_band_high_medium_low(self):
+        _, high = self.evidence(["h1", "ext:json.Marshal"], ["h1", "ext:json.Marshal"])
+        _, medium = self.evidence(["h1", "h2", "x1", "x2"], ["h1", "h2", "y1"])
+        _, low = self.evidence(["x1", "x2"], ["y1", "y2"])
+
+        self.assertEqual((high.level, medium.level, low.level), ("high", "medium", "low"))
+
+    def test_exactly_0_6_is_high_and_exactly_0_3_is_medium(self):
+        # shared {h1,h2,h3}, union 5 -> 0.6
+        _, at_high = self.evidence(["h1", "h2", "h3", "x"], ["h1", "h2", "h3", "y"])
+        # shared {h1,h2,h3}, union 10 -> 0.3
+        _, at_medium = self.evidence(
+            ["h1", "h2", "h3", "a1", "a2", "a3"], ["h1", "h2", "h3", "b1", "b2", "b3", "b4"]
+        )
+
+        self.assertEqual((at_high.similarity, at_high.level), (0.6, "high"))
+        self.assertEqual((at_medium.similarity, at_medium.level), (0.3, "medium"))
+
     def test_ignored_external_packages_do_not_count_as_shared(self):
         _, evidence = self.evidence(
             ["ext:fmt.Println", "ext:json.Marshal"], ["ext:fmt.Println", "ext:json.Marshal"],

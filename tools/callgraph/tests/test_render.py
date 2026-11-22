@@ -772,6 +772,48 @@ SOURCE_ANNOTATE = _source("annotator", "annotation label", 8)
 SOURCE_EXTRACT = _source("extractor", "extraction label", 7)
 
 
+class SummaryLevelTest(unittest.TestCase):
+    """Each pair card shows a display-only confidence level; nothing is gated on it."""
+
+    def summary(self, a_calls, b_calls):
+        edges = [("e1", "a"), ("e2", "b"), ("a", "t"), ("b", "t")]
+        edges += [("a", x) for x in a_calls] + [("b", x) for x in b_calls]
+        graph = helpers.make_graph(edges, entries=["e1", "e2"], externals=[("t", "os.Open")])
+        return render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+    def card(self, text):
+        return text.split("<b>Redundant routes</b>")[1].split("<b>Dead-code")[0]
+
+    def test_a_card_with_identical_calls_shows_a_high_level(self):
+        card = self.card(self.summary(["h1"], ["h1"]))
+
+        self.assertIn("Level: **high**", card)
+
+    def test_a_card_with_little_overlap_shows_a_low_level(self):
+        card = self.card(self.summary(["x1"], ["y1"]))
+
+        self.assertIn("Level: **low**", card)
+
+    def test_the_level_line_says_it_is_display_only(self):
+        card = self.card(self.summary(["h1"], ["h1"]))
+
+        self.assertIn("display only", card)
+
+    def test_the_level_line_sits_right_under_the_card_title(self):
+        card = self.card(self.summary(["h1"], ["h1"]))
+        lines = [line for line in card.splitlines() if line.strip()]
+        title = next(i for i, line in enumerate(lines) if line.startswith("#### 1."))
+
+        self.assertIn("Level: **high**", lines[title + 1])
+
+    def test_a_two_routes_card_has_no_level_because_the_overlap_is_meaningless_there(self):
+        edges = [("e1", "owner"), ("owner", "helper"), ("helper", "t"), ("owner", "t")]
+        graph = helpers.make_graph(edges, entries=["e1"], externals=[("t", "os.Open")])
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+        self.assertNotIn("Level: **", text)
+
+
 class SummarySafetyTest(unittest.TestCase):
     """The 'Before you change this' block and its details, on cards with a fix."""
 
