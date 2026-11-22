@@ -7,7 +7,7 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from tools.callgraph import analyze, build, cards, diagrams
+from tools.callgraph import analyze, build, cards, diagrams, safety
 
 TOP_ROWS = 15
 DEFAULT_MAX_FINDINGS = 10
@@ -48,24 +48,6 @@ def to_dot(graph, repo_url):
     return "\n".join(lines) + "\n"
 
 
-def package_mermaid(graph):
-    """Packages as nodes; edges labelled with the number of cross-package call sites."""
-    package_of = {node.id: node.package for node in graph.nodes}
-    counts = Counter(
-        (package_of[edge.caller_id], package_of[edge.callee_id])
-        for edge in graph.edges
-        if package_of[edge.caller_id] != package_of[edge.callee_id]
-    )
-    lines = ["flowchart LR"]
-    packages = sorted({node.package for node in graph.nodes})
-    labels = _package_labels(packages)
-    for package in packages:
-        lines.append(f'  {_mermaid_id(package)}["{_mermaid_text(labels[package])}"]')
-    for (source, target), count in sorted(counts.items()):
-        lines.append(f"  {_mermaid_id(source)} -->|{count}| {_mermaid_id(target)}")
-    return "\n".join(lines) + "\n"
-
-
 def summary_markdown(
     graph,
     repo_url,
@@ -88,27 +70,56 @@ def summary_markdown(
     ]
     if analysis is not None:
         found = cards.build_cards(graph, analysis, ignored_packages)
-        parts += _cards_section(graph, found, labels, repo_url, max_findings, judgements, source_root)
-        parts += _dead_section(graph, analysis, labels, repo_url, max_listed_rows)
-    parts += [
-        "### Packages (cross-package call sites)",
-        "",
-        "```mermaid",
-        package_mermaid(graph).rstrip(),
-        "```",
-        "",
-    ]
-    parts += _package_totals_table(graph, labels)
+        parts += _section(
+            "Redundant routes",
+            "pairs of functions that reach the same code separately, with a suggested fix",
+            _cards_section(graph, found, labels, repo_url, max_findings, judgements, source_root),
+            open_=True,
+        )
+        parts += _section(
+            f"Dead-code candidates ({len(analysis.dead)})",
+            "functions no entry point can reach",
+            _dead_section(graph, analysis, labels, repo_url, max_listed_rows),
+        )
+    parts += _section(
+        "Package totals", "functions and cross-package calls per package",
+        _package_totals_table(graph, labels),
+    )
     if analysis is not None:
-        parts += _external_section(analysis)
+        parts += _section(
+            "Most used external functions",
+            "outside functions your code calls most (common libraries are filtered out)",
+            _external_section(analysis),
+        )
     called = Counter(edge.callee_id for edge in graph.edges)
     calling = Counter(edge.caller_id for edge in graph.edges)
-    parts += _ranked_table("Most called functions", called, graph, repo_url)
-    parts += _ranked_table("Most calls out", calling, graph, repo_url)
-    parts += _never_called_table(graph, called, repo_url, max_listed_rows)
+    parts += _section("Most called functions", "functions with the most call sites",
+                      _ranked_table(called, graph, repo_url))
+    parts += _section("Most calls out", "functions that make the most calls",
+                      _ranked_table(calling, graph, repo_url))
+    parts += _section("Never called (entry points or unused)", "functions nothing calls",
+                      _never_called_table(graph, called, repo_url, max_listed_rows))
     parts += _functions_listing(graph, labels, repo_url, max_listed_rows)
     parts += _call_sites_listing(graph, labels, repo_url, max_listed_rows)
     return "\n".join(parts) + "\n"
+
+
+def _scope_dir(graph):
+    """The directory all graph functions live under (where their tests are searched for)."""
+    parts = [node.file.split("/")[:-1] for node in graph.nodes]
+    common = []
+    for segments in zip(*parts):
+        if len(set(segments)) != 1:
+            break
+        common.append(segments[0])
+    return "/".join(common) or "."
+
+
+def _section(title, description, body, open_=False):
+    """A collapsible block: a bold title and one line saying what is inside."""
+    opened = " open" if open_ else ""
+    return [f"<details{opened}><summary><b>{title}</b> - {description}</summary>", "", *body, "",
+            "</details>", ""]
 
 
 class _Names:
@@ -116,6 +127,8 @@ class _Names:
 
     def __init__(self, graph, labels, repo_url):
         self.nodes = {node.id: node for node in graph.nodes}
+        self.graph = graph
+        self.scope_dir = _scope_dir(graph)
         self.labels = labels
         self.repo_url = repo_url
 
@@ -172,8 +185,6 @@ def _cards_section(graph, found, labels, repo_url, max_cards, judgements, source
     names.files = _Files(source_root) if source_root else None
     verdicts = {(j["first"], j["second"]): j for j in (judgements or {}).get("judgements", [])}
     out = [
-        "### Redundant routes",
-        "",
         "Each card is a pair of functions that reach the same code on separate routes, "
         "with the evidence for whether they do the same job. Reusing a shared helper is "
         "normal; the question is whether the two functions are really one.",
@@ -247,10 +258,14 @@ def _card(rank, card, names, verdict):
                 f"{_text(verdict['confidence'])} confidence)**", ""]
     picture, routes_on_surface = _picture(card, names, verdict if judged else None)
     out += picture
+    safety_block, safety_details = (
+        _safety(card, names, verdict) if judged and _has_fix_to_check(card, verdict) else ([], [])
+    )
     if judged:
         out += _fix(card, names, verdict)
+        out += safety_block
         out += _maybe_intentional(verdict)
-    out += _dropdowns(card, names, verdict if judged else None, routes_on_surface)
+    out += _dropdowns(card, names, verdict if judged else None, routes_on_surface, safety_details)
     return out
 
 
@@ -357,6 +372,132 @@ def _fix(card, names, verdict):
     return out
 
 
+def _has_fix_to_check(card, verdict):
+    """The safety block belongs to a fix a developer is being asked to make."""
+    return card.kind == "pair" and verdict["action"] != "keep" and bool(verdict["fix"]["summary"])
+
+
+def _code(text):
+    return f"`{text.replace(chr(96), chr(39))}`"
+
+
+def _safety(card, names, verdict):
+    """Blast radius and test gaps (surface lines) plus the evidence (a dropdown)."""
+    functions = (card.first, card.second)
+    radius = {f: safety.blast_radius(names.graph, f) for f in functions}
+    tests = gaps = None
+    differences = []
+    if names.files is not None:
+        tests = {f: safety.find_tests(names.files.root, names.scope_dir, names.nodes[f]) for f in functions}
+        gaps = safety.test_gaps(
+            tests[card.first], tests[card.second],
+            safety.subject(names.nodes[card.first]), safety.subject(names.nodes[card.second]),
+        )
+        lines = [names.files.lines(names.nodes[f].file) for f in functions]
+        if all(entry is not None for entry in lines):
+            differences = safety.step_differences(lines[0], lines[1], verdict["steps"])
+    visible = [
+        "**Before you change this**",
+        "",
+        f"- Blast radius: {_blast_text(card, names, radius)}",
+        f"- Tests: {_tests_text(card, names, tests, gaps)}",
+        "",
+    ]
+    details = _safety_details(card, names, radius, tests, differences)
+    return visible, details
+
+
+def _blast_text(card, names, radius):
+    parts = []
+    for function in (card.first, card.second):
+        found = radius[function]
+        label = f"`{names.short(function)}`"
+        if not found.callers:
+            parts.append(f"{label} has no callers in the graph")
+            continue
+        callers = ", ".join(f"`{names.short(c)}`" for c in dict.fromkeys(c.id for c in found.callers))
+        parts.append(f"{label} is called from {callers}"
+                     + (" (through an interface)" if found.via_interface else ""))
+    return "; ".join(parts) + "."
+
+
+def _tests_text(card, names, tests, gaps):
+    first, second = f"`{names.short(card.first)}`", f"`{names.short(card.second)}`"
+    if tests is None:
+        return "not checked (no source access)."
+    if gaps.none_first and gaps.none_second:
+        return "none found for either function by name; add tests before changing them."
+    counts = {f: len(tests[f]) for f in (card.first, card.second)}
+
+    def plural(count):
+        return f"{count} test{'s' if count != 1 else ''}"
+
+    if gaps.none_first or gaps.none_second:
+        missing, other = (first, second) if gaps.none_first else (second, first)
+        have = counts[card.second if gaps.none_first else card.first]
+        return f"none found for {missing} by name; add tests before changing it ({other} has {have})."
+    text = f"{first} has {plural(counts[card.first])}, {second} has {plural(counts[card.second])}."
+    for missing, behaviours in ((second, gaps.only_first), (first, gaps.only_second)):
+        if behaviours:
+            text += f" {missing} has no counterpart by name for: {', '.join(_code(b) for b in behaviours)}."
+    if gaps.only_first or gaps.only_second:
+        return text + " Consider adding them before changing."
+    return text + " The names match; check they cover the differences in the safety details."
+
+
+_DIFFERENCE_TITLES = (
+    ("string", "Text (names, error labels)"),
+    ("type", "Types"),
+    ("receiver", "Renamed receivers or parameters"),
+    ("identifier", "Other identifiers"),
+    ("other", "Other"),
+)
+MAX_DIFFERENCES_PER_KIND = 6
+
+
+def _safety_details(card, names, radius, tests, differences):
+    out = ["<details><summary>Safety check details</summary>", ""]
+    if tests is None:
+        out += ["Source files were not available, so the steps could not be compared.", ""]
+    elif not differences:
+        out += ["No differences found inside the steps called the same.", ""]
+    else:
+        out += ["What differs inside the steps called the same "
+                "(a shared function must take these as parameters or handle them):", ""]
+        for kind, title in _DIFFERENCE_TITLES:
+            group = [d for d in differences if d.kind == kind]
+            if not group:
+                continue
+            out.append(f"{title}:")
+            for d in group[:MAX_DIFFERENCES_PER_KIND]:
+                places = f" ({d.count} places)" if d.count > 1 else ""
+                out.append(f"- {_code(d.a or '(nothing)')} -> {_code(d.b or '(nothing)')}{places}")
+            if len(group) > MAX_DIFFERENCES_PER_KIND:
+                out.append(f"- and {len(group) - MAX_DIFFERENCES_PER_KIND} more")
+            out.append("")
+    out += ["Callers (who depends on the current behaviour):", ""]
+    for function in (card.first, card.second):
+        node = names.nodes[function]
+        links = [
+            f"[{_code(names.short(c.id))}]({source_url(names.repo_url, node.sha, c.file, c.line)})"
+            for c in radius[function].callers
+        ]
+        out.append(f"- {_code(names.short(function))}: {', '.join(links) or 'none in the graph'}")
+    out += ["", "Tests found by name or mention:", ""]
+    for function in (card.first, card.second):
+        node = names.nodes[function]
+        found = (tests or {}).get(function, [])
+        links = [
+            f"[{t.name}]({source_url(names.repo_url, node.sha, t.file, t.line)})" for t in found
+        ]
+        out.append(f"- {_code(names.short(function))}: "
+                   f"{', '.join(links) or ('none found' if tests is not None else 'not checked')}")
+    out += ["", "Exported: " + ", ".join(
+        f"{_code(names.short(f))} {'yes' if radius[f].exported else 'no'}"
+        for f in (card.first, card.second)), "", "</details>", ""]
+    return out
+
+
 def _maybe_intentional(verdict):
     maybe = verdict["maybe_intentional"]
     reason = _sentence(maybe["reason"])
@@ -384,8 +525,8 @@ def _sentence(text):
     return _text(text.strip()).rstrip(".")
 
 
-def _dropdowns(card, names, verdict, routes_on_surface):
-    out = []
+def _dropdowns(card, names, verdict, routes_on_surface, safety_details=()):
+    out = list(safety_details)
     if card.kind == "pair":
         first, second = names.display(card.first), names.display(card.second)
         out += ["<details><summary>Evidence: calls both make and only one makes</summary>", ""]
@@ -579,16 +720,15 @@ def load_judgements(path):
 
 def _dead_section(graph, analysis, labels, repo_url, max_rows):
     names = _Names(graph, labels, repo_url)
-    out = [f"### Dead-code candidates ({len(analysis.dead)})", ""]
+    out = []
     if not analysis.dead:
-        return out + ["None: every function is reachable from an entry point.", ""]
+        return ["None: every function is reachable from an entry point."]
     out += [f"- {names.link(node_id)}" for node_id in analysis.dead[:max_rows]]
     return out + _truncation_note(len(analysis.dead), max_rows) + [""]
 
 
 def _external_section(analysis):
-    out = ["### Most used external functions", "",
-           "| function | calling packages | calling functions |", "| --- | --- | --- |"]
+    out = ["| function | calling packages | calling functions |", "| --- | --- | --- |"]
     for usage in analysis.external_usage[:TOP_ROWS]:
         out.append(f"| {_table_text(usage.name)} | {usage.package_count} | {len(usage.callers)} |")
     suppressed = ", ".join(f"{pkg} ({count})" for pkg, count in analysis.suppressed.items())
@@ -608,8 +748,6 @@ def _package_totals_table(graph, labels):
             calls_out[caller_package] += 1
             calls_in[callee_package] += 1
     rows = [
-        "### Package totals",
-        "",
         "| package | functions | calls out | calls in |",
         "| --- | --- | --- | --- |",
     ]
@@ -626,10 +764,10 @@ def _function_link(node, repo_url):
     return f"[{_table_text(node.name)}]({url})"
 
 
-def _ranked_table(title, counts, graph, repo_url):
+def _ranked_table(counts, graph, repo_url):
     by_id = {node.id: node for node in graph.nodes}
     ranked = sorted(counts, key=lambda node_id: (-counts[node_id], by_id[node_id].name))
-    rows = [f"### {title}", "", "| function | package | call sites |", "| --- | --- | --- |"]
+    rows = ["| function | package | call sites |", "| --- | --- | --- |"]
     for node_id in ranked[:TOP_ROWS]:
         node = by_id[node_id]
         rows.append(
@@ -641,8 +779,6 @@ def _ranked_table(title, counts, graph, repo_url):
 def _never_called_table(graph, called, repo_url, max_rows):
     uncalled = [node for node in graph.nodes if node.id not in called]
     rows = [
-        "### Never called (entry points or unused)",
-        "",
         "| function | package |",
         "| --- | --- |",
     ]

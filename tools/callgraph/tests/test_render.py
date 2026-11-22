@@ -109,6 +109,13 @@ class SummaryTest(unittest.TestCase):
         self.assertNotIn("```mermaid", summary)
         self.assertNotIn("Packages (cross-package call sites)", summary)
 
+
+class SummaryDetailsTest(unittest.TestCase):
+    """Everything a reviewer needs should be readable on the run page, not only in artifacts."""
+
+    def summary(self, graph=None, **options):
+        return render.summary_markdown(graph or fixture_graph(), helpers.REPO_URL, **options)
+
     def test_package_totals_count_functions_and_cross_package_call_sites(self):
         section = self.summary(multi_package_graph()).split("Package totals")[1]
 
@@ -140,8 +147,7 @@ class SummaryTest(unittest.TestCase):
         summary = self.summary()
 
         self.assertIn("<details><summary>All functions (4)</summary>", summary)
-        self.assertEqual(summary.count("<details>"), 2)
-        self.assertEqual(summary.count("</details>"), 2)
+        self.assertEqual(summary.count("<details"), summary.count("</details>"))  # all closed
 
     def test_long_listings_are_truncated_with_a_count(self):
         summary = self.summary(max_listed_rows=2)
@@ -235,10 +241,10 @@ class SummaryCardsTest(unittest.TestCase):
 
         self.assertIn("`Close` (3 variants)", text)
 
-    def test_every_card_has_its_own_diagram_in_addition_to_the_package_diagram(self):
+    def test_every_card_has_its_own_diagram_and_the_summary_has_none_besides(self):
         text = self.summary(self.INDEPENDENT, ["e1", "e2"])
 
-        self.assertEqual(text.count("```mermaid"), 2)
+        self.assertEqual(text.count("```mermaid"), 1)
 
     def test_the_diagram_marks_gateways_and_targets_and_draws_every_hop(self):
         text = self.summary(self.INDEPENDENT, ["e1", "e2"])
@@ -755,8 +761,15 @@ class SummarySectionsTest(unittest.TestCase):
         self.assertIn("| package | functions | calls out | calls in |", text)
 
 
-SOURCE_ANNOTATE = "\n".join(f"\tx{i} := annotator.Call{i}(\"annotation {i}\")" for i in range(1, 31))
-SOURCE_EXTRACT = "\n".join(f"\tx{i} := extractor.Call{i}(\"extraction {i}\")" for i in range(1, 31))
+def _source(receiver, label, label_line):
+    lines = [f"\tcall({receiver})"] * 30
+    lines[label_line - 1] = f'\tlog("{label}")'
+    return "\n".join(lines)
+
+
+# Steps in the shared fixture are build request A[6,10] / B[5,9] and send A[11,15] / B[10,14].
+SOURCE_ANNOTATE = _source("annotator", "annotation label", 8)
+SOURCE_EXTRACT = _source("extractor", "extraction label", 7)
 
 
 class SummarySafetyTest(unittest.TestCase):
@@ -838,7 +851,7 @@ class SummarySafetyTest(unittest.TestCase):
 
         details = card.split("<summary>Safety check details</summary>")[1].split("</details>")[0]
         self.assertIn("`annotator` -> `extractor`", details)
-        self.assertIn('"annotation 6"', details)
+        self.assertIn('"annotation label"', details)
         self.assertIn("a shared function must take these", details)
 
     def test_the_details_dropdown_links_callers_and_tests_to_their_lines(self):
