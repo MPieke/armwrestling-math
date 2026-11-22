@@ -59,27 +59,11 @@ class DotTest(unittest.TestCase):
         self.assertIn('x.a\\"b', dot)
 
 
-class MermaidTest(unittest.TestCase):
-    def test_package_graph_counts_call_sites_between_packages(self):
-        mermaid = render.package_mermaid(multi_package_graph())
-
-        self.assertRegex(mermaid, r"alpha.*-->\|2\|.*beta")
-
-    def test_calls_within_one_package_are_not_drawn(self):
-        mermaid = render.package_mermaid(multi_package_graph())
-
-        self.assertEqual(mermaid.count("-->"), 1)
-
-    def test_package_ids_are_valid_mermaid_identifiers(self):
-        mermaid = render.package_mermaid(multi_package_graph())
-
-        for identifier in re.findall(r"^\s*(\w[^\s\[]*)\[", mermaid, flags=re.M):
-            self.assertRegex(identifier, r"^[A-Za-z0-9_]+$")
-
-
 class PackageLabelTest(unittest.TestCase):
-    def labels(self, mermaid):
-        return re.findall(r'\["([^"]*)"\]', mermaid)
+    def labels(self, graph):
+        packages = sorted({node.package for node in graph.nodes})
+        mapping = render._package_labels(packages)
+        return [mapping[package] for package in packages]
 
     def test_common_module_prefix_is_stripped_from_package_labels(self):
         nodes = [
@@ -88,10 +72,10 @@ class PackageLabelTest(unittest.TestCase):
         ]
         graph = build.build_graph(helpers.raw_nodes_csv(nodes), helpers.raw_edges_csv([]), helpers.SHA)
 
-        self.assertEqual(self.labels(render.package_mermaid(graph)), ["cmd/tool", "internal/store"])
+        self.assertEqual(self.labels(graph), ["cmd/tool", "internal/store"])
 
     def test_single_package_keeps_its_last_path_segment(self):
-        self.assertEqual(self.labels(render.package_mermaid(fixture_graph())), ["fixture"])
+        self.assertEqual(self.labels(fixture_graph()), ["fixture"])
 
     def test_label_prefix_is_cut_on_path_boundaries_only(self):
         nodes = [
@@ -100,7 +84,7 @@ class PackageLabelTest(unittest.TestCase):
         ]
         graph = build.build_graph(helpers.raw_nodes_csv(nodes), helpers.raw_edges_csv([]), helpers.SHA)
 
-        self.assertEqual(self.labels(render.package_mermaid(graph)), ["storeA", "storeB"])
+        self.assertEqual(self.labels(graph), ["storeA", "storeB"])
 
 
 class SummaryTest(unittest.TestCase):
@@ -119,18 +103,11 @@ class SummaryTest(unittest.TestCase):
         self.assertIn("helper", first_row)
         self.assertIn(f"{helpers.REPO_URL}/blob/{helpers.SHA}/{helpers.FIXTURE_FILE}#L13-L15", first_row)
 
-    def test_summary_has_only_the_package_diagram_not_a_function_level_one(self):
+    def test_the_summary_has_no_diagram_of_its_own_only_cards_have_diagrams(self):
         summary = render.summary_markdown(fixture_graph(), helpers.REPO_URL)
 
-        self.assertEqual(summary.count("```mermaid"), 1)
-        self.assertNotIn("### Functions", summary)
-
-
-class SummaryDetailsTest(unittest.TestCase):
-    """Everything a reviewer needs should be readable on the run page, not only in artifacts."""
-
-    def summary(self, graph=None, **options):
-        return render.summary_markdown(graph or fixture_graph(), helpers.REPO_URL, **options)
+        self.assertNotIn("```mermaid", summary)
+        self.assertNotIn("Packages (cross-package call sites)", summary)
 
     def test_package_totals_count_functions_and_cross_package_call_sites(self):
         section = self.summary(multi_package_graph()).split("Package totals")[1]
@@ -186,7 +163,7 @@ class SummaryCardsTest(unittest.TestCase):
         )
 
     def section(self, text):
-        return text.split("### Redundant routes")[1].split("### Dead-code")[0]
+        return text.split("<b>Redundant routes</b>")[1].split("<b>Dead-code")[0]
 
     def test_the_card_says_in_plain_words_which_functions_reach_which_targets(self):
         text = self.section(self.summary(self.INDEPENDENT, ["e1", "e2"]))
@@ -446,7 +423,7 @@ class SummaryStoryTest(unittest.TestCase):
                                        judgements=judgements, **kw)
 
     def section(self, text):
-        return text.split("### Redundant routes")[1].split("### Dead-code")[0]
+        return text.split("<b>Redundant routes</b>")[1].split("<b>Dead-code")[0]
 
     def card(self, text, number=1):
         return self.section(text).split("#### ")[number]
@@ -727,6 +704,180 @@ class SummaryStoryTest(unittest.TestCase):
         self.assertIn("LLM verdict: unavailable (HTTP 500)", card)
         self.assertIn("`p.a` and `p.b` each reach `p.t` on separate routes", card)
         self.assertIn("```mermaid", card)
+
+
+class SummarySectionsTest(unittest.TestCase):
+    def text(self):
+        graph = helpers.make_graph(
+            [("e1", "a"), ("a", "t"), ("e2", "b"), ("b", "t")], entries=["e1", "e2"],
+            externals=[("t", "os.Open")],
+        )
+        return render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+    SECTIONS = {
+        "Redundant routes": "pairs of functions that reach the same code separately",
+        "Dead-code candidates (0)": "functions no entry point can reach",
+        "Package totals": "functions and cross-package calls per package",
+        "Most used external functions": "outside functions your code calls most",
+        "Most called functions": "functions with the most call sites",
+        "Most calls out": "functions that make the most calls",
+        "Never called (entry points or unused)": "functions nothing calls",
+    }
+
+    def test_every_section_is_a_collapsible_block_with_a_one_line_description(self):
+        text = self.text()
+
+        for title, description in self.SECTIONS.items():
+            self.assertRegex(text, rf"<details( open)?><summary><b>{re.escape(title)}</b> - {re.escape(description)}")
+
+    def test_only_the_redundant_routes_section_is_open_by_default(self):
+        text = self.text()
+
+        self.assertIn("<details open><summary><b>Redundant routes</b>", text)
+        self.assertEqual(text.count("<details open>"), 1)
+        for title in list(self.SECTIONS)[1:]:
+            self.assertIn(f"<details><summary><b>{title}</b>", text)
+
+    def test_every_block_that_is_opened_is_closed(self):
+        text = self.text()
+
+        self.assertEqual(text.count("<details"), text.count("</details>"))
+
+    def test_there_are_no_plain_section_headings_left_besides_the_title_and_card_titles(self):
+        text = self.text()
+
+        self.assertEqual(re.findall(r"^### .*", text, flags=re.M), [])
+
+    def test_the_package_diagram_is_gone_but_the_package_table_stays(self):
+        text = self.text()
+
+        self.assertNotIn("Packages (cross-package call sites)", text)
+        self.assertIn("| package | functions | calls out | calls in |", text)
+
+
+SOURCE_ANNOTATE = "\n".join(f"\tx{i} := annotator.Call{i}(\"annotation {i}\")" for i in range(1, 31))
+SOURCE_EXTRACT = "\n".join(f"\tx{i} := extractor.Call{i}(\"extraction {i}\")" for i in range(1, 31))
+
+
+class SummarySafetyTest(unittest.TestCase):
+    """The 'Before you change this' block and its details, on cards with a fix."""
+
+    EDGES = [("e1", "Annotate"), ("Annotate", "t"), ("e2", "Extract"), ("Extract", "t")]
+
+    def graph(self, dynamic=False):
+        graph = helpers.make_graph(self.EDGES, entries=["e1", "e2"], externals=[("t", "os.Open")])
+        if dynamic:
+            edges = tuple(
+                build.Edge(**{**e.__dict__, "resolution": "dynamic"}) if e.callee_id == "Annotate" else e
+                for e in graph.edges
+            )
+            graph = build.Graph(graph.nodes, edges, graph.externals)
+        return graph
+
+    def card(self, root=None, verdict=None, dynamic=False, tests=True):
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            (base / "Annotate.go").write_text(SOURCE_ANNOTATE)
+            (base / "Extract.go").write_text(SOURCE_EXTRACT)
+            if tests:
+                (base / "Annotate_test.go").write_text(
+                    "package p\n\nfunc TestAnnotateParses(t *testing.T) {\n\tAnnotate()\n}\n\n"
+                    "func TestAnnotateRedacts(t *testing.T) {\n\tAnnotate()\n}\n")
+                (base / "Extract_test.go").write_text(
+                    "package p\n\nfunc TestExtractParses(t *testing.T) {\n\tExtract()\n}\n")
+            graph = self.graph(dynamic)
+            judgements = {"status": "ok", "judgements": [verdict or judged("Annotate", "Extract")],
+                          "calibration": None}
+            text = render.summary_markdown(
+                graph, helpers.REPO_URL, analysis=analyze.analyze(graph), judgements=judgements,
+                source_root=None if root is False else directory,
+            )
+        return text.split("<b>Redundant routes</b>")[1].split("<b>Dead-code")[0].split("#### ")[1]
+
+    def test_the_block_sits_after_the_fix_and_before_the_maybe_intentional_line(self):
+        card = self.card()
+
+        block = card.index("Before you change this")
+        self.assertTrue(card.index("Fix:") < block < card.index("Maybe intentional because:"))
+
+    def test_the_blast_radius_names_the_callers_of_each_function(self):
+        card = self.card()
+
+        self.assertIn("`Annotate` is called from `e1`", card)
+        self.assertIn("`Extract` is called from `e2`", card)
+
+    def test_a_call_through_an_interface_says_so(self):
+        card = self.card(dynamic=True)
+
+        self.assertIn("`Annotate` is called from `e1` (through an interface)", card)
+
+    def test_a_behaviour_tested_for_one_function_only_is_named_as_a_gap(self):
+        card = self.card()
+
+        visible = card.split("<details>")[0]
+        self.assertIn("`Annotate` has 2 tests, `Extract` has 1", visible)
+        self.assertIn("`Extract` has no counterpart by name for: `Redacts`", visible)
+
+    def test_a_function_without_tests_says_to_add_tests_first(self):
+        card = self.card(tests=False)
+
+        self.assertIn("none found for either function", card.split("<details>")[0])
+
+    def test_without_source_access_tests_are_not_checked_but_callers_still_are(self):
+        card = self.card(root=False)
+
+        visible = card.split("<details>")[0]
+        self.assertIn("not checked (no source access)", visible)
+        self.assertIn("`Annotate` is called from `e1`", visible)
+
+    def test_the_details_dropdown_lists_what_differs_inside_the_same_steps(self):
+        card = self.card()
+
+        details = card.split("<summary>Safety check details</summary>")[1].split("</details>")[0]
+        self.assertIn("`annotator` -> `extractor`", details)
+        self.assertIn('"annotation 6"', details)
+        self.assertIn("a shared function must take these", details)
+
+    def test_the_details_dropdown_links_callers_and_tests_to_their_lines(self):
+        card = self.card()
+
+        details = card.split("<summary>Safety check details</summary>")[1].split("</details>")[0]
+        self.assertIn(f"{helpers.REPO_URL}/blob/{helpers.SHA}/e1.go#L5", details)
+        self.assertIn("TestAnnotateRedacts", details)
+
+    def test_the_details_dropdown_comes_first_among_the_dropdowns(self):
+        card = self.card()
+
+        self.assertLess(card.index("<summary>Safety check details"), card.index("<summary>Evidence"))
+
+    def test_cards_the_model_says_to_keep_get_no_safety_block(self):
+        verdict = judged("Annotate", "Extract", action="keep", verdict="intentional")
+
+        import tempfile
+        graph = self.graph()
+        judgements = {"status": "ok", "judgements": [verdict], "calibration": None}
+        with tempfile.TemporaryDirectory() as directory:
+            text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph),
+                                           judgements=judgements, source_root=directory)
+
+        self.assertNotIn("Before you change this", text)
+
+    def test_cards_without_a_judgement_get_no_safety_block(self):
+        graph = self.graph()
+
+        text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph))
+
+        self.assertNotIn("Before you change this", text)
+        self.assertNotIn("Safety check details", text)
+
+    def test_a_judged_card_with_no_fix_text_gets_no_safety_block(self):
+        verdict = judged("Annotate", "Extract", fix={"summary": "", "shared_name": "",
+                                                    "moved_steps": [], "stays_in_a": [], "stays_in_b": []})
+
+        self.assertNotIn("Before you change this", self.card(verdict=verdict))
 
 
 class SummaryExtrasTest(unittest.TestCase):
