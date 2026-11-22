@@ -834,6 +834,29 @@ class SummarySafetyTest(unittest.TestCase):
         self.assertIn("`Annotate` has 2 tests, `Extract` has 1", visible)
         self.assertIn("`Extract` has no counterpart by name for: `Redacts`", visible)
 
+    def test_test_names_that_are_not_parallel_say_gaps_cannot_be_told_by_name(self):
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            (base / "Annotate.go").write_text(SOURCE_ANNOTATE)
+            (base / "Extract.go").write_text(SOURCE_EXTRACT)
+            (base / "Annotate_test.go").write_text(
+                "package p\n\nfunc TestAnnotateParses(t *testing.T) {\n\tAnnotate()\n}\n")
+            (base / "Extract_test.go").write_text(
+                "package p\n\nfunc TestExtractSendsAudio(t *testing.T) {\n\tExtract()\n}\n")
+            graph = self.graph()
+            judgements = {"status": "ok", "judgements": [judged("Annotate", "Extract")], "calibration": None}
+            text = render.summary_markdown(graph, helpers.REPO_URL, analysis=analyze.analyze(graph),
+                                           judgements=judgements, source_root=directory)
+
+        card = text.split("<b>Redundant routes</b>")[1].split("<b>Dead-code")[0].split("#### ")[1]
+        visible = card.split("<details>")[0]
+        self.assertNotIn("no counterpart by name", visible)
+        self.assertIn("names are not parallel", visible)
+        self.assertIn("`Annotate` has 1 test, `Extract` has 1 test", visible)
+
     def test_a_function_without_tests_says_to_add_tests_first(self):
         card = self.card(tests=False)
 

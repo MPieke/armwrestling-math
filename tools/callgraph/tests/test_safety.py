@@ -160,10 +160,24 @@ class TestGapTest(unittest.TestCase):
         self.assertEqual((result.none_first, result.none_second), (True, True))
 
     def test_a_test_name_without_the_subject_keeps_its_whole_name(self):
-        result = self.gaps(["TestEndToEnd"], ["TestOpenAIClaimExtractorParses"])
+        result = self.gaps(
+            ["TestEndToEnd", "TestOpenAIAnnotatorParses"], ["TestOpenAIClaimExtractorParses"]
+        )
 
         self.assertEqual(result.only_first, ("EndToEnd",))
-        self.assertEqual(result.only_second, ("Parses",))
+        self.assertEqual(result.only_second, ())
+
+    def test_names_with_no_behaviour_in_common_are_not_parallel_so_no_gap_is_inferred(self):
+        # Two functions with different jobs have differently named tests; that is not a gap.
+        result = self.gaps(["TestOpenAIAnnotatorParses"], ["TestOpenAIClaimExtractorSendsAudio"])
+
+        self.assertFalse(result.comparable)
+        self.assertEqual((result.only_first, result.only_second), ((), ()))
+
+    def test_one_shared_behaviour_makes_the_names_comparable(self):
+        result = self.gaps(["TestOpenAIAnnotatorParses"], ["TestOpenAIClaimExtractorParses"])
+
+        self.assertTrue(result.comparable)
 
 
 class StepDifferenceTest(unittest.TestCase):
